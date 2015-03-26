@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid afternav">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar"><!--List of modules to be generated-->
           <ul class="nav nav-sidebar">
@@ -12,7 +12,7 @@
 
       <div class="col-md-10">
         <div class="panel panel-default">
-          <div class="panel-body">
+          <div class="panel-body" id="moduleContent">
               <!-- use the data from the give data object here -->
               <!-- see modules.php controller for more info -->
               <h1><?php echo $moduleCode ?></h1>
