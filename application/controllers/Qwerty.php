@@ -48,7 +48,7 @@ class Qwerty extends CI_Controller {
             "isLoggedIn" => TRUE,
             "userType" => $userType,
             "userProfile" => $userProfile
-        ];
+        ]; 
 
         // set the session with this data
         $this->session->set_userdata($userData);
