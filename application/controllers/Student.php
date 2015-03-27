@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Student extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
@@ -9,13 +9,9 @@ class Home extends CI_Controller {
 		$this->load->helper("url");
 	}
 
-	// possibly introduce a helper that prepares the session data
-	// for the header?
-	// also possibly move the navbar out of the header into its own file?
-
 	public function index() {
 
-		// possibly reroute the user to his landing page if he is logged in?
+		// possibly reroute the user to console/student or console/lecturer
 
 		// initialise the data that goes into the header
 		$headerData = [
@@ -31,6 +27,7 @@ class Home extends CI_Controller {
 
 		// load the homepage views
 		$this->load->view("persistent/Header", $headerData);
+        // load consolepage or sth
 		$this->load->view('public/HomePage');
         $this->load->view("persistent/Footer");
 

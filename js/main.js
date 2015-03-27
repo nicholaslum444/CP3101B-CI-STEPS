@@ -2,7 +2,9 @@ $(function() {
 	$( "#studentLogin" ).click(function() {
 		// a popup box would be nicer :)
 		/* Still trying to get the child window redirect the parent page */
-		openInNewWindow("https://ivle.nus.edu.sg/api/login/?apikey=3bBGOIdtC1T2d7SXeQAO9&url=http://steps.tk/student/");	
+		var apiUrl = "https://ivle.nus.edu.sg/api/login/?apikey=3bBGOIdtC1T2d7SXeQAO9&url=";
+		var callbackUrl = "http://localhost:8080/index.php/ivleauth/";
+		openInNewWindow(apiUrl + callbackUrl);
 	});
 });
 
