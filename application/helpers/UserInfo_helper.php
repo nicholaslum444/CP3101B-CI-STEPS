@@ -2,7 +2,7 @@
 
 require_once "apikey.php";
 
-class AbcHelp {
+class UserInfo {
 
     // load the file where the api key is stored
     //$this->load->helper("apikey");

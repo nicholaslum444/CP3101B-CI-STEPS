@@ -8,7 +8,7 @@ class LoginCheck extends CI_Controller {
         $this->load->library("session");
 
         // load the helper that helps us auth
-        $this->load->helper("AbcHelp");
+        $this->load->helper("UserInfo");
     }
 
     public function index() {
@@ -22,7 +22,7 @@ class LoginCheck extends CI_Controller {
         $token = htmlspecialchars($_GET["token"]);
 
         // validate token and get result
-        $validationResult = AbcHelp::getValidationResult($token);
+        $validationResult = UserInfo::getValidationResult($token);
 
         // die if validation unsuccessful
         if (!$validationResult->Success) {
@@ -33,13 +33,13 @@ class LoginCheck extends CI_Controller {
         $token = $validationResult->Token;
 
         // note the user id
-        $userId = AbcHelp::getUserID($token);
+        $userId = UserInfo::getUserID($token);
 
         // get the profile
-        $userProfile = AbcHelp::getUserProfile($token);
+        $userProfile = UserInfo::getUserProfile($token);
 
         // get the user type (USING DEBUG FUNCTION, TODO CHANGE TO ORIGINAL)
-        $userType = AbcHelp::__getUserTypeDEBUG__($token);
+        $userType = UserInfo::__getUserTypeDEBUG__($token);
 
         // store all data needed to keep and validate session
         $userData = [
