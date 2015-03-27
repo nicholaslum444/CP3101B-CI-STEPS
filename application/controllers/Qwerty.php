@@ -1,14 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class IvleAuth extends CI_Controller {
+class Qwerty extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
         $this->load->library("session");
 
         // load the helper that helps us auth
-        $this->load->helper("IvleUserAuth");
+        $this->load->helper("AbcHelp");
     }
 
     public function index() {
@@ -22,7 +22,7 @@ class IvleAuth extends CI_Controller {
         $token = htmlspecialchars($_GET["token"]);
 
         // validate token and get result
-        $validationResult = IvleUserAuth::getValidationResult($token);
+        $validationResult = AbcHelp::getValidationResult($token);
 
         // die if validation unsuccessful
         if (!$validationResult->Success) {
@@ -33,13 +33,13 @@ class IvleAuth extends CI_Controller {
         $token = $validationResult->Token;
 
         // note the user id
-        $userId = IvleUserAuth::getUserID($token);
+        $userId = AbcHelp::getUserID($token);
 
         // get the profile
-        $userProfile = IvleUserAuth::getUserProfile($token);
+        $userProfile = AbcHelp::getUserProfile($token);
 
         // get the user type (USING DEBUG FUNCTION, TODO CHANGE TO ORIGINAL)
-        $userType = IvleUserAuth::__getUserTypeDEBUG__($token);
+        $userType = AbcHelp::__getUserTypeDEBUG__($token);
 
         // store all data needed to keep and validate session
         $userData = [
