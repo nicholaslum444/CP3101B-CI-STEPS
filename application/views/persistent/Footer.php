@@ -1,8 +1,10 @@
-<hr>
+	<div class="container">
+	<hr>
+		<footer>
+			<p>&copy; Website for STePS</p>
+		</footer>
 
-<footer>
-    <p>&copy; Website for STePs</p>
-</footer>
+	</div> <!-- End of container -->
 
 </body>
 

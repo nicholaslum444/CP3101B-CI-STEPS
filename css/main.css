@@ -4,7 +4,20 @@
    Author's custom styles
    ========================================================================== */
 
+body {
+  font-family: 'Lato', sans-serif;
+}
 
+/*
+.nav-sidebar {
+	position:fixed;
+}
+
+.afternav {
+	position: relative;
+	top: 70px;
+}
+*/
 
 
 
