@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Qwerty extends CI_Controller {
+class LoginCheck extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -48,7 +48,7 @@ class Qwerty extends CI_Controller {
             "isLoggedIn" => TRUE,
             "userType" => $userType,
             "userProfile" => $userProfile
-        ]; 
+        ];
 
         // set the session with this data
         $this->session->set_userdata($userData);
