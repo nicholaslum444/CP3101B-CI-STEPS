@@ -165,7 +165,14 @@ class Dbinsert extends CI_Model {
 
 		return true;
 	}
+	public function setLeaderForProject($matricNo, $Pid) {
+		$data = array(
+			'leader_matric_no' => $matricNo,
+		);
+		$this->db->where('project_id', $Pid);
 
+		$this->db->update('project',$data);
+	}
 	public function deleteStudentFromProject($id,$matricNo) {
 		$this->db->where('project_id', $id);
 		$this->db->where('matric_no', $matricNo);
@@ -203,7 +210,7 @@ class Dbinsert extends CI_Model {
 		$this->db->where('module_code', $moduleCode);
 		
 		$this->db->delete('module');
-		
+
 		return true;
 	}
 

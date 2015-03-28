@@ -28,7 +28,10 @@ class DatabaseT extends CI_Controller {
 		->createProject(51,"PLAY game","CS4321",5);
 		$result32 =  $this->Dbinsert
 		->updateProject(51,"Play another game","play play play","www.post.com/abs","www.video.com/fjdb");
-		
+
+		$result32 =  $this->Dbinsert
+		->setLeaderForProject("A0201314B",51);
+
 		$result34 =  $this->Dbinsert
 		->checkParticipatedProjectInModule(5,"CS4321","A0201314B");
 		$result35 =  $this->Dbinsert
@@ -40,8 +43,8 @@ class DatabaseT extends CI_Controller {
 
 		$result37 =  $this->Dbinsert
 		->deleteStudentFromProject(51,"A0201314B");
-		$result33 =  $this->Dbinsert
-		->deleteProject(51);
+		 $result33 =  $this->Dbinsert
+		 ->deleteProject(51);
 		$result39 =  $this->Dbinsert
 		->dropSupervising("A0201314B","CS4321",5);
 		$result40 =  $this->Dbinsert
