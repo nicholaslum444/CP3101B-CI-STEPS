@@ -17,6 +17,8 @@ function openInNewWindow(url) {
 }
 */
 
+/* BEAUTIFUL FUNCTIONS BELOW */
+
 function getLoginUrl(url) {
 	var loginUrl = "https://ivle.nus.edu.sg/api/login/?"
 					+ "apikey=3bBGOIdtC1T2d7SXeQAO9&url="
@@ -33,13 +35,12 @@ $(function() {
     	//Turns from words to fields
     	$(this).parent().closest('.field-group').children('.inputText').css("display", "none");
     	$(this).parent().closest('.field-group').children('.glyphicon-pencil').css("display", "none");
-    	$(this).closest('.field-group').children('.inputField').css("display", "block");
+    	$(this).closest('.field-group').children('form').children('.inputField').css("display", "block");
     	$(this).closest('.field-group').children('.glyphicon-ok').css("display", "block");
     });
 
     $(".inputText").hover(function() {
     	$(this).siblings(".glyphicon-pencil").css("display","block");
-    	console.log("hello");
     }, function() {
     	$(this).siblings(".glyphicon-pencil").css("display","none");
     });
@@ -47,11 +48,12 @@ $(function() {
     $(".field-list").click(function() {
     	$(this).children(".inputText").css("display", "none");
     	$(this).children(".inputField").css("display", "block");
-    })
+    });
+});
 
-function addToModuleList(moduleName) {	
-	$("#moduleList").append("<div class=\"panel panel-default\"><div class=\"panel-body\"><a href=\"/index.php/lecturer/" + moduleName + "\">" + moduleName + "</a></div></div>");
-}
+
+/* FUNCTIONAL FUNCTIONS BELOW */
+
 
 $(function() {
 	$('#registerModuleForm').on('submit',function (e) {
@@ -78,4 +80,74 @@ $(function() {
 		e.preventDefault();
 	});
 
+	$('#editClassSize').on('submit', function(e) {
+		editedClassSize = $("#classSizeField").val();
+		prevClassSize = $("#classSizeText").html();
+		alert(editedClassSize != prevClassSize);
+		if(editedClassSize != prevClassSize) {
+			if(editedClassSize != null) {
+				$.ajax({
+					url: "/index.php/ajaxreceivers/editmodule",	
+					method: "POST",
+					data: {"classSize" : $("#classSizeField").val()},
+					dataType: "json"
+				})
+
+				.done(function(data) {
+					if(data["success"] == true) {
+						$('#editClassSize').css('display', 'none');
+						$('#classSizeField').html(editedClassSize);
+						$('#classSizeField').css('display', 'initial');
+					}
+					else {
+						$('#editClassSize').addClass("has-error");
+					}
+				})
+
+				.fail(function(data) {
+					alert(JSON.stringify(data));
+				});
+				e.preventDefault();
+			}
+			else {
+				console.log("Empty class size")
+			}
+		}
+		else {
+			console.log("Different class size")
+		}
+	});
+
+	$('#editNumProjects').on('submit', function(e) {
+		editedNumProjects = $("#numProjectsField").val();
+		prevNumProjects = $("#numProjectsText").html();
+		if(editedNumProjects != prevNumProjects && editedNumProjects != null) {
+			$.ajax({
+				url: "/index.php/ajaxreceivers/editmodule",	
+				method: "POST",
+				data: {"numProjects" : $("#numProjectsField").val()},
+				dataType: "json"
+			})
+
+			.done(function(data) {
+				if(data["success"] == true) {
+					$('#editNumProjects').css('display', 'none');
+					$('#numProjectsField').html(editedNumProjects);
+					$('#numProjectsField').css('display', 'initial');
+				}
+				else {
+					$('#editNumProjects').addClass("has-error");
+				}
+			})
+
+			.fail(function(data) {
+				alert(JSON.stringify(data));
+			});
+			e.preventDefault();
+		}
+	});
 });
+
+function addToModuleList(moduleName) {	
+	$("#moduleList").append("<div class=\"panel panel-default\"><div class=\"panel-body\"><a href=\"/index.php/lecturer/" + moduleName + "\">" + moduleName + "</a></div></div>");
+}
