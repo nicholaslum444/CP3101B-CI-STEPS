@@ -135,9 +135,7 @@ class Dbquery extends CI_Model {
 		}
 		else {
 			$result = array();
-		} else {
-			return array();
-		}
+		} 
 		return $result;
 	}
 
