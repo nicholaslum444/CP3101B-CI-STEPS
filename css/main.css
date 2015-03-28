@@ -19,6 +19,22 @@ body {
 }
 */
 
+.inputField {
+	display: none;
+}
+
+.glyphicon-ok {
+	display: none;
+}
+
+.glyphicon-pencil{
+	display: none;
+} 
+
+.btn-clear{
+	cursor: pointer;
+	background-color: #ffffff;
+}
 
 
 
