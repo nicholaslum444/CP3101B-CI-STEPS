@@ -102,7 +102,7 @@ class Dbinsert extends CI_Model {
 		
 		$this->db->update('module',$data);
 
-
+		return true;
 	}
 	//TODO PID should be generated
 	public function createProject($Pid, $projectName,$moduleCode,$iteration) {
@@ -184,6 +184,8 @@ class Dbinsert extends CI_Model {
 		$this->db->where('project_id', $Pid);
 
 		$this->db->update('project',$data);
+
+		return true;
 	}
 	public function deleteStudentFromProject($id,$matricNo) {
 		$this->db->where('project_id', $id);
@@ -228,36 +230,5 @@ class Dbinsert extends CI_Model {
 
 
 
-    //******************************************
-	// function insertStudentDetail() {
-	// 	$data = array(
-	// 		'matric_no' => $matricNo,
-	// 	);
-	// 	$this->db->insert('user', $data);
-	// }
-	// function insertStudentDetail() {
-	// 	$data = array(
-	// 		'matric_no' => $matricNo,
-	// 	);
-	// 	$this->db->insert('user', $data);
-	// }
-	// function insertStudentDetail() {
-	// 	$data = array(
-	// 		'matric_no' => $matricNo,
-	// 	);
-	// 	$this->db->insert('user', $data);
-	// }
-	// function insertStudentDetail() {
-	// 	$data = array(
-	// 		'matric_no' => $matricNo,
-	// 	);
-	// 	$this->db->insert('user', $data);
-	// }
-	// function insertStudentDetail() {
-	// 	$data = array(
-	// 		'matric_no' => $matricNo,
-	// 	);
-	// 	$this->db->insert('user', $data);
-	// }
 }
 ?>
