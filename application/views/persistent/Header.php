@@ -59,11 +59,40 @@
 					<a href="/index.php/<?php echo $userType; ?>/console" class="btn btn-success"><?php echo $name ?></a>
 					<a href="/index.php/logout" class="btn btn-danger">Logout</a>
 				<?php } else { ?>
-					<a href="<?php echo $studentUrl; ?>" target="about:blank" class="btn btn-success">Student</a>
-					<a href="<?php echo $lecturerUrl; ?>" target="about:blank" class="btn btn-success">Lecturer</a>
+					<button class = "btn btn-success" id="loginBtn" data-toggle="modal" data-target="#ivleStudentModal">Student</button>
+					<button class = "btn btn-success" id="loginBtn" data-toggle="modal" data-target="#ivleLecturerModal">Lecturer</button>
 				<?php } ?>
 			</div>
 	        </div>
 	      </div><!--/.navbar-collapse -->
 	    </div>
 	  </nav>
+
+	  <!-- Modal -->
+<div class="modal fade" id="ivleStudentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Log in via IVLE</h4>
+      </div>
+      <div class="modal-body">
+      	<p><iframe id="testingid" src="<?php echo $studentUrl; ?>"></iframe></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ivleLecturerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Log in via IVLE</h4>
+      </div>
+      <div class="modal-body">
+      	<p><iframe id="testingid" src="<?php echo $lecturerUrl; ?>"></iframe></p>
+      </div>
+    </div>
+  </div>
+</div>

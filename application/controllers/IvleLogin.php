@@ -6,7 +6,7 @@ class IvleLogin extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->library("session");
-	echo "testing";
+        echo "Loading....";
         // load the helper that helps us auth
         $this->load->helper("UserInfo");
     }
