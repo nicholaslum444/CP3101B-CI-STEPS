@@ -31,8 +31,8 @@ class RegisterModule extends CI_Controller {
 
     private function _insertIntoDb($mc, $mn) {
         // if exist ($mc) then fail
-        $iteration = $this->Dbquery->getcurrentiteration();
-        if ($this->Dbquery->isexistmodule($mc)) {
+        $iteration = 6; //$this->Dbquery->getcurrentiteration();
+        if ($this->Dbquery->isModuleExist($mc, $iteration)) {
             // make fail obj
             return [
                 "success" => FALSE,
@@ -40,6 +40,7 @@ class RegisterModule extends CI_Controller {
             ];
         } else {
             $insertSuccess = $this->Dbinsert->createModule($mc, $iteration, $mn);
+            $insertSuccess = TRUE; // TODO remove
             if (isset($insertSuccess)) {
                 return [
                     "success" => TRUE
