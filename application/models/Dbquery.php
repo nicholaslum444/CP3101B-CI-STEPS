@@ -184,6 +184,20 @@ class Dbquery extends CI_Model {
 		return $query;
 	}
 
+	public function userExistByID($matricNo,$userType) {
+		$this->db->from('user');
+		
+		$this->db->where('user.user_type',$userType);
+		$this->db->where('user.matricNo',$matricNo);
+		$query = $this->db->get();
+		if($query->num_rows() > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	public function getFoodPrefByIteration($iteration) {
 		$query = $this->queryFoodPrefByIteration($iteration);
 		$result;
