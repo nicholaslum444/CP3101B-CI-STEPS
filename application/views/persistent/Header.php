@@ -48,7 +48,7 @@
 				// current url, rather than hardcoding "steps.tk"
 				$loginUrl = "https://ivle.nus.edu.sg/api/login/?"
 					. "apikey=3bBGOIdtC1T2d7SXeQAO9&url="
-					. $baseUrl . "index.php/LoginCheck";
+					. $baseUrl . "index.php/IvleLogin";
 
 				if ($isLoggedIn) {
 					$name = $userProfile->Results[0]->Name; ?>
