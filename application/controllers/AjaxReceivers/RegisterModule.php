@@ -30,6 +30,28 @@ class RegisterModule extends CI_Controller {
     }
 
     private function _insertIntoDb($mc, $mn) {
+        // if exist ($mc) then fail
+        $iteration = $this->Dbquery->getcurrentiteration();
+        if ($this->Dbquery->isexistmodule($mc)) {
+            // make fail obj
+            return [
+                "success" => FALSE,
+                "error" => "MODULE_EXISTS"
+            ];
+        } else {
+            $insertSuccess = $this->Dbinsert->createModule($mc, $iteration, $mn);
+            if (isset($insertSuccess)) {
+                return [
+                    "success" => TRUE
+                ];
+            } else {
+                return [
+                    "success" => FALSE,
+                    "error" => "INSERTION_FAIL"
+                ];
+            }
+        }
+        // else insert
         return [
             "success" => TRUE
         ];
