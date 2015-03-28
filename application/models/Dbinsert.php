@@ -23,6 +23,8 @@ class Dbinsert extends CI_Model {
 			'user_type' => $this->STUDENT
 		);
 		$this->db->insert('user', $data);
+
+		return true;
 	}
 
 	public function updateStudentDetail($matricNo, $email, $contact, $food) {
@@ -35,6 +37,8 @@ class Dbinsert extends CI_Model {
 		$this->db->where('matric_no', $matricNo);
 		$this->db->where('user_type', $this->STUDENT);
 		$this->db->update('user', $data);
+
+		return true;
 	}
 
 
@@ -46,6 +50,8 @@ class Dbinsert extends CI_Model {
 			'user_type' => $this->PROFESSOR
 		);
 		$this->db->insert('user', $data);
+
+		return true;
 	}
 	//TODO: DO prof update all at a time?
 	public function updateProfDetail($matricNo, $name, $email, $food, $contact) {
@@ -59,6 +65,21 @@ class Dbinsert extends CI_Model {
 		$this->db->where('matric_no', $matricNo);
 		$this->db->where('user_type', $this->PROFESSOR);
 		$this->db->update('user', $data);
+
+		return true;
+	}
+
+	public function isModuleExist($moduleCode, $iteration) {
+		$this->db->from('module');
+		$this->db->where('module.module_code',$moduleCode);
+		$this->db->where('module.iteration',$iteration);
+		$query = $this->db->get();
+		if($query->num_rows() == 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public function createModule($moduleCode, $iteration, $moduleName) {
@@ -68,6 +89,8 @@ class Dbinsert extends CI_Model {
 			'module_name' => $moduleName
 		);
 		$this->db->insert('module',$data);
+
+		return true;
 	}
 	//TODO PID should be generated
 	public function createProject($Pid, $projectName,$moduleCode,$iteration) {
@@ -79,6 +102,8 @@ class Dbinsert extends CI_Model {
 		);
 
 		$this->db->insert('project',$data);
+
+		return true;
 
 	}
 
@@ -92,11 +117,15 @@ class Dbinsert extends CI_Model {
 
 		$this->db->where('project_id', $id);
 		$this->db->update('project',$data);
+
+		return true;
 	}
 
 	public function deleteProject($id) {
 		$this->db->where('project_id', $id);
 		$this->db->delete('project');
+
+		return true;
 
 	}
 
@@ -133,12 +162,16 @@ class Dbinsert extends CI_Model {
 		);
 
 		$this->db->insert('participate',$data);
+
+		return true;
 	}
 
 	public function deleteStudentFromProject($id,$matricNo) {
 		$this->db->where('project_id', $id);
 		$this->db->where('matric_no', $matricNo);
 		$this->db->delete('participate');
+
+		return true;
 	}
 
 	public function insertModuleSupervision($matricNo, $moduleCode,$iteration) {
@@ -149,6 +182,8 @@ class Dbinsert extends CI_Model {
 		);
 
 		$this->db->insert('supervise',$data);
+
+		return true;
 	}
 
 	public function dropSupervising($matricNo, $moduleCode,$iteration) {
@@ -158,6 +193,8 @@ class Dbinsert extends CI_Model {
 		$this->db->where('matric_no', $matricNo);
 
 		$this->db->delete('supervise');
+
+		return true;
 	}
 
 	public function dropParticipatingModule($iteration, $moduleCode) {
@@ -166,6 +203,8 @@ class Dbinsert extends CI_Model {
 		$this->db->where('module_code', $moduleCode);
 
 		$this->db->delete('module');
+
+		return true;
 	}
 
 
