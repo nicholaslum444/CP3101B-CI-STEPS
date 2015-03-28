@@ -1,5 +1,9 @@
 <?php
 
+define("Student", 3);
+define("Lecturer", 2);
+define("Unknown", -1);
+
 class ViewData {
 
     public static function makeHeaderData($session, $baseUrl) {
@@ -16,8 +20,8 @@ class ViewData {
 
             if ($session->userType === "Admin") {
                 $headerData["name"] = $session->name;
-            } else if ($session->userType === "Student"
-                || $session->userType === "Lecturer") {
+            } else if ($session->userType === Student
+                || $session->userType === Lecturer) {
                 $headerData["userProfile"] = $session->userProfile;
                 $headerData["name"] = $session->userProfile->Results[0]->Name;
             } else {

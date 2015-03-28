@@ -212,9 +212,9 @@ class Dbquery extends CI_Model {
 
 	public function userExistByID($matricNo,$userType) {
 		$this->db->from('user');
-		
+
 		$this->db->where('user.user_type',$userType);
-		$this->db->where('user.matricNo',$matricNo);
+		$this->db->where('user.matric_no',$matricNo);
 		$query = $this->db->get();
 		if($query->num_rows() > 0) {
 			return true;

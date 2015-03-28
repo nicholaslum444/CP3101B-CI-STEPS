@@ -10,8 +10,8 @@
 	<link rel="stylesheet" href="/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="/css/bootswatch-flatly.css">
 	<link rel="stylesheet" href="/css/main.css">
+	<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
 	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-
 
 	<script src="/js/jquery-2.1.3.min.js"></script>
 	<script src="/js/bootstrap.js"></script>
@@ -54,8 +54,11 @@
 						. $baseUrl . "index.php/IvleLogin?l";
 
 					if ($isLoggedIn) {
-						//$name = $userProfile->Results[0]->Name;
-						?>
+						if ($userType === 2) {
+							$userType = "Lecturer";
+						} else if ($userType === 3) {
+							$userType = "Student";
+						} ?>
 						<a href="/index.php/<?php echo $userType; ?>/console" class="btn btn-success"><?php echo $name ?></a>
 						<a href="/index.php/logout" class="btn btn-danger">Logout</a>
 					<?php } else if (!(isset($loader) && $loader === "Admin")) { ?>
