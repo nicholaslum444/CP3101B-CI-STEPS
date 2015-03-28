@@ -72,7 +72,7 @@ class Lecturer extends CI_Controller {
 
         $iteration = 6; // TODO replace;
         $bodyData = [
-            "data" => $this->Dbquery->getModuleListByIteration($iteration)
+            "data" => $this->Dbquery->getSupervisedModuleByID($this->session->userId, $iteration) // A0101075B
             //"data" => $modules
         ];
         return $bodyData;

@@ -128,7 +128,7 @@ class Dbquery extends CI_Model {
 
 	public function getSupervisedModuleByID($matricNo, $iteration) {
 		$query = $this->querySupervisedModuleByMatric($matricNo, $iteration);
-		$result;
+		$result = FALSE;
 		$i = 0;
 		if($query->num_rows() > 0) {
 			$result = array($query->num_rows());
