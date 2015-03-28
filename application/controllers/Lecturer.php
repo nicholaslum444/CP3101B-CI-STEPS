@@ -58,10 +58,18 @@ class Lecturer extends CI_Controller {
     }
 
     private function _makeBodyData() {
-        $modulesData = [];
+        $modules = [];
+        $modules[0] = [
+            "moduleCode" => "CS3020",
+            "moduleName" => "Facebook and Society"
+        ];
+        $modules[1] = [
+            "moduleCode" => "IS1515",
+            "moduleName" => "ISIS Society"
+        ];
         $bodyData = [
             //"data" => modulesmodel::getlecturerpagedata();
-            "data" => $modulesData
+            "data" => $modules
         ];
     }
 

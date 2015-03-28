@@ -5,8 +5,9 @@ class Modules extends CI_Controller {
 
     public function index($moduleCode = null) {
         // the chosen module is shown in the url
-        if (is_null($moduleCode)) {
+        if (is_null($moduleCode) || $moduleCode == "index") {
             // show overview page if no module clicked
+            echo "whops no module";
         } else {
             // show module page with projects
             // for now it's dummy data
