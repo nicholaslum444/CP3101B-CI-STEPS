@@ -14,7 +14,7 @@ class Student extends CI_Controller {
 
     public function index() {
 
-        if ($this->_isLoggedIn()) {
+        if ($this->_isLoggedIn() && $this->_isStudent()) {
 
             // load the console views
             $this->console();
@@ -55,5 +55,9 @@ class Student extends CI_Controller {
 
 	private function _isLoggedIn() {
 		return $this->session->isLoggedIn;
+	}
+
+	private function _isStudent() {
+		return $this->session->userType === "Student";
 	}
 }

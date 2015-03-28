@@ -14,7 +14,7 @@ class Lecturer extends CI_Controller {
 
     public function index() {
 
-        if ($this->_isLoggedIn()) {
+        if ($this->_isLoggedIn() && $this->_isLecturer()) {
 
             // load the console views
             $this->console();
@@ -29,6 +29,7 @@ class Lecturer extends CI_Controller {
     }
 
     public function newModule() {
+        // have to change this
 
         $this->load->view("persistent/Header");
         $this->load->view("users/newModulePage");
@@ -36,9 +37,12 @@ class Lecturer extends CI_Controller {
     }
 
     public function console() {
+        // get the modules that he control
+        // and send to the lecturer page
+        // module code and name enough for this page
 
         $this->load->view("persistent/Header", $this->_makeHeaderData());
-        $this->load->view("users/LecturerPage");
+        $this->load->view("users/LecturerPage", $this->_makeBodyData());
         $this->load->view("persistent/Footer");
     }
 
@@ -53,7 +57,19 @@ class Lecturer extends CI_Controller {
         return ViewData::makeHeaderData($this->session, base_url());
     }
 
+    private function _makeBodyData() {
+        $modulesData = [];
+        $bodyData = [
+            //"data" => modulesmodel::getlecturerpagedata();
+            "data" => $modulesData
+        ];
+    }
+
 	private function _isLoggedIn() {
 		return $this->session->isLoggedIn;
 	}
+
+    private function _isLecturer() {
+        return $this->session->userType === "Lecturer";
+    }
 }

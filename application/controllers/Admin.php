@@ -37,7 +37,7 @@ class Admin extends CI_Controller {
 
     public function login() {
 
-		if($this->_isLoggedIn()) {
+		if($this->_isLoggedIn() && $this->_isAdmin()) {
 
             // show the homepage if the user is actually logged in
 	        $this->console();
@@ -94,10 +94,12 @@ class Admin extends CI_Controller {
     }
 
 	private function _isLoggedIn() {
-		$isLoggedIn = $this->session->isLoggedIn;
-        $isAdmin = $this->session->userType === "Admin";
-        return $isLoggedIn && $isAdmin;
+		return $this->session->isLoggedIn;
 	}
+
+    private function _isAdmin() {
+        return $this->session->userType === "Admin";
+    }
 
     private function _generateAdminToken() {
         return sha1(microtime(true).mt_rand(10000,90000));
@@ -124,6 +126,7 @@ class Admin extends CI_Controller {
             // generate a token for the admin
             $adminToken = $this->_generateAdminToken();
 
+            // find the name of the logged in admin
             $name = "ANAND BHOJAN";
 
             // store all data needed to keep and validate session
