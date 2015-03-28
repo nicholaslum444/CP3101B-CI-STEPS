@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS STEPSiteration;
 
 CREATE TABLE IF NOT EXISTS user (
 	matric_no VARCHAR(20),
-	name VARCHAR(50),
+	name VARCHAR(50) NOT NULL,
 	email VARCHAR(50),
 	contact INTEGER,
 	user_type INTEGER, 
@@ -18,19 +18,19 @@ CREATE TABLE IF NOT EXISTS user (
 CREATE TABLE IF NOT EXISTS module (
 	module_code VARCHAR(8),
 	iteration INTEGER,
-	module_name VARCHAR(100),
+	module_name VARCHAR(100) NOT NULL,
 	module_description VARCHAR(2000),
 	PRIMARY KEY(module_code, iteration)
 );
 
 CREATE TABLE IF NOT EXISTS project (
-	title VARCHAR(100),
+	title VARCHAR(100) NOT NULL,
 	abstract VARCHAR(2000),
 	poster VARCHAR(100),
 	video VARCHAR(100),
-	project_id INTEGER,
-	module_code VARCHAR(8),
-	iteration INTEGER,
+	project_id INTEGER AUTO_INCREMENT,
+	module_code VARCHAR(8) NOT NULL,
+	iteration INTEGER NOT NULL,
 	leader_matric_no CHAR(9),
 	PRIMARY KEY(project_id),
 	FOREIGN KEY(module_code, iteration) 
@@ -68,5 +68,6 @@ CREATE TABLE IF NOT EXISTS supervise (
 
 CREATE TABLE IF NOT EXISTS STEPSiteration (
 	iteration INTEGER,
-	semester  VARCHAR(10)
+	semester  VARCHAR(10)  NOT NULL,
+	PRIMARY KEY (iteration)
 );
