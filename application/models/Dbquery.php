@@ -123,6 +123,7 @@ class Dbquery extends CI_Model {
 				$result[$i] = array(2);
 				$result[$i]['moduleCode'] = $row['module_code'];
 				$result[$i]['moduleName'] = $row['module_name'];
+				$result[$i]['moduleDescription'] = $row['module_description'];
 				++$i;
 			}
 		}
@@ -252,7 +253,8 @@ class Dbquery extends CI_Model {
 
 	private function queryFoodPrefByIteration($iteration) {
 		//SELECT user.food_preference, COUNT(*)
-		//FROM user JOIN participate ON user.matric_no = participate.matric_no
+		//FROM user JOIN participate 
+		//ON user.matric_no = participate.matric_no
 		//JOIN project ON participate.project_id = project.project_id
 		//JOIN module ON project.module_code = module.module_code
 		//			AND project.iteration = module.iteration

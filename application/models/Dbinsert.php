@@ -92,6 +92,18 @@ class Dbinsert extends CI_Model {
 
 		return true;
 	}
+
+	public function updateModuleDescription($moduleCode, $iteration, $description) {
+		$data = array(
+			'module_iteration' => $iteration
+		);
+		$this->db->where('module_code', $moduleCode);
+		$this->db->where('iteration', $iteration);
+		
+		$this->db->update('module',$data);
+
+
+	}
 	//TODO PID should be generated
 	public function createProject($Pid, $projectName,$moduleCode,$iteration) {
 		$data = array(
