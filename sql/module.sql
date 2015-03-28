@@ -1,1 +1,1 @@
-INSERT INTO `module` (`module_code`,`semester`,`module_name`) VALUES("SS3101",6,"Web Programming"),("BB3218",6,"Android Programming"),("ZZ3217",6,"Ipad Mod");
+INSERT INTO `module` (`module_code`,`iteration`,`module_name`) VALUES("SS3101",6,"Web Programming"),("BB3218",6,"Android Programming"),("ZZ3217",6,"Ipad Mod");

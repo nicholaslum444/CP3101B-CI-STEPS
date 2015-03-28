@@ -17,9 +17,9 @@ CREATE TABLE IF NOT EXISTS user (
 
 CREATE TABLE IF NOT EXISTS module (
 	module_code VARCHAR(8),
-	semester INTEGER,
+	iteration INTEGER,
 	module_name VARCHAR(100),
-	PRIMARY KEY(module_code, semester)
+	PRIMARY KEY(module_code, iteration)
 );
 
 CREATE TABLE IF NOT EXISTS project (
@@ -29,11 +29,11 @@ CREATE TABLE IF NOT EXISTS project (
 	video VARCHAR(100),
 	project_id INTEGER,
 	module_code VARCHAR(8),
-	semester INTEGER,
+	iteration INTEGER,
 	leader_matric_no CHAR(9),
 	PRIMARY KEY(project_id),
-	FOREIGN KEY(module_code, semester) 
-	    REFERENCES module(module_code, semester)
+	FOREIGN KEY(module_code, iteration) 
+	    REFERENCES module(module_code, iteration)
 	    ON UPDATE CASCADE,
 	FOREIGN KEY(leader_matric_no) 
 	    REFERENCES user(matric_no)
@@ -55,13 +55,13 @@ CREATE TABLE IF NOT EXISTS participate (
 CREATE TABLE IF NOT EXISTS supervise (
 	matric_no VARCHAR(9), 
 	module_code VARCHAR(8), 
-	semester INTEGER,
-	PRIMARY KEY(matric_no, module_code, semester),
+	iteration INTEGER,
+	PRIMARY KEY(matric_no, module_code, iteration),
 	FOREIGN KEY(matric_no) 
 		REFERENCES user(matric_no)
 		ON UPDATE CASCADE,
-	FOREIGN KEY(module_code, semester) 
-		REFERENCES module(module_code, semester)
+	FOREIGN KEY(module_code, iteration) 
+		REFERENCES module(module_code, iteration)
 		ON UPDATE CASCADE
 );
 
