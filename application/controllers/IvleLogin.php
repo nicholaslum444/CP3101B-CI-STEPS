@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+define("Student", 3);
+define("Lecturer", 2);
+define("Unknown", -1);
+
 class IvleLogin extends CI_Controller {
 
     public function __construct() {
@@ -9,6 +13,8 @@ class IvleLogin extends CI_Controller {
         echo "Loading....";
         // load the helper that helps us auth
         $this->load->helper("UserInfo");
+		$this->load->model("Dbquery");
+        $this->load->model("Dbinsert");
     }
 
     public function index() {
@@ -46,11 +52,14 @@ class IvleLogin extends CI_Controller {
         // get the profile
         $userProfile = UserInfo::getUserProfile($token);
 
+        $name = $userProfile->Results[0]->Name;
+
         // store all data needed to keep and validate session
         $userData = [
             "userToken" => $validationResult->Token,
             "userId" => $userId,
             "isLoggedIn" => TRUE,
+            "name" => $name,
             "userType" => $userType,
             "userProfile" => $userProfile
         ];
@@ -58,18 +67,28 @@ class IvleLogin extends CI_Controller {
         // set the session with this data
         $this->session->set_userdata($userData);
 
+        // insert logged in user to the database as a registered user
+        $userExist = $this->Dbquery->userExistByID($userId, $userType);
+        if (!$userExist) {
+            if ($userType === Lecturer) {
+                $this->Dbinsert->insertProfBasicDetail($userId, $name);
+            } else if ($userType === Student) {
+                $this->Dbinsert->insertStudentBaseInfo($userId, $name);
+            }
+        }
+
         // load the script that closes the popup window
         $this->load->view("login/LoginPopup");
     }
 
     private function _getUserType() {
         if (isset($_GET["s"])) {
-            return "Student";
+            return Student;
         }
         if (isset($_GET["l"])) {
-            return "Lecturer";
+            return Lecturer;
         }
-        return "unknown";
+        return Unknown;
     }
 
 }

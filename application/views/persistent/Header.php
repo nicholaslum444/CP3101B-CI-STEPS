@@ -54,8 +54,11 @@
 						. $baseUrl . "index.php/IvleLogin?l";
 
 					if ($isLoggedIn) {
-						//$name = $userProfile->Results[0]->Name;
-						?>
+						if ($userType === 2) {
+							$userType = "Lecturer";
+						} else if ($userType === 3) {
+							$userType = "Student";
+						} ?>
 						<a href="/index.php/<?php echo $userType; ?>/console" class="btn btn-success"><?php echo $name ?></a>
 						<a href="/index.php/logout" class="btn btn-danger">Logout</a>
 					<?php } else if (!(isset($loader) && $loader === "Admin")) { ?>

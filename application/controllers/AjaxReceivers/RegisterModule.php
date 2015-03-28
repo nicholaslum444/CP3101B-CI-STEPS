@@ -54,10 +54,6 @@ class RegisterModule extends CI_Controller {
                 ];
             }
         }
-        // else insert
-        return [
-            "success" => TRUE
-        ];
     }
 
     private function _buildFailureResponse() {
