@@ -71,6 +71,7 @@ class Lecturer extends CI_Controller {
             //"data" => modulesmodel::getlecturerpagedata();
             "data" => $modules
         ];
+        return $bodyData;
     }
 
 	private function _isLoggedIn() {

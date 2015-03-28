@@ -5,6 +5,12 @@ header("Content-Type: application/json");
 
 class RegisterModule extends CI_Controller {
 
+    public function __construct() {
+		parent::__construct();
+		$this->load->model("Dbquery");
+        $this->load->model("Dbinsert");
+    }
+
     public function index() {
         if (!(isset($_POST["moduleCode"]) && isset($_POST["moduleName"]))) {
             exit($this->_buildFailureResponse());

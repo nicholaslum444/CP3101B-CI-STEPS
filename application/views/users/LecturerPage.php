@@ -7,13 +7,13 @@
         <div class="panel-body">
             <?php
             if (isset($data)) {
-                foreach ($data as $module) { ?>
-                    <a href="/index.php/lecturer/newModule/<?php $module['moduleCode']; ?>"><?php $module["moduleName"]; ?></a>
+                for ($i = 0; $i < count($data); $i++) {
+                    $module = $data[$i]; ?>
+                    <a href="/index.php/lecturer/newModule/<?php echo $module['moduleCode']; ?>"><?php echo $module["moduleName"]; ?></a><br>
                 <?php }
             } else { ?>
-                <a href="/index.php/lecturer/newModule">Module</a>
-            <?php } ?> 
-         <a href="/index.php/lecturer/newModule">Module</a>
+                <a href="/index.php/lecturer/newModule">Dummy Module</a>
+            <?php } ?>
        </div>
      </div>
    </div><!--End md-6-->
