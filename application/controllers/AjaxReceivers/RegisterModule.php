@@ -7,6 +7,7 @@ class RegisterModule extends CI_Controller {
 
     public function __construct() {
 		parent::__construct();
+        $this->load->library("session");
 		$this->load->model("Dbquery");
         $this->load->model("Dbinsert");
     }
@@ -30,6 +31,30 @@ class RegisterModule extends CI_Controller {
     }
 
     private function _insertIntoDb($mc, $mn) {
+        // if exist ($mc) then fail
+        $iteration = 6; //$this->Dbquery->getcurrentiteration();
+        if ($this->Dbquery->isModuleExist($mc, $iteration)) {
+            // make fail obj
+            return [
+                "success" => FALSE,
+                "error" => "MODULE_EXISTS"
+            ];
+        } else {
+            $insertSuccess = $this->Dbinsert->createModule($mc, $iteration, $mn);
+            $superviseSuccess = $this->Dbinsert->insertModuleSupervision($this->session->userId, $mc, $iteration);
+            //$insertSuccess = TRUE; // TODO remove
+            if (isset($insertSuccess) && isset($superviseSuccess)) {
+                return [
+                    "success" => TRUE
+                ];
+            } else {
+                return [
+                    "success" => FALSE,
+                    "error" => "INSERTION_FAIL"
+                ];
+            }
+        }
+        // else insert
         return [
             "success" => TRUE
         ];

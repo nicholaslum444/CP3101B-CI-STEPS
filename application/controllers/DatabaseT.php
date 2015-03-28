@@ -28,7 +28,10 @@ class DatabaseT extends CI_Controller {
 		->createProject(51,"PLAY game","CS4321",5);
 		$result32 =  $this->Dbinsert
 		->updateProject(51,"Play another game","play play play","www.post.com/abs","www.video.com/fjdb");
-		
+
+		$result32 =  $this->Dbinsert
+		->setLeaderForProject("A0201314B",51);
+
 		$result34 =  $this->Dbinsert
 		->checkParticipatedProjectInModule(5,"CS4321","A0201314B");
 		$result35 =  $this->Dbinsert
@@ -40,8 +43,8 @@ class DatabaseT extends CI_Controller {
 
 		$result37 =  $this->Dbinsert
 		->deleteStudentFromProject(51,"A0201314B");
-		$result33 =  $this->Dbinsert
-		->deleteProject(51);
+		 $result33 =  $this->Dbinsert
+		 ->deleteProject(51);
 		$result39 =  $this->Dbinsert
 		->dropSupervising("A0201314B","CS4321",5);
 		$result40 =  $this->Dbinsert
@@ -52,9 +55,9 @@ class DatabaseT extends CI_Controller {
 		$result =  $this->Dbquery->getStudentByModule("SS3101",6);
 		$result6 =  $this->Dbquery->getStudentDetailByProject(1001);
 		$result7 =  $this->Dbquery->getProjectListByModule("SS3101",6);
-		$result8 =  $this->Dbquery->getModuleListBySem(6);
+		$result8 =  $this->Dbquery->getModuleListByIteration(6);
 		$result9 =  $this->Dbquery->getSupervisedModuleByID("A0101085B", 6);
-		$result0 =  $this->Dbquery->getFoodPrefBySem(6);
+		$result0 =  $this->Dbquery->getFoodPrefByIteration(6);
 		
 		echo "<table style='border: solid 1px;'>";
 		echo "<tr  style='border: solid 1px;'><td>Matric No</td><td>Name</td><td>Contact</td><td>FoodPref</td>";
@@ -105,8 +108,8 @@ class DatabaseT extends CI_Controller {
 	// 	return $query;
 	// }
 
-	// public function getProjectListByModule($moduleCode, $sem) {
-	// 	$query = $this->queryProjectByModule($moduleCode, $sem);
+	// public function getProjectListByModule($moduleCode, $Iteration) {
+	// 	$query = $this->queryProjectByModule($moduleCode, $Iteration);
 	// 	$result;
 	// 	$i = 0;
 	// 	if($query->num_rows() > 0) {
@@ -124,25 +127,25 @@ class DatabaseT extends CI_Controller {
 	// 	return $result;
 	// }
 
-	// private function queryProjectByModule($moduleCode, $sem) {
+	// private function queryProjectByModule($moduleCode, $Iteration) {
 	// 	//SELECT * 
 	// 	//FROM module 
 	// 	//JOIN project ON project.module_code = module.module_code
-	// 	//			AND   module.semester = project.semester
+	// 	//			AND   module.iteration = project.iteration
 	// 	//WHERE module_code = $moduleCode
-	// 	//AND semester = $sem
+	// 	//AND iteration = $iteration
 	// 	$this->db->from('module');
 	// 	$this->db->join('project',
 	// 		'module.module_code = project.module_code '.
-	// 		'AND module.semester = project.semester');
+	// 		'AND module.iteration = project.iteration');
 	// 	$this->db->where('module.module_code',$moduleCode);
-	// 	$this->db->where('module.semester',$sem);
+	// 	$this->db->where('module.iteration',$iteration);
 	// 	$query = $this->db->get();
 	// 	return $query;
 	// }
 
-	// public function getModuleListBySem($sem) {
-	// 	$query = $this->queryModuleListBySem($sem);
+	// public function getModuleListBySem($iteration) {
+	// 	$query = $this->queryModuleListBySem($iteration);
 	// 	$result;
 	// 	$i = 0;
 	// 	if($query->num_rows() > 0) {
@@ -158,16 +161,16 @@ class DatabaseT extends CI_Controller {
 	// }
 
 
-	// private function queryModuleListBySem($sem) {
-	// 	//SELECT * FROM module WHERE semester = $sem; 
+	// private function queryModuleListBySem($iteration) {
+	// 	//SELECT * FROM module WHERE iteration = $iteration; 
 	// 	$this->db->from('module');
-	// 	$this->db->where('module.semester', $sem);
+	// 	$this->db->where('module.iteration', $iteration);
 	// 	$query = $this->db->get();
 	// 	return $query;
 	// }	
 
-	// public function getSupervisedModuleByID($matricNo, $sem) {
-	// 	$query = $this->querySupervisedModuleByMatric($matricNo, $sem);
+	// public function getSupervisedModuleByID($matricNo, $iteration) {
+	// 	$query = $this->querySupervisedModuleByMatric($matricNo, $iteration);
 	// 	$result;
 	// 	$i = 0;
 	// 	if($query->num_rows() > 0) {
@@ -182,22 +185,22 @@ class DatabaseT extends CI_Controller {
 	// 	return $result;
 	// }
 
-	// private function querySupervisedModuleByMatric($matricNo,$sem) {
+	// private function querySupervisedModuleByMatric($matricNo,$iteration) {
 	// 	//SELECT * FROM supervise 
 	// 	//JOIN module ON module.module_code AND supervise.module_code
 	// 	//WHERE supervise.matric_no = $matricNo 
-	// 	//AND supervise.semester = $sem;
+	// 	//AND supervise.iteration = $iteration;
 	// 	$this->db->from('supervise');
 	// 	$this->db->join('module',
 	// 		'module.module_code = supervise.module_code');
 	// 	$this->db->where('supervise.matric_no',$matricNo);
-	// 	$this->db->where('module.semester',$sem);
+	// 	$this->db->where('module.iteration',$iteration);
 	// 	$query = $this->db->get();
 	// 	return $query;
 	// }
 
-	// public function getStudentByModule($moduleCode, $sem) {
-	// 	$query = $this->queryStudentByModule($moduleCode, $sem);
+	// public function getStudentByModule($moduleCode, $iteration) {
+	// 	$query = $this->queryStudentByModule($moduleCode, $iteration);
 	// 	$result;
 	// 	$i = 0;
 	// 	if($query->num_rows() > 0) {
@@ -215,13 +218,13 @@ class DatabaseT extends CI_Controller {
 	// 	return $result;
 	// }
 
-	// private function queryStudentByModule($moduleCode, $sem) {
+	// private function queryStudentByModule($moduleCode, $iteration) {
 	// 	//SELECT * FROM user 
 	// 	//JOIN participate ON user.matric_no = participate.matric_no 
 	// 	//JOIN project ON project.project_id = participate.project_id 
 	// 	//JOIN module ON module.module_code = project.module_code 
 	// 	//WHERE module.module_code = $moduleCode
-	// 	//AND module.semester = $sem 
+	// 	//AND module.iteration = $iteration 
 	// 	//AND user.user_type = 3;
 	// 	$this->db->from('user');
 	// 	$this->db->join('participate',
@@ -230,16 +233,16 @@ class DatabaseT extends CI_Controller {
 	// 		'project.project_id = participate.project_id');
 	// 	$this->db->join('module',
 	// 		'module.module_code = project.module_code'.
-	// 		' AND module.semester = project.semester');
+	// 		' AND module.iteration = project.iteration');
 	// 	$this->db->where('project.module_code',$moduleCode);
-	// 	$this->db->where('project.semester',$sem);
+	// 	$this->db->where('project.iteration',$iteration);
 	// 	$this->db->where('user.user_type', $this->STUDENT);
 	// 	$query = $this->db->get();
 	// 	return $query;
 	// }
 
-	// public function getFoodPrefBySem($sem) {
-	// 	$query = $this->queryFoodPrefBySem($sem);
+	// public function getFoodPrefBySem($iteration) {
+	// 	$query = $this->queryFoodPrefBySem($iteration);
 	// 	$result;
 	// 	$i = 0;
 	// 	if($query->num_rows() > 0) {
@@ -264,13 +267,13 @@ class DatabaseT extends CI_Controller {
 	// 	return $result;
 	// }
 
-	// private function queryFoodPrefBySem($sem) {
+	// private function queryFoodPrefBySem($iteration) {
 	// 	//SELECT user.food_preference, COUNT(*) 
 	// 	//FROM user JOIN participate ON user.matric_no = participate.matric_no 
 	// 	//JOIN project ON participate.project_id = project.project_id 
 	// 	//JOIN module ON project.module_code = module.module_code 
-	// 	//			AND project.semester = module.semester 
-	// 	//WHERE module.semester = 6 GROUP BY user.food_preference;
+	// 	//			AND project.iteration = module.iteration 
+	// 	//WHERE module.iteration = 6 GROUP BY user.food_preference;
 	// 	$this->db->from('user');
 	// 	$this->db->join('participate',
 	// 		'user.matric_no = participate.matric_no');
@@ -278,9 +281,9 @@ class DatabaseT extends CI_Controller {
 	// 		'participate.project_id = project.project_id');
 	// 	$this->db->join('module',
 	// 		'project.module_code = module.module_code'.
-	// 		' AND project.semester = module.semester');
+	// 		' AND project.iteration = module.iteration');
 		
-	// 	$this->db->where('module.semester',$sem);
+	// 	$this->db->where('module.iteration',$iteration);
 
 	// 	$this->db->group_by('food_preference');
 	// 	$this->db->select('food_preference , count(*) AS count');

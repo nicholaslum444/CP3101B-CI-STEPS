@@ -7,6 +7,8 @@ class Lecturer extends CI_Controller {
 		$this->load->library("session");
 		$this->load->helper("url");
 		$this->load->helper("viewdata");
+		$this->load->model("Dbquery");
+        $this->load->model("Dbinsert");
 	}
 
     /* Created this for easy viewing, please go ahead to change it
@@ -67,9 +69,11 @@ class Lecturer extends CI_Controller {
             "moduleCode" => "IS1515",
             "moduleName" => "ISIS Society"
         ];
+
+        $iteration = 6; // TODO replace;
         $bodyData = [
-            //"data" => modulesmodel::getlecturerpagedata();
-            "data" => $modules
+            "data" => $this->Dbquery->getSupervisedModuleByID($this->session->userId, $iteration) // A0101075B
+            //"data" => $modules
         ];
         return $bodyData;
     }

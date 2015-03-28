@@ -2,7 +2,7 @@
   <div class="row">
 
     <!--List of modules to be generated-->
-    <div class="col-md-6">
+    <div id = "moduleList" class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-body">
             <?php
@@ -34,24 +34,26 @@
 <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Register a Module</h4>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label for="moduleCode">Module Code</label>
-          <input type="text" class="form-control" id="moduleCode" placeholder="">
+      <form id="registerModuleForm">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Register a Module</h4>
         </div>
-        <div class="form-group">
-          <label for="moduleName">Module Name</label>
-          <input type="text" class="form-control" id="moduleName" placeholder="">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="moduleCode">Module Code</label>
+            <input type="text" class="form-control" id="moduleCode" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="moduleName">Module Name</label>
+            <input type="text" class="form-control" id="moduleName" placeholder="">
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Register</button>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
