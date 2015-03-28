@@ -18,6 +18,18 @@ class Dbquery extends CI_Model {
     }
 
 
+    public function getLatestIteration() {
+    	//SELECT max(iteration)
+		//FROM STEPSiteration
+		$this->db->from('STEPSiteration');
+		$this->db->select_max('iteration');
+
+		$query = $this->db->get();
+		foreach ($query->result_array() as $row) {
+			return json_encode($row['iteration']);
+		}
+    }
+
 	public function getStudentDetailByProject($projectID) {
 		$query = $this->queryStudentByProject($projectID);
 		$result;
