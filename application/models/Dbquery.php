@@ -25,9 +25,11 @@ class Dbquery extends CI_Model {
 		$this->db->select_max('iteration');
 
 		$query = $this->db->get();
+
 		foreach ($query->result_array() as $row) {
 			return json_encode($row['iteration']);
 		}
+		return array();
     }
 
 	public function getStudentDetailByProject($projectID) {
@@ -44,6 +46,8 @@ class Dbquery extends CI_Model {
 				$result[$i]['contact'] = $row['contact'];
 				++$i;
 			}
+		} else {
+			return array();
 		}
 		return $result;
 	}
@@ -78,6 +82,8 @@ class Dbquery extends CI_Model {
 				$result[$i]['video'] = $row['video'];
 				++$i;
 			}
+		} else {
+			return array();
 		}
 		return $result;
 	}
@@ -127,6 +133,11 @@ class Dbquery extends CI_Model {
 				++$i;
 			}
 		}
+		else {
+			$result = array();
+		} else {
+			return array();
+		}
 		return $result;
 	}
 
@@ -151,6 +162,8 @@ class Dbquery extends CI_Model {
 				$result[$i]['moduleName'] = $row['module_name'];
 				++$i;
 			}
+		} else {
+			return array();
 		}
 		return $result;
 	}
@@ -184,6 +197,8 @@ class Dbquery extends CI_Model {
 				$result[$i]['foodPref'] = $row['food_preference'];
 				++$i;
 			}
+		} else {
+			return array();
 		}
 		return $result;
 	}
@@ -247,6 +262,8 @@ class Dbquery extends CI_Model {
 				}
 			}
 
+		} else {
+			return array();
 		}
 		return $result;
 	}
