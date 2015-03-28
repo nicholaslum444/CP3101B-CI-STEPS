@@ -3,10 +3,10 @@ DROP TABLE IF EXISTS participate;
 DROP TABLE IF EXISTS project;
 DROP TABLE IF EXISTS module;
 DROP TABLE IF EXISTS user;
-
+DROP TABLE IF EXISTS STEPSiteration;
 
 CREATE TABLE IF NOT EXISTS user (
-	matric_no CHAR(9),
+	matric_no VARCHAR(20),
 	name VARCHAR(50),
 	email VARCHAR(50),
 	contact INTEGER,
@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS module (
 	module_code VARCHAR(8),
 	iteration INTEGER,
 	module_name VARCHAR(100),
+	module_description VARCHAR(2000),
 	PRIMARY KEY(module_code, iteration)
 );
 
@@ -65,3 +66,7 @@ CREATE TABLE IF NOT EXISTS supervise (
 		ON UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS STEPSiteration (
+	iteration INTEGER,
+	semester  VARCHAR(10)
+);

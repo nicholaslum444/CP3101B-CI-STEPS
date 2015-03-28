@@ -15,3 +15,4 @@ mysql test < 2person.sql;
 mysql test < 3person.sql;
 mysql test < 4person.sql;
 mysql test < 5person.sql;
+mysql test < iterate.sql;
