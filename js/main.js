@@ -1,18 +1,9 @@
-$(function() {
-	$( "#studentLogin" ).click(function() {
-		// a popup box would be nicer :)
-		/* Still trying to get the child window redirect the parent page */
+/*$(function() {
+	$( "#fakeLogin" ).click(function() {
 		var apiUrl = "https://ivle.nus.edu.sg/api/login/?apikey=3bBGOIdtC1T2d7SXeQAO9&url=";
 		var callbackUrl = "http://localhost:8080/index.php/ivleauth/";
 		openInNewWindow(apiUrl + callbackUrl);
 	});
-});
-
-$(function() {
-    $( "#lecturerLogin" ).click(function() {
-        // a popup box would be nicer :)
-        window.location.href = "https://ivle.nus.edu.sg/api/login/?apikey=3bBGOIdtC1T2d7SXeQAO9&url=http://steps.tk/lecturer/";
-    });
 });
 
 function openInNewWindow(url) {
@@ -23,3 +14,10 @@ function openInNewWindow(url) {
 	}
 	return false;
 }
+*/
+function getLoginUrl(url) {
+	var loginUrl = "https://ivle.nus.edu.sg/api/login/?"
+					+ "apikey=3bBGOIdtC1T2d7SXeQAO9&url="
+					+ url + "index.php/IvleLogin";
+}
+

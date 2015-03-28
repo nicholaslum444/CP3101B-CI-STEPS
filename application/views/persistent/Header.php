@@ -55,11 +55,26 @@
 					<a href="/index.php/console" class="btn btn-success"><?php echo $name ?></a>
 					<a href="/index.php/logout" class="btn btn-danger">Logout</a>
 				<?php } else { ?>
-					<a href="<?php echo $loginUrl; ?>" target="about:blank" class="btn btn-success">Student</a>
-					<a href="<?php echo $loginUrl; ?>" target="about:blank" class="btn btn-success">Lecturer</a>
+					<button class = "btn btn-success" id="loginBtn" data-toggle="modal" data-target="#ivleModal">Student</button>
+					<button class = "btn btn-success" id="loginBtn" data-toggle="modal" data-target="#ivleModal">Lecturer</button>
 				<?php } ?>
 			</div>
 	        </div>
 	      </div><!--/.navbar-collapse -->
 	    </div>
 	  </nav>
+
+	  <!-- Modal -->
+<div class="modal fade" id="ivleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Log in via IVLE</h4>
+      </div>
+      <div class="modal-body">
+      	<p><iframe id="testingid" src="<?php echo $loginUrl; ?>"></iframe></p>
+      </div>
+    </div>
+  </div>
+</div>
