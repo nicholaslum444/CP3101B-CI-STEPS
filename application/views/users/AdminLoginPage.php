@@ -1,6 +1,5 @@
 
-<!-- If the lecturer clicks on an existing module, all fields are to be filled in and greyed out -->
-<!-- When edit button is clicked, they will be editable -->
+<!-- please style this page when there is time -->
 
 <div class="container">
   <div class="row">
@@ -10,7 +9,7 @@
       <div class="form-group">
         <label class="control-label col-sm-4" for="username">Admin Username:</label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" id="usernme" name="username" placeholder="Admin Username">
+          <input type="text" class="form-control" id="username" name="username" placeholder="Admin Username">
         </div>
       </div>
       <div class="form-group">

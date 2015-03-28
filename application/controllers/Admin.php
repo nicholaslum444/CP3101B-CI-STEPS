@@ -145,7 +145,9 @@ class Admin extends CI_Controller {
     }
 
     private function _makeHeaderData() {
-        return ViewData::makeHeaderData($this->session, base_url());
+        $data = ViewData::makeHeaderData($this->session, base_url());
+        $data["loader"] = "Admin";
+        return $data;
     }
 
     private function _makePageData($retry) {

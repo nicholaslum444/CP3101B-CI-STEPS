@@ -1,17 +1,25 @@
 <div class="container">
   <div class="row">
-    
+
     <!--List of modules to be generated-->
     <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-body">
-         <a href="/index.php/lecturer/newModule">Module</a> 
+            <?php
+            if (isset($data)) {
+                foreach ($data as $module) { ?>
+                    <a href="/index.php/lecturer/newModule/<?php $module['moduleCode']; ?>"><?php $module["moduleName"]; ?></a>
+                <?php }
+            } else { ?>
+                <a href="/index.php/lecturer/newModule">Module</a>
+            <?php } ?> 
+         <a href="/index.php/lecturer/newModule">Module</a>
        </div>
      </div>
    </div><!--End md-6-->
 
    <div class="col-md-6">
-    <form class="form" action="">          
+    <form class="form" action="">
       <div class="form-group">
         <input type="hidden" class="form-control" id="registerModule">
       </div>
@@ -19,7 +27,7 @@
     </form>
   </div>
 
-</div> 
+</div>
 </div>
 
 <!-- Modal -->

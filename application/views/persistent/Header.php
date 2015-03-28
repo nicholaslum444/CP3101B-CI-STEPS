@@ -39,30 +39,30 @@
 	          <ul class="nav navbar-nav">
 	            <li class="active"><a href="/index.php/modules">Modules</a></li>
 	          </ul>
-			<div class="navbar-form navbar-right">
-				<?php
-				// (messy) code to load the correct buttons
-				// based on whether user logged in or not
+				<div class="navbar-form navbar-right">
+					<?php
+					// (messy) code to load the correct buttons
+					// based on whether user logged in or not
 
-				// this is a hack(?) to get the callback url to match the
-				// current url, rather than hardcoding "steps.tk"
-				$studentUrl = "https://ivle.nus.edu.sg/api/login/?"
-					. "apikey=3bBGOIdtC1T2d7SXeQAO9&url="
-					. $baseUrl . "index.php/IvleLogin?s";
-				$lecturerUrl = "https://ivle.nus.edu.sg/api/login/?"
-					. "apikey=3bBGOIdtC1T2d7SXeQAO9&url="
-					. $baseUrl . "index.php/IvleLogin?l";
+					// this is a hack(?) to get the callback url to match the
+					// current url, rather than hardcoding "steps.tk"
+					$studentUrl = "https://ivle.nus.edu.sg/api/login/?"
+						. "apikey=3bBGOIdtC1T2d7SXeQAO9&url="
+						. $baseUrl . "index.php/IvleLogin?s";
+					$lecturerUrl = "https://ivle.nus.edu.sg/api/login/?"
+						. "apikey=3bBGOIdtC1T2d7SXeQAO9&url="
+						. $baseUrl . "index.php/IvleLogin?l";
 
-				if ($isLoggedIn) {
-					//$name = $userProfile->Results[0]->Name;
-					?>
-					<a href="/index.php/<?php echo $userType; ?>/console" class="btn btn-success"><?php echo $name ?></a>
-					<a href="/index.php/logout" class="btn btn-danger">Logout</a>
-				<?php } else { ?>
-					<button class = "btn btn-success" id="loginBtn" data-toggle="modal" data-target="#ivleStudentModal">Student</button>
-					<button class = "btn btn-success" id="loginBtn" data-toggle="modal" data-target="#ivleLecturerModal">Lecturer</button>
-				<?php } ?>
-			</div>
+					if ($isLoggedIn) {
+						//$name = $userProfile->Results[0]->Name;
+						?>
+						<a href="/index.php/<?php echo $userType; ?>/console" class="btn btn-success"><?php echo $name ?></a>
+						<a href="/index.php/logout" class="btn btn-danger">Logout</a>
+					<?php } else if (!(isset($loader) && $loader === "Admin")) { ?>
+						<button class = "btn btn-success" id="loginBtn" data-toggle="modal" data-target="#ivleStudentModal">Student</button>
+						<button class = "btn btn-success" id="loginBtn" data-toggle="modal" data-target="#ivleLecturerModal">Lecturer</button>
+					<?php } ?>
+				</div>
 	        </div>
 	      </div><!--/.navbar-collapse -->
 	    </div>

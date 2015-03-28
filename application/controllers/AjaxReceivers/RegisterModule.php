@@ -3,37 +3,38 @@
 // this call returns JSON objects.
 header("Content-Type: application/json");
 
-main();
+class RegisterModule extends CI_Controller {
 
-function main() {
-    if (!(isset($_POST["moduleCode"]) && isset($_POST["moduleName"]))) {
-        exit(buildFailureResponse());
+    public function index() {
+        if (!(isset($_POST["moduleCode"]) && isset($_POST["moduleName"]))) {
+            exit($this->_buildFailureResponse());
+        }
+
+        echo $this->_buildResponse($_POST["moduleCode"], $_POST["moduleName"]);
     }
 
-    echo buildResponse($_POST["moduleCode"], $_POST["moduleName"]);
-}
+    private function _buildResponse($moduleCode, $moduleName) {
+        // try to insert to db
+        // get response object from db telling me
+        // whether it can insert or not
 
-function buildResponse($moduleCode, $moduleName) {
-    // try to insert to db
-    // get response object from db telling me
-    // whether it can insert or not
+        $insertResult = $this->_insertIntoDb($moduleCode, $moduleName);
 
-    $insertResult = insertIntoDb($moduleCode, $moduleName);
+        return json_encode($insertResult);
+    }
 
-    return json_encode($insertResult);
-}
+    private function _insertIntoDb($mc, $mn) {
+        return [
+            "success" => TRUE
+        ];
+    }
 
-function insertIntoDb($mc, $mn) {
-    return [
-        "success" => TRUE
-    ];
-}
+    private function _buildFailureResponse() {
+        $fail = [
+            "success" => FALSE,
+            "error" => "INCOMPLETE_FORM"
+        ];
 
-function buildFailureResponse() {
-    $fail = [
-        "success" => FALSE,
-        "error" => "INCOMPLETE_FORM"
-    ];
-
-    return json_encode($fail);
+        return json_encode($fail);
+    }
 }
