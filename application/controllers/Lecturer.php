@@ -50,7 +50,6 @@ class Lecturer extends CI_Controller {
     }
 
     private function _makeHeaderData() {
-
         return ViewData::makeHeaderData($this->session, base_url());
     }
 

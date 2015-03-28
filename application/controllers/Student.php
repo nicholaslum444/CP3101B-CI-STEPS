@@ -1,5 +1,4 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Student extends CI_Controller {
 
@@ -7,31 +6,52 @@ class Student extends CI_Controller {
 		parent::__construct();
 		$this->load->library("session");
 		$this->load->helper("url");
+		$this->load->helper("viewdata");
 	}
 
-	public function index() {
+    /* Created this for easy viewing, please go ahead to change it
+        as desired */
 
-		// possibly reroute the user to console/student or console/lecturer
+    public function index() {
 
-		// initialise the data that goes into the header
-		$headerData = [
-			"isLoggedIn" => FALSE,
-			"baseUrl" => base_url()
-		];
+        if ($this->_isLoggedIn()) {
 
-		// add additional data if user is logged in
-		if($this->_isLoggedIn()) {
-	        $headerData["isLoggedIn"] = TRUE;
-			$headerData["userProfile"] = $this->session->userProfile;
-		}
+            // load the console views
+            $this->console();
 
-		// load the homepage views
-		$this->load->view("persistent/Header", $headerData);
-        // load consolepage or sth
-		$this->load->view('public/HomePage');
+        } else {
+
+            // load the login view
+            $this->_denyAccess();
+
+        }
+
+    }
+
+    public function newModule() {
+
+        $this->load->view("persistent/Header");
+        $this->load->view("users/newModulePage");
         $this->load->view("persistent/Footer");
+    }
 
-	}
+    public function console() {
+
+        $this->load->view("persistent/Header", $this->_makeHeaderData());
+        $this->load->view("users/StudentPage");
+        $this->load->view("persistent/Footer");
+    }
+
+    private function _denyAccess() {
+
+        $this->load->view("persistent/Header", $this->_makeHeaderData());
+        $this->load->view("users/AccessDeniedPage");
+        $this->load->view("persistent/Footer");
+    }
+
+    private function _makeHeaderData() {
+        return ViewData::makeHeaderData($this->session, base_url());
+    }
 
 	private function _isLoggedIn() {
 		return $this->session->isLoggedIn;
