@@ -3,6 +3,10 @@
 // this call returns JSON objects.
 header("Content-Type: application/json");
 
+define("Student", 3);
+define("Lecturer", 2);
+define("Unknown", -1);
+
 class RegisterModule extends CI_Controller {
 
     public function __construct() {
@@ -14,9 +18,11 @@ class RegisterModule extends CI_Controller {
 
     public function index() {
         if (!(isset($_POST["moduleCode"]) && isset($_POST["moduleName"]))) {
+            exit($this->_buildIncompleteFormResponse());
+        }
+        if (!$this->session->isLoggedIn && !($this->session->userType === Lecturer)) {
             exit($this->_buildFailureResponse());
         }
-
         echo $this->_buildResponse($_POST["moduleCode"], $_POST["moduleName"]);
     }
 
@@ -56,10 +62,19 @@ class RegisterModule extends CI_Controller {
         }
     }
 
-    private function _buildFailureResponse() {
+    private function _buildIncompleteFormResponse() {
         $fail = [
             "success" => FALSE,
             "error" => "INCOMPLETE_FORM"
+        ];
+
+        return json_encode($fail);
+    }
+
+    private function _buildAccessDeniedResponse() {
+        $fail = [
+            "success" => FALSE,
+            "error" => "ACCESS_DENIED"
         ];
 
         return json_encode($fail);

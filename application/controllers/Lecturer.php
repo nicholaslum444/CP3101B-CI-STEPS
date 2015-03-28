@@ -30,7 +30,7 @@ class Lecturer extends CI_Controller {
 
     }
 
-    public function newModule() {
+    public function viewModule() {
         // have to change this
 
         $this->load->view("persistent/Header");
@@ -42,10 +42,19 @@ class Lecturer extends CI_Controller {
         // get the modules that he control
         // and send to the lecturer page
         // module code and name enough for this page
+        if ($this->_isLoggedIn() && $this->_isLecturer()) {
 
-        $this->load->view("persistent/Header", $this->_makeHeaderData());
-        $this->load->view("users/LecturerPage", $this->_makeBodyData());
-        $this->load->view("persistent/Footer");
+            // load the console views
+            $this->load->view("persistent/Header", $this->_makeHeaderData());
+            $this->load->view("users/LecturerPage", $this->_makeBodyData());
+            $this->load->view("persistent/Footer");
+
+        } else {
+
+            // load the login view
+            $this->_denyAccess();
+
+        }
     }
 
     private function _denyAccess() {
@@ -83,6 +92,6 @@ class Lecturer extends CI_Controller {
 	}
 
     private function _isLecturer() {
-        return $this->session->userType === "Lecturer";
+        return $this->session->userType === Lecturer;
     }
 }

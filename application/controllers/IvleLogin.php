@@ -64,9 +64,6 @@ class IvleLogin extends CI_Controller {
             "userProfile" => $userProfile
         ];
 
-        // set the session with this data
-        $this->session->set_userdata($userData);
-
         // insert logged in user to the database as a registered user
         $userExist = $this->Dbquery->userExistByID($userId, $userType);
         if (!$userExist) {
@@ -76,6 +73,9 @@ class IvleLogin extends CI_Controller {
                 $this->Dbinsert->insertStudentBaseInfo($userId, $name);
             }
         }
+
+        // set the session with the session data
+        $this->session->set_userdata($userData);
 
         // load the script that closes the popup window
         $this->load->view("login/LoginPopup");
