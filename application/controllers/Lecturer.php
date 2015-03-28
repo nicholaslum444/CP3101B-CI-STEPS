@@ -34,7 +34,7 @@ class Lecturer extends CI_Controller {
         // have to change this
 
         $this->load->view("persistent/Header");
-        $this->load->view("users/newModulePage");
+        $this->load->view("users/EditModulePage");
         $this->load->view("persistent/Footer");
     }
 

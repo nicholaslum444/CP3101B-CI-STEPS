@@ -10,8 +10,8 @@
 	<link rel="stylesheet" href="/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="/css/bootswatch-flatly.css">
 	<link rel="stylesheet" href="/css/main.css">
+	<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
 	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-
 
 	<script src="/js/jquery-2.1.3.min.js"></script>
 	<script src="/js/bootstrap.js"></script>
