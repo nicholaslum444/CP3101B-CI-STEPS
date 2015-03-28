@@ -28,12 +28,12 @@ class Dbinsert extends CI_Model {
 	}
 
 	public function updateStudentDetail($matricNo, $email, $contact, $food) {
-		$data = array(	
+		$data = array(
 			'email' => $email,
 			'contact' => $contact,
 			'food_preference' => $food
 		);
-		
+
 		$this->db->where('matric_no', $matricNo);
 		$this->db->where('user_type', $this->STUDENT);
 		$this->db->update('user', $data);
@@ -41,7 +41,7 @@ class Dbinsert extends CI_Model {
 		return true;
 	}
 
-	
+
 
 	public function insertProfBasicDetail($matricNo, $name) {
 		$data = array(
@@ -55,7 +55,7 @@ class Dbinsert extends CI_Model {
 	}
 	//TODO: DO prof update all at a time?
 	public function updateProfDetail($matricNo, $name, $email, $food, $contact) {
-		
+
 		$data = array(
 			'user_type' => $this->PROFESSOR,
 			'email' => $email,
@@ -145,7 +145,7 @@ class Dbinsert extends CI_Model {
 			foreach ($query->result() as $row) {
 				return $row;
 			}
-		}	
+		}
 		else if($query->num_rows() == 0) {
 			return 0;
 		}
@@ -194,21 +194,21 @@ class Dbinsert extends CI_Model {
 	}
 
 	public function dropSupervising($matricNo, $moduleCode,$iteration) {
-		
+
 		$this->db->where('iteration',$iteration);
 		$this->db->where('module_code', $moduleCode);
 		$this->db->where('matric_no', $matricNo);
-		
+
 		$this->db->delete('supervise');
 
 		return true;
 	}
 
 	public function dropParticipatingModule($iteration, $moduleCode) {
-		
+
 		$this->db->where('iteration',$iteration);
 		$this->db->where('module_code', $moduleCode);
-		
+
 		$this->db->delete('module');
 
 		return true;
