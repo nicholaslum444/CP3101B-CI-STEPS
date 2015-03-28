@@ -17,9 +17,17 @@ class Home extends CI_Controller {
 
 		// possibly reroute the user to his landing page if he is logged in?
 
+		// load the homepage views
+		$this->load->view("persistent/Header", $this->_makeHeaderData());
+		$this->load->view('public/HomePage');
+        $this->load->view("persistent/Footer");
+
+	}
+
+	private function _makeHeaderData() {
 		// initialise the data that goes into the header
 		$headerData = [
-			"isLoggedIn" => FALSE,
+			"isLoggedIn" => $this->_isLoggedIn(),
 			"baseUrl" => base_url()
 		];
 
@@ -29,11 +37,7 @@ class Home extends CI_Controller {
 			$headerData["userProfile"] = $this->session->userProfile;
 		}
 
-		// load the homepage views
-		$this->load->view("persistent/Header", $headerData);
-		$this->load->view('public/HomePage');
-        $this->load->view("persistent/Footer");
-
+		return $headerData;
 	}
 
 	private function _isLoggedIn() {
