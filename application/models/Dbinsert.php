@@ -61,21 +61,35 @@ class Dbinsert extends CI_Model {
 		$this->db->update('user', $data);
 	}
 
-	public function createModule($moduleCode, $sem, $moduleName) {
+	public function isModuleExist($moduleCode, $iteration) {
+		$this->db->from('module');
+		$this->db->where('module.module_code',$moduleCode);
+		$this->db->where('module.iteration',$iteration);
+		$query = $this->db->get();
+		if($query->num_rows() == 1) {
+			return true;
+		}
+		else {
+
+			return false;
+		}
+	}
+
+	public function createModule($moduleCode, $iteration, $moduleName) {
 		$data = array(
 			'module_code' => $moduleCode,
-			'semester' => $sem,
+			'iteration' => $iteration,
 			'module_name' => $moduleName
 		);
 		$this->db->insert('module',$data);
 	}
 	//TODO PID should be generated
-	public function createProject($Pid, $projectName,$moduleCode,$sem) {
+	public function createProject($Pid, $projectName,$moduleCode,$iteration) {
 		$data = array(
 			'project_id' => $Pid,
 			'title' => $projectName,
 			'module_code' => $moduleCode,
-			'semester' => $sem
+			'iteration' => $iteration
 		);
 
 		$this->db->insert('project',$data);
@@ -100,16 +114,16 @@ class Dbinsert extends CI_Model {
 
 	}
 
-	public function checkParticipatedProjectInModule($sem, $moduleCode,$matricNo) {
+	public function checkParticipatedProjectInModule($iteration, $moduleCode,$matricNo) {
 		$this->db->from('participate');
 		$this->db->join('project',
 			'participate.project_id = project.project_id');
 		$this->db->join('module',
 			'module.module_code = project.module_code'.
-			' AND project.semester = module.semester');
+			' AND project.iteration = module.iteration');
 		$this->db->where('participate.matric_no',$matricNo);
 		$this->db->where('module.module_code',$moduleCode);
-		$this->db->where('module.semester',$sem);
+		$this->db->where('module.iteration',$iteration);
 
 		$query = $this->db->get();
 		if($query->num_rows() == 1) {
@@ -141,28 +155,28 @@ class Dbinsert extends CI_Model {
 		$this->db->delete('participate');
 	}
 
-	public function insertModuleSupervision($matricNo, $moduleCode,$sem) {
+	public function insertModuleSupervision($matricNo, $moduleCode,$iteration) {
 		$data = array(
 			'matric_no' => $matricNo,
 			'module_code' => $moduleCode,
-			'semester' => $sem
+			'iteration' => $iteration
 		);
 
 		$this->db->insert('supervise',$data);
 	}
 
-	public function dropSupervising($matricNo, $moduleCode,$sem) {
+	public function dropSupervising($matricNo, $moduleCode,$iteration) {
 		
-		$this->db->where('semester',$sem);
+		$this->db->where('iteration',$iteration);
 		$this->db->where('module_code', $moduleCode);
 		$this->db->where('matric_no', $matricNo);
 		
 		$this->db->delete('supervise');
 	}
 
-	public function dropParticipatingModule($sem, $moduleCode) {
+	public function dropParticipatingModule($iteration, $moduleCode) {
 		
-		$this->db->where('semester',$sem);
+		$this->db->where('iteration',$iteration);
 		$this->db->where('module_code', $moduleCode);
 		
 		$this->db->delete('module');

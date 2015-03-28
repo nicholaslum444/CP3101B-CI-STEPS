@@ -51,8 +51,8 @@ class Dbquery extends CI_Model {
 		return $query;
 	}
 
-	public function getProjectListByModule($moduleCode, $sem) {
-		$query = $this->queryProjectByModule($moduleCode, $sem);
+	public function getProjectListByModule($moduleCode, $iteration) {
+		$query = $this->queryProjectByModule($moduleCode, $iteration);
 		$result;
 		$i = 0;
 		if($query->num_rows() > 0) {
@@ -70,25 +70,25 @@ class Dbquery extends CI_Model {
 		return $result;
 	}
 
-	private function queryProjectByModule($moduleCode, $sem) {
+	private function queryProjectByModule($moduleCode, $iteration) {
 		//SELECT * 
 		//FROM module 
 		//JOIN project ON project.module_code = module.module_code
-		//			AND   module.semester = project.semester
+		//			AND   module.iteration = project.iteration
 		//WHERE module_code = $moduleCode
-		//AND semester = $sem
+		//AND iteration = $iteration
 		$this->db->from('module');
 		$this->db->join('project',
 			'module.module_code = project.module_code '.
-			'AND module.semester = project.semester');
+			'AND module.iteration = project.iteration');
 		$this->db->where('module.module_code',$moduleCode);
-		$this->db->where('module.semester',$sem);
+		$this->db->where('module.iteration',$iteration);
 		$query = $this->db->get();
 		return $query;
 	}
 
-	public function getModuleListBySem($sem) {
-		$query = $this->queryModuleListBySem($sem);
+	public function getModuleListByIteration($iteration) {
+		$query = $this->queryModuleListByIteration($iteration);
 		$result;
 		$i = 0;
 		if($query->num_rows() > 0) {
@@ -104,16 +104,16 @@ class Dbquery extends CI_Model {
 	}
 
 
-	private function queryModuleListBySem($sem) {
-		//SELECT * FROM module WHERE semester = $sem; 
+	private function queryModuleListByIteration($iteration) {
+		//SELECT * FROM module WHERE iteration = $iteration; 
 		$this->db->from('module');
-		$this->db->where('module.semester', $sem);
+		$this->db->where('module.iteration', $iteration);
 		$query = $this->db->get();
 		return $query;
 	}	
 
-	public function getSupervisedModuleByID($matricNo, $sem) {
-		$query = $this->querySupervisedModuleByMatric($matricNo, $sem);
+	public function getSupervisedModuleByID($matricNo, $iteration) {
+		$query = $this->querySupervisedModuleByMatric($matricNo, $iteration);
 		$result;
 		$i = 0;
 		if($query->num_rows() > 0) {
@@ -128,22 +128,22 @@ class Dbquery extends CI_Model {
 		return $result;
 	}
 
-	private function querySupervisedModuleByMatric($matricNo,$sem) {
+	private function querySupervisedModuleByMatric($matricNo,$iteration) {
 		//SELECT * FROM supervise 
 		//JOIN module ON module.module_code AND supervise.module_code
 		//WHERE supervise.matric_no = $matricNo 
-		//AND supervise.semester = $sem;
+		//AND supervise.iteration = $iteration;
 		$this->db->from('supervise');
 		$this->db->join('module',
 			'module.module_code = supervise.module_code');
 		$this->db->where('supervise.matric_no',$matricNo);
-		$this->db->where('module.semester',$sem);
+		$this->db->where('module.iteration',$iteration);
 		$query = $this->db->get();
 		return $query;
 	}
 
-	public function getStudentByModule($moduleCode, $sem) {
-		$query = $this->queryStudentByModule($moduleCode, $sem);
+	public function getStudentByModule($moduleCode, $iteration) {
+		$query = $this->queryStudentByModule($moduleCode, $iteration);
 		$result;
 		$i = 0;
 		if($query->num_rows() > 0) {
@@ -161,13 +161,13 @@ class Dbquery extends CI_Model {
 		return $result;
 	}
 
-	private function queryStudentByModule($moduleCode, $sem) {
+	private function queryStudentByModule($moduleCode, $iteration) {
 		//SELECT * FROM user 
 		//JOIN participate ON user.matric_no = participate.matric_no 
 		//JOIN project ON project.project_id = participate.project_id 
 		//JOIN module ON module.module_code = project.module_code 
 		//WHERE module.module_code = $moduleCode
-		//AND module.semester = $sem 
+		//AND module.iteration = $iteration 
 		//AND user.user_type = 3;
 		$this->db->from('user');
 		$this->db->join('participate',
@@ -176,16 +176,16 @@ class Dbquery extends CI_Model {
 			'project.project_id = participate.project_id');
 		$this->db->join('module',
 			'module.module_code = project.module_code'.
-			' AND module.semester = project.semester');
+			' AND module.iteration = project.iteration');
 		$this->db->where('project.module_code',$moduleCode);
-		$this->db->where('project.semester',$sem);
+		$this->db->where('project.iteration',$iteration);
 		$this->db->where('user.user_type', $this->STUDENT);
 		$query = $this->db->get();
 		return $query;
 	}
 
-	public function getFoodPrefBySem($sem) {
-		$query = $this->queryFoodPrefBySem($sem);
+	public function getFoodPrefByIteration($iteration) {
+		$query = $this->queryFoodPrefByIteration($iteration);
 		$result;
 		$i = 0;
 		if($query->num_rows() > 0) {
@@ -210,13 +210,13 @@ class Dbquery extends CI_Model {
 		return $result;
 	}
 
-	private function queryFoodPrefBySem($sem) {
+	private function queryFoodPrefByIteration($iteration) {
 		//SELECT user.food_preference, COUNT(*) 
 		//FROM user JOIN participate ON user.matric_no = participate.matric_no 
 		//JOIN project ON participate.project_id = project.project_id 
 		//JOIN module ON project.module_code = module.module_code 
-		//			AND project.semester = module.semester 
-		//WHERE module.semester = 6 GROUP BY user.food_preference;
+		//			AND project.iteration = module.iteration 
+		//WHERE module.iteration = 6 GROUP BY user.food_preference;
 		$this->db->from('user');
 		$this->db->join('participate',
 			'user.matric_no = participate.matric_no');
@@ -224,9 +224,9 @@ class Dbquery extends CI_Model {
 			'participate.project_id = project.project_id');
 		$this->db->join('module',
 			'project.module_code = module.module_code'.
-			' AND project.semester = module.semester');
+			' AND project.iteration = module.iteration');
 		
-		$this->db->where('module.semester',$sem);
+		$this->db->where('module.iteration',$iteration);
 
 		$this->db->group_by('food_preference');
 		$this->db->select('food_preference , count(*) AS count');
