@@ -33,8 +33,8 @@ class Lecturer extends CI_Controller {
     public function viewModule() {
         // have to change this
 
-        $this->load->view("persistent/Header");
-        $this->load->view("users/EditModulePage");
+        $this->load->view("persistent/Header", $this->_makeHeaderData());
+        $this->load->view("users/ViewModulePage", $this->_getModuleInformation());
         $this->load->view("persistent/Footer");
     }
 
@@ -83,6 +83,21 @@ class Lecturer extends CI_Controller {
         $bodyData = [
             "data" => $this->Dbquery->getSupervisedModuleByID($this->session->userId, $iteration) // A0101075B
             //"data" => $modules
+        ];
+        return $bodyData;
+    }
+
+    private function _getModuleInformation() {
+        $modules = [
+            "moduleCode" => "CS3020",
+            "moduleName" => "Facebook and Society",
+            "classSize" => 50,
+            "description" => "this is a line of dummy data",
+            "numProjects" => 60
+        ];
+
+        $bodyData = [
+            "data" => $modules
         ];
         return $bodyData;
     }

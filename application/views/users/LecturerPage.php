@@ -9,10 +9,10 @@
             if (isset($data)) {
                 for ($i = 0; $i < count($data); $i++) {
                     $module = $data[$i]; ?>
-                    <a href="/index.php/lecturer/newModule/<?php echo $module['moduleCode']; ?>"><?php echo $module["moduleName"]; ?></a><br>
+                    <a href="/index.php/lecturer/viewModule/<?php echo $module['moduleCode']; ?>"><?php echo $module["moduleName"]; ?></a><br>
                 <?php }
             } else { ?>
-                <a href="/index.php/lecturer/newModule">Dummy Module</a>
+                <a href="/index.php/lecturer/viewModule">Dummy Module</a>
             <?php } ?>
        </div>
      </div>
