@@ -66,7 +66,7 @@ class Admin extends CI_Controller {
 
     public function logout() {
         // carry out the logout stuff
-
+        header("Location: /");
     }
 
     public function console() {
