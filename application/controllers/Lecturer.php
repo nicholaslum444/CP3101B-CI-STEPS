@@ -6,6 +6,7 @@ class Lecturer extends CI_Controller {
 		parent::__construct();
 		$this->load->library("session");
 		$this->load->helper("url");
+		$this->load->helper("viewdata");
 	}
 
     /* Created this for easy viewing, please go ahead to change it
@@ -13,32 +14,44 @@ class Lecturer extends CI_Controller {
 
     public function index() {
 
-        $this->load->view("persistent/Header", $this->_makeHeaderData());
-        $this->load->view("users/LecturerPage");
-        $this->load->view("persistent/Footer");
+        if ($this->_isLoggedIn()) {
+
+            // load the console views
+            $this->console();
+
+        } else {
+
+            // load the login view
+            $this->_denyAccess();
+
+        }
+
     }
-
-	private function _makeHeaderData() {
-		// initialise the data that goes into the header
-		$headerData = [
-			"isLoggedIn" => $this->_isLoggedIn(),
-			"baseUrl" => base_url()
-		];
-
-		// add additional data if user is logged in
-		if($this->_isLoggedIn()) {
-	        $headerData["isLoggedIn"] = TRUE;
-			$headerData["userProfile"] = $this->session->userProfile;
-		}
-
-        return $headerData;
-	}
 
     public function newModule() {
 
         $this->load->view("persistent/Header");
         $this->load->view("users/newModulePage");
         $this->load->view("persistent/Footer");
+    }
+
+    public function console() {
+
+        $this->load->view("persistent/Header", $this->_makeHeaderData());
+        $this->load->view("users/LecturerPage");
+        $this->load->view("persistent/Footer");
+    }
+
+    private function _denyAccess() {
+
+        $this->load->view("persistent/Header", $this->_makeHeaderData());
+        $this->load->view("users/AccessDeniedPage");
+        $this->load->view("persistent/Footer");
+    }
+
+    private function _makeHeaderData() {
+
+        return ViewData::makeHeaderData($this->session, base_url());
     }
 
 	private function _isLoggedIn() {

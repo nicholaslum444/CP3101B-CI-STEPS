@@ -46,17 +46,21 @@
 
 				// this is a hack(?) to get the callback url to match the
 				// current url, rather than hardcoding "steps.tk"
-				$loginUrl = "https://ivle.nus.edu.sg/api/login/?"
+				$studentUrl = "https://ivle.nus.edu.sg/api/login/?"
 					. "apikey=3bBGOIdtC1T2d7SXeQAO9&url="
-					. $baseUrl . "index.php/IvleLogin";
+					. $baseUrl . "index.php/IvleLogin?s";
+				$lecturerUrl = "https://ivle.nus.edu.sg/api/login/?"
+					. "apikey=3bBGOIdtC1T2d7SXeQAO9&url="
+					. $baseUrl . "index.php/IvleLogin?l";
 
 				if ($isLoggedIn) {
-					$name = $userProfile->Results[0]->Name; ?>
-					<a href="/index.php/console" class="btn btn-success"><?php echo $name ?></a>
+					//$name = $userProfile->Results[0]->Name;
+					?>
+					<a href="/index.php/<?php echo $userType; ?>/console" class="btn btn-success"><?php echo $name ?></a>
 					<a href="/index.php/logout" class="btn btn-danger">Logout</a>
 				<?php } else { ?>
-					<a href="<?php echo $loginUrl; ?>" target="about:blank" class="btn btn-success">Student</a>
-					<a href="<?php echo $loginUrl; ?>" target="about:blank" class="btn btn-success">Lecturer</a>
+					<a href="<?php echo $studentUrl; ?>" target="about:blank" class="btn btn-success">Student</a>
+					<a href="<?php echo $lecturerUrl; ?>" target="about:blank" class="btn btn-success">Lecturer</a>
 				<?php } ?>
 			</div>
 	        </div>

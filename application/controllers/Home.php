@@ -7,6 +7,7 @@ class Home extends CI_Controller {
 		parent::__construct();
 		$this->load->library("session");
 		$this->load->helper("url");
+		$this->load->helper("viewdata");
 	}
 
 	// possibly introduce a helper that prepares the session data
@@ -24,23 +25,12 @@ class Home extends CI_Controller {
 
 	}
 
-	private function _makeHeaderData() {
-		// initialise the data that goes into the header
-		$headerData = [
-			"isLoggedIn" => $this->_isLoggedIn(),
-			"baseUrl" => base_url()
-		];
-
-		// add additional data if user is logged in
-		if($this->_isLoggedIn()) {
-	        $headerData["isLoggedIn"] = TRUE;
-			$headerData["userProfile"] = $this->session->userProfile;
-		}
-
-		return $headerData;
-	}
-
 	private function _isLoggedIn() {
 		return $this->session->isLoggedIn;
 	}
+
+    private function _makeHeaderData() {
+
+        return ViewData::makeHeaderData($this->session, base_url());
+    }
 }

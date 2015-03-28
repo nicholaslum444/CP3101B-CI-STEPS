@@ -36,14 +36,14 @@ class UserInfo {
         // return one of {"student", "lecturer"}
 
         // dummy value of "student" for now
-        return "student";
+        return "Student";
     }
 
     public static function __getUserTypeDEBUG__($token, $student = TRUE) {
         if ($student) {
-            return "student";
+            return "Student";
         } else {
-            return "staff";
+            return "Lecturer";
         }
     }
 

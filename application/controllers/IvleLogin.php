@@ -26,20 +26,25 @@ class IvleLogin extends CI_Controller {
 
         // die if validation unsuccessful
         if (!$validationResult->Success) {
-            exit ("token invalid");
+            exit("token invalid");
         }
 
         // reassign the token cos it may have been updated
         $token = $validationResult->Token;
+
+        // get the user type (USING DEBUG FUNCTION, TODO CHANGE TO ORIGINAL)
+        //$userType = UserInfo::__getUserTypeDEBUG__($token);
+        $userType = $this->_getUserType();
+
+        if ($userType === "unknown") {
+            exit("user type unknown");
+        }
 
         // note the user id
         $userId = UserInfo::getUserID($token);
 
         // get the profile
         $userProfile = UserInfo::getUserProfile($token);
-
-        // get the user type (USING DEBUG FUNCTION, TODO CHANGE TO ORIGINAL)
-        $userType = UserInfo::__getUserTypeDEBUG__($token);
 
         // store all data needed to keep and validate session
         $userData = [
@@ -55,6 +60,16 @@ class IvleLogin extends CI_Controller {
 
         // load the script that closes the popup window
         $this->load->view("login/LoginPopup");
+    }
+
+    private function _getUserType() {
+        if (isset($_GET["s"])) {
+            return "Student";
+        }
+        if (isset($_GET["l"])) {
+            return "Lecturer";
+        }
+        return "unknown";
     }
 
 }
