@@ -39,18 +39,19 @@
       <div class="form-group">
         <label class="control-label col-sm-2" for="">Project Titles:</label> 
         <div class="col-sm-5 field-group field-list projectTitleFields">
-
+          <?php $counter=1; ?>
           <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5> 
           <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5> 
           <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5> 
           <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5>
+          
           <form id="editProjectTitle">
-            <?php $counter=1 ?>
-            <input type="text" name="projectTitle<?php echo $counter++ ?>" class="form-control inputField" placeholder="Project Title">
-            <input type="text" name="projectTitle<?php echo $counter++ ?>" class="form-control inputField" placeholder="Project Title">
-            <input type="text" name="projectTitle<?php echo $counter++ ?>" class="form-control inputField" placeholder="Project Title">
-            <input type="text" name="projectTitle<?php echo $counter++ ?>" class="form-control inputField" placeholder="Project Title">
-            <input type="text" name="projectTitle<?php echo $counter++ ?>" class="form-control inputField" placeholder="Project Title">
+            <?php $counter=1;$abc=1 ?>
+            <input type="text" name="projectTitle<?php echo $counter++ ?>" class="form-control inputField" data-id="<?php echo $abc++ ?>" value="">
+            <input type="text" name="projectTitle<?php echo $counter++ ?>" class="form-control inputField" data-id="<?php echo $abc++ ?>" value="">
+            <input type="text" name="projectTitle<?php echo $counter++ ?>" class="form-control inputField" data-id="<?php echo $abc++ ?>" value="">
+            <input type="text" name="projectTitle<?php echo $counter++ ?>" class="form-control inputField" data-id="<?php echo $abc++ ?>" value="">
+            <input type="text" name="projectTitle<?php echo $counter++ ?>" class="form-control inputField" data-id="<?php echo $abc++ ?>" value="">
             <input type="submit" style="display: none;">
           </form>
         </div>
