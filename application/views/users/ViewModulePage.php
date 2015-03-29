@@ -9,8 +9,8 @@
         <div class="col-sm-4 field-group has-feedback">
           <h5 class="inputText" id="classSizeText"><?php echo $data['classSize']; ?></h5>
           <i class="glyphicon glyphicon-pencil form-control-feedback"></i>
-           <form id="editClassSize">
-            <input type="number" class="form-control inputField" id="classSizeField" placeholder="Class Size">
+          <form id="editClassSize">
+            <input type="number" class="form-control inputField" id="classSizeField" value="<?php echo $data['classSize']; ?>">
           </form>
           <i class="glyphicon glyphicon-ok form-control-feedback"></i>
         </div>     
@@ -19,9 +19,9 @@
         <div class="col-sm-4 field-group has-feedback">
           <h5 class="inputText" id="numProjectsText"><?php echo $data['numProjects']; ?></h5>
           <i class="glyphicon glyphicon-pencil form-control-feedback"></i>
-            <form id="editNumProjects"> 
-            <input type="number" class="form-control inputField" id="numProjectsField" placeholder="Number of Projects">
-            </form>
+          <form id="editNumProjects"> 
+            <input type="number" class="form-control inputField" id="numProjectsField" value="<?php echo $data['numProjects']; ?>">
+          </form>
           <i class="glyphicon glyphicon-ok form-control-feedback"></i>
         </div>
       </div>
@@ -31,7 +31,7 @@
         <div class="col-sm-10 field-group"> 
           <h5 class="inputText" id="moduleDescriptionText"><?php echo $data['description']; ?></h5>
           <form id="editModuleDescription">
-          <textarea class="form-control inputField" rows="5" id="moduleDescriptionField" placeholder="Add Description for Module" value="<?php echo $data['description']; ?>"></textarea>
+            <textarea class="form-control inputField" rows="5" id="moduleDescriptionField" placeholder="Add Description for Module"><?php echo $data['description']; ?></textarea>
           </form>
         </div>
       </div>
@@ -39,18 +39,19 @@
       <div class="form-group">
         <label class="control-label col-sm-2" for="">Project Titles:</label> 
         <div class="col-sm-5 field-group field-list projectTitleFields">
-          <?php $counter=1 ?> 
+
           <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5> 
           <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5> 
           <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5> 
           <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5>
           <form id="editProjectTitle">
-          <input type="text" class="form-control inputField" placeholder="Project Title">
-          <input type="text" class="form-control inputField" placeholder="Project Title">
-          <input type="text" class="form-control inputField" placeholder="Project Title">
-          <input type="text" class="form-control inputField" placeholder="Project Title">
-          <input type="text" class="form-control inputField" placeholder="Project Title">
-          <input type="submit" style="display: none;">
+            <?php $counter=1 ?>
+            <input type="text" name="projectTitle<?php echo $counter++ ?>" class="form-control inputField" placeholder="Project Title">
+            <input type="text" name="projectTitle<?php echo $counter++ ?>" class="form-control inputField" placeholder="Project Title">
+            <input type="text" name="projectTitle<?php echo $counter++ ?>" class="form-control inputField" placeholder="Project Title">
+            <input type="text" name="projectTitle<?php echo $counter++ ?>" class="form-control inputField" placeholder="Project Title">
+            <input type="text" name="projectTitle<?php echo $counter++ ?>" class="form-control inputField" placeholder="Project Title">
+            <input type="submit" style="display: none;">
           </form>
         </div>
         <div class="col-sm-5"><button class="btn btn-default addProjectTitleBtn">Add</button></div>
