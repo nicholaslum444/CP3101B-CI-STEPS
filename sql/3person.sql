@@ -8,3 +8,12 @@ INSERT INTO `participate` (`matric_no`,`project_id`) VALUES ("A0201230B",1200),(
 INSERT INTO `participate` (`matric_no`,`project_id`) VALUES ("A0201235B",1205),("A0201236B",1206),("A0201237B",1207),("A0201238B",1208),("A0201239B",1209);
 INSERT INTO `participate` (`matric_no`,`project_id`) VALUES ("A0201240B",1210),("A0201241B",1211),("A0201242B",1212),("A0201243B",1213),("A0201244B",1214);
 
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201200B","BB3218",6),("A0201201B","BB3218",6),("A0201202B","BB3218",6),("A0201203B","BB3218",6),("A0201204B","BB3218",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201205B","BB3218",6),("A0201206B","BB3218",6),("A0201207B","BB3218",6),("A0201208B","BB3218",6),("A0201209B","BB3218",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201210B","BB3218",6),("A0201211B","BB3218",6),("A0201212B","BB3218",6),("A0201213B","BB3218",6),("A0201214B","BB3218",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201215B","BB3218",6),("A0201216B","BB3218",6),("A0201217B","BB3218",6),("A0201218B","BB3218",6),("A0201219B","BB3218",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201220B","BB3218",6),("A0201221B","BB3218",6),("A0201222B","BB3218",6),("A0201223B","BB3218",6),("A0201224B","BB3218",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201225B","BB3218",6),("A0201226B","BB3218",6),("A0201227B","BB3218",6),("A0201228B","BB3218",6),("A0201229B","BB3218",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201230B","BB3218",6),("A0201231B","BB3218",6),("A0201232B","BB3218",6),("A0201233B","BB3218",6),("A0201234B","BB3218",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201235B","BB3218",6),("A0201236B","BB3218",6),("A0201237B","BB3218",6),("A0201238B","BB3218",6),("A0201239B","BB3218",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201240B","BB3218",6),("A0201241B","BB3218",6),("A0201242B","BB3218",6),("A0201243B","BB3218",6),("A0201244B","BB3218",6);
