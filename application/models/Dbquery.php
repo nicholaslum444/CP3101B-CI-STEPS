@@ -27,7 +27,7 @@ class Dbquery extends CI_Model {
 		$query = $this->db->get();
 
 		foreach ($query->result_array() as $row) {
-			return json_encode($row['iteration']);
+			return intval($row['iteration']);
 		}
 		return array();
     }
