@@ -146,6 +146,11 @@ $(function() {
 			e.preventDefault();
 		}
 	});
+
+	$('#editProjectTitle').on('submit', function(e) {
+		console.log($('#editProjectTitle').serializeArray());
+		e.preventDefault();
+	});
 });
 
 function addToModuleList(moduleName) {	
