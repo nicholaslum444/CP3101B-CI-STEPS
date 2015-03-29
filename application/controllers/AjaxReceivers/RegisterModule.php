@@ -38,7 +38,7 @@ class RegisterModule extends CI_Controller {
 
     private function _insertIntoDb($mc, $mn) {
         // if exist ($mc) then fail
-        $iteration = 6; //$this->Dbquery->getcurrentiteration();
+        $iteration = $this->Dbquery->getLatestIteration();
         if ($this->Dbquery->isModuleExist($mc, $iteration)) {
             // make fail obj
             return [

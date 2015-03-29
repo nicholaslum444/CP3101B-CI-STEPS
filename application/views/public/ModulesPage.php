@@ -18,10 +18,17 @@
                         <h1><?php echo $selectedModule["moduleName"]; ?></h1>
                         <p>List of Projects:</p>
                         <?php for ($i = 0; $i < count($projects); $i++) {
-                            $project = $projects[$i]; ?>
+                            $project = $projects[$i];
+                            $students = $projectDetails[$i]; ?>
                             <!-- make a div for the project -->
                             <div class="col-sm-8">
                                 <h3><?php echo $project["title"]; ?></h3>
+                                <ul>
+                                    <?php for ($j = 0; $j < count($students); $j++) {
+                                        $student = $students[$j]; ?>
+                                        <li><?php echo $student["name"]; ?> - <?php echo $student["matricNo"]; ?></li>
+                                    <?php } ?>
+                                </ul>
                                 <p><?php echo $project["abstract"]; ?></p>
                             </div>
                         <?php } ?>
