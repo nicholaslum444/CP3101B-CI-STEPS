@@ -202,6 +202,8 @@ class Dbquery extends CI_Model {
 				$result[$i] = array(2);
 				$result[$i]['moduleCode'] = $row['module_code'];
 				$result[$i]['moduleName'] = $row['module_name'];
+				$result[$i]['moduleDescription'] = $row['module_description'];
+				$result[$i]['classSize'] = $row['class_size'];
 				++$i;
 			}
 		} else {
@@ -217,7 +219,8 @@ class Dbquery extends CI_Model {
 		//AND supervise.iteration = $iteration;
 		$this->db->from('supervise');
 		$this->db->join('module',
-			'module.module_code = supervise.module_code');
+			'module.module_code = supervise.module_code'.
+			' AND module.iteration = supervise.iteration');
 		$this->db->where('supervise.matric_no',$matricNo);
 		$this->db->where('module.iteration',$iteration);
 		$query = $this->db->get();
