@@ -148,6 +148,50 @@ class Dbquery extends CI_Model {
 		return $query;
 	}
 
+	public function getModuleDetailByModuleCode($moduleCode, $iteration) {
+		$query = $this->queryModuleByModuleCode($moduleCode, $iteration);
+		$result;
+		$i = 0;
+		if($query->num_rows() == 1) {
+			$result = array($query->num_rows());
+			foreach ($query->result_array() as $row) {
+				$result[$i] = array(2);
+				$result[$i]['moduleCode'] = $row['module_code'];
+				$result[$i]['moduleName'] = $row['module_name'];
+				$result[$i]['moduleDescription'] = $row['module_description'];
+				$result[$i]['classSize'] = $row['class_size'];
+				++$i;
+			}
+			$query = $this->queryProjectByModule($moduleCode, $iteration);
+			$project = array($query->num_rows());
+			$i = 0;
+			if($query->num_rows() > 0) {
+				foreach ($query->result_array() as $row) {
+					$project[$i] = array(2);
+					$project[$i]['projectID'] = $row['project_id'];
+					$project[$i]['projectTitle'] = $row['title'];
+					++$i;
+				}
+			}
+			$result[$i]['project'] = $project;
+		}
+		else {
+			$result = array();
+		} 
+		return $result;
+	}
+
+	private function queryModuleByModuleCode($moduleCode, $iteration) {
+		//SELECT * FROM module
+		//WHERE module_code = $moduleCode
+		//AND iteration = $iteration;
+		$this->db->from('module');
+		$this->db->where('module.module_code', $moduleCode);
+		$this->db->where('module.iteration', $iteration);
+		$query = $this->db->get();
+		return $query;
+	}
+	
 	public function getSupervisedModuleByID($matricNo, $iteration) {
 		$query = $this->querySupervisedModuleByMatric($matricNo, $iteration);
 		$result = FALSE;

@@ -51,6 +51,8 @@ class DatabaseT extends CI_Controller {
 		->dropParticipatingModule(5,"CS4321");
 
 
+		$result50 = $this->Dbquery->getModuleDetailByModuleCode("SS3101", 6);
+		echo json_encode($result50);
 		$result = $this->Dbquery->getLatestIteration();
 		//echo json_encode($result);
 		$result =  $this->Dbquery->getStudentByModule("SS3101",6);

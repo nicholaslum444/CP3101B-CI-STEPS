@@ -44,11 +44,14 @@
           <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5> 
           <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5> 
           <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5>
+          <form id="editProjectTitle">
           <input type="text" class="form-control inputField" placeholder="Project Title">
           <input type="text" class="form-control inputField" placeholder="Project Title">
           <input type="text" class="form-control inputField" placeholder="Project Title">
           <input type="text" class="form-control inputField" placeholder="Project Title">
-          <input type="text" class="form-control inputField" placeholder="Project Title"> 
+          <input type="text" class="form-control inputField" placeholder="Project Title">
+          <input type="submit" style="display: none;">
+          </form>
         </div>
         <div class="col-sm-5"><button class="btn btn-default addProjectTitleBtn">Add</button></div>
       </div>
