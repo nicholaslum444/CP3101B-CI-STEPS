@@ -18,3 +18,24 @@ INSERT INTO `participate` (`matric_no`,`project_id`) VALUES ("A0201164B",1104),(
 INSERT INTO `participate` (`matric_no`,`project_id`) VALUES ("A0201168B",1108),("A0201169B",1109),("A0201170B",1110),("A0201171B",1111);
 INSERT INTO `participate` (`matric_no`,`project_id`) VALUES ("A0201172B",1112),("A0201173B",1113),("A0201174B",1114),("A0201175B",1115);
 INSERT INTO `participate` (`matric_no`,`project_id`) VALUES ("A0201176B",1116),("A0201177B",1117),("A0201178B",1118),("A0201179B",1119);
+
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201100B","ZZ3217",6),("A0201101B","ZZ3217",6),("A0201102B","ZZ3217",6),("A0201103B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201104B","ZZ3217",6),("A0201105B","ZZ3217",6),("A0201106B","ZZ3217",6),("A0201107B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201108B","ZZ3217",6),("A0201109B","ZZ3217",6),("A0201110B","ZZ3217",6),("A0201111B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201112B","ZZ3217",6),("A0201113B","ZZ3217",6),("A0201114B","ZZ3217",6),("A0201115B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201116B","ZZ3217",6),("A0201117B","ZZ3217",6),("A0201118B","ZZ3217",6),("A0201119B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201120B","ZZ3217",6),("A0201121B","ZZ3217",6),("A0201122B","ZZ3217",6),("A0201123B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201124B","ZZ3217",6),("A0201125B","ZZ3217",6),("A0201126B","ZZ3217",6),("A0201127B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201128B","ZZ3217",6),("A0201129B","ZZ3217",6),("A0201130B","ZZ3217",6),("A0201131B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201132B","ZZ3217",6),("A0201133B","ZZ3217",6),("A0201134B","ZZ3217",6),("A0201135B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201136B","ZZ3217",6),("A0201137B","ZZ3217",6),("A0201138B","ZZ3217",6),("A0201139B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201140B","ZZ3217",6),("A0201141B","ZZ3217",6),("A0201142B","ZZ3217",6),("A0201143B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201144B","ZZ3217",6),("A0201145B","ZZ3217",6),("A0201146B","ZZ3217",6),("A0201147B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201148B","ZZ3217",6),("A0201149B","ZZ3217",6),("A0201150B","ZZ3217",6),("A0201151B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201152B","ZZ3217",6),("A0201153B","ZZ3217",6),("A0201154B","ZZ3217",6),("A0201155B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201156B","ZZ3217",6),("A0201157B","ZZ3217",6),("A0201158B","ZZ3217",6),("A0201159B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201160B","ZZ3217",6),("A0201161B","ZZ3217",6),("A0201162B","ZZ3217",6),("A0201163B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201164B","ZZ3217",6),("A0201165B","ZZ3217",6),("A0201166B","ZZ3217",6),("A0201167B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201168B","ZZ3217",6),("A0201169B","ZZ3217",6),("A0201170B","ZZ3217",6),("A0201171B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201172B","ZZ3217",6),("A0201173B","ZZ3217",6),("A0201174B","ZZ3217",6),("A0201175B","ZZ3217",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201176B","ZZ3217",6),("A0201177B","ZZ3217",6),("A0201178B","ZZ3217",6),("A0201179B","ZZ3217",6);

@@ -247,22 +247,19 @@ class Dbquery extends CI_Model {
 
 	private function queryStudentByModule($moduleCode, $iteration) {
 		//SELECT * FROM user
-		//JOIN participate ON user.matric_no = participate.matric_no
-		//JOIN project ON project.project_id = participate.project_id
-		//JOIN module ON module.module_code = project.module_code
+		//JOIN enrolled ON user.matric_no = enrolled.matric_no
+		//JOIN module ON module.module_code = enrolled.module_code
 		//WHERE module.module_code = $moduleCode
 		//AND module.iteration = $iteration
 		//AND user.user_type = 3;
 		$this->db->from('user');
-		$this->db->join('participate',
-			'user.matric_no = participate.matric_no');
-		$this->db->join('project',
-			'project.project_id = participate.project_id');
+		$this->db->join('enrolled',
+			'user.matric_no = enrolled.matric_no');
 		$this->db->join('module',
-			'module.module_code = project.module_code'.
-			' AND module.iteration = project.iteration');
-		$this->db->where('project.module_code',$moduleCode);
-		$this->db->where('project.iteration',$iteration);
+			'module.module_code = enrolled.module_code'.
+			' AND module.iteration = enrolled.iteration');
+		$this->db->where('module.module_code',$moduleCode);
+		$this->db->where('module.iteration',$iteration);
 		$this->db->where('user.user_type', $this->STUDENT);
 		$query = $this->db->get();
 		return $query;

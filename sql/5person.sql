@@ -8,3 +8,14 @@ INSERT INTO `participate` (`matric_no`,`project_id`) VALUES ("A0201060B",1000),(
 INSERT INTO `participate` (`matric_no`,`project_id`) VALUES ("A0201065B",1005),("A0201066B",1006),("A0201067B",1007),("A0201068B",1008),("A0201069B",1009);
 INSERT INTO `participate` (`matric_no`,`project_id`) VALUES ("A0201080B",1000),("A0201081B",1001),("A0201082B",1002),("A0201083B",1003),("A0201084B",1004);
 INSERT INTO `participate` (`matric_no`,`project_id`) VALUES ("A0201085B",1005),("A0201086B",1006),("A0201087B",1007),("A0201088B",1008),("A0201089B",1009);
+
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201000B","SS3101",6),("A0201001B","SS3101",6),("A0201002B","SS3101",6),("A0201003B","SS3101",6),("A0201004B","SS3101",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201005B","SS3101",6),("A0201006B","SS3101",6),("A0201007B","SS3101",6),("A0201008B","SS3101",6),("A0201009B","SS3101",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201020B","SS3101",6),("A0201021B","SS3101",6),("A0201022B","SS3101",6),("A0201023B","SS3101",6),("A0201024B","SS3101",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201025B","SS3101",6),("A0201026B","SS3101",6),("A0201027B","SS3101",6),("A0201028B","SS3101",6),("A0201029B","SS3101",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201040B","SS3101",6),("A0201041B","SS3101",6),("A0201042B","SS3101",6),("A0201043B","SS3101",6),("A0201044B","SS3101",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201045B","SS3101",6),("A0201046B","SS3101",6),("A0201047B","SS3101",6),("A0201048B","SS3101",6),("A0201049B","SS3101",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201060B","SS3101",6),("A0201061B","SS3101",6),("A0201062B","SS3101",6),("A0201063B","SS3101",6),("A0201064B","SS3101",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201065B","SS3101",6),("A0201066B","SS3101",6),("A0201067B","SS3101",6),("A0201068B","SS3101",6),("A0201069B","SS3101",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201080B","SS3101",6),("A0201081B","SS3101",6),("A0201082B","SS3101",6),("A0201083B","SS3101",6),("A0201084B","SS3101",6);
+INSERT INTO `enrolled` (`matric_no`,`module_code`,`iteration`) VALUES ("A0201085B","SS3101",6),("A0201086B","SS3101",6),("A0201087B","SS3101",6),("A0201088B","SS3101",6),("A0201089B","SS3101",6);

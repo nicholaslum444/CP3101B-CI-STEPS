@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS supervise;
+DROP TABLE IF EXISTS enrolled;
 DROP TABLE IF EXISTS participate;
 DROP TABLE IF EXISTS project;
 DROP TABLE IF EXISTS module;
@@ -43,7 +44,7 @@ CREATE TABLE IF NOT EXISTS project (
 );
 
 CREATE TABLE IF NOT EXISTS participate (
-	matric_no VARCHAR(9),
+	matric_no VARCHAR(20),
 	project_id INTEGER,
 	PRIMARY KEY(matric_no, project_id),
 	FOREIGN KEY(matric_no) 
@@ -55,7 +56,7 @@ CREATE TABLE IF NOT EXISTS participate (
 );
 
 CREATE TABLE IF NOT EXISTS supervise (
-	matric_no VARCHAR(9), 
+	matric_no VARCHAR(20), 
 	module_code VARCHAR(8), 
 	iteration INTEGER,
 	PRIMARY KEY(matric_no, module_code, iteration),
@@ -71,4 +72,17 @@ CREATE TABLE IF NOT EXISTS STEPSiteration (
 	iteration INTEGER,
 	semester  VARCHAR(10)  NOT NULL,
 	PRIMARY KEY (iteration)
+);
+
+CREATE TABLE IF NOT EXISTS enrolled (
+	matric_no VARCHAR(20),
+	module_code VARCHAR(8), 
+	iteration INTEGER,
+	PRIMARY KEY(matric_no, module_code, iteration),
+	FOREIGN KEY(matric_no) 
+		REFERENCES user(matric_no)
+		ON UPDATE CASCADE,
+	FOREIGN KEY(module_code, iteration) 
+		REFERENCES module(module_code, iteration)
+		ON UPDATE CASCADE
 );
