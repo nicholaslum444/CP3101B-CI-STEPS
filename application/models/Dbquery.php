@@ -159,7 +159,7 @@ class Dbquery extends CI_Model {
 				$result[$i]['moduleCode'] = $row['module_code'];
 				$result[$i]['moduleName'] = $row['module_name'];
 				$result[$i]['moduleDescription'] = $row['module_description'];
-				//$result[$i]['classSize'] = $row['class_size'];
+				$result[$i]['classSize'] = $row['class_size'];
 				++$i;
 			}
 			$query = $this->queryProjectByModule($moduleCode, $iteration);

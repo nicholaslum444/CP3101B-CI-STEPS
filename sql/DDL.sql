@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS user (
 CREATE TABLE IF NOT EXISTS module (
 	module_code VARCHAR(8),
 	iteration INTEGER,
+	class_size INTEGER,
 	module_name VARCHAR(100) NOT NULL,
 	module_description VARCHAR(2000),
 	PRIMARY KEY(module_code, iteration)
