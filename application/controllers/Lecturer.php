@@ -57,9 +57,10 @@ class Lecturer extends CI_Controller {
     }
 
     private function _getModuleInformation($moduleCode) {
+        echo $moduleCode;
         if (isset($moduleCode)) {
             $modInfo = [
-                "data" => $this->Dbquery->getModuleDetailByModuleCode($moduleCode, $this->Dbquery->getLatestIteration())[0]
+                "data" => $this->Dbquery->getModuleDetailByModuleCode($moduleCode, $this->Dbquery->getLatestIteration())
             ];
             echo json_encode($modInfo);
             return $modInfo;
@@ -67,7 +68,7 @@ class Lecturer extends CI_Controller {
             $modInfo = [
                 "data" => []
             ];
-            //echo json_encode($modInfo);
+            echo json_encode($modInfo);
             return $modInfo;
         }
 

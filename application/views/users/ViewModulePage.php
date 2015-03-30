@@ -20,7 +20,7 @@
           <h5 class="inputText" id="numProjectsText"><?php echo count($data['project']); ?></h5>
           <i class="glyphicon glyphicon-pencil form-control-feedback"></i>
           <form id="editNumProjects">
-            <input type="number" class="form-control inputField" id="numProjectsField" value="<?php echo $data['numProjects']; ?>">
+            <input type="number" class="form-control inputField" id="numProjectsField" value="<?php echo count($data['project']); ?>">
           </form>
           <i class="glyphicon glyphicon-ok form-control-feedback"></i>
         </div>
@@ -29,7 +29,7 @@
       <div class="form-group">
         <label class="control-label col-sm-2" for="moduleDescription">Description:</label>
         <div class="col-sm-10 field-group">
-          <h5 class="inputText" id="moduleDescriptionText"><?php echo $data['description']; ?></h5>
+          <h5 class="inputText" id="moduleDescriptionText"><?php echo $data['moduleDescription']; ?></h5>
           <i class="glyphicon glyphicon-pencil form-control-feedback"></i>
           <form id="editModuleDescription">
             <textarea class="form-control inputField" rows="5" id="moduleDescriptionField" placeholder="Add Description for Module"><?php echo $data['moduleDescription']; ?></textarea>
@@ -40,17 +40,10 @@
       <div class="form-group">
         <label class="control-label col-sm-2" for="">Project Titles:</label>
         <div class="col-sm-5 field-group field-list projectTitleFields">
-<<<<<<< HEAD
-          <?php $counter=1 ?>
-          <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5>
-          <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5>
-          <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5>
-=======
           <?php $counter=1; ?>
           <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5>
           <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5>
           <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5>
->>>>>>> ba66fdd1b15408c65b23136caf2575921828b7af
           <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5>
 
           <form id="editProjectTitle">
