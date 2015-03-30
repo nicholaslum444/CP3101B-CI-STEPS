@@ -8,6 +8,35 @@
    	font-family: 'Lato', sans-serif;
    }
 
+.nav-sidebar {
+	position:fixed;
+}
+
+.wrap-sidebar {
+	width: 200px;
+	margin: 0 auto;
+}
+
+#moduleList .container {
+	margin-top: 4.5%;
+}
+
+/*admin panel edit button*/
+.panel-heading button {
+	float:right;
+}
+
+/*lecturer edit button*/
+#moduleList button {
+	float:right;
+}
+
+/*lecturer register button*/
+button[data-target="#registerModal"] {
+	float: right;
+}
+
+
 /*
 
 .afternav {
@@ -19,16 +48,6 @@
 	cursor: pointer;
 }
 
-*/
-
-.nav-sidebar {
-	position:fixed;
-}
-
-.nav-sidebar > li{
-	word-wrap: break-word;
-	z-index: 2;
-}
 .inputField {
 	display: none;
 }
@@ -46,9 +65,7 @@
 	background-color: #ffffff;
 }
 
-.panel-heading button {
-	float:right;
-}
+*/
 
 
 

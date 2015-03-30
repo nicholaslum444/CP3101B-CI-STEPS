@@ -16,10 +16,9 @@
 
   					<div class="panel panel-default">
   						<div class="panel-heading"><?php echo $moduleCode ?>  - <?php echo $moduleName; ?>
-  							<button class="btn btn-default editModuleBtn" data-toggle="modal" data-target= "#editModal" module="<?php echo $moduleCode; ?>">Edit</button>
+  							<button class="btn btn-xs btn-default editModuleBtn" data-toggle="modal" data-target= "#editModal" module="<?php echo $moduleCode; ?>">Edit</button>
   						</div>
   						<div class="panel-body">
-  							<!-- all module titles and their information with edit buttons-->
   							<div class="form-horizontal" role="form" index="1">
   								<div class="form-group">
   									<label class="control-label col-sm-2" for="classSize">Class Size:</label>

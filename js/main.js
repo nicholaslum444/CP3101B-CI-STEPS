@@ -35,8 +35,6 @@ $(function() {
 
 
 /* FUNCTIONAL FUNCTIONS BELOW */
-
-
 $(function() {
 	$('#registerModuleForm').on('submit',function (e) {
 		$.ajax({
