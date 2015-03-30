@@ -30,11 +30,11 @@ class Lecturer extends CI_Controller {
 
     }
 
-    public function viewModule() {
+    public function viewModule($moduleCode = NULL) {
         // have to change this
 
         $this->load->view("persistent/Header", $this->_makeHeaderData());
-        $this->load->view("users/ViewModulePage", $this->_getModuleInformation());
+        $this->load->view("users/ViewModulePage", $this->_getModuleInformation($moduleCode));
         $this->load->view("persistent/Footer");
     }
 
@@ -55,6 +55,23 @@ class Lecturer extends CI_Controller {
             $this->_denyAccess();
 
         }
+    }
+
+    private function _getModuleInformation($moduleCode) {
+        if (isset($moduleCode)) {
+            $modInfo = [
+                "data" => $this->Dbquery->getModuleDetailByModuleCode($moduleCode, $this->Dbquery->getLatestIteration())[0]
+            ];
+            echo json_encode($modInfo);
+            return $modInfo;
+        } else {
+            $modInfo = [
+                "data" => []
+            ];
+            //echo json_encode($modInfo);
+            return $modInfo;
+        }
+
     }
 
     private function _denyAccess() {
