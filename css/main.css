@@ -9,9 +9,6 @@
    }
 
 /*
-.nav-sidebar {
-	position:fixed;
-}
 
 .afternav {
 	position: relative;
@@ -24,10 +21,17 @@
 
 */
 
+.nav-sidebar {
+	position:fixed;
+}
+
+.nav-sidebar > li{
+	word-wrap: break-word;
+	z-index: 2;
+}
 .inputField {
 	display: none;
 }
-
 
 .glyphicon-ok {
 	display: none;

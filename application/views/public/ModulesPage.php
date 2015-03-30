@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar"><!--List of modules to be generated-->
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="/index.php/Modules/view">Overview <span class="sr-only">(current)</span></a></li>
                 <!-- generate the list of modules for the sidebar -->
                 <?php for ($i = 0; $i < count($modules); $i++) {
                     $module = $modules[$i]; ?>

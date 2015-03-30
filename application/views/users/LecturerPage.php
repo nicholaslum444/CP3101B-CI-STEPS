@@ -8,13 +8,14 @@
         foreach($data as $module) { 
           //Preprocess the data nicely
           $moduleCode = $module['data']['moduleCode'] == null ? "Dummy" : $module['data']['moduleCode'];
+          $moduleName = $module['data']['moduleName'] == null ? "-" : $module['data']['moduleName'];
           $classSize = $module['data']['classSize'] == null ? 0 : $module['data']['classSize'];
           $numProjects = $module['data']['project'] == null ? 0 : count($module['data']['project']);
           $moduleDescription = $module['data']['moduleDescription'] == null ? "-" : $module['data']['moduleDescription'];
           ?>
           <div class="container">
             <div class="row">
-              <h3><?php echo $moduleCode; ?></h3>
+              <h3><?php echo $moduleCode; ?> - <?php echo $moduleName; ?></h3>
               <div class="form-horizontal" role="form" index="1">
                 <div class="form-group">
                   <label class="control-label col-sm-2" for="classSize">Class Size:</label>
@@ -110,13 +111,14 @@
 </div>
 
 <!-- Modal for editing module-->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade bs-example-modal-lg" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="editModalLabel"></h4>
       </div>
+      <div class="modal-body">
       <!--Form for editing module insert here-->
       <form id="editModuleForm" class="form-horizontal" role="form">
         <div class="form-group">
@@ -162,6 +164,7 @@
           </div>
         </div>
       </form>
+      </div>
     </div>
   </div>
 </div>
