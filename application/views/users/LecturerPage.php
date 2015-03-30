@@ -3,19 +3,19 @@
 
     <!--List of modules to be generated-->
     <div id = "moduleList" class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-body">
             <?php
             if (isset($data)) {
-                for ($i = 0; $i < count($data); $i++) {
-                    $module = $data[$i]; ?>
+                for ($i = 0; $i < count($data); $i++) { ?>
+                    <div class="panel panel-default">
+                    <div class="panel-body">
+                    <?php $module = $data[$i]; ?>
                     <a href="/index.php/lecturer/viewModule/<?php echo $module['moduleCode']; ?>"><?php echo $module["moduleName"]; ?></a><br>
+                    </div>
+                    </div>
                 <?php }
             } else { ?>
                 <a href="/index.php/lecturer/viewModule">Dummy Module</a>
             <?php } ?>
-       </div>
-     </div>
    </div><!--End md-6-->
 
    <div class="col-md-6">
