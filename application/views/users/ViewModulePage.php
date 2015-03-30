@@ -7,7 +7,9 @@
       <div class="form-group">
         <label class="control-label col-sm-2" for="classSize">Class Size:</label>
         <div class="col-sm-4 field-group has-feedback">
-          <h5 class="inputText" id="classSizeText"><?php echo $data['classSize']; ?></h5>
+          <h5 class="inputText" id="classSizeText"><?php $classSize = $data['classSize']; 
+              if ($classSize == null) echo $classSize; 
+              else echo 0; ?></h5>
           <i class="glyphicon glyphicon-pencil form-control-feedback"></i>
           <form id="editClassSize">
             <input type="number" class="form-control inputField" id="classSizeField" value="<?php echo $data['classSize']; ?>">
@@ -17,7 +19,9 @@
 
         <label class="control-label col-sm-2" for="numProjects">Number of Projects:</label>
         <div class="col-sm-4 field-group has-feedback">
-          <h5 class="inputText" id="numProjectsText"><?php echo count($data['project']); ?></h5>
+          <h5 class="inputText" id="numProjectsText"><?php $numProjects = count($data['project']); 
+          if ($numProjects == null) echo $numProjects;
+          else echo 0; ?></h5>
           <i class="glyphicon glyphicon-pencil form-control-feedback"></i>
           <form id="editNumProjects">
             <input type="number" class="form-control inputField" id="numProjectsField" value="<?php echo count($data['project']); ?>">
@@ -29,7 +33,9 @@
       <div class="form-group">
         <label class="control-label col-sm-2" for="moduleDescription">Description:</label>
         <div class="col-sm-10 field-group">
-          <h5 class="inputText" id="moduleDescriptionText"><?php echo $data['moduleDescription']; ?></h5>
+          <h5 class="inputText" id="moduleDescriptionText"><?php $moduleDescription = $data['moduleDescription']; 
+            if($moduleDescription == null) echo $moduleDescription;
+              else echo '-'; ?></h5>
           <i class="glyphicon glyphicon-pencil form-control-feedback"></i>
           <form id="editModuleDescription">
             <textarea class="form-control inputField" rows="5" id="moduleDescriptionField" placeholder="Add Description for Module"><?php echo $data['moduleDescription']; ?></textarea>
