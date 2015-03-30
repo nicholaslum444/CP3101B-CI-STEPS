@@ -138,8 +138,19 @@ $(function() {
 		})
 		.done(function(data) {
 			// Client <={=(result)=4
-			alert("YES, IT ARRIVED!");
-			alert(data);
+			if(data["success"] == true) {
+				$('#editModal').modal('hide');
+				location.reload();
+			}
+			else {
+				alert("Adding error");
+				$('#editModuleForm').addClass("has-error");
+			}
+		})
+		//Temporary work around until Mun Aw patches the database
+		.complete(function(data) {
+			$('#editModal').modal('hide');
+			location.reload();
 		});
 
 		e.preventDefault();

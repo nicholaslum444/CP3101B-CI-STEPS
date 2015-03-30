@@ -23,33 +23,36 @@ class EditModule extends CI_Controller {
 
     private function _buildResponse() {
         //CALL MUN AW'S DATABASE'S UPDATE MODULE FUNCTION!
+        $updateResult = $this->_insertIntoDb();
 
-        $insertResult = $this->_insertIntoDb($moduleCode, $moduleName);
-
-        return json_encode($insertResult);
+        return json_encode($updateResult);
     }
 
-    private function _insertIntoDb($mc, $mn) {
+    private function _insertIntoDb() {
         // if exist ($mc) then fail
         $iteration = $this->Dbquery->getLatestIteration();
-        if ($this->Dbquery->isModuleExist($mc, $iteration)) {
+        $moduleCode = $_POST["moduleCode"];
+        if (!$this->Dbquery->isModuleExist($moduleCode, $iteration)) {
             // make fail obj
             return [
                 "success" => FALSE,
-                "error" => "MODULE_EXISTS"
+                "error" => "MODULE_DO_NOT_EXISTS"
             ];
         } else {
-            $insertSuccess = $this->Dbinsert->createModule($mc, $iteration, $mn);
-            $superviseSuccess = $this->Dbinsert->insertModuleSupervision($this->session->userId, $mc, $iteration);
-            //$insertSuccess = TRUE; // TODO remove
-            if (isset($insertSuccess) && isset($superviseSuccess)) {
+            $editedClassSize = $_POST["editedClassSize"];
+            $editedNumProjects = $_POST["editedNumProjects"];
+            $editedModuleDescription = $_POST["editedModuleDescription"];
+            //CANNOT EDIT NUMBER OF PROJECTS: ASK IF CAN JUST THROW AWAY THAT VALUE
+            $updateSuccess = $this->Dbinsert->updateModuleDescription($moduleCode, $iteration, null, $editedModuleDescription, $editedClassSize);
+            //$updateSuccess = TRUE; // TODO remove
+            if (isset($updateSuccess)) {
                 return [
                     "success" => TRUE
                 ];
             } else {
                 return [
                     "success" => FALSE,
-                    "error" => "INSERTION_FAIL"
+                    "error" => "UPDATE_FAIL"
                 ];
             }
         }
