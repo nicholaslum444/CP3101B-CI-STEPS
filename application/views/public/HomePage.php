@@ -10,15 +10,15 @@
         <div class="col-md-4">
             <h2>For easy testing & navigation</h2>
             <p>Admin </p>
-            <p><a class="btn btn-success" href="/admin" role="button">View details</a></p>
+            <p><a class="btn btn-success" href="/index.php/admin" role="button">View details</a></p>
         </div>
         <div class="col-md-4">
             <h2>Lecturer</h2>
-            <p><a class="btn btn-success" href="/index.php/lecturer" role="button">View details</a></p>
+            <p><a class="btn btn-success" href="/index.php/lecturer/console" role="button">View details</a></p>
         </div>
         <div class="col-md-4">
             <h2>Student</h2>
-            <p><a class="btn btn-success" href="/student" role="button">View details</a></p>
+            <p><a class="btn btn-success" href="/index.php/student/console" role="button">View details</a></p>
         </div>
     </div>
 

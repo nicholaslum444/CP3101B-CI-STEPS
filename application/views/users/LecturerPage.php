@@ -9,7 +9,7 @@
           ?>
           <div class="container">
             <div class="row">
-              <h3>Module <?php echo $module['data']['moduleCode']; ?></h3>
+              <h3><?php echo $module['data']['moduleCode']; ?></h3>
               <div class="form-horizontal" role="form" index="1">
                 <div class="form-group">
                   <label class="control-label col-sm-2" for="classSize">Class Size:</label>
