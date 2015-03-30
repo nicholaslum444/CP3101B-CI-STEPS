@@ -1,45 +1,47 @@
+  <div class="container">
+    <div class="row">
 
-<!-- If the lecturer clicks on an existing module, all fields are to be filled in and greyed out -->
-<!-- When edit button is clicked, they will be editable -->
-
-<div class="container">
-  <div class="row">
-    <h3>Module <span id="moduleCode">CS1010</span></h3>
-    <form class="form-horizontal" role="form">
-      <div class="form-group">
-        <label class="control-label col-sm-2" for="classSize">Class Size:</label>
-        <div class="col-sm-4">
-          <input type="number" class="form-control" id="classSize" placeholder="Class Size">
+      <div class="col-md-6">
+       <form role="form">
+        <div class="form-group">
+          <label for="updates">Updates: </label>
+          <textarea class="form-control" rows="5" id="updates" placeholder="Add updates in front page"></textarea>
         </div>
-        <label class="control-label col-sm-2" for="numProjects">Number of Projects:</label>
-        <div class="col-sm-4">
-          <input type="number" class="form-control" id="numProjects" placeholder="Number of Projects">
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+
+      <form class="form-inline" role="form" id="eventDates">          
+        <div class="form-group">
+          <label for="eventStartDate">Start of Event</label>
+          <input type="date" class="form-control" id="eventStartDate" placeholder="dd/mm/yyyy">
+        </div>
+        <div class="form-group">
+          <label for="cutOffDate">Cut-Off Date</label>
+          <input type="date" class="form-control" id="cutOffDate" placeholder="dd/mm/yyyy">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      
+      <!-- Data to be fetched -->
+      <div class="thumbnail col-md-12">
+        <div class="thumbnail col-md-6">
+          <h2>Non-Vegans</h2>
+          <h2 id="NonVegans"></h2>
+        </div>
+        <div class="thumbnail col-md-6">
+          <h2>Vegans</h2>
+          <h2 id="Vegans"></h2>
         </div>
       </div>
 
-      <div class="form-group">
-        <label class="control-label col-sm-2" for="moduleDescription">Description:</label>
-        <div class="col-sm-10">
-          <textarea class="form-control" rows="5" id="moduleDescription" placeholder="Add Description for Module"></textarea>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="control-label col-sm-2" for="">Project Titles:</label>
-        <div class="col-sm-5">
-          <input type="text" class="form-control">
-          <input type="text" class="form-control">
-          <input type="text" class="form-control">
-          <input type="text" class="form-control">
-          <input type="text" class="form-control">
-        </div>
-        <div class="col-sm-5"><button type="submit" class="btn btn-default">Add</button></div>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-default">Submit</button>
-        </div>
-      </div>
+    </div><!--End md-6-->
 
-    </form>
-  </div>
-</div>
+    <div class="col-md-6">
+     <div class="panel panel-default">
+      <div class="panel-body">
+        List of modules generated for Steps
+      </div>
+      </div>
+    </div>
+
+</div>   
