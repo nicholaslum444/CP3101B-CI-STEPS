@@ -53,7 +53,6 @@ class Lecturer extends CI_Controller {
 
             // load the login view
             $this->_denyAccess();
-
         }
     }
 

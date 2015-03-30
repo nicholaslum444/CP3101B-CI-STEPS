@@ -40,6 +40,7 @@ $(function() {
     });
 
     $(".inputText").hover(function() {
+    	//Glyphicons appear on hover
     	$(this).siblings(".glyphicon-pencil").css("display","block");
     }, function() {
     	$(this).siblings(".glyphicon-pencil").css("display","none");
