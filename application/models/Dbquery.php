@@ -151,17 +151,16 @@ class Dbquery extends CI_Model {
 	public function getModuleDetailByModuleCode($moduleCode, $iteration) {
 		$query = $this->queryModuleByModuleCode($moduleCode, $iteration);
 		$result;
-		$i = 0;
 		if($query->num_rows() == 1) {
-			$result = array($query->num_rows());
 			foreach ($query->result_array() as $row) {
-				$result[$i] = array(2);
-				$result[$i]['moduleCode'] = $row['module_code'];
-				$result[$i]['moduleName'] = $row['module_name'];
-				$result[$i]['moduleDescription'] = $row['module_description'];
-				$result[$i]['classSize'] = $row['class_size'];
-				++$i;
+				$result = array($query->num_rows());
+				$result['moduleCode'] = $row['module_code'];
+				$result['moduleName'] = $row['module_name'];
+				$result['moduleDescription'] = $row['module_description'];
+				$result['classSize'] = $row['class_size'];
+							
 			}
+			
 			$query = $this->queryProjectByModule($moduleCode, $iteration);
 			$project = array($query->num_rows());
 			$i = 0;
@@ -173,7 +172,7 @@ class Dbquery extends CI_Model {
 					++$i;
 				}
 			}
-			$result[$i]['project'] = $project;
+			$result['project'] = $project;
 		}
 		else {
 			$result = array();
