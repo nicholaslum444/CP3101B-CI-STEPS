@@ -1,12 +1,12 @@
 <div class="container">
-    <form class="form">
-      <div class="form-group">
-        <input type="hidden" class="form-control" id="registerModule">
-      </div>
-      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registerModal">Register Module</button>
-    </form>
-    <!--List of modules to be generated-->
-    <div class="row">
+  <form class="form">
+    <div class="form-group">
+      <input type="hidden" class="form-control" id="registerModule">
+    </div>
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registerModal">Register Module</button>
+  </form>
+  <!--List of modules to be generated-->
+  <div class="row">
     <div id = "moduleList">
       <?php
       if (isset($data)) {

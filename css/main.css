@@ -1,12 +1,12 @@
 
 
 /* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
+Author's custom styles
+========================================================================== */
 
-   body {
-   	font-family: 'Lato', sans-serif;
-   }
+body {
+	font-family: 'Lato', sans-serif;
+}
 
 .nav-sidebar {
 	position:fixed;
@@ -17,6 +17,9 @@
 	margin: 0 auto;
 }
 
+#moduleContent {
+	min-height: 450px;
+}
 #moduleList .container {
 	margin-top: 4.5%;
 }
@@ -40,29 +43,29 @@ button[data-target="#registerModal"] {
 /*
 
 .afternav {
-	position: relative;
-	top: 70px;
+position: relative;
+top: 70px;
 }
 
 .inputText {
-	cursor: pointer;
+cursor: pointer;
 }
 
 .inputField {
-	display: none;
+display: none;
 }
 
 .glyphicon-ok {
-	display: none;
+display: none;
 }
 
 .glyphicon-pencil{
-	display: none;
+display: none;
 } 
 
 .btn-clear{
-	cursor: pointer;
-	background-color: #ffffff;
+cursor: pointer;
+background-color: #ffffff;
 }
 
 */
