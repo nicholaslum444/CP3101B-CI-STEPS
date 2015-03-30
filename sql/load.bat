@@ -1,4 +1,5 @@
 mysql test -e "source DDL.sql";
+mysql test -e "source iterate.sql";
 mysql test -e "source user1.sql";
 mysql test -e "source user2.sql";
 mysql test -e "source user3.sql";
@@ -15,4 +16,3 @@ mysql test -e "source 2person.sql";
 mysql test -e "source 3person.sql";
 mysql test -e "source 4person.sql";
 mysql test -e "source 5person.sql";
-mysql test -e "source iterate.sql";

@@ -8,6 +8,12 @@ DROP TABLE IF EXISTS STEPSiteration;
 DROP TABLE IF EXISTS admin;
 
 
+CREATE TABLE IF NOT EXISTS STEPSiteration (
+	iteration INTEGER,
+	semester  VARCHAR(10)  NOT NULL,
+	PRIMARY KEY (iteration)
+);
+
 CREATE TABLE IF NOT EXISTS user (
 	user_id VARCHAR(20),
 	name VARCHAR(50) NOT NULL,
@@ -76,11 +82,6 @@ CREATE TABLE IF NOT EXISTS supervise (
 		REFERENCES STEPSiteration(iteration)
 );
 
-CREATE TABLE IF NOT EXISTS STEPSiteration (
-	iteration INTEGER,
-	semester  VARCHAR(10)  NOT NULL,
-	PRIMARY KEY (iteration)
-);
 
 CREATE TABLE IF NOT EXISTS enrolled (
 	user_id VARCHAR(20),
