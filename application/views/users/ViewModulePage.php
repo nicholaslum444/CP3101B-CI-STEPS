@@ -30,8 +30,9 @@
         <label class="control-label col-sm-2" for="moduleDescription">Description:</label>
         <div class="col-sm-10 field-group"> 
           <h5 class="inputText" id="moduleDescriptionText"><?php echo $data['description']; ?></h5>
+          <i class="glyphicon glyphicon-pencil form-control-feedback"></i>
           <form id="editModuleDescription">
-            <textarea class="form-control inputField" rows="5" id="moduleDescriptionField" placeholder="Add Description for Module"><?php echo $data['description']; ?></textarea>
+            <textarea class="form-control inputField" rows="5" id="moduleDescriptionField" placeholder="Add Description for Module"><?php echo $data['moduleDescription']; ?></textarea>
           </form>
         </div>
       </div>

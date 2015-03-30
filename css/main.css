@@ -23,6 +23,9 @@ body {
 	display: none;
 }
 
+.inputText {
+	cursor: pointer;
+}
 .glyphicon-ok {
 	display: none;
 }
