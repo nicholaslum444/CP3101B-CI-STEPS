@@ -147,12 +147,62 @@ $(function() {
 		}
 	});
 
-	$('#editProjectTitle').on('submit', function(e) {
-		console.log($('#editProjectTitle').serializeArray());
-		e.preventDefault();
-	});
-});
+	$('#editModuleDescription').on('submit', function(e) {
+		editedModuleDescription = $("#moduleDescriptionField").val();
+		prevModuleDescription = $("#moduleDescriptionText").html();
+		if(editedModuleDescription != prevModuleDescription && editedModuleDescription != null 
+				&& editedModuleDescription != "") {
+			$.ajax({
+				url: "/index.php/ajaxreceivers/editmodule",	
+				method: "POST",
+				data: {"moduleDescription" : $("#moduleDescriptionField").val()},
+				dataType: "json"
+			})
 
-function addToModuleList(moduleName) {	
-	$("#moduleList").append("<div class=\"panel panel-default\"><div class=\"panel-body\"><a href=\"/index.php/lecturer/" + moduleName + "\">" + moduleName + "</a></div></div>");
-}
+			.done(function(data) {
+				if(data["success"] == true) {
+					$('#editModuleDescription').css('display', 'none');
+					$('#moduleDescriptionField').html(editedModuleDescription);
+					$('#moduleDescriptionField').css('display', 'initial');
+				}
+				else {
+					$('#editModuleDescription').addClass("has-error");
+				}
+			})
+
+			.fail(function(data) {
+				alert(JSON.stringify(data));
+			});
+			e.preventDefault();
+		}
+
+	});
+
+	$('#editProjectTitle').on('submit', function(e) {
+		var formData = $('#editProjectTitle').serializeArray();
+		var sendData = [];
+		$.each(formData, function(index, value) {
+			var editedTitle = value;
+			var prevTitle = $("#projectTitle"+(index+1)).html();
+			if(editedTitle != prevTitle && editedTitle != null && editedTitle != "") {
+				sendData.push({titleNumber : editedTitle});
+			}
+		});
+		$.ajax({
+			url: "/index.php/ajaxreceivers/editmodule",
+			method: "POST",
+			data: {"projectTitles" : sendData},
+			dataType: "json"
+		}) 
+
+		.done(function(data) {
+			if(data["success"] == true) {
+				$('#editProjectTitle').css('display', 'none');
+				$.each(sendData, function(index, value) {
+					$("#projectTitle"+(index+1)).html(value.titleNumber);
+				});
+				$('#projectTitles').css('display', 'initial');
+			}
+		})
+	});	
+});
