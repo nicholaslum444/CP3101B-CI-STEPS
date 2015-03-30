@@ -80,7 +80,7 @@
         <h4 class="modal-title" id="myModalLabel">Log in via IVLE</h4>
       </div>
       <div class="modal-body">
-      	<p><iframe id="testingid" src="<?php echo $studentUrl; ?>"></iframe></p>
+      	<p><iframe id="testingid" frameBorder="0" src="<?php echo $studentUrl; ?>"></iframe></p>
       </div>
     </div>
   </div>
@@ -94,7 +94,7 @@
         <h4 class="modal-title" id="myModalLabel">Log in via IVLE</h4>
       </div>
       <div class="modal-body">
-      	<p><iframe id="testingid" src="<?php echo $lecturerUrl; ?>"></iframe></p>
+      	<p><iframe id="testingid" frameBorder="0" src="<?php echo $lecturerUrl; ?>"></iframe></p>
       </div>
     </div>
   </div>

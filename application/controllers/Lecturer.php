@@ -45,7 +45,7 @@ class Lecturer extends CI_Controller {
         if ($this->_isLoggedIn() && $this->_isLecturer()) {
 
             // load the console views
-            $this->load->view("persistent/Header", $this->_makeHeaderData());
+            $this->load->view("persistent/Header", $this->_makeHeaderData());   
             $this->load->view("users/LecturerPage", $this->_makeBodyData());
             $this->load->view("persistent/Footer");
 
@@ -57,18 +57,18 @@ class Lecturer extends CI_Controller {
     }
 
     private function _getModuleInformation($moduleCode) {
-        echo $moduleCode;
+        //echo $moduleCode;
         if (isset($moduleCode)) {
             $modInfo = [
                 "data" => $this->Dbquery->getModuleDetailByModuleCode($moduleCode, $this->Dbquery->getLatestIteration())
             ];
-            echo json_encode($modInfo);
+            //echo json_encode($modInfo);
             return $modInfo;
         } else {
             $modInfo = [
                 "data" => []
             ];
-            echo json_encode($modInfo);
+            //echo json_encode($modInfo);
             return $modInfo;
         }
 
@@ -87,13 +87,23 @@ class Lecturer extends CI_Controller {
 
     private function _makeBodyData() {
         $iteration = $this->Dbquery->getLatestIteration();
+        //Get all modules
+        $allModules = $this->Dbquery->getSupervisedModuleByID($this->session->userId, $iteration); // A0101075B
+        $data = [];
+        //Loop through and query for module data
+        foreach($allModules as $module) {
+            if(!isset($data[$module["moduleCode"]])) {
+                $data[$module["moduleCode"]] = array();
+            }
+            $data[$module["moduleCode"]] = $this->_getModuleInformation($module["moduleCode"]);
+        }
+
         $bodyData = [
-            "data" => $this->Dbquery->getSupervisedModuleByID($this->session->userId, $iteration) // A0101075B
-            //"data" => $modules
+            "data" => $data
         ];
+
         return $bodyData;
     }
-
 	private function _isLoggedIn() {
 		return $this->session->isLoggedIn;
 	}

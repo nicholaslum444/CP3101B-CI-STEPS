@@ -17,15 +17,18 @@ body {
 	position: relative;
 	top: 70px;
 }
+
+.inputText {
+	cursor: pointer;
+}
+
 */
 
 .inputField {
 	display: none;
 }
 
-.inputText {
-	cursor: pointer;
-}
+
 .glyphicon-ok {
 	display: none;
 }
