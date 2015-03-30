@@ -62,13 +62,13 @@ class Lecturer extends CI_Controller {
             $modInfo = [
                 "data" => $this->Dbquery->getModuleDetailByModuleCode($moduleCode, $this->Dbquery->getLatestIteration())
             ];
-            echo json_encode($modInfo);
+            //echo json_encode($modInfo);
             return $modInfo;
         } else {
             $modInfo = [
                 "data" => []
             ];
-            echo json_encode($modInfo);
+            //echo json_encode($modInfo);
             return $modInfo;
         }
 
@@ -88,8 +88,7 @@ class Lecturer extends CI_Controller {
     private function _makeBodyData() {
         $iteration = $this->Dbquery->getLatestIteration();
         $bodyData = [
-            "data" => $this->Dbquery->getSupervisedModuleByID($this->session->userId, $iteration) // A0101075B
-            //"data" => $modules
+            "data" => $this->Dbquery->getSupervisedModuleByID($this->session->userId, $iteration), // A0101075B
         ];
         return $bodyData;
     }
