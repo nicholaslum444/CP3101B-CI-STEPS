@@ -40,7 +40,7 @@ class Dbquery extends CI_Model {
 			$result = array($query->num_rows());
 			foreach ($query->result_array() as $row) {
 				$result[$i] = array(4);
-				$result[$i]['matricNo'] = $row['matric_no'];
+				$result[$i]['matricNo'] = $row['user_id'];
 				$result[$i]['name'] = $row['name'];
 				$result[$i]['email'] = $row['email'];
 				$result[$i]['contact'] = $row['contact'];
@@ -55,14 +55,14 @@ class Dbquery extends CI_Model {
 	private function queryStudentByProject($projectID) {
 		//SELECT *
 		//FROM participate
-		//JOIN user ON participate.matric_no = user.matric_no
+		//JOIN user ON participate.user_id = user.user_id
 		//WHERE project_id = $projectID
 		$this->db->from('participate');
 		$this->db->join('user',
-			'user.matric_no = participate.matric_no');
+			'user.user_id = participate.user_id');
 		$this->db->where('participate.project_id',$projectID);
 		//$this->db->where('user_type',$STUDENT);
-		//$this->db->select('matric_no','name');
+		//$this->db->select('user_id','name');
 		$query = $this->db->get();
 		return $query;
 	}
@@ -215,13 +215,13 @@ class Dbquery extends CI_Model {
 	private function querySupervisedModuleByMatric($matricNo,$iteration) {
 		//SELECT * FROM supervise
 		//JOIN module ON module.module_code AND supervise.module_code
-		//WHERE supervise.matric_no = $matricNo
+		//WHERE supervise.user_id = $matricNo
 		//AND supervise.iteration = $iteration;
 		$this->db->from('supervise');
 		$this->db->join('module',
 			'module.module_code = supervise.module_code'.
 			' AND module.iteration = supervise.iteration');
-		$this->db->where('supervise.matric_no',$matricNo);
+		$this->db->where('supervise.user_id',$matricNo);
 		$this->db->where('module.iteration',$iteration);
 		$query = $this->db->get();
 		return $query;
@@ -235,7 +235,7 @@ class Dbquery extends CI_Model {
 			$result = array($query->num_rows());
 			foreach ($query->result_array() as $row) {
 				$result[$i] = array(5);
-				$result[$i]['matricNo'] = $row['matric_no'];
+				$result[$i]['matricNo'] = $row['user_id'];
 				$result[$i]['name'] = $row['name'];
 				$result[$i]['email'] = $row['email'];
 				$result[$i]['contact'] = $row['contact'];
@@ -250,14 +250,14 @@ class Dbquery extends CI_Model {
 
 	private function queryStudentByModule($moduleCode, $iteration) {
 		//SELECT * FROM user
-		//JOIN enrolled ON user.matric_no = enrolled.matric_no
+		//JOIN enrolled ON user.user_id = enrolled.user_id
 		//JOIN module ON module.module_code = enrolled.module_code
 		//WHERE module.module_code = $moduleCode
 		//AND module.iteration = $iteration
 		//AND user.user_type = 3;
 		$this->db->from('user');
 		$this->db->join('enrolled',
-			'user.matric_no = enrolled.matric_no');
+			'user.user_id = enrolled.user_id');
 		$this->db->join('module',
 			'module.module_code = enrolled.module_code'.
 			' AND module.iteration = enrolled.iteration');
@@ -272,7 +272,7 @@ class Dbquery extends CI_Model {
 		$this->db->from('user');
 
 		$this->db->where('user.user_type',$userType);
-		$this->db->where('user.matric_no',$matricNo);
+		$this->db->where('user.user_id',$matricNo);
 		$query = $this->db->get();
 		if($query->num_rows() > 0) {
 			return true;
@@ -313,14 +313,14 @@ class Dbquery extends CI_Model {
 	private function queryFoodPrefByIteration($iteration) {
 		//SELECT user.food_preference, COUNT(*)
 		//FROM user JOIN participate 
-		//ON user.matric_no = participate.matric_no
+		//ON user.user_id = participate.user_id
 		//JOIN project ON participate.project_id = project.project_id
 		//JOIN module ON project.module_code = module.module_code
 		//			AND project.iteration = module.iteration
 		//WHERE module.iteration = 6 GROUP BY user.food_preference;
 		$this->db->from('user');
 		$this->db->join('participate',
-			'user.matric_no = participate.matric_no');
+			'user.user_id = participate.user_id');
 		$this->db->join('project',
 			'participate.project_id = project.project_id');
 		$this->db->join('module',
@@ -337,7 +337,7 @@ class Dbquery extends CI_Model {
 
 	/*
 
-	// function getSupervisorByID($matric_no) {
+	// function getSupervisorByID($user_id) {
 	// 	$this->db->from('');
 	// 	$this->db->join('','');
 	// 	$this->db->where('',$);
@@ -347,7 +347,7 @@ class Dbquery extends CI_Model {
 	// 	return $query;
 	// }
 
-	// function getSupervisorByID($matric_no) {
+	// function getSupervisorByID($user_id) {
 	// 	$this->db->from('');
 	// 	$this->db->join('','');
 	// 	$this->db->where('',$);
