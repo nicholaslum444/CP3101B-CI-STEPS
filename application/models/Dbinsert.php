@@ -28,11 +28,17 @@ class Dbinsert extends CI_Model {
 	}
 
 	public function updateStudentDetail($userID, $email, $contact, $food) {
-		$data = array(
-			'email' => $email,
-			'contact' => $contact,
-			'food_preference' => $food
-		);
+		$data = array();
+
+		if($email != null) {
+			$data['email'] = $email;
+		}
+		if($contact != null) {
+			$data['contact'] = $contact;
+		}
+		if($food != null) {
+			$data['food_preference'] = $food;
+		}
 
 		$this->db->where('user_id', $userID);
 		$this->db->where('user_type', $this->STUDENT);
@@ -56,12 +62,18 @@ class Dbinsert extends CI_Model {
 	//TODO: DO prof update all at a time?
 	public function updateProfDetail($userID, $name, $email, $food, $contact) {
 
-		$data = array(
-			'user_type' => $this->PROFESSOR,
-			'email' => $email,
-			'contact' => $contact,
-			'food_preference' => $food
-		);
+		$data = array();
+
+		if($email != null) {
+			$data['email'] = $email;
+		}
+		if($contact != null) {
+			$data['contact'] = $contact;
+		}
+		if($food != null) {
+			$data['food_preference'] = $food;
+		}
+
 		$this->db->where('user_id', $userID);
 		$this->db->where('user_type', $this->PROFESSOR);
 		$this->db->update('user', $data);
@@ -93,8 +105,11 @@ class Dbinsert extends CI_Model {
 		return true;
 	}
 
-	public function updateModuleDescription($moduleCode, $iteration, $description, $classSize) {
+	public function updateModuleDescription($moduleCode, $iteration, $moduleName, $description, $classSize) {
 		$data = array();
+		if($module != null) {
+			$data['module_name'] = $moduleName;
+		}
 		if($description != null) {
 			$data['module_description'] = $description;
 		}
@@ -124,13 +139,20 @@ class Dbinsert extends CI_Model {
 	}
 
 	public function updateProject($id, $title, $abstract, $poster, $video) {
-		$data = array(
-			'abstract' => $abstract,
-			'title' => $title,
-			'poster' => $poster,
-			'video' => $video
-		);
-
+		
+		if($title != null) {
+			$data['title'] = $title;
+		}
+		if($description != null) {
+			$data['abstract'] = $abstract;
+		}
+		if($classSize != null) {
+			$data['poster'] = $poster;
+		}
+		if($classSize != null) {
+			$data['video'] = $video;
+		}
+		
 		$this->db->where('project_id', $id);
 		$this->db->update('project',$data);
 
