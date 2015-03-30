@@ -43,7 +43,7 @@ class Modules extends CI_Controller {
     }
 
     private function _makeBodyData($moduleCode = NULL) {
-        $iteration = 6; // TODO replace;
+        $iteration = $this->Dbquery->getLatestIteration();
         $bodyData = [];
         $bodyData["modules"] = $this->Dbquery->getModuleListByIteration($iteration);
         if (isset($moduleCode)) {
@@ -51,10 +51,19 @@ class Modules extends CI_Controller {
             if (isset($selectedModule)) {
                 $bodyData["selectedModule"] = $selectedModule;
                 $bodyData["projects"] = $this->Dbquery->getProjectListByModule($moduleCode, $iteration);
+                $bodyData["projectDetails"] = $this->_getProjectDetails($bodyData["projects"]);
             }
         }
 
         return $bodyData;
+    }
+
+    private function _getProjectDetails($projects) {
+        $projectDetails = [];
+        for ($i = 0; $i < count($projects); $i++) {
+            $projectDetails[$i] = $this->Dbquery->getStudentDetailByProject($projects[$i]["projectID"]);
+        }
+        return $projectDetails;
     }
 
     private function _findModule($mc, $mods) {

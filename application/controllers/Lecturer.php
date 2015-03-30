@@ -68,25 +68,10 @@ class Lecturer extends CI_Controller {
     }
 
     private function _makeBodyData() {
-        $iteration = 6; // TODO replace;
+        $iteration = $this->Dbquery->getLatestIteration();
         $bodyData = [
             "data" => $this->Dbquery->getSupervisedModuleByID($this->session->userId, $iteration) // A0101075B
             //"data" => $modules
-        ];
-        return $bodyData;
-    }
-
-    private function _getModuleInformation() {
-        $modules = [
-            "moduleCode" => "CS3020",
-            "moduleName" => "Facebook and Society",
-            "classSize" => 50,
-            "description" => "this is a line of dummy data",
-            "numProjects" => 60
-        ];
-
-        $bodyData = [
-            "data" => $modules
         ];
         return $bodyData;
     }
