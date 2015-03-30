@@ -87,10 +87,13 @@ class Lecturer extends CI_Controller {
 
     private function _makeBodyData() {
         $iteration = $this->Dbquery->getLatestIteration();
-        $bodyData = [
-            "data" => $this->Dbquery->getSupervisedModuleByID($this->session->userId, $iteration) // A0101075B
-            //"data" => $modules
-        ];
+        //Get all modules
+        $allModules = $this->Dbquery->getSupervisedModuleByID($this->session->userId, $iteration) // A0101075B
+        $bodyData = [];
+        //Loop through and query for module data
+        foreach($allModules as $module) {
+            array_push($bodyData, $this->_getModuleInformation($moduleCode))
+        }
         return $bodyData;
     }
 
