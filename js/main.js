@@ -1,22 +1,3 @@
-
-	/*$(function() {
-	$( "#fakeLogin" ).click(function() {
-		var apiUrl = "https://ivle.nus.edu.sg/api/login/?apikey=3bBGOIdtC1T2d7SXeQAO9&url=";
-		var callbackUrl = "http://localhost:8080/index.php/ivleauth/";
-		openInNewWindow(apiUrl + callbackUrl);
-	});
-});
-
-function openInNewWindow(url) {
-	var newWindow = window.open(url,'name','height=500,width=700');
-	if (window.focus) {
-		newWindow.focus();
-		return newWindow;
-	}
-	return false;
-}
-*/
-
 /* BEAUTIFUL FUNCTIONS BELOW */
 
 function getLoginUrl(url) {
@@ -26,7 +7,7 @@ function getLoginUrl(url) {
 }
 
 $(function() {
-    $('.addProjectTitleBtn').click(function() {
+/*    $('.addProjectTitleBtn').click(function() {
     	//Dynamically generate buttons
     	$('.projectTitleFields').append('<input type="text" class="form-control inputField" placeholder="Project Title"style="display:block">');
     });
@@ -49,7 +30,7 @@ $(function() {
     $(".field-list").click(function() {
     	$(this).children(".inputText").css("display", "none");
     	$(this).children(".inputField").css("display", "block");
-    });
+    });*/
 });
 
 

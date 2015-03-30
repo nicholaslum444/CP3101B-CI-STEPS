@@ -3,74 +3,68 @@
 
     <!--List of modules to be generated-->
     <div id = "moduleList" class="col-md-6">
-            <?php
-            if (isset($data)) {
-              for ($i = 0; $i < count($data); $i++) {
-                $module = $data[$i]; ?>
-                <div class="container">
-                  <div class="row">
-                    <h3>Module <?php echo $module['moduleCode']; ?></h3>
+      <?php
+      if (isset($data)) {
+        foreach($data as $module) { 
+          ?>
+          <div class="container">
+            <div class="row">
+              <h3>Module <?php echo $module['data']['moduleCode']; ?></h3>
+              <div class="form-horizontal" role="form" index="1">
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="classSize">Class Size:</label>
+                  <div class="col-sm-4 field-group has-feedback">
+                    <h5 class="inputText" id="classSizeText"><?php $classSize = $module['data']['classSize']; 
+                        if ($classSize == null) echo 0; 
+                        else echo $classSize; ?></h5>
+                  </div>
 
-
-
-
-
-                    <div class="form-horizontal" role="form">
-                      <div class="form-group">
-                        <label class="control-label col-sm-2" for="classSize">Class Size:</label>
-                        <div class="col-sm-4 field-group has-feedback">
-                          <h5 class="inputText" id="classSizeText"><?php $classSize = $module['classSize']; 
-                              if ($classSize == null) echo 0; 
-                              else echo $classSize; ?></h5>
-                        </div>
-
-                        <label class="control-label col-sm-2" for="numProjects">Number of Projects:</label>
-                        <div class="col-sm-4 field-group has-feedback">
-                          <h5 class="inputText" id="numProjectsText"><?php $numProjects = count($module['project']); 
-                          if ($numProjects == null) echo 0;
-                          else echo $numProjects; ?></h5>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="control-label col-sm-2" for="moduleDescription">Description:</label>
-                        <div class="col-sm-10 field-group">
-                          <h5 class="inputText" id="moduleDescriptionText"><?php $moduleDescription = $module['moduleDescription']; 
-                            if($moduleDescription == null) echo '-';
-                              else echo $moduleDescription; ?></h5>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="control-label col-sm-2" for="">Project Titles:</label>
-                        <div class="col-sm-5 field-group field-list projectTitleFields">
-                          <?php $counter=1; ?>
-                          <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5>
-                          <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5>
-                          <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5>
-                          <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5>
-                        </div>
-                        <div class="col-sm-5"><button class="btn btn-default addProjectTitleBtn">Add</button></div>
-                      </div>
-                      <div class="form-group">
-                      </div>
-                    </div>
-
-
-
-
-
-
-
-
-
-
+                  <label class="control-label col-sm-2" for="numProjects">Number of Projects:</label>
+                  <div class="col-sm-4 field-group has-feedback">
+                    <h5 class="inputText" id="numProjectsText"><?php $numProjects = count($module['data']['project']); 
+                    if ($numProjects == null) echo 0;
+                    else echo $numProjects; ?></h5>
                   </div>
                 </div>
-                <?php }
-            } else { ?>
-                <a href="/index.php/lecturer/viewModule">Dummy Module</a>
-            <?php } ?>
+
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="moduleDescription">Description:</label>
+                  <div class="col-sm-10 field-group">
+                    <h5 class="inputText" id="moduleDescriptionText"><?php $moduleDescription = $module['data']['moduleDescription']; 
+                      if($moduleDescription == null) echo '-';
+                        else echo $moduleDescription; ?></h5>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="">Project Titles:</label>
+                  <div class="col-sm-5 field-group field-list projectTitleFields">
+                    <?php $counter=1; ?>
+                    <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5>
+                    <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5>
+                    <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5>
+                    <h5 class="inputText" id="projectTitle<?php echo $counter++ ?>">Awesome Posum</h5>
+                  </div>
+                </div>
+                <div class="form-group">
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+      <?php } 
+      } else {  ?>
+          <a href="/index.php/lecturer/viewModule">Dummy Module</a>
+      <?php } ?>
    </div><!--End md-6-->
 
    <div class="col-md-6">
