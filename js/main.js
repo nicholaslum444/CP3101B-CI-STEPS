@@ -7,12 +7,12 @@ function getLoginUrl(url) {
 }
 
 $(function() {
-/*    $('.addProjectTitleBtn').click(function() {
+    $('.addProjectTitleBtn').click(function() {
     	//Dynamically generate buttons
     	$('.projectTitleFields').append('<input type="text" class="form-control inputField" placeholder="Project Title"style="display:block">');
     });
 
-    $(".inputText").click(function() {
+    /*$(".inputText").click(function() {
     	//Turns from words to fields
     	$(this).parent().closest('.field-group').children('.inputText').css("display", "none");
     	$(this).parent().closest('.field-group').children('.glyphicon-pencil').css("display", "none");
@@ -62,7 +62,117 @@ $(function() {
 		e.preventDefault();
 	});
 
-	$('#editClassSize').on('submit', function(e) {
+	$('#editModuleForm').on('submit', function(e) {
+
+		//GETTING MODULE CODE AND NUMBER OF PROJECTS
+		var moduleCode = $("#editModalLabel").html();
+		var numberOfProjects = $(".projectTitles[module="+moduleCode+"]").attr("numOfProject");
+		
+		//GETTING ALL EDITED INPUTS
+		var editedClassSize = $("#editClassSize").val();
+		var editedNumProjects = $("#editNumProjects").val();
+		var editedModuleDescription = $("#editModuleDescription").val();
+		var allProjectTitles = $("#editProjectTitles :input");
+		var editedProjectTitles = [];
+
+		//GETTING ALL ORIGINAL INPUTS
+		var prevClassSize = $(".classSizeText[module="+moduleCode+"]").html();
+		var prevNumProjects = $(".numProjectsText[module="+moduleCode+"]").html();
+		var prevModuleDescription = $(".moduleDescriptionText[module="+moduleCode+"]").html();
+		var prevProjectTitles = $(".projectTitles[module="+moduleCode+"]").attr("numOfProject");
+
+		//DISCLAIMER: NULL MEANS DO NOT CHANGE WHEN SENT TO THE RECEIVER
+
+		//CHECKING CLASS SIZE
+		if(editedClassSize == prevClassSize) {
+			editedClassSize = null;
+		}
+
+		//CHECKING NUMBER OF PROJECT
+		if(editedNumProjects == prevNumProjects) {
+			editedNumProjects = null;
+		}
+
+		//CHECKING DESCRIPTION OF MODULE
+		if(editedModuleDescription == prevModuleDescription) {
+			editedModuleDescription = null;
+		}
+
+		//CHECKING PROJECT TITLES
+		var currentValueOfProjectTitle;
+		var editedValueOfProjectTitle;
+
+		for(var i = 0; i < allProjectTitles.length; i++) {
+			currentValueOfProjectTitle = $(".projectTitle[module="+moduleCode+"][index=" + (i+1) + "]").html();
+			editedValueOfProjectTitle = allProjectTitles[i].value;
+			//IF SAME PUSH NULL
+			if(currentValueOfProjectTitle == editedValueOfProjectTitle) {
+				editedProjectTitles.push(null);
+			}
+			//IF DIFFERENT PUSH NEW TITLE 
+			else {
+				if(editedValueOfProjectTitle != "" && editedValueOfProjectTitle != null) {
+					editedProjectTitles.push(editedValueOfProjectTitle);
+				}
+			}
+		}
+
+		//PREPARING THE FORM TO SEND TO THE RECEIVER
+		var editFormData = 
+		{
+			"moduleCode" : moduleCode,
+			"editedClassSize" : editedClassSize,
+			"editedNumProjects" : editedNumProjects,
+			"editedModuleDescription" : editedModuleDescription,
+			"editedProjectTitles" : editedProjectTitles
+		};
+
+		//alert(JSON.stringify(editFormData));
+
+		// 4=(form)=}=> Server
+		$.ajax({
+			url: "/index.php/ajaxreceivers/editmodule",	
+			method: "POST",
+			data: editFormData,
+			dataType: "json"
+		})
+		.done(function(data) {
+			// Client <={=(result)=4
+			alert("YES, IT ARRIVED!");
+			alert(data);
+		});
+
+		e.preventDefault();
+	});
+
+	//HANDLER TO DYNAMICALLY UPDATE EDIT MODULE FORM
+	$(".editModuleBtn").on('click', function(e) { 
+
+		var moduleCode = $(this).attr("module");
+
+
+		//THE CLEANING PART
+		$("#editClassSize").attr("value", "");
+		$("#editNumProjects").attr("value", "");
+		$("#editModuleDescription").html("");
+		$("#editProjectTitles").html("");
+
+		//THE EASY PART
+		$("#editModalLabel").html(moduleCode);
+		$("#editClassSize").attr("value", $(".classSizeText[module="+moduleCode+"]").html());
+		$("#editNumProjects").attr("value", $(".numProjectsText[module="+moduleCode+"]").html());
+		$("#editModuleDescription").html($(".moduleDescriptionText[module="+moduleCode+"]").html());
+
+		//THE HARD PART
+		var numberOfProjects = $(".projectTitles[module="+moduleCode+"]").attr("numOfProject");
+		//Project indexing starts with 1
+		for(var i = 1; i <= numberOfProjects; i++) {
+			var currentValueOfProjectTitle = $(".projectTitle[module="+moduleCode+"][index="+i+"]").html();
+			$("#editProjectTitles").append("<input type=\"text\" class=\"form-control\" placeholder=\"Project Title\" value=\""+currentValueOfProjectTitle+"\">");
+		}
+	});
+
+/*	$('#editClassSize').on('submit', function(e) {
 		editedClassSize = $("#classSizeField").val();
 		prevClassSize = $("#classSizeText").html();
 		alert(editedClassSize != prevClassSize);
@@ -186,5 +296,5 @@ $(function() {
 				$('#projectTitles').css('display', 'initial');
 			}
 		})
-	});	
+	});	*/
 });

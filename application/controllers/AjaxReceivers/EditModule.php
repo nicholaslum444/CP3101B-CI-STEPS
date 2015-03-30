@@ -1,13 +1,6 @@
 <?php
 
-// this call returns JSON objects.
-header("Content-Type: application/json");
-
-define("Student", 3);
-define("Lecturer", 2);
-define("Unknown", -1);
-
-class RegisterModule extends CI_Controller {
+class EditModule extends CI_Controller {
 
     public function __construct() {
 		parent::__construct();
@@ -17,19 +10,19 @@ class RegisterModule extends CI_Controller {
     }
 
     public function index() {
-        if (!(isset($_POST["moduleCode"]) && isset($_POST["moduleName"]))) {
+
+        //MODULE CODE MUST BE SET!
+        if (!(isset($_POST["moduleCode"]))) {
             exit($this->_buildIncompleteFormResponse());
         }
         if (!$this->session->isLoggedIn && !($this->session->userType === Lecturer)) {
             exit($this->_buildFailureResponse());
         }
-        echo $this->_buildResponse($_POST["moduleCode"], $_POST["moduleName"]);
+        echo $this->_buildResponse();
     }
 
-    private function _buildResponse($moduleCode, $moduleName) {
-        // try to insert to db
-        // get response object from db telling me
-        // whether it can insert or not
+    private function _buildResponse() {
+        //CALL MUN AW'S DATABASE'S UPDATE MODULE FUNCTION!
 
         $insertResult = $this->_insertIntoDb($moduleCode, $moduleName);
 
