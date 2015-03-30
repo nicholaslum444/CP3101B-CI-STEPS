@@ -8,8 +8,8 @@
         <label class="control-label col-sm-2" for="classSize">Class Size:</label>
         <div class="col-sm-4 field-group has-feedback">
           <h5 class="inputText" id="classSizeText"><?php $classSize = $data['classSize']; 
-              if ($classSize == null) echo $classSize; 
-              else echo 0; ?></h5>
+              if ($classSize == null) echo 0; 
+              else echo $classSize; ?></h5>
           <i class="glyphicon glyphicon-pencil form-control-feedback"></i>
           <form id="editClassSize">
             <input type="number" class="form-control inputField" id="classSizeField" value="<?php echo $data['classSize']; ?>">
@@ -20,8 +20,8 @@
         <label class="control-label col-sm-2" for="numProjects">Number of Projects:</label>
         <div class="col-sm-4 field-group has-feedback">
           <h5 class="inputText" id="numProjectsText"><?php $numProjects = count($data['project']); 
-          if ($numProjects == null) echo $numProjects;
-          else echo 0; ?></h5>
+          if ($numProjects == null) echo 0;
+          else echo $numProjects; ?></h5>
           <i class="glyphicon glyphicon-pencil form-control-feedback"></i>
           <form id="editNumProjects">
             <input type="number" class="form-control inputField" id="numProjectsField" value="<?php echo count($data['project']); ?>">
@@ -34,8 +34,8 @@
         <label class="control-label col-sm-2" for="moduleDescription">Description:</label>
         <div class="col-sm-10 field-group">
           <h5 class="inputText" id="moduleDescriptionText"><?php $moduleDescription = $data['moduleDescription']; 
-            if($moduleDescription == null) echo $moduleDescription;
-              else echo '-'; ?></h5>
+            if($moduleDescription == null) echo '-';
+              else echo $moduleDescription; ?></h5>
           <i class="glyphicon glyphicon-pencil form-control-feedback"></i>
           <form id="editModuleDescription">
             <textarea class="form-control inputField" rows="5" id="moduleDescriptionField" placeholder="Add Description for Module"><?php echo $data['moduleDescription']; ?></textarea>
