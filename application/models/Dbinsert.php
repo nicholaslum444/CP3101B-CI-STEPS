@@ -18,7 +18,7 @@ class Dbinsert extends CI_Model {
 
 	public function insertStudentBaseInfo($matricNo, $name) {
 		$data = array(
-			'matric_no' => $matricNo,
+			'user_id' => $matricNo,
 			'name' => $name,
 			'user_type' => $this->STUDENT
 		);
@@ -34,7 +34,7 @@ class Dbinsert extends CI_Model {
 			'food_preference' => $food
 		);
 
-		$this->db->where('matric_no', $matricNo);
+		$this->db->where('user_id', $matricNo);
 		$this->db->where('user_type', $this->STUDENT);
 		$this->db->update('user', $data);
 
@@ -45,7 +45,7 @@ class Dbinsert extends CI_Model {
 
 	public function insertProfBasicDetail($matricNo, $name) {
 		$data = array(
-			'matric_no' => $matricNo,
+			'user_id' => $matricNo,
 			'name' => $name,
 			'user_type' => $this->PROFESSOR
 		);
@@ -62,7 +62,7 @@ class Dbinsert extends CI_Model {
 			'contact' => $contact,
 			'food_preference' => $food
 		);
-		$this->db->where('matric_no', $matricNo);
+		$this->db->where('user_id', $matricNo);
 		$this->db->where('user_type', $this->PROFESSOR);
 		$this->db->update('user', $data);
 
@@ -148,7 +148,7 @@ class Dbinsert extends CI_Model {
 		$this->db->join('module',
 			'module.module_code = project.module_code'.
 			' AND project.iteration = module.iteration');
-		$this->db->where('participate.matric_no',$matricNo);
+		$this->db->where('participate','user_id',$matricNo);
 		$this->db->where('module.module_code',$moduleCode);
 		$this->db->where('module.iteration',$iteration);
 
@@ -169,7 +169,7 @@ class Dbinsert extends CI_Model {
 
 	public function insertStudentToProject($id, $matricNo) {
 		$data = array(
-			'matric_no' => $matricNo,
+			'user_id' => $matricNo,
 			'project_id' => $id
 		);
 
@@ -179,7 +179,7 @@ class Dbinsert extends CI_Model {
 	}
 	public function setLeaderForProject($matricNo, $Pid) {
 		$data = array(
-			'leader_matric_no' => $matricNo,
+			'leader','user_id' => $matricNo,
 		);
 		$this->db->where('project_id', $Pid);
 
@@ -189,7 +189,7 @@ class Dbinsert extends CI_Model {
 	}
 	public function deleteStudentFromProject($id,$matricNo) {
 		$this->db->where('project_id', $id);
-		$this->db->where('matric_no', $matricNo);
+		$this->db->where('user_id', $matricNo);
 		$this->db->delete('participate');
 
 		return true;
@@ -197,7 +197,7 @@ class Dbinsert extends CI_Model {
 
 	public function insertModuleSupervision($matricNo, $moduleCode,$iteration) {
 		$data = array(
-			'matric_no' => $matricNo,
+			'user_id' => $matricNo,
 			'module_code' => $moduleCode,
 			'iteration' => $iteration
 		);
@@ -211,7 +211,7 @@ class Dbinsert extends CI_Model {
 
 		$this->db->where('iteration',$iteration);
 		$this->db->where('module_code', $moduleCode);
-		$this->db->where('matric_no', $matricNo);
+		$this->db->where('user_id', $matricNo);
 
 		$this->db->delete('supervise');
 
