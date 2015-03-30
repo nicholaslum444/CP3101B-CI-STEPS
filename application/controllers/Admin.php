@@ -8,6 +8,8 @@ class Admin extends CI_Controller {
 		$this->load->library("session");
 		$this->load->helper("url");
         $this->load->helper("viewdata");
+        $this->load->model("Dbquery");
+        $this->load->model("Dbinsert");
 
         //$this->load->model("adminloginmodel");
 	}
@@ -76,7 +78,7 @@ class Admin extends CI_Controller {
 
     		// load the console views
             $this->load->view("persistent/Header", $this->_makeHeaderData());
-    		$this->load->view('users/AdminConsolePage');
+    		$this->load->view('users/AdminConsolePage', $this->makeBodyData());
             $this->load->view("persistent/Footer");
 
 		} else {
@@ -150,6 +152,28 @@ class Admin extends CI_Controller {
         return $data;
     }
 
+    private function makeBodyData() {
+        $iteration = $this->Dbquery->getLatestIteration();
+        
+        $listOfModules = $this->Dbquery->getModuleListByIteration($iteration); 
+        //print_r($listOfModules);
+
+        $data = [];
+        //Loop through and query for module data
+        foreach($listOfModules as $module) {
+            if(!isset($data[$module["moduleCode"]])) {
+                $data[$module["moduleCode"]] = array();
+            }
+            $data[$module["moduleCode"]] = $this->_getModuleInformation($module["moduleCode"]);
+        }
+
+        $bodyData = [
+            "data" => $data
+        ];
+
+        return $bodyData;
+    }
+
     private function _makePageData($retry) {
         $pageData = [
             "retry" => $retry
@@ -163,5 +187,23 @@ class Admin extends CI_Controller {
         $this->load->view("persistent/Header", $this->_makeHeaderData());
         $this->load->view('users/AdminLoginPage', $this->_makePageData($retry));
         $this->load->view("persistent/Footer");
+    }
+
+    private function _getModuleInformation($moduleCode) {
+        //echo $moduleCode;
+        if (isset($moduleCode)) {
+            $modInfo = [
+                "data" => $this->Dbquery->getModuleDetailByModuleCode($moduleCode, $this->Dbquery->getLatestIteration())
+            ];
+            //echo json_encode($modInfo);
+            return $modInfo;
+        } else {
+            $modInfo = [
+                "data" => []
+            ];
+            //echo json_encode($modInfo);
+            return $modInfo;
+        }
+
     }
 }

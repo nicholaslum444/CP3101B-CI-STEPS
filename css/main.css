@@ -4,9 +4,9 @@
    Author's custom styles
    ========================================================================== */
 
-body {
-  font-family: 'Lato', sans-serif;
-}
+   body {
+   	font-family: 'Lato', sans-serif;
+   }
 
 /*
 .nav-sidebar {
@@ -40,6 +40,10 @@ body {
 .btn-clear{
 	cursor: pointer;
 	background-color: #ffffff;
+}
+
+.panel-heading button {
+	float:right;
 }
 
 
