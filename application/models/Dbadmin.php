@@ -5,6 +5,7 @@ class Dbadmin extends CI_Model {
 	public function __construct()
     {
 			$this -> load -> database();
+			$this -> load -> model('Dbquery');
             parent::__construct();
     }
 
@@ -95,6 +96,75 @@ class Dbadmin extends CI_Model {
 		$this->db->where('user_id',$username);
 		
 		$query = $this->db->get();
+		if($query->num_rows() == 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public function openSteps($username, $password, $stepSem) {
+		if($this->isAdmin($username, $password)) {
+			$data = array(
+				'semester' => $stepSem
+			);
+			echo "CAN";
+			$this->db->insert('STEPSiteration',$data);
+			return true;
+		}
+		else {
+
+			echo "CANMPT";
+			return false;
+		}
+	}
+	public function dropSteps($username, $password, $stepIterate) {
+		if($this->isAdmin($username, $password)) {
+			$this->db->where('iteration',$stepIterate);
+			$this->db->delete('STEPSiteration');
+			$this->updateStepCount();
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public function editIteration($username, $password, $stepFrom, $stepTo) {
+		if($this->isAdmin($username, $password)) {
+			if($this->stepsIterationExist($stepFrom) && 
+				!$this->stepsIterationExist($stepTo)) {
+				
+				$data = array(
+					'iteration' => $stepTo
+				);
+
+				$this->db->where('iteration',$stepFrom);
+				$this->db->update('STEPSiteration',$data);
+				$this->updateStepCount();
+
+				return true;
+			} else {
+				return false;
+			}
+		}
+		else {
+			return false;
+		}
+	}
+
+	private function updateStepCount() {
+		$sql = "ALTER TABLE STEPSiteration AUTO_INCREMENT = ?";
+		$this->db->query($sql, array($this->Dbquery->getLatestIteration() + 1));
+			
+	}
+
+	public function stepsIterationExist($iterate) {
+		$this->db->from('STEPSiteration');
+		$this->db->where('iteration',$iterate);
+		$query = $this->db->get();
+
 		if($query->num_rows() == 1) {
 			return true;
 		}

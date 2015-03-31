@@ -27,21 +27,38 @@ class DatabaseT extends CI_Controller {
 		// echo "<br>";
 		// echo password_hash("nicholas",PASSWORD_DEFAULT);
   // 		echo "<br>";
-		$this -> load -> model('DBadmin');
+		$this -> load -> model('Dbadmin');
 		
-		// if($this->DBadmin->isAdmin("munaw","munaw")) echo "trueTT"; else echo "falseFF";
-		 $res1 = $this->DBadmin->addAdminToStep("anewuser","pass","II","jjj@gmail.com",77665544);
-		 if($res1) echo "ADDED<br>";
-		  $res2 = $this->DBadmin->editAdminInfo("anewuser","pass","Special","ggg.gmail",73564343);
-		 if($res2) echo "changed<br>";
-		 $res3 = $this->DBadmin->changeAdminPassword("newuser","pass","passwd");
-		 if($res3) echo "PW changed<br>";
-		 $res4 = $this->DBadmin->isAdmin("newuser","passwd");
-		 if($res4) echo json_encode($res4."dddd");
+		// if($this->Dbadmin->isAdmin("munaw","munaw")) echo "trueTT"; else echo "falseFF";
+		// if($this->Dbadmin->isAdmin("ngicholas","nicholas")) echo "taarueTT"; else echo "falseFF";
+		// if($this->Dbadmin->isAdmin("shagrmine","sharmine")) echo "trueTfvdfT"; else echo "falseFF";
+		// if($this->Dbadmin->isAdmin("wegiming","weiming")) echo "trueqqqTT"; else echo "falseFF";
+		
+		 // $res1 = $this->Dbadmin->addAdminToStep("anewuser","pass","II","jjj@gmail.com",77665544);
+		 // if($res1) echo "ADDED<br>";
+		 //  $res2 = $this->Dbadmin->editAdminInfo("anewuser","pass","Special","ggg.gmail",73564343);
+		 // if($res2) echo "changed<br>";
+		 // $res3 = $this->Dbadmin->changeAdminPassword("newuser","pass","passwd");
+		 // if($res3) echo "W changed<br>";
+		 // $res4 = $this->Dbadmin->isAdmin("newuser","passwd");
+		 // if($res4) echo json_encode($res4."dddd");
 
 
-  //       $this -> load -> model('Dbquery');
-		// $this -> load -> model('Dbinsert');
+        $this -> load -> model('Dbquery');
+		$this -> load -> model('Dbinsert');
+		// $res225 = $this->Dbinsert->getStudentsNotInProjectGroupByModule('SS3101',6);
+		// for($i = 0; $i < count($res225); ++$i) {
+		// 	echo $res225[$i]['name']."  ".$res225[$i]['userID']."  ".$res225[$i]['contact']."  ".$res225[$i]['email']."  ".$res225[$i]['foodPref']."<br>";
+		// }
+
+		$res999 = $this->Dbinsert->createProject("PLAY game","SS3101",6);
+		
+		$this->Dbadmin->dropSteps("munaw","munaw",5);
+		$this->Dbadmin->dropSteps("munaw","munaw",8);
+		// $this->Dbadmin->openSteps("munaw","munaw","myste5p");
+
+		$this->Dbadmin->editIteration("munaw","munaw",14,17);
+		$this->Dbadmin->openSteps("munaw","munaw","aaagrtgaaa");
 		// $test = $this -> Dbquery->getModuleDetailByModuleCode("SS3101",6);
 		// // echo JSON_encode($test);
 		// // echo "************************";
