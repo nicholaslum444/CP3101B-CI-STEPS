@@ -192,42 +192,7 @@ class Dbinsert extends CI_Model {
 		return -1;
 	}
 
-	public function getStudentsNotInProjectGroupByModule($moduleCode, $iteration) {
-		
-		$sql = "SELECT * FROM user 
-				JOIN enrolled 
-				ON user.user_id = enrolled.user_id
-				WHERE enrolled.module_code = ? 
-				AND enrolled.iteration = ?
-				AND user.user_id NOT IN 
-					(SELECT user.user_id 
-					FROM user JOIN participate 
-					ON user.user_id = participate.user_id 
-					JOIN project 
-					ON project.project_id = participate.project_id
-					WHERE project.module_code = ?
-					AND  project.iteration = ?
-					)";
-
-
-		$query = $this->db->query($sql,array($moduleCode, $iteration, $moduleCode, $iteration));
-
-		$result = array($query->num_rows());
-		if($query->num_rows() > 0) {
-			$i = 0;
-			foreach($query->result_array() as $rows) {
-				$student = array();
-				$student['userID'] = $rows['user_id'];
-				$student['name'] = $rows['name'];
-				$student['email'] = $rows['email'];
-				$student['contact'] = $rows['contact'];
-				$student['foodPref'] = $rows['food_preference'];
-				$result[$i] = $student;
-				++$i;
-			}
-		}
-		return $result;
-	}
+	
 
 	public function insertStudentToProject($id, $userID) {
 		$data = array(
