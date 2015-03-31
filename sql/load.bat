@@ -12,6 +12,7 @@ mysql test -e "source supervise.sql";
 mysql test -e "source BB3218.sql";
 mysql test -e "source SS3101.sql";
 mysql test -e "source ZZ3217.sql";
+mysql test -e "source enrol.sql";
 mysql test -e "source 2person.sql";
 mysql test -e "source 3person.sql";
 mysql test -e "source 4person.sql";

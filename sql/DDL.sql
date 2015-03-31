@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS admin;
 
 
 CREATE TABLE IF NOT EXISTS STEPSiteration (
-	iteration INTEGER,
+	iteration INTEGER AUTO_INCREMENT,
 	semester  VARCHAR(10)  NOT NULL,
 	PRIMARY KEY (iteration)
 );
