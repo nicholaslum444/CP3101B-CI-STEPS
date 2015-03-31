@@ -107,7 +107,7 @@ class Dbinsert extends CI_Model {
 
 	public function updateModuleDescription($moduleCode, $iteration, $moduleName, $description, $classSize) {
 		$data = array();
-		if($module != null) {
+		if($moduleName != null) {
 			$data['module_name'] = $moduleName;
 		}
 		if($description != null) {
@@ -143,13 +143,13 @@ class Dbinsert extends CI_Model {
 		if($title != null) {
 			$data['title'] = $title;
 		}
-		if($description != null) {
+		if($abstract != null) {
 			$data['abstract'] = $abstract;
 		}
-		if($classSize != null) {
+		if($poster != null) {
 			$data['poster'] = $poster;
 		}
-		if($classSize != null) {
+		if($video != null) {
 			$data['video'] = $video;
 		}
 		
