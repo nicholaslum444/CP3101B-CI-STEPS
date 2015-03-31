@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS enrolled (
 
 CREATE TABLE IF NOT EXISTS admin (
 	user_id VARCHAR(30),
-	password VARCHAR(30),
+	password VARCHAR(256),
 	name VARCHAR(50),
 	email VARCHAR(50),
 	contact INTEGER,
