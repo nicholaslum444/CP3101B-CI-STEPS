@@ -10,6 +10,7 @@ class Admin extends CI_Controller {
         $this->load->helper("viewdata");
         $this->load->model("Dbquery");
         $this->load->model("Dbinsert");
+		$this->load->model("Dbadmin");
 
         //$this->load->model("adminloginmodel");
 	}
@@ -23,7 +24,7 @@ class Admin extends CI_Controller {
         // if logged in: load the console page (need special header?)
         // else load the login page (need separate login page)
 
-		if ($this->_isLoggedIn()) {
+		if ($this->_isAuthenticated()) {
 
     		// load the console views
             $this->console();
@@ -39,7 +40,7 @@ class Admin extends CI_Controller {
 
     public function login() {
 
-		if($this->_isLoggedIn() && $this->_isAdmin()) {
+		if($this->_isAuthenticated()) {
 
             // show the homepage if the user is actually logged in
 	        $this->console();
@@ -49,7 +50,7 @@ class Admin extends CI_Controller {
             // both username and password supplied
             $this->_processLogin();
 
-            if ($this->_isLoggedIn()) {
+            if ($this->_isLoggedIn() && $this->_isAdmin()) {
                 // now user is logged in, show the homepage
                 $this->console();
 
@@ -74,11 +75,11 @@ class Admin extends CI_Controller {
 
     public function console() {
 
-		if($this->_isLoggedIn()) {
+		if($this->_isAuthenticated()) {
 
     		// load the console views
             $this->load->view("persistent/Header", $this->_makeHeaderData());
-    		$this->load->view('users/AdminConsolePage', $this->makeBodyData());
+    		$this->load->view('users/AdminConsolePage', $this->_makeBodyData());
             $this->load->view("persistent/Footer");
 
 		} else {
@@ -89,12 +90,6 @@ class Admin extends CI_Controller {
 
     }
 
-    // TODO remove this in production!!
-    public function testing() {
-        $this->test = 1;
-        $this->_loadLoginView();
-    }
-
 	private function _isLoggedIn() {
 		return $this->session->isLoggedIn;
 	}
@@ -102,6 +97,10 @@ class Admin extends CI_Controller {
     private function _isAdmin() {
         return $this->session->userType === "Admin";
     }
+
+	private function _isAuthenticated() {
+		$this->_isLoggedIn() && $this->_isAdmin();
+	}
 
     private function _generateAdminToken() {
         return sha1(microtime(true).mt_rand(10000,90000));
@@ -116,7 +115,7 @@ class Admin extends CI_Controller {
         // validate token and get result
         //$validationResult = adminloginmodel::getValidationResult($username, $password);
         $validationResult = [
-            "success" => TRUE // TODO PLS REMOVE IN PRODUCTION
+            "success" => $this->Dbadmin->isAdmin($username, $password) // TODO PLS REMOVE IN PRODUCTION
         ];
 
         // check if validation successful
@@ -129,7 +128,7 @@ class Admin extends CI_Controller {
             $adminToken = $this->_generateAdminToken();
 
             // find the name of the logged in admin
-            $name = "ANAND BHOJAN";
+            $name = "CHANGE ME";
 
             // store all data needed to keep and validate session
             $userData = [
@@ -152,10 +151,10 @@ class Admin extends CI_Controller {
         return $data;
     }
 
-    private function makeBodyData() {
+    private function _makeBodyData() {
         $iteration = $this->Dbquery->getLatestIteration();
-        
-        $listOfModules = $this->Dbquery->getModuleListByIteration($iteration); 
+
+        $listOfModules = $this->Dbquery->getModuleListByIteration($iteration);
         //print_r($listOfModules);
 
         $data = [];
@@ -204,6 +203,5 @@ class Admin extends CI_Controller {
             //echo json_encode($modInfo);
             return $modInfo;
         }
-
     }
 }
