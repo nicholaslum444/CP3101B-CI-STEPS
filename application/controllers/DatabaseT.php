@@ -46,11 +46,12 @@ class DatabaseT extends CI_Controller {
 
         $this -> load -> model('Dbquery');
 		$this -> load -> model('Dbinsert');
-		// $res225 = $this->Dbinsert->getStudentsNotInProjectGroupByModule('SS3101',6);
-		// for($i = 0; $i < count($res225); ++$i) {
-		// 	echo $res225[$i]['name']."  ".$res225[$i]['userID']."  ".$res225[$i]['contact']."  ".$res225[$i]['email']."  ".$res225[$i]['foodPref']."<br>";
-		// }
-
+		$res225 = $this->Dbquery->getStudentsNotInProjectGroupByModule('SS3101',6);
+		for($i = 0; $i < count($res225); ++$i) {
+			echo $res225[$i]['name']."  ".$res225[$i]['userID']."  ".$res225[$i]['contact']."  ".$res225[$i]['email']."  ".$res225[$i]['foodPref']."<br>";
+		}
+		$resabc = $this->Dbadmin->getAdminDetails("munaw","munaw");
+		echo $resabc['name'].$resabc['contact'].$resabc['email'];
 		$res999 = $this->Dbinsert->createProject("PLAY game","SS3101",6);
 		
 		$this->Dbadmin->dropSteps("munaw","munaw",5);

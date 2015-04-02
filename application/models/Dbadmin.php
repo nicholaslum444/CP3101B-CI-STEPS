@@ -54,6 +54,24 @@ class Dbadmin extends CI_Model {
 			
 	}
 
+	public function getAdminDetails($username, $password) {
+		if($this->isAdmin($username, $password)) {
+			$this->db->from('admin');
+			$this->db->where('user_id',$username);
+			$query = $this->db->get();
+			$result = array();
+			foreach($query->result_array() as $row) {
+				$result['name'] = $row['name'];
+				$result['email'] = $row['email'];
+				$result['contact'] = $row['contact'];
+			}
+			return $result;
+		}
+		else {
+			return false;
+		}
+	}
+
 	public function changeAdminPassword($username, $oldPW, $newPW) {
 		if($this->isAdmin($username, $oldPW)) {
 			$data = array(
