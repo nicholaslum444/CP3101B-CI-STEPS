@@ -25,7 +25,7 @@ class Dbadmin extends CI_Model {
 			else {
 				return false;
 			}
-			
+
 	}
 
 
@@ -51,11 +51,11 @@ class Dbadmin extends CI_Model {
 			else {
 				return false;
 			}
-			
+
 	}
 
 	public function getAdminDetails($username, $password) {
-		if($this->isAdmin($username, $password)) {
+		if ($this->isAdmin($username, $password)) {
 			$this->db->from('admin');
 			$this->db->where('user_id',$username);
 			$query = $this->db->get();
@@ -67,9 +67,6 @@ class Dbadmin extends CI_Model {
 			}
 			return $result;
 		}
-		else {
-			return false;
-		}
 	}
 
 	public function changeAdminPassword($username, $oldPW, $newPW) {
@@ -78,41 +75,37 @@ class Dbadmin extends CI_Model {
 					'password' => password_hash($newPW, PASSWORD_DEFAULT)
 			);
 			$this->db->where('user_id',$username);
-		
+
 			$this->db->update('admin',$data);
 			return true;
 		}
 		else {
-			return false;	
+			return false;
 		}
-		
+
 	}
 
 	public function isAdmin($username, $password) {
-		$this->db->from('admin');
-		$this->db->where('user_id',$username);
-		
-		$query = $this->db->get();
+		if ($this->usernameExist($username)) {
+			$this->db->from('admin');
+			$this->db->where('user_id',$username);
 
-		if($query->num_rows() == 1) {
-			foreach($query->result_array() as $row)
-				if(password_verify($password,$row['password'])) {
-					return true;
-				}	
-				else {
-					return false;
+			$query = $this->db->get();
+
+			if ($query->num_rows() == 1) {
+				foreach($query->result_array() as $row) {
+					return password_verify($password, $row['password']);
 				}
+			}
 		}
-		else {
-			
-			return false;
-		}
+
+		return false;
 	}
 
 	public function usernameExist($username) {
 		$this->db->from('admin');
 		$this->db->where('user_id',$username);
-		
+
 		$query = $this->db->get();
 		if($query->num_rows() == 1) {
 			return true;
@@ -151,9 +144,9 @@ class Dbadmin extends CI_Model {
 
 	public function editIteration($username, $password, $stepFrom, $stepTo) {
 		if($this->isAdmin($username, $password)) {
-			if($this->stepsIterationExist($stepFrom) && 
+			if($this->stepsIterationExist($stepFrom) &&
 				!$this->stepsIterationExist($stepTo)) {
-				
+
 				$data = array(
 					'iteration' => $stepTo
 				);
@@ -175,7 +168,7 @@ class Dbadmin extends CI_Model {
 	private function updateStepCount() {
 		$sql = "ALTER TABLE STEPSiteration AUTO_INCREMENT = ?";
 		$this->db->query($sql, array($this->Dbquery->getLatestIteration() + 1));
-			
+
 	}
 
 	public function stepsIterationExist($iterate) {

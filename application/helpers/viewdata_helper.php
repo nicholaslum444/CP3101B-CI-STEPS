@@ -1,9 +1,5 @@
 <?php
 
-define("Student", 3);
-define("Lecturer", 2);
-define("Unknown", -1);
-
 class ViewData {
 
     public static function makeHeaderData($session, $baseUrl) {
@@ -18,10 +14,11 @@ class ViewData {
             $headerData["isLoggedIn"] = TRUE;
             $headerData["userType"] = $session->userType;
 
-            if ($session->userType === "Admin") {
-                $headerData["name"] = $session->name;
-            } else if ($session->userType === Student
-                || $session->userType === Lecturer) {
+            if ($session->userType === USER_TYPE_ADMIN) {
+                $headerData["userProfile"] = $session->adminProfile;
+                $headerData["name"] = $session->adminProfile["name"];
+            } else if ($session->userType === USER_TYPE_STUDENT
+                || $session->userType === USER_TYPE_LECTURER) {
                 $headerData["userProfile"] = $session->userProfile;
                 $headerData["name"] = $session->userProfile->Results[0]->Name;
             } else {

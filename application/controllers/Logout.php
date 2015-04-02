@@ -4,7 +4,6 @@ class Logout extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-		$this->load->library("session");
     }
 
     public function index() {
@@ -16,7 +15,7 @@ class Logout extends CI_Controller {
 
         // destroy the session == logout
         $this->session->sess_destroy();
-        
+
         // send the user back to home page
         header("Location: /");
     }

@@ -10,7 +10,7 @@ class UserInfo {
     public static function getValidationResult($token) {
         // call ivle api to validate token
         $url = "https://ivle.nus.edu.sg/api/Lapi.svc/Validate?APIKey="
-            . apikey
+            . API_KEY
             . "&Token="
             . $token;
 
@@ -22,7 +22,7 @@ class UserInfo {
     public static function getUserProfile($token) {
         // call ivle api to validate token
         $url = "https://ivle.nus.edu.sg/api/Lapi.svc/Profile_View?APIKey="
-            . apikey
+            . API_KEY
             . "&AuthToken="
             . $token;
 
@@ -36,20 +36,12 @@ class UserInfo {
         // return one of {"student", "lecturer"}
 
         // dummy value of "student" for now
-        return "Student";
-    }
-
-    public static function __getUserTypeDEBUG__($token, $student = TRUE) {
-        if ($student) {
-            return "Student";
-        } else {
-            return "Lecturer";
-        }
+        return USER_TYPE_STUDENT;
     }
 
     public static function getUserID($token) {
         $url = "https://ivle.nus.edu.sg/api/Lapi.svc/UserID_Get?APIKey="
-            . apikey
+            . API_KEY
             . "&Token="
             . $token;
 

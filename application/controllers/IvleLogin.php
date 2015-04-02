@@ -1,20 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-define("Student", 3);
-define("Lecturer", 2);
-define("Unknown", -1);
-
 class IvleLogin extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library("session");
+
+        // should load an actual loading view
         echo "Loading....";
-        // load the helper that helps us auth
-        $this->load->helper("UserInfo");
-		$this->load->model("Dbquery");
-        $this->load->model("Dbinsert");
+
     }
 
     public function index() {
@@ -42,7 +36,7 @@ class IvleLogin extends CI_Controller {
         //$userType = UserInfo::__getUserTypeDEBUG__($token);
         $userType = $this->_getUserType();
 
-        if ($userType === "unknown") {
+        if ($userType === USER_TYPE_UNKNOWN) {
             exit("user type unknown");
         }
 
@@ -67,9 +61,9 @@ class IvleLogin extends CI_Controller {
         // insert logged in user to the database as a registered user
         $userExist = $this->Dbquery->userExistByID($userId, $userType);
         if (!$userExist) {
-            if ($userType === Lecturer) {
+            if ($userType === USER_TYPE_LECTURER) {
                 $this->Dbinsert->insertProfBasicDetail($userId, $name);
-            } else if ($userType === Student) {
+            } else if ($userType === USER_TYPE_STUDENT) {
                 $this->Dbinsert->insertStudentBaseInfo($userId, $name);
             }
         }
@@ -83,12 +77,12 @@ class IvleLogin extends CI_Controller {
 
     private function _getUserType() {
         if (isset($_GET["s"])) {
-            return Student;
+            return USER_TYPE_STUDENT;
         }
         if (isset($_GET["l"])) {
-            return Lecturer;
+            return USER_TYPE_LECTURER;
         }
-        return Unknown;
+        return USER_TYPE_UNKNOWN;
     }
 
 }

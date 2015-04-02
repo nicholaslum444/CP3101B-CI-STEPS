@@ -5,13 +5,6 @@ class Admin extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->library("session");
-		$this->load->helper("url");
-        $this->load->helper("viewdata");
-        $this->load->model("Dbquery");
-        $this->load->model("Dbinsert");
-		$this->load->model("Dbadmin");
-
         //$this->load->model("adminloginmodel");
 	}
 
@@ -49,8 +42,10 @@ class Admin extends CI_Controller {
 
             // both username and password supplied
             $this->_processLogin();
+			$_POST["username"] = null;
+			$_POST["password"] = null;
 
-            if ($this->_isLoggedIn() && $this->_isAdmin()) {
+            if ($this->_isAuthenticated()) {
                 // now user is logged in, show the homepage
                 $this->console();
 
@@ -95,11 +90,11 @@ class Admin extends CI_Controller {
 	}
 
     private function _isAdmin() {
-        return $this->session->userType === "Admin";
+        return $this->session->userType === USER_TYPE_ADMIN;
     }
 
 	private function _isAuthenticated() {
-		$this->_isLoggedIn() && $this->_isAdmin();
+		return $this->_isLoggedIn() && $this->_isAdmin();
 	}
 
     private function _generateAdminToken() {
@@ -112,28 +107,24 @@ class Admin extends CI_Controller {
         $username = htmlspecialchars($_POST["username"]);
         $password = htmlspecialchars($_POST["password"]);
 
-        // validate token and get result
-        //$validationResult = adminloginmodel::getValidationResult($username, $password);
-        $validationResult = [
-            "success" => $this->Dbadmin->isAdmin($username, $password) // TODO PLS REMOVE IN PRODUCTION
-        ];
+        $isAdmin = $this->Dbadmin->isAdmin($username, $password);
 
         // check if validation successful
-        if ($validationResult["success"]) {
+        if ($isAdmin) {
 
             // set the user type to admin
-            $userType = "Admin";
+            $userType = USER_TYPE_ADMIN;
 
             // generate a token for the admin
             $adminToken = $this->_generateAdminToken();
 
             // find the name of the logged in admin
-            $name = "CHANGE ME";
+			$adminProfile = $this->Dbadmin->getAdminDetails($username, $password);
 
             // store all data needed to keep and validate session
             $userData = [
                 "token" => $adminToken,
-                "name" => $name,
+                "adminProfile" => $adminProfile,
                 "username" => $username,
                 "isLoggedIn" => TRUE,
                 "userType" => $userType
@@ -141,13 +132,12 @@ class Admin extends CI_Controller {
 
             // set the session with this data
             $this->session->set_userdata($userData);
-
         }
     }
 
     private function _makeHeaderData() {
         $data = ViewData::makeHeaderData($this->session, base_url());
-        $data["loader"] = "Admin";
+        $data["loader"] = LOADER_TYPE_ADMIN;
         return $data;
     }
 

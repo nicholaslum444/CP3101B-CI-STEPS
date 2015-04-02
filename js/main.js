@@ -12,6 +12,17 @@ $(function() {
     	$('.projectTitleFields').append('<input type="text" class="form-control inputField" placeholder="Project Title"style="display:block">');
     });
 
+	$("#loginBtnStudent").bind("click", function() {
+		if ($("#studentIframeContainer #studentIframe").length === 0) {
+			$("#studentIframeContainer").append(studentIframe);
+		}
+	});
+	$("#loginBtnLecturer").bind("click", function() {
+		if ($("#lecturerIframeContainer #lecturerIframe").length === 0) {
+			$("#lecturerIframeContainer").append(lecturerIframe);
+		}
+	});
+
     /*$(".inputText").click(function() {
     	//Turns from words to fields
     	$(this).parent().closest('.field-group').children('.inputText').css("display", "none");
@@ -38,7 +49,7 @@ $(function() {
 $(function() {
 	$('#registerModuleForm').on('submit',function (e) {
 		$.ajax({
-			url: "/index.php/ajaxreceivers/registermodule",	
+			url: "/index.php/ajaxreceivers/registermodule",
 			method: "POST",
 			data: {"moduleCode" : $("#moduleCode").val(), "moduleName" : $("#moduleName").val()},
 			dataType: "json"
@@ -65,7 +76,7 @@ $(function() {
 		//GETTING MODULE CODE AND NUMBER OF PROJECTS
 		var moduleCode = $("#editModalLabel").html();
 		var numberOfProjects = $(".projectTitles[module="+moduleCode+"]").attr("numOfProject");
-		
+
 		//GETTING ALL EDITED INPUTS
 		var editedClassSize = $("#editClassSize").val();
 		var editedNumProjects = $("#editNumProjects").val();
@@ -107,7 +118,7 @@ $(function() {
 			if(currentValueOfProjectTitle == editedValueOfProjectTitle) {
 				editedProjectTitles.push(null);
 			}
-			//IF DIFFERENT PUSH NEW TITLE 
+			//IF DIFFERENT PUSH NEW TITLE
 			else {
 				if(editedValueOfProjectTitle != "" && editedValueOfProjectTitle != null) {
 					editedProjectTitles.push(editedValueOfProjectTitle);
@@ -116,7 +127,7 @@ $(function() {
 		}
 
 		//PREPARING THE FORM TO SEND TO THE RECEIVER
-		var editFormData = 
+		var editFormData =
 		{
 			"moduleCode" : moduleCode,
 			"editedClassSize" : editedClassSize,
@@ -129,7 +140,7 @@ $(function() {
 
 		// 4=(form)=}=> Server
 		$.ajax({
-			url: "/index.php/ajaxreceivers/editmodule",	
+			url: "/index.php/ajaxreceivers/editmodule",
 			method: "POST",
 			data: editFormData,
 			dataType: "json"
@@ -155,7 +166,7 @@ $(function() {
 	});
 
 	//HANDLER TO DYNAMICALLY UPDATE EDIT MODULE FORM
-	$(".editModuleBtn").on('click', function(e) { 
+	$(".editModuleBtn").on('click', function(e) {
 
 		var moduleCode = $(this).attr("module");
 
@@ -188,7 +199,7 @@ $(function() {
 		if(editedClassSize != prevClassSize) {
 			if(editedClassSize != null) {
 				$.ajax({
-					url: "/index.php/ajaxreceivers/editmodule",	
+					url: "/index.php/ajaxreceivers/editmodule",
 					method: "POST",
 					data: {"classSize" : $("#classSizeField").val()},
 					dataType: "json"
@@ -224,7 +235,7 @@ $(function() {
 		prevNumProjects = $("#numProjectsText").html();
 		if(editedNumProjects != prevNumProjects && editedNumProjects != null) {
 			$.ajax({
-				url: "/index.php/ajaxreceivers/editmodule",	
+				url: "/index.php/ajaxreceivers/editmodule",
 				method: "POST",
 				data: {"numProjects" : $("#numProjectsField").val()},
 				dataType: "json"
@@ -251,10 +262,10 @@ $(function() {
 	$('#editModuleDescription').on('submit', function(e) {
 		editedModuleDescription = $("#moduleDescriptionField").val();
 		prevModuleDescription = $("#moduleDescriptionText").html();
-		if(editedModuleDescription != prevModuleDescription && editedModuleDescription != null 
+		if(editedModuleDescription != prevModuleDescription && editedModuleDescription != null
 				&& editedModuleDescription != "") {
 			$.ajax({
-				url: "/index.php/ajaxreceivers/editmodule",	
+				url: "/index.php/ajaxreceivers/editmodule",
 				method: "POST",
 				data: {"moduleDescription" : $("#moduleDescriptionField").val()},
 				dataType: "json"
@@ -294,7 +305,7 @@ $(function() {
 			method: "POST",
 			data: {"projectTitles" : sendData},
 			dataType: "json"
-		}) 
+		})
 
 		.done(function(data) {
 			if(data["success"] == true) {
