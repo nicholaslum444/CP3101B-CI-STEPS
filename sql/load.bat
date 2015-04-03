@@ -18,3 +18,4 @@ mysql test -e "source 3person.sql";
 mysql test -e "source 4person.sql";
 mysql test -e "source 5person.sql";
 mysql test -e "source admin.sql";
+mysql test -e "source powerUser.sql";

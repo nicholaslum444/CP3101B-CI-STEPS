@@ -89,6 +89,10 @@ class DatabaseT extends CI_Controller {
   //       	echo "ZZZ";
   //       }
 
+		$resZZ = $this-> Dbquery -> getModuleProjectForStudent("A0123456B",6);
+		echo json_encode($resZZ);
+
+		echo "<br><br><br>";
         $resCC = $this-> Dbquery -> getProjectListWithNoMemberByModule("SS3101",6);
         echo json_encode($resCC);
 		// $res225 = $this->Dbquery->getStudentsNotInProjectGroupByModule('SS3101',6);
@@ -114,14 +118,14 @@ class DatabaseT extends CI_Controller {
 		// //$result3 =  $this->Dbinsert->insertProfBasicDetail("A0090003N","Prof ABC");
 		// $result4 =  $this->Dbinsert
 		// ->updateProfDetail("A0101075B", "Prof ABC", "profA@nus.edu",$this->VEGE,87654237);
-		//  $result5 =  $this->Dbinsert->createModule("CS4321",4,"TESTING MOD");
+		 // $result5 =  $this->Dbinsert->createModule("CS4321",4,"TESTING MOD","A0101075B");
 		// $result31 =  $this->Dbinsert
 		// ->createProject("PLAY game","CS4321",4);
 		// $result32 =  $this->Dbinsert
 		// ->updateProject(1301,"Play another game","play play play","www.post.com/abs","www.video.com/fjdb");
-		 $result61 = $this->Dbinsert
-		 ->updateModuleDescription("SS3101",6,null,null,null);
-		 echo json_encode($result61);
+		 // $result61 = $this->Dbinsert
+		 // ->updateModuleDescription("SS3101",6,null,null,null);
+		 // echo json_encode($result61);
 		// $result63 = $this->Dbquery
 		// ->getModuleDetailByModuleCode("SS3101",6);
 		// echo json_encode($result63)."<br><br>";
@@ -143,7 +147,7 @@ class DatabaseT extends CI_Controller {
 		//  $result33 =  $this->Dbinsert
 		//  ->deleteProject(1301);
 		// $result39 =  $this->Dbinsert
-		// ->dropSupervising("A0201314B","CS4321",4);
+		// ->dropSupervising("A0101075B","CS4321",4);
 		// $result40 =  $this->Dbinsert
 		// ->dropParticipatingModule(4,"CS4321");
 

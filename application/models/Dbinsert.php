@@ -97,13 +97,15 @@ class Dbinsert extends CI_Model {
 		}
 	}
 
-	public function createModule($moduleCode, $iteration, $moduleName) {
+	public function createModule($moduleCode, $iteration, $moduleName, $userID) {
 		$data = array(
 			'module_code' => $moduleCode,
 			'iteration' => $iteration,
 			'module_name' => $moduleName
 		);
 		$this->db->insert('module',$data);
+
+		$this->insertModuleSupervision($userID, $moduleCode, $iteration);
 
 		return true;
 	}
@@ -179,7 +181,7 @@ class Dbinsert extends CI_Model {
 		return true;
 
 	}
-
+	//TODO
 	public function checkParticipatedProjectInModule($iteration, $moduleCode,$userID) {
 		$this->db->from('participate');
 		$this->db->join('project',

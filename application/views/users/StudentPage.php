@@ -4,7 +4,7 @@
         <h2>List of Projects</h2>
     </div>
     
-    <!--Loop through all modules the student is currently studying. modulename, modulecode-->
+    <!--Loop through all CSVs that the student is in modulename, modulecode-->
     <div class="row">     
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -17,7 +17,7 @@
         </div><!--End md-12-->
     </div>
 
-    <!--To be shown only when student signed up for it -->
+    <!--To be shown only when student is signed up for it -->
     <div class="row">     
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -56,31 +56,30 @@
 <div class="modal fade" id="registerProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form id="registerProjectForm">
+            <div id="registerProjectForm">
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel"></h4><!-- put in module code -->
                 </div>
                 <div class="modal-body">
-
                     <div class="form-group">
                         <label for="projectSelect">Select list:</label>
                         <select class="form-control" name="projectTitle" id="projectSelect"> <!-- Dyanamic Project Titles -->
                             <option value="" default selected>Select a Project</option>
-                            <option>Awesome Project</option>
-                            <option>Awesome Project</option>
-                            <option>Awesome Project</option>
-                            <option>Awesome Project</option>
+                            <option>Awesome Project1</option>
+                            <option>Awesome Project2</option>
+                            <option>Awesome Project3</option>
+                            <option>Awesome Project4</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="submit" class="btn btn-primary" id="projectSubmitBtn">Register</button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
@@ -94,4 +93,15 @@ $('#registerProjectModal').on('show.bs.modal', function (event) {
   var modal = $(this);
   modal.find('.modal-title').text(moduleCode + " Project Sign Up");
 }) 
+
+$('#projectSubmitBtn').click(function(event){
+    
+    var projectSelect = $("#projectSelect");
+    var index = projectSelect[0].selectedIndex;
+    var projectTitle = projectSelect[0].options[index].text;
+    
+    console.log(projectTitle);
+
+})
+
 </script>
