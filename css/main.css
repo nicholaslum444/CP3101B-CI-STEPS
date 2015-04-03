@@ -34,11 +34,16 @@ body {
 	float:right;
 }
 
+
 /*lecturer register button*/
 button[data-target="#registerModal"] {
 	float: right;
 }
 
+/*student register project button*/
+button[data-target="#registerProjectModal"] {
+    float: right;
+}
 
 /*
 

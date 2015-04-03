@@ -29,7 +29,9 @@ class Dbinsert extends CI_Model {
 
 	public function updateStudentDetail($userID, $email, $contact, $food) {
 		$data = array();
-
+		if($email == null && $contact == null && $food == null) {
+			return true;
+		}
 		if($email != null) {
 			$data['email'] = $email;
 		}
@@ -59,11 +61,12 @@ class Dbinsert extends CI_Model {
 
 		return true;
 	}
-	//TODO: DO prof update all at a time?
 	public function updateProfDetail($userID, $name, $email, $food, $contact) {
 
 		$data = array();
-
+		if($email == null && $contact == null && $food == null) {
+			return true;
+		}
 		if($email != null) {
 			$data['email'] = $email;
 		}
@@ -112,6 +115,9 @@ class Dbinsert extends CI_Model {
 		}
 
 		$data = array();
+		if($description == null && $classSize == null && $moduleName == null) {
+			return true;
+		}
 		if($moduleName != null) {
 			$data['module_name'] = $moduleName;
 		}
@@ -125,10 +131,8 @@ class Dbinsert extends CI_Model {
 		$this->db->where('iteration', $iteration);
 		
 		$this->db->update('module',$data);
-
 		return true;
 	}
-	//TODO PID should be generated
 	public function createProject($projectName,$moduleCode,$iteration) {
 		$data = array(
 			'title' => $projectName,
@@ -143,8 +147,9 @@ class Dbinsert extends CI_Model {
 	}
 
 	public function updateProject($id, $title, $abstract, $poster, $video) {
-		
-		if($title == null && $abstract == null && $poster == null && $video == null) {
+
+		$data = array();
+		if($title == null && $abstract == null && $video == null && $poster == null) {
 			return true;
 		}
 
