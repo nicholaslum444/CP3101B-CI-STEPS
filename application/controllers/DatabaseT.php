@@ -27,39 +27,81 @@ class DatabaseT extends CI_Controller {
 		// echo "<br>";
 		// echo password_hash("nicholas",PASSWORD_DEFAULT);
   // 		echo "<br>";
-		$this -> load -> model('Dbadmin');
-		
+		// $this -> load -> model('Dbadmin');
+		// $resultAA = $this -> Dbadmin -> getAllModulesByIteration(6);
+		// echo "<table style='border: solid 1px;'>";
+		// echo "<tr  style='border: solid 1px;'><td>Code</td><td>Name</td><td>Description</td><td>Prof</td><td>ID</td><td>title</td>";
+		// for($i = 0; $i < count($resultAA); ++$i) {
+		// 	$supervisor = $resultAA[$i]['supervisor'][0];
+		// 	$code = $resultAA[$i]['moduleCode'];
+		// 	$name = $resultAA[$i]['moduleName'];
+		// 	$desc = $resultAA[$i]['moduleDescription'];
+		// 	$first = true;
+		// 	foreach($resultAA[$i]['projectList'] as $project) {
+		// 		echo "<tr>";	
+		// 		if($first) {
+		// 			echo "<td style='border: solid 1px;'>".$code."</td>";
+		// 			echo "<td style='border: solid 1px;'>".$name."</td>";
+		// 			echo "<td style='border: solid 1px;'>".$desc."</td>";
+		// 			echo "<td style='border: solid 1px;'>".json_encode($supervisor)."</td>";
+		// 			echo "<td style='border: solid 1px;'>".$project['projectID']."</td>";
+		// 			echo "<td style='border: solid 1px;'>".$project['title']."</td>";
+		// 			$first = false;
+		// 		} else {
+		// 			echo "<td style='border: solid 1px;'></td>";
+		// 			echo "<td style='border: solid 1px;'></td>";
+		// 			echo "<td style='border: solid 1px;'></td>";
+		// 			echo "<td style='border: solid 1px;'></td>";
+		// 			echo "<td style='border: solid 1px;'>".$project['projectID']."</td>";
+		// 			echo "<td style='border: solid 1px;'>".$project['title']."</td>";
+
+		// 		}
+					
+		// 	}
+		// }
+		// echo "</table>";
+
+		// $resultBB = $this -> Dbquery -> getSupervisedModuleByID("A0101075B",6);
+		// echo json_encode($resultBB);
 		// if($this->Dbadmin->isAdmin("munaw","munaw")) echo "trueTT"; else echo "falseFF";
 		// if($this->Dbadmin->isAdmin("ngicholas","nicholas")) echo "taarueTT"; else echo "falseFF";
 		// if($this->Dbadmin->isAdmin("shagrmine","sharmine")) echo "trueTfvdfT"; else echo "falseFF";
 		// if($this->Dbadmin->isAdmin("wegiming","weiming")) echo "trueqqqTT"; else echo "falseFF";
 		
-		 // $res1 = $this->Dbadmin->addAdminToStep("anewuser","pass","II","jjj@gmail.com",77665544);
-		 // if($res1) echo "ADDED<br>";
-		 //  $res2 = $this->Dbadmin->editAdminInfo("anewuser","pass","Special","ggg.gmail",73564343);
-		 // if($res2) echo "changed<br>";
-		 // $res3 = $this->Dbadmin->changeAdminPassword("newuser","pass","passwd");
-		 // if($res3) echo "W changed<br>";
-		 // $res4 = $this->Dbadmin->isAdmin("newuser","passwd");
-		 // if($res4) echo json_encode($res4."dddd");
+		//  $res1 = $this->Dbadmin->addAdminToStep("anewuser","pass","II","jjj@gmail.com",77665544);
+		//  if($res1) echo "ADDED<br>";
+		//   $res2 = $this->Dbadmin->editAdminInfo("anewuser","pass","Special","ggg.gmail",73564343);
+		//  if($res2) echo "changed<br>";
+		//  $res3 = $this->Dbadmin->changeAdminPassword("newuser","pass","passwd");
+		//  if($res3) echo "W changed<br>";
+		//  $res4 = $this->Dbadmin->isAdmin("newuser","passwd");
+		//  if($res4) echo json_encode($res4."dddd");
 
 
         $this -> load -> model('Dbquery');
 		$this -> load -> model('Dbinsert');
-		$res225 = $this->Dbquery->getStudentsNotInProjectGroupByModule('SS3101',6);
-		for($i = 0; $i < count($res225); ++$i) {
-			echo $res225[$i]['name']."  ".$res225[$i]['userID']."  ".$res225[$i]['contact']."  ".$res225[$i]['email']."  ".$res225[$i]['foodPref']."<br>";
-		}
-		$resabc = $this->Dbadmin->getAdminDetails("munaw","munaw");
-		echo $resabc['name'].$resabc['contact'].$resabc['email'];
-		$res999 = $this->Dbinsert->createProject("PLAY game","SS3101",6);
+		$this-> Dbinsert->setLeaderForProject("A0201314B", 1201);
+        if($this-> Dbquery->isLeader("A0201314B", 1201)) {
+        	echo "TRUE";
+        } else if(!$this-> Dbquery->isLeader("A0201314B", 1201)) {
+        	echo "FALSE";
+        } else {
+        	echo "ZZZ";
+        }
+		// $res225 = $this->Dbquery->getStudentsNotInProjectGroupByModule('SS3101',6);
+		// for($i = 0; $i < count($res225); ++$i) {
+		// 	echo $res225[$i]['name']."  ".$res225[$i]['userID']."  ".$res225[$i]['contact']."  ".$res225[$i]['email']."  ".$res225[$i]['foodPref']."<br>";
+		// }
+		// $resabc = $this->Dbadmin->getAdminDetails("munaw","munaw");
+		// echo $resabc['name'].$resabc['contact'].$resabc['email'];
+		// $res999 = $this->Dbinsert->createProject("PLAY game","SS3101",6);
 		
-		$this->Dbadmin->dropSteps("munaw","munaw",5);
-		$this->Dbadmin->dropSteps("munaw","munaw",8);
+		// $this->Dbadmin->dropSteps("munaw","munaw",5);
+		// $this->Dbadmin->dropSteps("munaw","munaw",8);
 		// $this->Dbadmin->openSteps("munaw","munaw","myste5p");
 
-		$this->Dbadmin->editIteration("munaw","munaw",14,17);
-		$this->Dbadmin->openSteps("munaw","munaw","aaagrtgaaa");
+		// $this->Dbadmin->editIteration("munaw","munaw",14,17);
+		// $this->Dbadmin->openSteps("munaw","munaw","aaagrtgaaa");
 		// $test = $this -> Dbquery->getModuleDetailByModuleCode("SS3101",6);
 		// // echo JSON_encode($test);
 		// // echo "************************";
@@ -69,11 +111,11 @@ class DatabaseT extends CI_Controller {
 		// //$result3 =  $this->Dbinsert->insertProfBasicDetail("A0090003N","Prof ABC");
 		// $result4 =  $this->Dbinsert
 		// ->updateProfDetail("A0101075B", "Prof ABC", "profA@nus.edu",$this->VEGE,87654237);
-		// $result5 =  $this->Dbinsert->createModule("CS4321",5,"TESTING MOD");
+		//  $result5 =  $this->Dbinsert->createModule("CS4321",4,"TESTING MOD");
 		// $result31 =  $this->Dbinsert
-		// ->createProject(51,"PLAY game","CS4321",5);
+		// ->createProject("PLAY game","CS4321",4);
 		// $result32 =  $this->Dbinsert
-		// ->updateProject(51,"Play another game","play play play","www.post.com/abs","www.video.com/fjdb");
+		// ->updateProject(1301,"Play another game","play play play","www.post.com/abs","www.video.com/fjdb");
 		// $result61 = $this->Dbinsert
 		// ->updateModuleDescription("SS3101",6,"new44 module",null,null);
 		// $result63 = $this->Dbquery
@@ -81,25 +123,25 @@ class DatabaseT extends CI_Controller {
 		// echo json_encode($result63)."<br><br>";
 
 		// $result32 =  $this->Dbinsert
-		// ->setLeaderForProject("A0201314B",51);
+		// ->setLeaderForProject("A0201314B",1301);
 
 		// $result34 =  $this->Dbinsert
-		// ->checkParticipatedProjectInModule(5,"CS4321","A0201314B");
+		// ->checkParticipatedProjectInModule(4,"CS4321","A0201314B");
 		// $result35 =  $this->Dbinsert
-		// ->insertStudentToProject(51,"A0201314B");
+		// ->insertStudentToProject(1301,"A0201314B");
 		// $result36 =  $this->Dbinsert
-		// ->checkParticipatedProjectInModule(5,"CS4321","A0201314B");
+		// ->checkParticipatedProjectInModule(4,"CS4321","A0201314B");
 		// $result38 =  $this->Dbinsert
-		// ->insertModuleSupervision("A0201314B","CS4321",5);
+		// ->insertModuleSupervision("A0201314B","CS4321",4);
 
 		// $result37 =  $this->Dbinsert
-		// ->deleteStudentFromProject(51,"A0201314B");
+		// ->deleteStudentFromProject(1301,"A0201314B");
 		//  $result33 =  $this->Dbinsert
-		//  ->deleteProject(51);
+		//  ->deleteProject(1301);
 		// $result39 =  $this->Dbinsert
-		// ->dropSupervising("A0201314B","CS4321",5);
+		// ->dropSupervising("A0201314B","CS4321",4);
 		// $result40 =  $this->Dbinsert
-		// ->dropParticipatingModule(5,"CS4321");
+		// ->dropParticipatingModule(4,"CS4321");
 
 
 		// $result = $this->Dbquery->getLatestIteration();
