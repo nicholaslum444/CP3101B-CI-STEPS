@@ -34,7 +34,6 @@ body {
 	float:right;
 }
 
-
 /*lecturer register button*/
 button[data-target="#registerModal"] {
 	float: right;
@@ -44,6 +43,11 @@ button[data-target="#registerModal"] {
 button[data-target="#registerProjectModal"] {
     float: right;
 }
+
+.addMemberBtn {
+    float: right;
+}
+
 
 /*
 
