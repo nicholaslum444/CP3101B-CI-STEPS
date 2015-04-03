@@ -497,6 +497,7 @@ class Dbquery extends CI_Model {
 		$this->db->where('module.module_code',$moduleCode);
 		$this->db->where('module.iteration',$iteration);
 		$this->db->where('user.user_type', $this->STUDENT);
+		$this->db->order_by('user.name ASC');
 		$query = $this->db->get();
 		return $query;
 	}

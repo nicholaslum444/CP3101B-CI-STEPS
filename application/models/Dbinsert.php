@@ -15,12 +15,41 @@ class Dbinsert extends CI_Model {
             parent::__construct();
     }
 
+    public function insertAndEnrolStudent($userID, $name, $moduleID) {
+    	$this->db->from('user');
+    	$this->db->where('user_id',$userID);
+    	$this->db->where('user_type',USER_TYPE_STUDENT);
 
-	public function insertStudentBaseInfo($userID, $name, $moduleID) {
+    	$query = $this->db->get();
+
+    	if($query->num_rows() == 0) {
+    		insertStudentBaseInfo($userID, $name);
+    	}
+    	
+    	$data = array(
+    		'user_id' => $userID,
+    		'module_id' => $moduleID
+    		);
+    	$this->db->insert('enrolled',$data);
+
+    	return true;
+    }
+
+    public function unenrolStudent($userID, $moduleID) {
+    	$this->db->where('module_id', $moduleId);
+    	$this->db->where('user_id', $userID);
+    	
+		$this->db->delete('enrolled');
+
+		return true;
+    }
+	//public function insertStudentBaseInfo($userID, $name, $moduleID) {
+	
+	public function insertStudentBaseInfo($userID, $name) {
 		$data = array(
 			'user_id' => $userID,
 			'name' => $name,
-			'user_type' => $this->STUDENT
+			'user_type' => USER_TYPE_STUDENT
 		);
 		$this->db->insert('user', $data);
 
