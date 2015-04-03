@@ -17,9 +17,33 @@ class Dbquery extends CI_Model {
             parent::__construct();
     }
     
+   public function getProjectListWithNoMemberByModule($moduleCode, $iteration) {
+   		$sql = "SELECT * FROM project
+				WHERE project.module_code = ? 
+				AND project.iteration = ?
+				AND project.project_id NOT IN 
+					(SELECT DISTINCT participate.project_id
+					FROM participate 
+					)";
+		$query = $this->db->query($sql,array($moduleCode, $iteration));
+
+		$result = array($query->num_rows());
+		if($query->num_rows() > 0) {
+			$i = 0;
+			foreach($query->result_array() as $rows) {
+				$result[$i] = array();
+				$result[$i]['title'] = $rows['title'];
+				$result[$i]['projectID'] = $rows['project_id'];
+				
+				++$i;
+			}
+		}
+		return $result;
+   } 
+
 	public function getStudentsNotInProjectGroupByModule($moduleCode, $iteration) {
 		
-		$sql = "SELECT * FROM user 
+		$sql = "SELECT * FROM user
 				JOIN enrolled 
 				ON user.user_id = enrolled.user_id
 				WHERE enrolled.module_code = ? 

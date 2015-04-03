@@ -106,6 +106,9 @@ class Dbinsert extends CI_Model {
 
 	public function updateModuleDescription($moduleCode, $iteration, $moduleName, $description, $classSize) {
 		$data = array();
+		if($description == null && $classSize == null && $moduleName == null) {
+			return true;
+		}
 		if($moduleName != null) {
 			$data['module_name'] = $moduleName;
 		}
@@ -119,7 +122,6 @@ class Dbinsert extends CI_Model {
 		$this->db->where('iteration', $iteration);
 		
 		$this->db->update('module',$data);
-
 		return true;
 	}
 	public function createProject($projectName,$moduleCode,$iteration) {
@@ -136,7 +138,10 @@ class Dbinsert extends CI_Model {
 	}
 
 	public function updateProject($id, $title, $abstract, $poster, $video) {
-		
+		$data = array();
+		if($title == null && $abstract == null && $video == null && $poster == null) {
+			return true;
+		}
 		if($title != null) {
 			$data['title'] = $title;
 		}

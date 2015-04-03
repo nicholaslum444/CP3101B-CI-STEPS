@@ -80,14 +80,17 @@ class DatabaseT extends CI_Controller {
 
         $this -> load -> model('Dbquery');
 		$this -> load -> model('Dbinsert');
-		$this-> Dbinsert->setLeaderForProject("A0201314B", 1201);
-        if($this-> Dbquery->isLeader("A0201314B", 1201)) {
-        	echo "TRUE";
-        } else if(!$this-> Dbquery->isLeader("A0201314B", 1201)) {
-        	echo "FALSE";
-        } else {
-        	echo "ZZZ";
-        }
+		// $this-> Dbinsert->setLeaderForProject("A0201314B", 1201);
+  //       if($this-> Dbquery->isLeader("A0201314B", 1201)) {
+  //       	echo "TRUE";
+  //       } else if(!$this-> Dbquery->isLeader("A0201314B", 1201)) {
+  //       	echo "FALSE";
+  //       } else {
+  //       	echo "ZZZ";
+  //       }
+
+        $resCC = $this-> Dbquery -> getProjectListWithNoMemberByModule("SS3101",6);
+        echo json_encode($resCC);
 		// $res225 = $this->Dbquery->getStudentsNotInProjectGroupByModule('SS3101',6);
 		// for($i = 0; $i < count($res225); ++$i) {
 		// 	echo $res225[$i]['name']."  ".$res225[$i]['userID']."  ".$res225[$i]['contact']."  ".$res225[$i]['email']."  ".$res225[$i]['foodPref']."<br>";
@@ -116,8 +119,9 @@ class DatabaseT extends CI_Controller {
 		// ->createProject("PLAY game","CS4321",4);
 		// $result32 =  $this->Dbinsert
 		// ->updateProject(1301,"Play another game","play play play","www.post.com/abs","www.video.com/fjdb");
-		// $result61 = $this->Dbinsert
-		// ->updateModuleDescription("SS3101",6,"new44 module",null,null);
+		 $result61 = $this->Dbinsert
+		 ->updateModuleDescription("SS3101",6,null,null,null);
+		 echo json_encode($result61);
 		// $result63 = $this->Dbquery
 		// ->getModuleDetailByModuleCode("SS3101",6);
 		// echo json_encode($result63)."<br><br>";
