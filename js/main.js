@@ -1,31 +1,10 @@
 /* BEAUTIFUL FUNCTIONS BELOW */
 
-function getLoginUrl(url) {
-	var loginUrl = "https://ivle.nus.edu.sg/api/login/?"
-					+ "apikey=3bBGOIdtC1T2d7SXeQAO9&url="
-					+ url + "index.php/IvleLogin";
-}
-
-$(function() {
-
-    $('.addProjectTitleBtn').click(function() {
-    	//Dynamically generate buttons
-    	$('.projectTitleFields').append('<input type="text" class="form-control" innerIndex="-1" projectID="-1" moduleCode="' + $('.addProjectTitleBtn').attr('moduleCode') + '" placeholder="projectTitle" value="">');
-    });
-
-	$("#loginBtnStudent").bind("click", function() {
-		if ($("#studentIframeContainer #studentIframe").length === 0) {
-			$("#studentIframeContainer").append(studentIframe);
-		}
-	});
-	$("#loginBtnLecturer").bind("click", function() {
-		if ($("#lecturerIframeContainer #lecturerIframe").length === 0) {
-			$("#lecturerIframeContainer").append(lecturerIframe);
-		}
-	});
-
-});
-
+// function getLoginUrl(url) {
+// 	var loginUrl = "https://ivle.nus.edu.sg/api/login/?"
+// 					+ "apikey=3bBGOIdtC1T2d7SXeQAO9&url="
+// 					+ url + "index.php/IvleLogin";
+// }
 
 /* FUNCTIONAL FUNCTIONS BELOW */
 $(function() {
@@ -51,10 +30,10 @@ $(function() {
 
 	// for lecturer page vvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
-    // $('.addProjectTitleBtn').click(function() {
-    // 	//Dynamically generate buttons
-    // 	$('.projectTitleFields').append('<input type="text" class="form-control inputField" placeholder="Project Title"style="display:block">');
-    // });
+	$('.addProjectTitleBtn').click(function() {
+    	//Dynamically generate buttons
+    	$('.projectTitleFields').append('<input type="text" class="form-control" innerIndex="-1" projectID="-1" moduleCode="' + $('.addProjectTitleBtn').attr('moduleCode') + '" placeholder="projectTitle" value="">');
+    });
 
 	$('#registerModuleForm').on('submit',function (e) {
 		$.ajax({
@@ -76,6 +55,34 @@ $(function() {
 
 		.fail(function(data) {
 			alert(JSON.stringify(data));
+		});
+		e.preventDefault();
+	});
+
+	$('#syncRosterButton').click(function (e) {
+		var moduleCode = $("#editModalLabel").html();
+		var moduleId = $("#editButton" + moduleCode).attr("moduleId");
+		console.log("sending" + moduleId);
+		$.ajax({
+			url: "/index.php/ajaxreceivers/syncclassroster",
+			method: "POST",
+			data: {"moduleId" : moduleId},
+			dataType: "json"
+		})
+
+		.done(function(data) {
+			if(data["success"] == true) {
+				$('#registerModal').modal('hide');
+				location.reload();
+			}
+			else {
+				$('#syncRosterButton').removeClass("btn-primary").addClass("btn-warning");
+			}
+		})
+
+		.fail(function(data) {
+			alert(JSON.stringify(data));
+			$('#syncRosterButton').removeClass("btn-primary").addClass("btn-warning");
 		});
 		e.preventDefault();
 	});

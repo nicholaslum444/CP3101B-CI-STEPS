@@ -56,7 +56,7 @@ class IvleApi {
         return $apiResult;
     }
 
-    public static function getClassRoster($token, $courseID) {
+    public static function getClassRoster($token, $courseId) {
         // get the students from a course id.
         // course id is not module code! it is special.
         // get course id separately from the getmodules call

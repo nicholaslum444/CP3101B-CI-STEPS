@@ -16,14 +16,14 @@ class IvleApiBypass extends CI_Controller {
         exit();
     }
 
-    public function getClassRoster() {
-        if (isset($_POST["moduleId"])) {
-            echo json_encode(IvleApi::getClassRoster($this->session->userToken, $_POST["moduleId"]);
-            exit();
-        } else {
-            exit();
-        }
-    }
+    // public function getClassRoster() {
+    //     if (isset($_POST["moduleId"])) {
+    //         echo json_encode(IvleApi::getClassRoster($this->session->userToken, $_POST["moduleId"]);
+    //         exit();
+    //     } else {
+    //         exit();
+    //     }
+    // }
 
 
 }

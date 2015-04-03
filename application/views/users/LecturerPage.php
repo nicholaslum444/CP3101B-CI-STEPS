@@ -11,12 +11,18 @@
             <?php if (isset($data)) {
                 foreach($data as $module) {
                     //Preprocess the data nicely
+                    $data = $module['data'];
+                    if (isset($data["moduleId"])) {
+                        $moduleId = $module['data']['moduleId'];
+                    } else {
+                        $moduleId = "dummy-id";
+                    }
                     $moduleCode = $module['data']['moduleCode'] == null ? "Dummy" : $module['data']['moduleCode'];
                     $moduleName = $module['data']['moduleName'] == null ? "-" : $module['data']['moduleName'];
                     $classSize = $module['data']['classSize'] == null ? 0 : $module['data']['classSize'];
                     $numProjects = $module['data']['project'] == null ? 0 : count($module['data']['project']);
                     $moduleDescription = $module['data']['moduleDescription'] == null ? "-" : $module['data']['moduleDescription']; ?>
-                    <div class="container">
+                    <div class="container" moduleId="<?php echo $moduleId; ?>">
                         <div class="row">
                             <h3><?php echo $moduleCode; ?> - <?php echo $moduleName; ?></h3>
 
@@ -54,7 +60,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <button type="button" class="btn btn-default editModuleBtn" data-toggle="modal" data-target="#editModal" module="<?php echo $moduleCode; ?>">Edit Module</button>
+                                    <button type="button" class="btn btn-default editModuleBtn" data-toggle="modal" data-target="#editModal" id="editButton<?php echo $moduleCode ?>" module="<?php echo $moduleCode; ?>" moduleId="<?php echo $moduleId; ?>">Edit Module</button>
                                 </div>
                             </div>
                         </div>
@@ -71,6 +77,7 @@
     <!-- will need some preprocessing of the data to populate dropdown? -->
     <script>
     var allModules;
+
     $(function() {
         $("#moduleCode").change(function() {
             // sets the module details on select of module
@@ -86,6 +93,7 @@
             }
         });
     });
+
     function populateDropdown() {
         $("#registerModuleFormBody").hide();
         $("#loadingSplash").show();
@@ -105,6 +113,7 @@
             $("#registerModuleFormBody").show();
         });
     }
+
     function getModuleDetail(id, detail) {
         for (var i = 0; i < allModules.length; i++) {
             var oid = allModules[i]["ID"];
@@ -170,6 +179,7 @@
                             <div class="col-sm-4">
                                 <input type="number" class="form-control" id="editClassSize" placeholder="Class Size" value="">
                             </div>
+                            <button type="button" class="btn btn-info" id="syncRosterButton" moduleId="">Sync Class Roster With IVLE</button>
                             <!-- CLASS SIZE -->
 
                         </div>
