@@ -89,15 +89,15 @@ class DatabaseT extends CI_Controller {
   //       	echo "ZZZ";
   //       }
 
-		// $resZZ = $this-> Dbquery -> getModuleProjectForStudent("A0123456B",6);
-		// echo json_encode($resZZ);
+		$resZZ = $this-> Dbquery -> getModuleProjectForStudent("A0123456B",6);
+		echo json_encode($resZZ);
 
 		// echo "<br><br><br>";
   //       $resCC = $this-> Dbquery -> getProjectListWithNoMemberByModule("SS3101",6);
   //       echo json_encode($resCC);
 
-        $resMM = $this->Dbquery-> getProjectDetailsByProjectID(1001);
-        echo json_encode($resMM);
+        // $resMM = $this->Dbquery-> getProjectDetailsByProjectID(1001);
+        // echo json_encode($resMM);
 		// $res225 = $this->Dbquery->getStudentsNotInProjectGroupByModule('SS3101',6);
 		// for($i = 0; $i < count($res225); ++$i) {
 		// 	echo $res225[$i]['name']."  ".$res225[$i]['userID']."  ".$res225[$i]['contact']."  ".$res225[$i]['email']."  ".$res225[$i]['foodPref']."<br>";

@@ -16,7 +16,7 @@ class Dbinsert extends CI_Model {
     }
 
 
-	public function insertStudentBaseInfo($userID, $name) {
+	public function insertStudentBaseInfo($userID, $name, $moduleID) {
 		$data = array(
 			'user_id' => $userID,
 			'name' => $name,

@@ -11,8 +11,7 @@ class Dbquery extends CI_Model {
 	private $MUSLIM = 3;
 	private $NON_MUSLIM = 4;
 
-    public function __construct()
-    {
+    public function __construct() {
 			$this -> load -> database();
             parent::__construct();
     }
@@ -345,6 +344,7 @@ class Dbquery extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+
 	public function getSupervisedModuleByID($matricNo, $iteration) {
 		$query = $this->querySupervisedModuleByMatric($matricNo, $iteration);
 		$result = array();
@@ -437,12 +437,14 @@ class Dbquery extends CI_Model {
 				$result['video'] = $row['video'];
 				$result['projectID'] = $row['project_id'];
 				$result['leader'] = $row['leader_user_id'];
+				$result['members'] = $this->getMembersByProjectID($row['project_id']);
 			}
 			return $result;
 		} else {
 			return null;
 		}
 	}
+
 	private function querySupervisedModuleByMatric($matricNo,$iteration) {
 		//SELECT * FROM supervise
 		//JOIN module ON module.module_code AND supervise.module_code
@@ -566,29 +568,6 @@ class Dbquery extends CI_Model {
 		return $query;
 	}
 
-	/*
-
-	// function getSupervisorByID($user_id) {
-	// 	$this->db->from('');
-	// 	$this->db->join('','');
-	// 	$this->db->where('',$);
-	// 	$this->db->where('',$);
-	// 	$this->db->where('',$);
-	// 	$query = $this->db->get();
-	// 	return $query;
-	// }
-
-	// function getSupervisorByID($user_id) {
-	// 	$this->db->from('');
-	// 	$this->db->join('','');
-	// 	$this->db->where('',$);
-	// 	$this->db->where('',$);
-	// 	$this->db->where('',$);
-	// 	$query = $this->db->get();
-	// 	return $query;
-	// }
-
-	$this->db->close();
-	*/
+	
 }
 ?>
