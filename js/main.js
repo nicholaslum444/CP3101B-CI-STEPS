@@ -9,7 +9,8 @@ function getLoginUrl(url) {
 $(function() {
     $('.addProjectTitleBtn').click(function() {
     	//Dynamically generate buttons
-    	$('.projectTitleFields').append('<input type="text" class="form-control inputField" placeholder="Project Title"style="display:block">');
+
+    	$('.projectTitleFields').append('<input type="text" class="form-control" innerIndex="-1" projectID="-1" moduleCode="' + $('.addProjectTitleBtn').attr('moduleCode') + '" placeholder="projectTitle" value="">');
     });
 
 	$("#loginBtnStudent").bind("click", function() {
@@ -79,16 +80,17 @@ $(function() {
 
 		//GETTING ALL EDITED INPUTS
 		var editedClassSize = $("#editClassSize").val();
-		var editedNumProjects = $("#editNumProjects").val();
+		//var editedNumProjects = $("#editNumProjects").val();
 		var editedModuleDescription = $("#editModuleDescription").val();
-		var allProjectTitles = $("#editProjectTitles :input");
-		var editedProjectTitles = [];
+		var allProjectTitles = $("#editProjectTitles input");
+		var editedExistingProjectTitles = new Array();
+		var editedNewProjectTitles = new Array();
 
 		//GETTING ALL ORIGINAL INPUTS
 		var prevClassSize = $(".classSizeText[module="+moduleCode+"]").html();
 		var prevNumProjects = $(".numProjectsText[module="+moduleCode+"]").html();
 		var prevModuleDescription = $(".moduleDescriptionText[module="+moduleCode+"]").html();
-		var prevProjectTitles = $(".projectTitles[module="+moduleCode+"]").attr("numOfProject");
+		var prevProjectTitles = $(".projectTitles[module="+moduleCode+"] .projectTitle");
 
 		//DISCLAIMER: NULL MEANS DO NOT CHANGE WHEN SENT TO THE RECEIVER
 
@@ -98,9 +100,9 @@ $(function() {
 		}
 
 		//CHECKING NUMBER OF PROJECT
-		if(editedNumProjects == prevNumProjects) {
+/*		if(editedNumProjects == prevNumProjects) {
 			editedNumProjects = null;
-		}
+		}*/
 
 		//CHECKING DESCRIPTION OF MODULE
 		if(editedModuleDescription == prevModuleDescription) {
@@ -111,8 +113,8 @@ $(function() {
 		var currentValueOfProjectTitle;
 		var editedValueOfProjectTitle;
 
-		for(var i = 0; i < allProjectTitles.length; i++) {
-			currentValueOfProjectTitle = $(".projectTitle[module="+moduleCode+"][index=" + (i+1) + "]").html();
+/*		for(var i = 0; i < allProjectTitles.length; i++) {
+			currentValueOfProjectTitle = $(".projectTitle[module="+moduleCode+"][projectID=" + (i+1) + "]").html();
 			editedValueOfProjectTitle = allProjectTitles[i].value;
 			//IF SAME PUSH NULL
 			if(currentValueOfProjectTitle == editedValueOfProjectTitle) {
@@ -124,6 +126,34 @@ $(function() {
 					editedProjectTitles.push(editedValueOfProjectTitle);
 				}
 			}
+		}*/
+		$.each(allProjectTitles, function(index, newInput) {
+			editedProjectInnerIndex = $(this).attr('innerIndex');
+			editedValueOfProjectTitle = newInput.value;
+			//Edited from current title
+			if(editedProjectInnerIndex != -1) {
+				//Get original title
+				currentValueOfProjectTitle = $(".projectTitles[module="+moduleCode+"] .projectTitle[innerIndex=" +editedProjectInnerIndex+"]").html();
+				//If not null and different
+				if(editedValueOfProjectTitle != "" && editedValueOfProjectTitle != currentValueOfProjectTitle) {
+					editedProjectID = $(this).attr('projectID');
+					editedExistingProjectTitles.push([editedProjectID, editedValueOfProjectTitle]);
+				}
+			}
+			//New value
+			else {
+				if(editedValueOfProjectTitle != "") {
+					editedNewProjectTitles.push(editedValueOfProjectTitle);
+				}
+			}
+		});
+
+		if(editedExistingProjectTitles.length == 0) {
+			editedExistingProjectTitles = null;
+		}
+
+		if(editedNewProjectTitles.length == 0) {
+			editedNewProjectTitles = null;
 		}
 
 		//PREPARING THE FORM TO SEND TO THE RECEIVER
@@ -133,10 +163,11 @@ $(function() {
 			"editedClassSize" : editedClassSize,
 			"editedNumProjects" : editedNumProjects,
 			"editedModuleDescription" : editedModuleDescription,
-			"editedProjectTitles" : editedProjectTitles
+			"editedExistingProjectTitles" : editedExistingProjectTitles,
+			"editedNewProjectTitles" : editedNewProjectTitles
 		};
 
-		//alert(JSON.stringify(editFormData));
+		console.log(editFormData);
 
 		// 4=(form)=}=> Server
 		$.ajax({
@@ -176,20 +207,21 @@ $(function() {
 		$("#editNumProjects").attr("value", "");
 		$("#editModuleDescription").html("");
 		$("#editProjectTitles").html("");
+		$(".addProjectTitleBtn").attr("moduleCode", "");
 
 		//THE EASY PART
 		$("#editModalLabel").html(moduleCode);
 		$("#editClassSize").attr("value", $(".classSizeText[module="+moduleCode+"]").html());
-		$("#editNumProjects").attr("value", $(".numProjectsText[module="+moduleCode+"]").html());
+		//$("#editNumProjects").attr("value", $(".numProjectsText[module="+moduleCode+"]").html());
 		$("#editModuleDescription").html($(".moduleDescriptionText[module="+moduleCode+"]").html());
+		$(".addProjectTitleBtn").attr("moduleCode", moduleCode);
 
 		//THE HARD PART
-		var numberOfProjects = $(".projectTitles[module="+moduleCode+"]").attr("numOfProject");
-		//Project indexing starts with 1
-		for(var i = 1; i <= numberOfProjects; i++) {
-			var currentValueOfProjectTitle = $(".projectTitle[module="+moduleCode+"][index="+i+"]").html();
-			$("#editProjectTitles").append("<input type=\"text\" class=\"form-control\" placeholder=\"Project Title\" value=\""+currentValueOfProjectTitle+"\">");
-		}
+		var projects = $(".projectTitles[module="+moduleCode+"] .projectTitle");
+		$.each(projects, function(index, value) {
+			$("#editProjectTitles").append('<input type="text" class="form-control" innerIndex="' + $(this).attr('innerIndex') + 
+				'" projectID="' + $(this).attr('projectID') + '" moduleCode="' + $(this).attr('module') + '" placeholder="Project Title" value="' + value.innerHTML + '">');
+		});
 	});
 
 /*	$('#editClassSize').on('submit', function(e) {

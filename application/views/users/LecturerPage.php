@@ -44,12 +44,18 @@
 
                 <div class="form-group">
                   <label class="control-label col-sm-2" for="">Project Titles:</label>
-                  <div class="col-sm-5 field-group field-list projectTitles" module="<?php echo $moduleCode; ?>" numOfProject = "4"> <!-- numOfProject should be DYNAMIC too -->
-                    <?php $counter=1; ?>
-                    <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" index="<?php echo $counter++; ?>">Awesome Posum</h5>
-                    <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" index="<?php echo $counter++; ?>">Awesome Posum</h5>
-                    <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" index="<?php echo $counter++; ?>">Awesome Posum</h5>
-                    <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" index="<?php echo $counter++; ?>">Awesome Posum</h5>
+                  <div class="col-sm-5 field-group field-list projectTitles" module="<?php echo $moduleCode; ?>"> <!-- numOfProject should be DYNAMIC too -->
+                    <!-- DUMMY PROJECT TO BE REMOVED-->
+                    <!--<h5 class="inputText projectTitle" module="ABC123" projectId="123" innerIndex="1">A-Team</h5>-->
+                    <?php 
+                    $counter = 1;
+                    foreach($module['data']['project'] as $project) { 
+                      if(!is_null($project['projectTitle'])) {?>
+
+                      <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" projectId="<?php echo $project['projectID']; ?>" innerIndex="<?php echo $counter++; ?>"><?php echo $project['projectTitle']; ?></h5>
+                      <?php 
+                      } 
+                    }?>
                   </div>
                 </div>
 
@@ -57,16 +63,6 @@
                   <button type="button" class="btn btn-default editModuleBtn" data-toggle="modal" data-target="#editModal" module="<?php echo $moduleCode; ?>">Edit Module</button>
                 </div>
               </div>
-
-
-
-
-
-
-
-
-
-
             </div>
           </div>
           <?php } 
@@ -125,10 +121,10 @@
               </div>
               <!-- CLASS SIZE -->
               <!-- NUMBER OF PROJECTS -->
-              <label class="control-label col-sm-2" for="editNumProjects">Number of Projects:</label>
+<!--               <label class="control-label col-sm-2" for="editNumProjects">Number of Projects:</label>
               <div class="col-sm-4">
                 <input type="number" class="form-control" id="editNumProjects" placeholder="Number of Projects" value="">
-              </div>
+              </div> -->
               <!-- NUMBER OF PROJECTS -->
             </div>
 
@@ -146,7 +142,7 @@
               <label class="control-label col-sm-2" for="">Project Titles:</label>
               <div id = "editProjectTitles" class="col-sm-5 projectTitleFields">
             <!-- DYNAMICALLY GENERATE AND INSERT INPUT FIELDS INTO HERE
-            SAMPLE: <input type="text" class="form-control" placeholder="Project Title">
+            SAMPLE: <input type="text" class="form-control" innerIndex="" projectID="" moduleCode="" placeholder="Project Title">
           -->
         </div>
         <!-- PROJECT TITLES -->

@@ -106,6 +106,11 @@ class Dbinsert extends CI_Model {
 	}
 
 	public function updateModuleDescription($moduleCode, $iteration, $moduleName, $description, $classSize) {
+		
+		if($moduleName == null && $description == null && $classSize == null) {
+			return true;
+		}
+
 		$data = array();
 		if($moduleName != null) {
 			$data['module_name'] = $moduleName;
@@ -139,6 +144,10 @@ class Dbinsert extends CI_Model {
 
 	public function updateProject($id, $title, $abstract, $poster, $video) {
 		
+		if($title == null && $abstract == null && $poster == null && $video == null) {
+			return true;
+		}
+
 		if($title != null) {
 			$data['title'] = $title;
 		}
