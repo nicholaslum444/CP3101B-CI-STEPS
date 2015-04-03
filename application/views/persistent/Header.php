@@ -97,11 +97,14 @@ $lecturerUrl = "https://ivle.nus.edu.sg/api/login/?"
 						// based on whether user logged in or not
 
 						if ($isLoggedIn) {
-							if ($userType === 2) {
+							if ($userType === USER_TYPE_LECTURER) {
 								$userType = "Lecturer";
-							} else if ($userType === 3) {
+							} else if ($userType === USER_TYPE_STUDENT) {
 								$userType = "Student";
+							} else if ($userType === USER_TYPE_ADMIN) {
+								$userType = "Admin";
 							} ?>
+
 							<a href="/index.php/<?php echo $userType; ?>/console" class="btn btn-success"><?php echo $name ?></a>
 							<a href="/index.php/logout" class="btn btn-danger">Logout</a>
 						<?php } else if (!(isset($loader) && $loader === LOADER_TYPE_ADMIN)) { ?>
