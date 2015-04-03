@@ -17,9 +17,33 @@ class Dbquery extends CI_Model {
             parent::__construct();
     }
     
+   public function getProjectListWithNoMemberByModule($moduleCode, $iteration) {
+   		$sql = "SELECT * FROM project
+				WHERE project.module_code = ? 
+				AND project.iteration = ?
+				AND project.project_id NOT IN 
+					(SELECT DISTINCT participate.project_id
+					FROM participate 
+					)";
+		$query = $this->db->query($sql,array($moduleCode, $iteration));
+
+		$result = array($query->num_rows());
+		if($query->num_rows() > 0) {
+			$i = 0;
+			foreach($query->result_array() as $rows) {
+				$result[$i] = array();
+				$result[$i]['title'] = $rows['title'];
+				$result[$i]['projectID'] = $rows['project_id'];
+				
+				++$i;
+			}
+		}
+		return $result;
+   } 
+
 	public function getStudentsNotInProjectGroupByModule($moduleCode, $iteration) {
 		
-		$sql = "SELECT * FROM user 
+		$sql = "SELECT * FROM user
 				JOIN enrolled 
 				ON user.user_id = enrolled.user_id
 				WHERE enrolled.module_code = ? 
@@ -103,6 +127,35 @@ class Dbquery extends CI_Model {
 		return $query;
 	}
 
+	public function getSupervisorByModule($moduleCode, $iteration) {
+		$query = $this-> querySupervisorByModule($moduleCode, $iteration);
+		$result = array();
+		$i = 0;
+		if($query->num_rows() > 0) {
+			$result = array($query->num_rows());
+			foreach ($query->result_array() as $row) {
+				$result[$i] = array();
+				$result[$i]['userID'] = $row['user_id'];
+				$result[$i]['name'] = $row['name'];
+				++$i;
+			}
+		} else {
+			return $result;
+		}
+		return $result;
+	}
+
+	private function querySupervisorByModule($moduleCode, $iteration) {
+		$this->db->from('supervise');
+		$this->db->join('user',
+			'user.user_id = supervise.user_id');
+		$this->db->where('supervise.module_code', $moduleCode);
+		$this->db->where('supervise.iteration', $iteration);
+		$query = $this->db->get();
+
+		return $query;
+	}
+
 	public function getProjectListByModule($moduleCode, $iteration) {
 		$query = $this->queryProjectByModule($moduleCode, $iteration);
 		$result;
@@ -154,7 +207,6 @@ class Dbquery extends CI_Model {
 			return false;
 		}
 	}
-
 	public function getModuleListByIteration($iteration) {
 		$query = $this->queryModuleListByIteration($iteration);
 		$result;
@@ -166,6 +218,10 @@ class Dbquery extends CI_Model {
 				$result[$i]['moduleCode'] = $row['module_code'];
 				$result[$i]['moduleName'] = $row['module_name'];
 				$result[$i]['moduleDescription'] = $row['module_description'];
+				$result[$i]['classSize'] = $row['class_size'];
+				$result[$i]['projectList'] = 
+					$this->getProjectListByModule($row['module_code'], 
+													$iteration);
 				++$i;
 			}
 		}
@@ -174,9 +230,21 @@ class Dbquery extends CI_Model {
 		} 
 		return $result;
 	}
+	public function isLeader($userID, $projectID) {
+		$this->db->from('project');
+		$this->db->where('project_id', $projectID);
+		$query = $this->db->get();
+		if($query->num_rows() == 1) {
+			foreach ($query->result_array() as $row ) {
+				if($userID == $row['leader_user_id'])
+					return true;
+				else
+					return false;
+			}
+		}
+	}
 
-
-	private function queryModuleListByIteration($iteration) {
+	public function queryModuleListByIteration($iteration) {
 		//SELECT * FROM module WHERE iteration = $iteration;
 		$this->db->from('module');
 		$this->db->where('module.iteration', $iteration);
@@ -194,6 +262,9 @@ class Dbquery extends CI_Model {
 				$result['moduleName'] = $row['module_name'];
 				$result['moduleDescription'] = $row['module_description'];
 				$result['classSize'] = $row['class_size'];
+				$result['projectList'] = 
+					$this->getProjectListByModule($row['module_code'], 
+													$iteration);
 							
 			}
 			
@@ -226,10 +297,9 @@ class Dbquery extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
-	
 	public function getSupervisedModuleByID($matricNo, $iteration) {
 		$query = $this->querySupervisedModuleByMatric($matricNo, $iteration);
-		$result = FALSE;
+		$result = array();
 		$i = 0;
 		if($query->num_rows() > 0) {
 			$result = array($query->num_rows());
@@ -239,6 +309,9 @@ class Dbquery extends CI_Model {
 				$result[$i]['moduleName'] = $row['module_name'];
 				$result[$i]['moduleDescription'] = $row['module_description'];
 				$result[$i]['classSize'] = $row['class_size'];
+				$result[$i]['projectList'] = 
+					$this->getProjectListByModule($row['module_code'], 
+													$iteration);
 				++$i;
 			}
 		} else {

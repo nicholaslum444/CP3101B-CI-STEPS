@@ -128,7 +128,7 @@ class Admin extends CI_Controller {
                 "token" => $adminToken,
                 "adminProfile" => $adminProfile,
                 "username" => $username,
-				"password" -> $password, // store the password for queries later
+				"password" => $password, // store the password for queries later
                 "isLoggedIn" => TRUE,
                 "userType" => $userType
             ];
