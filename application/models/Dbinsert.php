@@ -29,7 +29,9 @@ class Dbinsert extends CI_Model {
 
 	public function updateStudentDetail($userID, $email, $contact, $food) {
 		$data = array();
-
+		if($email == null && $contact == null && $food == null) {
+			return true;
+		}
 		if($email != null) {
 			$data['email'] = $email;
 		}
@@ -62,7 +64,9 @@ class Dbinsert extends CI_Model {
 	public function updateProfDetail($userID, $name, $email, $food, $contact) {
 
 		$data = array();
-
+		if($email == null && $contact == null && $food == null) {
+			return true;
+		}
 		if($email != null) {
 			$data['email'] = $email;
 		}
@@ -93,7 +97,7 @@ class Dbinsert extends CI_Model {
 		}
 	}
 
-	public function createModule($moduleCode, $iteration, $moduleName) {
+	public function createModule($moduleCode, $iteration, $moduleName, $userID) {
 		$data = array(
 			'module_code' => $moduleCode,
 			'iteration' => $iteration,
@@ -101,11 +105,21 @@ class Dbinsert extends CI_Model {
 		);
 		$this->db->insert('module',$data);
 
+		$this->insertModuleSupervision($userID, $moduleCode, $iteration);
+
 		return true;
 	}
 
 	public function updateModuleDescription($moduleCode, $iteration, $moduleName, $description, $classSize) {
+		
+		if($moduleName == null && $description == null && $classSize == null) {
+			return true;
+		}
+
 		$data = array();
+		if($description == null && $classSize == null && $moduleName == null) {
+			return true;
+		}
 		if($moduleName != null) {
 			$data['module_name'] = $moduleName;
 		}
@@ -119,7 +133,6 @@ class Dbinsert extends CI_Model {
 		$this->db->where('iteration', $iteration);
 		
 		$this->db->update('module',$data);
-
 		return true;
 	}
 	public function createProject($projectName,$moduleCode,$iteration) {
@@ -136,7 +149,12 @@ class Dbinsert extends CI_Model {
 	}
 
 	public function updateProject($id, $title, $abstract, $poster, $video) {
-		
+
+		$data = array();
+		if($title == null && $abstract == null && $video == null && $poster == null) {
+			return true;
+		}
+
 		if($title != null) {
 			$data['title'] = $title;
 		}
@@ -163,7 +181,7 @@ class Dbinsert extends CI_Model {
 		return true;
 
 	}
-
+	//TODO
 	public function checkParticipatedProjectInModule($iteration, $moduleCode,$userID) {
 		$this->db->from('participate');
 		$this->db->join('project',
