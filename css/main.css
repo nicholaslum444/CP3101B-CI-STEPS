@@ -1,11 +1,74 @@
 
 
 /* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
+Author's custom styles
+========================================================================== */
+
+body {
+	font-family: 'Lato', sans-serif;
+}
+
+.nav-sidebar {
+	position:fixed;
+}
+
+.wrap-sidebar {
+	width: 200px;
+	margin: 0 auto;
+}
+
+#moduleContent {
+	min-height: 450px;
+}
+#moduleList .container {
+	margin-top: 4.5%;
+}
+
+/*admin panel edit button*/
+.panel-heading button {
+	float:right;
+}
+
+/*lecturer edit button*/
+#moduleList button {
+	float:right;
+}
+
+/*lecturer register button*/
+button[data-target="#registerModal"] {
+	float: right;
+}
 
 
+/*
 
+.afternav {
+position: relative;
+top: 70px;
+}
+
+.inputText {
+cursor: pointer;
+}
+
+.inputField {
+display: none;
+}
+
+.glyphicon-ok {
+display: none;
+}
+
+.glyphicon-pencil{
+display: none;
+} 
+
+.btn-clear{
+cursor: pointer;
+background-color: #ffffff;
+}
+
+*/
 
 
 
