@@ -7,6 +7,7 @@ function getLoginUrl(url) {
 }
 
 $(function() {
+
     $('.addProjectTitleBtn').click(function() {
     	//Dynamically generate buttons
     	$('.projectTitleFields').append('<input type="text" class="form-control" innerIndex="-1" projectID="-1" moduleCode="' + $('.addProjectTitleBtn').attr('moduleCode') + '" placeholder="projectTitle" value="">');
@@ -22,16 +23,44 @@ $(function() {
 			$("#lecturerIframeContainer").append(lecturerIframe);
 		}
 	});
+
 });
 
 
 /* FUNCTIONAL FUNCTIONS BELOW */
 $(function() {
+
+	// for header vvvvvvvvvvvvvvvvvvvvvvvvv
+
+	$("#loginBtnStudent").bind("click", function() {
+		if ($("#studentIframeContainer #studentIframe").length === 0) {
+			$("#studentIframeContainer").append(studentIframe);
+		}
+	});
+
+	$("#loginBtnLecturer").bind("click", function() {
+		if ($("#lecturerIframeContainer #lecturerIframe").length === 0) {
+			$("#lecturerIframeContainer").append(lecturerIframe);
+		}
+	});
+
+	// end header ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+
+	// for lecturer page vvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+    // $('.addProjectTitleBtn').click(function() {
+    // 	//Dynamically generate buttons
+    // 	$('.projectTitleFields').append('<input type="text" class="form-control inputField" placeholder="Project Title"style="display:block">');
+    // });
+
 	$('#registerModuleForm').on('submit',function (e) {
 		$.ajax({
 			url: "/index.php/ajaxreceivers/registermodule",
 			method: "POST",
-			data: {"moduleCode" : $("#moduleCode").val(), "moduleName" : $("#moduleName").val()},
+			data: {"moduleId" : $("#moduleCode option:selected").attr("value")},
 			dataType: "json"
 		})
 
@@ -178,7 +207,7 @@ $(function() {
 		//THE HARD PART
 		var projects = $(".projectTitles[module="+moduleCode+"] .projectTitle");
 		$.each(projects, function(index, value) {
-			$("#editProjectTitles").append('<input type="text" class="form-control" innerIndex="' + $(this).attr('innerIndex') + 
+			$("#editProjectTitles").append('<input type="text" class="form-control" innerIndex="' + $(this).attr('innerIndex') +
 				'" projectID="' + $(this).attr('projectID') + '" moduleCode="' + $(this).attr('module') + '" placeholder="Project Title" value="' + value.innerHTML + '">');
 		});
 	});
