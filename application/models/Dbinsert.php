@@ -172,7 +172,7 @@ class Dbinsert extends CI_Model {
 		return true;
 
 	}
-
+	//TODO
 	public function checkParticipatedProjectInModule($iteration, $moduleCode,$userID) {
 		$this->db->from('participate');
 		$this->db->join('project',
