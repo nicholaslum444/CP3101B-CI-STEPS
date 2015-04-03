@@ -59,7 +59,6 @@ class Dbinsert extends CI_Model {
 
 		return true;
 	}
-	//TODO: DO prof update all at a time?
 	public function updateProfDetail($userID, $name, $email, $food, $contact) {
 
 		$data = array();
@@ -123,7 +122,6 @@ class Dbinsert extends CI_Model {
 
 		return true;
 	}
-	//TODO PID should be generated
 	public function createProject($projectName,$moduleCode,$iteration) {
 		$data = array(
 			'title' => $projectName,
