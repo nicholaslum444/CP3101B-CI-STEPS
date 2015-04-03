@@ -1,7 +1,7 @@
 <div class="container">
 
 <div class="row">
-    <h3>Projects</h3>
+    <h4>Projects</h4>
 </div>
 
 
@@ -14,7 +14,7 @@
                 <div class="panel-body">
                     <div class="form-horizontal" role="form" index="1">
 
-                        <h3 class="col-sm-12"><?php echo $module['moduleCode'].'-'.$module['moduleName'] ?></h3>
+                        <h4 class="col-sm-12"><?php echo $module['moduleCode'].'-'.$module['moduleName'] ?></h4>
 
 
                         <div class="form-group">
@@ -47,7 +47,7 @@
 ?>
 
 <div class="row">
-    <h3>Modules without registered project</h3>
+    <h4>Modules without registered project</h4>
 </div>
 
 <!--Modules where student has no project-->
@@ -58,7 +58,7 @@ if(isset($data[1])){
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h3><?php echo $module['moduleCode']. '-' . $module['moduleName'] ?></h3>
+                    <h4><?php echo $module['moduleCode']. '-' . $module['moduleName'] ?></h4>
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registerProjectModal" data-module="<?php echo $module['moduleCode'] ?>">Sign up</button>
                 </div>
             </div>
@@ -81,16 +81,7 @@ if(isset($data[1])){
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="projectSelect">Select list:</label>
-                        <select class="form-control" name="projectTitle" id="projectSelect"> <!-- Dyanamic Project Titles -->
-                            <option value="" default selected>Select a Project</option>
-                            <?php 
-                            if(isset($dataUnregistered['BB3218'])){
-                                $module = $dataUnregistered['BB3218'];
-                                foreach($module as $project) {
-                                    echo "<option>". $project['title'] ."</option>";
-                                }
-                            } 
-                            ?>
+                        <select class="form-control" name="projectTitle" id="projectSelect"> <!-- Dyanamic Project Titles -->                            
                         </select>
                     </div>
                 </div>
@@ -104,18 +95,30 @@ if(isset($data[1])){
     </div>
 </div>
 
-<?php
-var_dump($dataUnregistered);
-?>
-
 <script> 
 $(function() {
     
+    var untakenProjects = <?php echo json_encode($dataUnregistered); ?>; //an object of arrays
+
     $('#registerProjectModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var moduleCode = button.data('module') // Extract info from data-* attributes
         var modal = $(this);
         modal.find('.modal-title').text(moduleCode + " Project Sign Up");
+
+        //empty selection
+        $('#projectSelect').html("");
+
+        //generate string
+        var projects = untakenProjects[moduleCode];
+        var str = '<option value="" default selected>Select a Project</option>' ;
+        for(var i = 0; i < projects.length; i++) {
+            str += "<option>";
+            str += projects[i].title;
+            str += "</option>";
+        }
+
+        $('#projectSelect').append(str);
     }) 
 
     $('#projectSubmitBtn').click(function(event){

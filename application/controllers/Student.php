@@ -87,13 +87,12 @@ class Student extends CI_Controller {
         return array($modulesRegistered, $modulesNotRegistered);
     }
 
-    /* retrieves all student's module's untaken projects */
+    /* retrieves student's unregistered module's untaken projects */
     private function _getAllUnregisteredProjects($modulesNotRegistered, $iteration){
         $result = array();
 
         foreach($modulesNotRegistered as $module){
-            $result[$module['moduleCode']] = $this->Dbquery->getProjectListWithNoMemberByModule($module['moduleCode'], $iteration);
-            
+            $result[$module['moduleCode']] = $this->Dbquery->getProjectListWithNoMemberByModule($module['moduleCode'], $iteration);          
         }
 
         return $result;
