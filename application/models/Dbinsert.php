@@ -2,8 +2,7 @@
 
 class Dbinsert extends CI_Model {
 
-    public function __construct()
-    {
+    public function __construct(){
 			$this -> load -> database();
             parent::__construct();
     }
@@ -188,7 +187,7 @@ class Dbinsert extends CI_Model {
 		if($video != null) {
 			$data['video'] = $video;
 		}
-		
+
 		$this->db->where('project_id', $id);
 		$this->db->update('project',$data);
 
