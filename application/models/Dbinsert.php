@@ -29,7 +29,9 @@ class Dbinsert extends CI_Model {
 
 	public function updateStudentDetail($userID, $email, $contact, $food) {
 		$data = array();
-
+		if($email == null && $contact == null && $food == null) {
+			return true;
+		}
 		if($email != null) {
 			$data['email'] = $email;
 		}
@@ -62,7 +64,9 @@ class Dbinsert extends CI_Model {
 	public function updateProfDetail($userID, $name, $email, $food, $contact) {
 
 		$data = array();
-
+		if($email == null && $contact == null && $food == null) {
+			return true;
+		}
 		if($email != null) {
 			$data['email'] = $email;
 		}
