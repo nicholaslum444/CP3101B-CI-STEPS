@@ -55,25 +55,51 @@ class Student extends CI_Controller {
 
 	private function _makeBodyData() {
         $iteration = $this->Dbquery->getLatestIteration();
-        //Get all modules
-        $allModules = $this->Dbquery->getSupervisedModuleByID($this->session->userId, $iteration); // A0101075B
-        $data = [];
-        //Loop through and query for module data
-        foreach($allModules as $module) {
-            if(!isset($data[$module["moduleCode"]])) {
-                $data[$module["moduleCode"]] = array();
-            }
-            //$data[$module["moduleCode"]] = $this->_getModuleInformation($module["moduleCode"]);
-        }
+            
+        $userId = 'A0201001B'; //Hardcode to be removed
+        //$userId =this->session->userId;
+
+        $moduleProjects = $this->Dbquery->getModuleProjectForStudent($userId, $iteration); 
+        $modules = $this->_getRegisteredAndNotRegisteredModule($moduleProjects);
+        $unregisteredProjects = $this->_getAllUnregisteredProjects($modules[1], $iteration);
 
         $bodyData = [
-            "data" => $data
+            "data" => $modules,
+            "dataUnregistered" => $unregisteredProjects
         ];
 
         return $bodyData;
     }
 
-    /* get students who are still not in any projects */
+    private function _getRegisteredAndNotRegisteredModule($moduleProjects) {
+        $modulesRegistered = [];
+        $modulesNotRegistered = [];
+
+        foreach($moduleProjects['enrolled'] as $module) {
+            if($module['project']==null) {//did not sign up for project
+                array_push($modulesNotRegistered, $module);
+            }
+            else { //has a project under this module
+                array_push($modulesRegistered, $module);
+            }
+        }
+
+        return array($modulesRegistered, $modulesNotRegistered);
+    }
+
+    /* retrieves all student's module's untaken projects */
+    private function _getAllUnregisteredProjects($modulesNotRegistered, $iteration){
+        $result = array();
+
+        foreach($modulesNotRegistered as $module){
+            $result[$module['moduleCode']] = $this->Dbquery->getProjectListWithNoMemberByModule($module['moduleCode'], $iteration);
+            
+        }
+
+        return $result;
+    }
+
+    /* get coursemates who are still not in any projects */
     private function _selectMembersData() {
         $iteration = $this->Dbquery->getLatestIteration();
         //Hardcode - to be removed
