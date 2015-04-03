@@ -153,10 +153,10 @@ class Admin extends CI_Controller {
         $data = [];
         //Loop through and query for module data
         foreach($listOfModules as $module) {
-            if(!isset($data[$module["moduleCode"]])) {
-                $data[$module["moduleCode"]] = array();
+            if(!isset($data[$module["moduleID"]])) {
+                $data[$module["moduleID"]] = array();
             }
-            $data[$module["moduleCode"]] = $this->_getModuleInformation($module["moduleCode"]);
+            $data[$module["moduleId"]] = $this->_getModuleInformation($module["moduleID"]);
         }
 
         $bodyData = [

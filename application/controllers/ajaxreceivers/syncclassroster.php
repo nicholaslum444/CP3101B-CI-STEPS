@@ -31,13 +31,13 @@ class SyncClassRoster extends CI_Controller {
         return json_encode($insertResult);
     }
 
-    private function _syncToDb() {
-        $roster = IvleApi::getClassRoster($this->session->userToken, $_POST["moduleId"]);
+    private function _syncToDb($moduleId) {
+        $roster = IvleApi::getClassRoster($this->session->userToken, $moduleId);
         $roster = $roster->Results;
 
         // need to check if the students in db are not in roster.
         // students in enrol and not in roster == remove from enrol
-        $enrollment = $this->Dbquery->getStudentByModule($moduleId);
+        $enrollment = $this->Dbquery->getStudentByModule($moduleId, 6);
         if (count($roster) > count($enrollment)) {
             $limit = count($roster) + 1;
         } else {
@@ -45,7 +45,7 @@ class SyncClassRoster extends CI_Controller {
         }
 
         // SEARCH THROUGH the two arrays and add or remove respectively
-        for ($r = 0, $e = 0; $i < $limit; $i++, $j++) {
+        for ($r = 0, $e = 0; $r < $limit && $e < $limit; $r++, $e++) {
             if ($r >= count($roster)) {
                 //remove all the rest from enrol and exit
                 $this->_removeAllFrom($enrollment, $e, $moduleId); // inclusive
