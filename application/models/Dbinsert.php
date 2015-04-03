@@ -97,13 +97,15 @@ class Dbinsert extends CI_Model {
 		}
 	}
 
-	public function createModule($moduleCode, $iteration, $moduleName) {
+	public function createModule($moduleCode, $iteration, $moduleName, $userID) {
 		$data = array(
 			'module_code' => $moduleCode,
 			'iteration' => $iteration,
 			'module_name' => $moduleName
 		);
 		$this->db->insert('module',$data);
+
+		$this->insertModuleSupervision($userID, $moduleCode, $iteration);
 
 		return true;
 	}
