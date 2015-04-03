@@ -64,7 +64,7 @@ class IvleLogin extends CI_Controller {
             if ($userType === USER_TYPE_LECTURER) {
                 $this->Dbinsert->insertProfBasicDetail($userId, $name);
             } else if ($userType === USER_TYPE_STUDENT) {
-                $this->Dbinsert->insertStudentBaseInfo($userId, $name);
+                //$this->Dbinsert->insertStudentBaseInfo($userId, $name);
             }
         }
 
