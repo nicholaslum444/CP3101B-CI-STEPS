@@ -1,10 +1,20 @@
 /* BEAUTIFUL FUNCTIONS BELOW */
+var deletedProjects = [];
 
-// function getLoginUrl(url) {
-// 	var loginUrl = "https://ivle.nus.edu.sg/api/login/?"
-// 					+ "apikey=3bBGOIdtC1T2d7SXeQAO9&url="
-// 					+ url + "index.php/IvleLogin";
-// }
+function bindDeleteBtn() {
+	$(".deleteProjectBtn").unbind();
+	$(".deleteProjectBtn").on('click', function(e) {
+		var innerIndex = $(this).attr('innerIndex');
+		if(innerIndex == -1) {
+			$(this).parent().remove();
+		}
+		else {
+			var projectID = $("input[innerIndex="+innerIndex+"]").attr("projectID");
+			deletedProjects.push(projectID);
+			$(this).parent().remove();
+		}
+	});
+}
 
 /* FUNCTIONAL FUNCTIONS BELOW */
 $(function() {
@@ -26,13 +36,16 @@ $(function() {
 	// end header ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-
-
 	// for lecturer page vvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 	$('.addProjectTitleBtn').click(function() {
     	//Dynamically generate buttons
-    	$('.projectTitleFields').append('<input type="text" class="form-control" innerIndex="-1" projectID="-1" moduleCode="' + $('.addProjectTitleBtn').attr('moduleCode') + '" placeholder="projectTitle" value="">');
+    	var index = $("#editProjectTitles input").length+1;
+    	var moduleCode = $('.addProjectTitleBtn').attr('moduleCode');
+    	$('.projectTitleFields').append('<span class = "projectTitleInput"><input type="text" class="form-control" innerIndex="-1" projectID="-1" moduleCode="'
+    		+ moduleCode + '" placeholder="projectTitle" value="'+ moduleCode +"-"+ index +'">'+
+				'<button type="button" innerIndex = "-1" class="close deleteProjectBtn" aria-label="Close"><span aria-hidden="true">×</span></button></span>');
+    	bindDeleteBtn();
     });
 
 	$('#registerModuleForm').on('submit',function (e) {
@@ -160,7 +173,8 @@ $(function() {
 			//"editedNumProjects" : editedNumProjects,
 			"editedModuleDescription" : editedModuleDescription,
 			"editedExistingProjectTitles" : editedExistingProjectTitles,
-			"editedNewProjectTitles" : editedNewProjectTitles
+			"editedNewProjectTitles" : editedNewProjectTitles,
+			"deletedProjects" : deletedProjects
 		};
 
 		console.log(editFormData);
@@ -214,8 +228,10 @@ $(function() {
 		//THE HARD PART
 		var projects = $(".projectTitles[module="+moduleCode+"] .projectTitle");
 		$.each(projects, function(index, value) {
-			$("#editProjectTitles").append('<input type="text" class="form-control" innerIndex="' + $(this).attr('innerIndex') +
-				'" projectID="' + $(this).attr('projectID') + '" moduleCode="' + $(this).attr('module') + '" placeholder="Project Title" value="' + value.innerHTML + '">');
+			$("#editProjectTitles").append('<span class = "projectTitleInput"><input type="text" class="form-control" innerIndex="' + $(this).attr('innerIndex') +
+				'" projectID="' + $(this).attr('projectID') + '" moduleCode="' + $(this).attr('module') + '" placeholder="Project Title" value="' + value.innerHTML + '">'+
+				'<button type="button" innerIndex = "' + $(this).attr('innerIndex') + '" class="close deleteProjectBtn" aria-label="Close"><span aria-hidden="true">×</span></button></span>');
+			bindDeleteBtn();
 		});
 	});
 });

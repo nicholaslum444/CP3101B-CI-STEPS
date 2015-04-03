@@ -48,6 +48,20 @@ button[data-target="#registerProjectModal"] {
     float: right;
 }
 
+.projectTitleInput {
+	position: relative;
+}
+
+.deleteProjectBtn {
+	position: absolute;
+	top: -43px;
+	left: 322px;
+	display: none;
+}
+
+.projectTitleInput:hover .deleteProjectBtn{
+	display: initial;
+}
 
 /*
 
