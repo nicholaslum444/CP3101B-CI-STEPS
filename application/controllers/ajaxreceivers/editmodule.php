@@ -44,6 +44,8 @@ class EditModule extends CI_Controller {
             $editedModuleDescription = $_POST["editedModuleDescription"];
             $editedNewProjectTitles = $_POST["editedNewProjectTitles"];
             $editedExistingProjectTitles = $_POST["editedExistingProjectTitles"];
+            $deletedProjects = $_POST["deletedProjects"];
+
             $updateSuccess = $this->Dbinsert->updateModuleDescription($moduleCode, $iteration, null, $editedModuleDescription, $editedClassSize);
             
             echo $editedExistingProjectTitles;
@@ -61,7 +63,15 @@ class EditModule extends CI_Controller {
                     $updateSuccess = $this->Dbinsert->updateProject($existingIdTitlePair[0], $existingIdTitlePair[1], null, null, null);
                 }
             }
-            $updateSuccess = $this->Dbinsert;
+
+            //Delete existing project titles
+            if(isset($deletedProjects)) {
+                foreach($deletedProjects as $deleteId) {
+                    $updateSuccess = $this->Dbinsert->deleteProject($deleteId);
+                }
+            }
+
+            //$updateSuccess = $this->Dbinsert;
             //$updateSuccess = TRUE; // TODO remove
             if (isset($updateSuccess) && $updateSuccess == true) {
                 return [

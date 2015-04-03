@@ -9,14 +9,13 @@ class Dbinsert extends CI_Model {
 	private $MUSLIM = 3;
 	private $NON_MUSLIM = 4;
 
-    public function __construct()
-    {
+    public function __construct() {
 			$this -> load -> database();
             parent::__construct();
     }
 
 
-	public function insertStudentBaseInfo($userID, $name) {
+	public function insertStudentBaseInfo($userID, $name, $moduleID) {
 		$data = array(
 			'user_id' => $userID,
 			'name' => $name,
@@ -111,7 +110,7 @@ class Dbinsert extends CI_Model {
 	}
 
 	public function updateModuleDescription($moduleCode, $iteration, $moduleName, $description, $classSize) {
-		
+
 		if($moduleName == null && $description == null && $classSize == null) {
 			return true;
 		}
@@ -131,7 +130,7 @@ class Dbinsert extends CI_Model {
 		}
 		$this->db->where('module_code', $moduleCode);
 		$this->db->where('iteration', $iteration);
-		
+
 		$this->db->update('module',$data);
 		return true;
 	}
@@ -167,7 +166,7 @@ class Dbinsert extends CI_Model {
 		if($video != null) {
 			$data['video'] = $video;
 		}
-		
+
 		$this->db->where('project_id', $id);
 		$this->db->update('project',$data);
 
@@ -208,7 +207,7 @@ class Dbinsert extends CI_Model {
 		return -1;
 	}
 
-	
+
 
 	public function insertStudentToProject($id, $userID) {
 		$data = array(

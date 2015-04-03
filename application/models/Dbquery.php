@@ -11,8 +11,7 @@ class Dbquery extends CI_Model {
 	private $MUSLIM = 3;
 	private $NON_MUSLIM = 4;
 
-    public function __construct()
-    {
+    public function __construct() {
 			$this -> load -> database();
             parent::__construct();
     }
@@ -145,6 +144,7 @@ class Dbquery extends CI_Model {
 		return $result;
 	}
 
+
 	private function querySupervisorByModule($moduleCode, $iteration) {
 		$this->db->from('supervise');
 		$this->db->join('user',
@@ -154,6 +154,53 @@ class Dbquery extends CI_Model {
 		$query = $this->db->get();
 
 		return $query;
+	}
+
+	public function getProjectDetailsByProjectID($projectID) {
+		$this->db->from('project');
+		$this->db->where('project_id',$projectID);
+		$query = $this->db->get();
+		$result = array();
+		if($query->num_rows() == 1) {
+			$row = $query->result_array()[0];
+			$result['title'] = $row['title'];
+			$result['abstract'] = $row['abstract'];
+			$result['poster'] = $row['poster'];
+			$result['video'] = $row['video'];
+			$result['projectId'] = $row['project_id'];
+			$result['moduleCode'] = $row['module_code'];
+			$result['iteration'] = $row['iteration'];
+			$result['leaderID'] = $row['leader_user_id'];
+			$result['members'] = $this->getMembersByProjectID($projectID);
+			return $result;
+		} else {
+			return null;
+		}
+	} 
+
+	public function getMembersByProjectID($projectID) {
+		$this->db->from('project');
+		$this->db->join('participate',
+			'participate.project_id = project.project_id');
+		$this->db->join('user',
+			'user.user_id = participate.user_id');
+		$this->db->where('project.project_id',$projectID);
+		$query = $this->db->get();
+		if($query->num_rows() > 0) {
+			$result = array();
+			$i = 0;
+			foreach ($query->result_array() as $row ) {
+				$result[$i]['userID'] = $row['user_id'];
+				$result[$i]['name'] = $row['name'];
+				$result[$i]['email'] = $row['email'];
+				$result[$i]['contact'] = $row['contact'];
+				$result[$i]['foodPref'] = $row['food_preference'];
+				++$i;
+			}
+			return $result;
+		} else {
+			return null;
+		}
 	}
 
 	public function getProjectListByModule($moduleCode, $iteration) {
@@ -297,6 +344,7 @@ class Dbquery extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+
 	public function getSupervisedModuleByID($matricNo, $iteration) {
 		$query = $this->querySupervisedModuleByMatric($matricNo, $iteration);
 		$result = array();
@@ -389,12 +437,14 @@ class Dbquery extends CI_Model {
 				$result['video'] = $row['video'];
 				$result['projectID'] = $row['project_id'];
 				$result['leader'] = $row['leader_user_id'];
+				$result['members'] = $this->getMembersByProjectID($row['project_id']);
 			}
 			return $result;
 		} else {
 			return null;
 		}
 	}
+
 	private function querySupervisedModuleByMatric($matricNo,$iteration) {
 		//SELECT * FROM supervise
 		//JOIN module ON module.module_code AND supervise.module_code
@@ -518,29 +568,6 @@ class Dbquery extends CI_Model {
 		return $query;
 	}
 
-	/*
-
-	// function getSupervisorByID($user_id) {
-	// 	$this->db->from('');
-	// 	$this->db->join('','');
-	// 	$this->db->where('',$);
-	// 	$this->db->where('',$);
-	// 	$this->db->where('',$);
-	// 	$query = $this->db->get();
-	// 	return $query;
-	// }
-
-	// function getSupervisorByID($user_id) {
-	// 	$this->db->from('');
-	// 	$this->db->join('','');
-	// 	$this->db->where('',$);
-	// 	$this->db->where('',$);
-	// 	$this->db->where('',$);
-	// 	$query = $this->db->get();
-	// 	return $query;
-	// }
-
-	$this->db->close();
-	*/
+	
 }
 ?>
