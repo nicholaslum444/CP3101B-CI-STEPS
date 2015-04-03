@@ -130,6 +130,7 @@ class Dbadmin extends CI_Model {
 			return false;
 		}
 	}
+
 	public function dropSteps($username, $password, $stepIterate) {
 		if($this->isAdmin($username, $password)) {
 			$this->db->where('iteration',$stepIterate);
@@ -183,6 +184,7 @@ class Dbadmin extends CI_Model {
 			return false;
 		}
 	}
+
 	public function getAllModulesByIteration($iteration) {
 		$query = $this->Dbquery->queryModuleListByIteration($iteration);
 		$result = array();
@@ -191,12 +193,13 @@ class Dbadmin extends CI_Model {
 			$result = array();
 			foreach ($query->result_array() as $row) {
 				$result[$i] = array();
+				$result[$i]['moduleID'] = $row['module_id'];
 				$result[$i]['moduleCode'] = $row['module_code'];
 				$result[$i]['moduleName'] = $row['module_name'];
 				$result[$i]['moduleDescription'] = $row['module_description'];
 				$result[$i]['classSize'] = $row['class_size'];
-				$result[$i]['supervisor'] = $this->Dbquery->getSupervisorByModule($row['module_code'], $iteration);
-				$result[$i]['projectList'] = $this->Dbquery->getProjectListByModule($row['module_code'], $iteration);
+				$result[$i]['supervisor'] = $this->Dbquery->getSupervisorByModule($row['module_id']);
+				$result[$i]['projectList'] = $this->Dbquery->getProjectListByModule($row['module_id']);
 				++$i;
 			}
 		} else {
@@ -205,18 +208,16 @@ class Dbadmin extends CI_Model {
 		return $result;
 	}
 
-	
-
 	private function queryAllModulesByIteration($iteration) {
 		//SELECT * FROM supervise
 		//JOIN module ON module.module_code AND supervise.module_code
 		//AND supervise.iteration = $iteration;
 		$this->db->from('module');
 		$this->db->join('project',
-			'project.module_code = module.module_code'.
-			'project.iteration = module.iteration');
+			'project.module_id = module.module_id');
 		$this->db->where('module.iteration',$iteration);
 		$this->db->order_by('module.module_code ASC');
+
 		$query = $this->db->get();
 		return $query;
 	}
