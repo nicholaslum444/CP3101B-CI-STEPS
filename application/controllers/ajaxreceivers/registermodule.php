@@ -14,7 +14,7 @@ class RegisterModule extends CI_Controller {
             exit($this->_buildIncompleteFormResponse());
         }
         if (!$this->session->isLoggedIn || !($this->session->userType === USER_TYPE_LECTURER)) {
-            exit($this->_buildFailureResponse());
+            exit($this->_buildAccessDeniedResponse());
         }
         echo $this->_buildResponse($_POST["moduleId"]);
     }
@@ -34,17 +34,21 @@ class RegisterModule extends CI_Controller {
         //echo json_encode($moduleDetails->Results[0]);
         $moduleCode = $moduleDetails->Results[0]->CourseCode;
         $moduleName = $moduleDetails->Results[0]->CourseName;
-        // if exist ($modulecode) then fail
+        // if exist ($moduleId) then fail
         $iteration = $this->Dbquery->getLatestIteration();
-        if ($this->Dbquery->isModuleExist($moduleCode, $iteration)) {
+
+        //$moduleAlreadyExists = $this->Dbquery->isModuleExist($moduleId); // TODO change to this
+        $moduleAlreadyExists = $this->Dbquery->isModuleExist($moduleCode, $iteration);
+        if ($moduleAlreadyExists) {
             // make fail obj
             return [
                 "success" => FALSE,
                 "error" => "MODULE_EXISTS"
             ];
         } else {
-            $insertSuccess = $this->Dbinsert->createModule($moduleCode, $iteration, $moduleName);
-            $superviseSuccess = $this->Dbinsert->insertModuleSupervision($this->session->userId, $moduleCode, $iteration);
+            //$insertSuccess = $this->Dbinsert->createModule($moduleCode, $moduleId, $moduleName, $iteration, $this->session->userId);
+            $insertSuccess = $this->Dbinsert->createModule($moduleCode, $iteration, $moduleName, $this->session->userId);
+            //$superviseSuccess = $this->Dbinsert->insertModuleSupervision($this->session->userId, $moduleCode, $iteration);
             if (isset($insertSuccess)) {
                 return [
                     "success" => TRUE
