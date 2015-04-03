@@ -41,7 +41,13 @@ class Admin extends CI_Controller {
 		} else if ((isset($_POST["username"]) && isset($_POST["password"]))) {
 
             // both username and password supplied
-            $this->_processLogin();
+	        // load the username and password
+	        $u = htmlspecialchars($_POST["username"]);
+	        $p = htmlspecialchars($_POST["password"]);
+
+            $this->_processLogin($u, $p);
+
+			// remove from the post array after processing
 			$_POST["username"] = null;
 			$_POST["password"] = null;
 
@@ -101,11 +107,7 @@ class Admin extends CI_Controller {
         return sha1(microtime(true).mt_rand(10000,90000));
     }
 
-    private function _processLogin() {
-
-        // load the username and password
-        $username = htmlspecialchars($_POST["username"]);
-        $password = htmlspecialchars($_POST["password"]);
+    private function _processLogin($username, $password) {
 
         $isAdmin = $this->Dbadmin->isAdmin($username, $password);
 
@@ -126,6 +128,7 @@ class Admin extends CI_Controller {
                 "token" => $adminToken,
                 "adminProfile" => $adminProfile,
                 "username" => $username,
+				"password" -> $password, // store the password for queries later
                 "isLoggedIn" => TRUE,
                 "userType" => $userType
             ];
