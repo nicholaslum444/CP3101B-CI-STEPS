@@ -7,21 +7,6 @@ function getLoginUrl(url) {
 }
 
 $(function() {
-    $('.addProjectTitleBtn').click(function() {
-    	//Dynamically generate buttons
-    	$('.projectTitleFields').append('<input type="text" class="form-control inputField" placeholder="Project Title"style="display:block">');
-    });
-
-	$("#loginBtnStudent").bind("click", function() {
-		if ($("#studentIframeContainer #studentIframe").length === 0) {
-			$("#studentIframeContainer").append(studentIframe);
-		}
-	});
-	$("#loginBtnLecturer").bind("click", function() {
-		if ($("#lecturerIframeContainer #lecturerIframe").length === 0) {
-			$("#lecturerIframeContainer").append(lecturerIframe);
-		}
-	});
 
     /*$(".inputText").click(function() {
     	//Turns from words to fields
@@ -47,11 +32,38 @@ $(function() {
 
 /* FUNCTIONAL FUNCTIONS BELOW */
 $(function() {
+
+	// for header vvvvvvvvvvvvvvvvvvvvvvvvv
+
+	$("#loginBtnStudent").bind("click", function() {
+		if ($("#studentIframeContainer #studentIframe").length === 0) {
+			$("#studentIframeContainer").append(studentIframe);
+		}
+	});
+
+	$("#loginBtnLecturer").bind("click", function() {
+		if ($("#lecturerIframeContainer #lecturerIframe").length === 0) {
+			$("#lecturerIframeContainer").append(lecturerIframe);
+		}
+	});
+
+	// end header ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+
+	// for lecturer page vvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+    $('.addProjectTitleBtn').click(function() {
+    	//Dynamically generate buttons
+    	$('.projectTitleFields').append('<input type="text" class="form-control inputField" placeholder="Project Title"style="display:block">');
+    });
+
 	$('#registerModuleForm').on('submit',function (e) {
 		$.ajax({
 			url: "/index.php/ajaxreceivers/registermodule",
 			method: "POST",
-			data: {"moduleCode" : $("#moduleCode").val(), "moduleName" : $("#moduleName").val()},
+			data: {"moduleId" : $("#moduleCode option:selected").attr("value")},
 			dataType: "json"
 		})
 

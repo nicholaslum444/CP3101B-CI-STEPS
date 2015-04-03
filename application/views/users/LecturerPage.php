@@ -3,7 +3,7 @@
         <div class="form-group">
             <input type="hidden" class="form-control" id="registerModule">
         </div>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registerModal">Register Module</button>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registerModal" id="registerModuleBtn">Register Module</button>
     </form>
     <!--List of modules to be generated-->
     <div class="row">
@@ -69,6 +69,55 @@
         </div>
 
         <!-- Modal for registering module-->
+        <!-- use the $ivleStaffedModules object to get the modules to fill the dropdown -->
+        <!-- will need some preprocessing of the data to populate dropdown? -->
+        <script>
+        var allModules;
+        $(function() {
+
+            $("#moduleCode").change(function() {
+                // sets the module details on select of module
+                var id = $("#moduleCode option:selected").attr("value");
+                $("#moduleName").attr("value", getModuleDetail(id, "CourseName"));
+                $("#moduleSem").attr("value", getModuleDetail(id, "CourseSemester"));
+                $("#moduleYear").attr("value", getModuleDetail(id, "CourseAcadYear"));
+            });
+
+        	$("#registerModuleBtn").bind("click", function() {
+                if (!$("#moduleCode").attr("pop")) {
+    		        populateDropdown();
+                }
+        	});
+        });
+        function populateDropdown() {
+            $("#registerModuleFormBody").hide();
+            $("#loadingSplash").show();
+            var url = "/index.php/apibypass/ivleapibypass/getivlestaffedmodules/";
+            $.get(url, function(data) {
+                var data = JSON.parse(data)['Results'];
+                allModules = data;
+                for (var i = 0; i < data.length; i++) {
+                    var code = data[i]['CourseCode'];
+                    var id = data[i]["ID"];
+                    var option = "<option value='"+id+"'>"+code+"</option>";
+                    $("#moduleCode").append(option);
+                }
+                $("#moduleCode").attr("pop", true);
+                $("#moduleCode").change();
+                $("#loadingSplash").hide();
+                $("#registerModuleFormBody").show();
+            });
+        }
+        function getModuleDetail(id, detail) {
+            for (var i = 0; i < allModules.length; i++) {
+                var oid = allModules[i]["ID"];
+                if (id === oid) {
+                    return allModules[i][detail];
+                }
+            }
+            return "Invalid Module ID";
+        }
+        </script>
         <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -77,14 +126,25 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel">Register a Module</h4>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" id="loadingSplash">
+                            <p>
+                                Please wait while we retrieve your modules..
+                            </p>
+                        </div>
+                        <div class="modal-body" id="registerModuleFormBody">
                             <div class="form-group">
                                 <label for="moduleCode">Module Code</label>
-                                <input type="text" class="form-control" id="moduleCode" placeholder="">
+                                <select class="form-control" name="moduleCode" id="moduleCode">
+                                </select>
                             </div>
                             <div class="form-group">
+                                <!-- TODO change these to static fields -->
                                 <label for="moduleName">Module Name</label>
-                                <input type="text" class="form-control" id="moduleName" placeholder="">
+                                <input type="text" class="form-control" id="moduleName" placeholder="Module Name">
+                                <label for="moduleName">Semester</label>
+                                <input type="text" class="form-control" id="moduleSem" placeholder="Semester">
+                                <label for="moduleName">Year</label>
+                                <input type="text" class="form-control" id="moduleYear" placeholder="Year">
                             </div>
                         </div>
                         <div class="modal-footer">

@@ -1,55 +1,51 @@
 <?php
- 
+
 // this call returns JSON objects.
 header("Content-Type: application/json");
-
-define("Student", 3);
-define("Lecturer", 2);
-define("Unknown", -1);
 
 class RegisterModule extends CI_Controller {
 
     public function __construct() {
 		parent::__construct();
-        $this->load->library("session");
-		$this->load->model("Dbquery");
-        $this->load->model("Dbinsert");
     }
 
     public function index() {
-        if (!(isset($_POST["moduleCode"]) && isset($_POST["moduleName"]))) {
+        if (!(isset($_POST["moduleId"]))) {
             exit($this->_buildIncompleteFormResponse());
         }
-        if (!$this->session->isLoggedIn && !($this->session->userType === Lecturer)) {
+        if (!$this->session->isLoggedIn || !($this->session->userType === USER_TYPE_LECTURER)) {
             exit($this->_buildFailureResponse());
         }
-        echo $this->_buildResponse($_POST["moduleCode"], $_POST["moduleName"]);
+        echo $this->_buildResponse($_POST["moduleId"]);
     }
 
-    private function _buildResponse($moduleCode, $moduleName) {
+    private function _buildResponse($moduleId) {
         // try to insert to db
         // get response object from db telling me
         // whether it can insert or not
 
-        $insertResult = $this->_insertIntoDb($moduleCode, $moduleName);
+        $insertResult = $this->_insertIntoDb($moduleId);
 
         return json_encode($insertResult);
     }
 
-    private function _insertIntoDb($mc, $mn) {
-        // if exist ($mc) then fail
+    private function _insertIntoDb($moduleId) {
+        $moduleDetails = IvleApi::getModuleDetails($this->session->userToken, $moduleId);
+        //echo json_encode($moduleDetails->Results[0]);
+        $moduleCode = $moduleDetails->Results[0]->CourseCode;
+        $moduleName = $moduleDetails->Results[0]->CourseName;
+        // if exist ($modulecode) then fail
         $iteration = $this->Dbquery->getLatestIteration();
-        if ($this->Dbquery->isModuleExist($mc, $iteration)) {
+        if ($this->Dbquery->isModuleExist($moduleCode, $iteration)) {
             // make fail obj
             return [
                 "success" => FALSE,
                 "error" => "MODULE_EXISTS"
             ];
         } else {
-            $insertSuccess = $this->Dbinsert->createModule($mc, $iteration, $mn);
-            $superviseSuccess = $this->Dbinsert->insertModuleSupervision($this->session->userId, $mc, $iteration);
-            //$insertSuccess = TRUE; // TODO remove
-            if (isset($insertSuccess) && isset($superviseSuccess)) {
+            $insertSuccess = $this->Dbinsert->createModule($moduleCode, $iteration, $moduleName);
+            $superviseSuccess = $this->Dbinsert->insertModuleSupervision($this->session->userId, $moduleCode, $iteration);
+            if (isset($insertSuccess)) {
                 return [
                     "success" => TRUE
                 ];

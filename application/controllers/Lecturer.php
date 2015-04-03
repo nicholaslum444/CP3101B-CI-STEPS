@@ -39,6 +39,15 @@ class Lecturer extends CI_Controller {
         }
     }
 
+	private function _getIvleStaffedModules() {
+		// TODO REVERT TO THIS WHEN CONFIRMED
+
+		// return IvleApi::getStaffedModules($this->session->userToken);
+
+		// ELSE simply return all modules and assume it's for staff
+		return IvleApi::getAllModules($this->session->userToken);
+	}
+
     private function _getModuleInformation($moduleCode) {
         //echo $moduleCode;
         if (isset($moduleCode)) {
@@ -55,12 +64,6 @@ class Lecturer extends CI_Controller {
             return $modInfo;
         }
 
-    }
-
-    private function _denyAccess() {
-        $this->load->view("persistent/Header", $this->_makeHeaderData());
-        $this->load->view("users/AccessDeniedPage");
-        $this->load->view("persistent/Footer");
     }
 
     private function _makeHeaderData() {
@@ -81,7 +84,9 @@ class Lecturer extends CI_Controller {
         }
 
         $bodyData = [
-            "data" => $data
+            "data" => $data,
+			//"ivleStaffedModules" => $this->_getIvleStaffedModules()
+			"userToken" => $this->session->userToken
         ];
 
         return $bodyData;
@@ -98,4 +103,10 @@ class Lecturer extends CI_Controller {
 	private function _isAuthenticated() {
 		return $this->_isLoggedIn() && $this->_isLecturer();
 	}
+
+    private function _denyAccess() {
+        $this->load->view("persistent/Header", $this->_makeHeaderData());
+        $this->load->view("users/AccessDeniedPage");
+        $this->load->view("persistent/Footer");
+    }
 }
