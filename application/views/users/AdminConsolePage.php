@@ -3,11 +3,11 @@
 
         <div class="col-md-6">
             <?php
-            if (isset($data)) {
-                foreach($data as $module) {
-
+            if (isset($moduleData)) {
+                foreach($moduleData as $module) {
+                    //echo json_encode($moduleData);
                     //Preprocess the data nicely
-                    $moduleId = $module['data']['moduleId'] == null ? "dummy-id" : $module['data']['moduleId'];
+                    $moduleId = $module['data']['moduleID'] == null ? "dummy-id" : $module['data']['moduleID'];
                     $moduleCode = $module['data']['moduleCode'] == null ? "Dummy" : $module['data']['moduleCode'];
                     $moduleName = $module['data']['moduleName'] == null ? "-" : $module['data']['moduleName'];
                     $classSize = $module['data']['classSize'] == null ? 0 : $module['data']['classSize'];
@@ -17,7 +17,7 @@
 
                     <div class="panel panel-default">
                         <div class="panel-heading"><?php echo $moduleCode ?>  - <?php echo $moduleName; ?>
-                            <button class="btn btn-xs btn-default editModuleBtn" data-toggle="modal" data-target= "#editModal" module="<?php echo $moduleCode; ?>">Edit</button>
+                            <button class="btn btn-xs btn-default editModuleBtn" data-toggle="modal" data-target= "#editModal" id="editButton<?php echo $moduleCode; ?>" module="<?php echo $moduleCode; ?>">Edit</button>
                         </div>
                         <div class="panel-body">
                             <div class="form-horizontal" role="form" index="1">

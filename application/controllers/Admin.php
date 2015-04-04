@@ -150,17 +150,16 @@ class Admin extends CI_Controller {
         $listOfModules = $this->Dbquery->getModuleListByIteration($iteration);
         //print_r($listOfModules);
 
-        $data = [];
+        $moduleData = [];
         //Loop through and query for module data
+        $i = 0;
         foreach($listOfModules as $module) {
-            if(!isset($data[$module["moduleID"]])) {
-                $data[$module["moduleID"]] = array();
-            }
-            $data[$module["moduleId"]] = $this->_getModuleInformation($module["moduleID"]);
+            $moduleData[$i] = $this->_getModuleInformation($module["moduleID"]);
+			$i++;
         }
 
         $bodyData = [
-            "data" => $data
+            "moduleData" => $moduleData
         ];
 
         return $bodyData;
@@ -181,20 +180,11 @@ class Admin extends CI_Controller {
         $this->load->view("persistent/Footer");
     }
 
-    private function _getModuleInformation($moduleCode) {
-        //echo $moduleCode;
-        if (isset($moduleCode)) {
-            $modInfo = [
-                "data" => $this->Dbquery->getModuleDetailByModuleCode($moduleCode, $this->Dbquery->getLatestIteration())
-            ];
-            //echo json_encode($modInfo);
-            return $modInfo;
-        } else {
-            $modInfo = [
-                "data" => []
-            ];
-            //echo json_encode($modInfo);
-            return $modInfo;
-        }
+    private function _getModuleInformation($moduleId) {
+		$modInfo = [
+			"data" => $this->Dbquery->getModuleDetailByModuleID($moduleId)
+		];
+
+        return $modInfo;
     }
 }
