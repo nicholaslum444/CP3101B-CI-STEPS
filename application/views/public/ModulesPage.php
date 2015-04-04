@@ -72,7 +72,7 @@
                                 <div class="panel panel-default">
                                 <div class="panel-body">
                                     <p>
-                                        Projects info not yet available!
+                                        Projects not yet available!
                                     </p>
                                 </div>
                                 <?php
@@ -86,9 +86,23 @@
                                             <h3 class="panel-title"><?php echo $project["title"]; ?></h3>
                                         </div>
                                         <div class="panel-body">
-                                            <p>
-                                                <?php echo $project["abstract"]; ?>
-                                            </p>
+                                            <?php
+                                            if (count($project["abstract"]) <= 0) {
+                                                ?>
+                                                <h4>
+                                                    <small>
+                                                        Project abstract not yet available!
+                                                    </small>
+                                                </h4>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <p>
+                                                    <?php echo $project["abstract"]; ?>
+                                                </p>
+                                                <?php
+                                            }
+                                            ?>
                                         </div>
                                         <ul class="list-group">
                                             <li class="list-group-item">
@@ -111,7 +125,7 @@
                                             } else {
                                                 //show that there are no students!
                                                 ?>
-                                                <li class="list-group-item disabled">Group members info not available!</li>
+                                                <li class="list-group-item disabled">Group members not yet available!</li>
                                                 <?php
                                             }
                                             ?>
@@ -126,8 +140,19 @@
                     } else {
                         ?>
                         <!-- else show the default page content for this page -->
-                        <h1>Participating Modules</h1>
-                        <p>Choose a module on the sidebar to see more information about it.</p>
+                        <div class="page-header">
+                            <h1>
+                                Participating Modules
+                            </h1>
+                            <p>
+                                Students, faculty, technology entrepreneurs and prospective students will have the opportunity to experience the innovations
+                                created by the students.
+                                EIGHT courses are participating in the Term Project Showcase this semester.
+                            </p>
+                            <p>
+                                Click on the modules on the right to view their respective projects.
+                            </p>
+                        </div>
                         <?php
                     }
                     ?>
