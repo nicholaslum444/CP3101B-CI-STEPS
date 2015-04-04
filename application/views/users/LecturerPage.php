@@ -11,50 +11,54 @@
             <?php if (isset($data)) {
                 foreach($data as $module) {
                     //Preprocess the data nicely
-                    $data = $module['data'];
+/*                    $data = $module['data'];
                     if (isset($data["moduleId"])) {
                         $moduleId = $module['data']['moduleId'];
                     } else {
                         $moduleId = "dummy-id";
-                    }
-                    $moduleCode = $module['data']['moduleCode'] == null ? "Dummy" : $module['data']['moduleCode'];
-                    $moduleName = $module['data']['moduleName'] == null ? "-" : $module['data']['moduleName'];
-                    $classSize = $module['data']['classSize'] == null ? 0 : $module['data']['classSize'];
-                    $numProjects = $module['data']['project'] == null ? 0 : count($module['data']['project']);
-                    $moduleDescription = $module['data']['moduleDescription'] == null ? "-" : $module['data']['moduleDescription']; ?>
-                    <div class="container" moduleId="<?php echo $moduleId; ?>">
-                        <div class="row">
-                            <h3><?php echo $moduleCode; ?> - <?php echo $moduleName; ?></h3>
+                    }*/
+                    //Check the 3 essentials
+                    if(isset($module['data']['moduleID']) && isset($module['data']['moduleName']) && isset($module['data']['moduleCode'])) {
+                        $moduleId = $module['data']['moduleID'];
+                        $moduleCode = $module['data']['moduleCode'];
+                        $moduleName = $module['data']['moduleName'];
+                        //Just set 0 if not exist
+                        $classSize = isset($module['data']['classSize']) ? $module['data']['classSize'] : 0;
+                        $numProjects = isset($module['data']['numProjects']) ? $module['data']['numProjects'] : 0;
+                        $moduleDescription = isset($module['data']['moduleDescription']) ? $module['data']['moduleDescription'] : '-';?>
+                        <div class="container" moduleId="<?php echo $moduleId; ?>">
+                            <div class="row">
+                                <h3 moduleId = "<?php echo $moduleId; ?>"><?php echo $moduleCode; ?> - <?php echo $moduleName; ?></h3>
 
-                            <div class="form-horizontal" role="form" index="1">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="classSize">Class Size:</label>
-                                    <div class="col-sm-4 field-group has-feedback">
-                                        <h5 class="inputText classSizeText" module="<?php echo $moduleCode; ?>"><?php echo $classSize; ?></h5>
+                                <div class="form-horizontal" role="form" index="1">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2" for="classSize">Class Size:</label>
+                                        <div class="col-sm-4 field-group has-feedback">
+                                            <h5 class="inputText classSizeText" module="<?php echo $moduleCode; ?>"><?php echo $classSize; ?></h5>
+                                        </div>
+
+                                        <label class="control-label col-sm-2" for="numProjects">Number of Projects:</label>
+                                        <div class="col-sm-4 field-group has-feedback">
+                                            <h5 class="inputText numProjectsText" module="<?php echo $moduleCode; ?>"><?php echo $numProjects; ?></h5>
+                                        </div>
                                     </div>
 
-                                    <label class="control-label col-sm-2" for="numProjects">Number of Projects:</label>
-                                    <div class="col-sm-4 field-group has-feedback">
-                                        <h5 class="inputText numProjectsText" module="<?php echo $moduleCode; ?>"><?php echo $numProjects; ?></h5>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2" for="moduleDescription">Description:</label>
+                                        <div class="col-sm-10 field-group">
+                                            <h5 class="inputText moduleDescriptionText" module="<?php echo $moduleCode; ?>"><?php echo $moduleDescription; ?></h5>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="moduleDescription">Description:</label>
-                                    <div class="col-sm-10 field-group">
-                                        <h5 class="inputText moduleDescriptionText" module="<?php echo $moduleCode; ?>"><?php echo $moduleDescription; ?></h5>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="">Project Titles:</label>
-                                    <div class="col-sm-5 field-group field-list projectTitles" module="<?php echo $moduleCode; ?>"> <!-- numOfProject should be DYNAMIC too -->
-                                        <!-- DUMMY PROJECT TO BE REMOVED-->
-                                        <!--<h5 class="inputText projectTitle" module="ABC123" projectId="123" innerIndex="1">A-Team</h5>-->
-                                        <?php $counter = 1;
-                                        foreach($module['data']['project'] as $project) {
-                                            if(!is_null($project['projectTitle'])) { ?>
-                                                <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" projectId="<?php echo $project['projectID']; ?>" innerIndex="<?php echo $counter++; ?>"><?php echo $project['projectTitle']; ?></h5>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2" for="">Project Titles:</label>
+                                        <div class="col-sm-5 field-group field-list projectTitles" module="<?php echo $moduleCode; ?>"> <!-- numOfProject should be DYNAMIC too -->
+                                           <!--<h5 class="inputText projectTitle" module="ABC123" projectId="123" innerIndex="1">A-Team</h5>-->
+                                            <?php $counter = 1;
+                                            foreach($module['data']['project'] as $project) {
+                                                if(!is_null($project['projectTitle'])) { ?>
+                                                    <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" projectId="<?php echo $project['projectID']; ?>" innerIndex="<?php echo $counter++; ?>"><?php echo $project['projectTitle']; ?></h5>
+                                                    <?php } ?>
                                                 <?php } ?>
                                             <?php } ?>
                                     </div>

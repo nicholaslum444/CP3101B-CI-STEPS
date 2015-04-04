@@ -21,9 +21,9 @@ class Lecturer extends CI_Controller {
 
     }
 
-    public function viewModule($moduleCode = NULL) {
+    public function viewModule($moduleID = NULL) {
         $this->load->view("persistent/Header", $this->_makeHeaderData());
-        $this->load->view("users/ViewModulePage", $this->_getModuleInformation($moduleCode));
+        $this->load->view("users/ViewModulePage", $this->_getModuleInformation($moduleID));
         $this->load->view("persistent/Footer");
     }
 
@@ -48,11 +48,11 @@ class Lecturer extends CI_Controller {
 		return IvleApi::getAllModules($this->session->userToken);
 	}
 
-    private function _getModuleInformation($moduleCode) {
+    private function _getModuleInformation($moduleID) {
         //echo $moduleCode;
-        if (isset($moduleCode)) {
+        if (isset($moduleID)) {
             $modInfo = [
-                "data" => $this->Dbquery->getModuleDetailByModuleCode($moduleCode, $this->Dbquery->getLatestIteration())
+                "data" => $this->Dbquery->getModuleDetailByModuleID($moduleID)
             ];
             //echo json_encode($modInfo);
             return $modInfo;
@@ -77,10 +77,11 @@ class Lecturer extends CI_Controller {
         $data = [];
         //Loop through and query for module data
         foreach($allModules as $module) {
-            if(!isset($data[$module["moduleCode"]])) {
-                $data[$module["moduleCode"]] = array();
+            if(!isset($data[$module["moduleID"]])) {
+                $data[$module["moduleID"]] = array();
             }
-            $data[$module["moduleCode"]] = $this->_getModuleInformation($module["moduleCode"]);
+            $data[$module["moduleID"]] = $this->_getModuleInformation($module["moduleID"]);
+            //print_r($data[$module["moduleID"]]);
         }
 
         $bodyData = [

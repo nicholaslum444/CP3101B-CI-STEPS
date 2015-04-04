@@ -32,40 +32,71 @@ class EditModule extends CI_Controller {
         // if exist ($mc) then fail
         $iteration = $this->Dbquery->getLatestIteration();
         $moduleCode = $_POST["moduleCode"];
-        if (!$this->Dbquery->isModuleExist($moduleCode, $iteration)) {
+        $moduleId = $_POST["moduleId"];
+        if (!$this->Dbquery->isModuleExist($moduleId)) {
             // make fail obj
             return [
                 "success" => FALSE,
                 "error" => "MODULE_DO_NOT_EXISTS"
             ];
         } else {
-            $editedClassSize = $_POST["editedClassSize"];
-            $editedNumProjects = $_POST["editedNumProjects"];
-            $editedModuleDescription = $_POST["editedModuleDescription"];
-            $editedNewProjectTitles = $_POST["editedNewProjectTitles"];
-            $editedExistingProjectTitles = $_POST["editedExistingProjectTitles"];
-            $deletedProjects = $_POST["deletedProjects"];
 
-            $updateSuccess = $this->Dbinsert->updateModuleDescription($moduleCode, $iteration, null, $editedModuleDescription, $editedClassSize);
+            if(isset($_POST["editedClassSize"])) {
+                $editedClassSize = $_POST["editedClassSize"];    
+            }
+            else {
+                $editedClassSize = null;   
+            }
+
+            if(isset($_POST["editedModuleDescription"])) {
+                $editedModuleDescription = $_POST["editedModuleDescription"];    
+            }
+            else {
+                $editedModuleDescription = null;   
+            }
+
+            if(isset($_POST["editedNewProjectTitles"])) {
+                $editedNewProjectTitles = $_POST["editedNewProjectTitles"];    
+            }
+            else {
+                $editedNewProjectTitles = null;   
+            }
+
+            if(isset($_POST["editedExistingProjectTitles"])) {
+                $editedExistingProjectTitles = $_POST["editedExistingProjectTitles"];    
+            }
+            else {
+                $editedExistingProjectTitles = null;   
+            }
+
+            if(isset($_POST["deletedProjects"])) {
+                $deletedProjects = $_POST["deletedProjects"];    
+            }
+            else {
+                $deletedProjects = null;   
+            }
+
+            $updateSuccess = $this->Dbinsert->updateModuleDescription($moduleId, null, $editedModuleDescription, $editedClassSize);
             
-            echo $editedExistingProjectTitles;
+/*            echo $editedExistingProjectTitles;
             echo "<br>" . $editedNewProjectTitles;
-
+*/
             //Update new project titles
-            if(isset($editedNewProjectTitles)) {
+            if(!is_null($editedNewProjectTitles) && !empty($editedNewProjectTitles)) {
                 foreach($editedNewProjectTitles as $newTitle) {
-                    $updateSuccess = $this->Dbinsert->createProject($newTitle, $moduleCode, $iteration);
+                    $updateSuccess = $this->Dbinsert->createProject($newTitle, $moduleId);
                 }
             }
             //Update existing project titles
-            if(isset($editedExistingProjectTitles)) {
+            //print_r($editedExistingProjectTitles);
+            if(!is_null($editedExistingProjectTitles) && !empty($editedExistingProjectTitles)) {
                 foreach($editedExistingProjectTitles as $existingIdTitlePair) {
                     $updateSuccess = $this->Dbinsert->updateProject($existingIdTitlePair[0], $existingIdTitlePair[1], null, null, null);
                 }
             }
 
             //Delete existing project titles
-            if(isset($deletedProjects)) {
+            if(!is_null($deletedProjects) && !empty($deletedProjects)) {
                 foreach($deletedProjects as $deleteId) {
                     $updateSuccess = $this->Dbinsert->deleteProject($deleteId);
                 }
