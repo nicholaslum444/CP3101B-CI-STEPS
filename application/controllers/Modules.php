@@ -15,17 +15,17 @@ class Modules extends CI_Controller {
         if (is_null($moduleCode) || $moduleCode == "index") {
             // show overview page if no module clicked
 
-            $this->load->view("persistent/Header", $this->_makeHeaderData());
+            $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
             // pass the data into modulespage
             $this->load->view("public/ModulesPage", $this->_makeBodyData());
-            $this->load->view("persistent/Footer");
+            $this->load->view("persistent/SiteFooter");
         } else {
             // show module page with projects
 
-            $this->load->view("persistent/Header", $this->_makeHeaderData());
+            $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
             // pass the data into modulespage
             $this->load->view("public/ModulesPage", $this->_makeBodyData($moduleCode));
-            $this->load->view("persistent/Footer");
+            $this->load->view("persistent/SiteFooter");
         }
     }
 
@@ -34,7 +34,7 @@ class Modules extends CI_Controller {
 	}
 
     private function _makeHeaderData() {
-        return ViewData::makeHeaderData($this->session, base_url());
+        return ViewData::makeHeaderData($this->session, base_url(), LOADER_TYPE_PUBLIC_MODULES);
     }
 
     private function _makeBodyData($moduleCode = NULL, $iteration = NULL) {

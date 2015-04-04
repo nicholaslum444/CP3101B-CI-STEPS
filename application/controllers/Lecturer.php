@@ -22,17 +22,17 @@ class Lecturer extends CI_Controller {
     }
 
     public function viewModule($moduleID = NULL) {
-        $this->load->view("persistent/Header", $this->_makeHeaderData());
+        $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
         $this->load->view("users/ViewModulePage", $this->_getModuleInformation($moduleID));
-        $this->load->view("persistent/Footer");
+        $this->load->view("persistent/SiteFooter");
     }
 
     public function console() {
         if ($this->_isAuthenticated()) {
             // load the console views
-            $this->load->view("persistent/Header", $this->_makeHeaderData());
+            $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
             $this->load->view("users/LecturerPage", $this->_makeBodyData());
-            $this->load->view("persistent/Footer");
+            $this->load->view("persistent/SiteFooter");
 
         } else {
             $this->_denyAccess();
@@ -106,8 +106,8 @@ class Lecturer extends CI_Controller {
 	}
 
     private function _denyAccess() {
-        $this->load->view("persistent/Header", $this->_makeHeaderData());
+        $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
         $this->load->view("users/AccessDeniedPage");
-        $this->load->view("persistent/Footer");
+        $this->load->view("persistent/SiteFooter");
     }
 }

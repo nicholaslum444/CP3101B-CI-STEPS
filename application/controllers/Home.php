@@ -16,9 +16,9 @@ class Home extends CI_Controller {
 		// possibly reroute the user to his landing page if he is logged in?
 
 		// load the homepage views
-		$this->load->view("persistent/Header", $this->_makeHeaderData());
+		$this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
 		$this->load->view('public/HomePage');
-        $this->load->view("persistent/Footer");
+        $this->load->view("persistent/SiteFooter");
 
 	}
 

@@ -79,9 +79,9 @@ class Admin extends CI_Controller {
 		if($this->_isAuthenticated()) {
 
     		// load the console views
-            $this->load->view("persistent/Header", $this->_makeHeaderData());
+            $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
     		$this->load->view('users/AdminConsolePage', $this->_makeBodyData());
-            $this->load->view("persistent/Footer");
+            $this->load->view("persistent/SiteFooter");
 
 		} else {
 
@@ -175,9 +175,9 @@ class Admin extends CI_Controller {
 
     private function _loadLoginView($retry = FALSE) {
 
-        $this->load->view("persistent/Header", $this->_makeHeaderData());
+        $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
         $this->load->view('users/AdminLoginPage', $this->_makePageData($retry));
-        $this->load->view("persistent/Footer");
+        $this->load->view("persistent/SiteFooter");
     }
 
     private function _getModuleInformation($moduleId) {

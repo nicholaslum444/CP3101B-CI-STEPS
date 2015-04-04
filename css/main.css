@@ -6,6 +6,16 @@ Author's custom styles
 
 body {
 	font-family: 'Lato', sans-serif;
+	padding-top: 60px;
+}
+
+.login-iframe-container {
+	text-align: center;
+	padding:0px;
+}
+
+.navbar-login-text {
+	color:aliceblue !important;
 }
 
 .nav-sidebar {
@@ -84,7 +94,7 @@ display: none;
 
 .glyphicon-pencil{
 display: none;
-} 
+}
 
 .btn-clear{
 cursor: pointer;
@@ -92,17 +102,3 @@ background-color: #ffffff;
 }
 
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-

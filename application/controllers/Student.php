@@ -22,9 +22,9 @@ class Student extends CI_Controller {
 
 		if ($this->_isAuthenticated()) {
 
-	        $this->load->view("persistent/Header", $this->_makeHeaderData());
+	        $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
 	        $this->load->view("users/StudentPage", $this->_makeBodyData());
-	        $this->load->view("persistent/Footer");
+	        $this->load->view("persistent/SiteFooter");
 		} else {
 			$this->_denyAccess();
 		}
@@ -34,9 +34,9 @@ class Student extends CI_Controller {
 
         if ($this->_isAuthenticated()) {
 
-            $this->load->view("persistent/Header", $this->_makeHeaderData());
+            $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
             $this->load->view("users/RegisterProjectPage", $this->_selectMembersData($moduleId));
-            $this->load->view("persistent/Footer");
+            $this->load->view("persistent/SiteFooter");
 
         } else {
             $this->_denyAccess();
@@ -44,9 +44,9 @@ class Student extends CI_Controller {
     }
 
     private function _denyAccess() {
-        $this->load->view("persistent/Header", $this->_makeHeaderData());
+        $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
         $this->load->view("users/AccessDeniedPage");
-        $this->load->view("persistent/Footer");
+        $this->load->view("persistent/SiteFooter");
     }
 
     private function _makeHeaderData() {
@@ -55,11 +55,11 @@ class Student extends CI_Controller {
 
 	private function _makeBodyData() {
         $iteration = $this->Dbquery->getLatestIteration();
-            
+
         $userId = 'A0201001B'; //Hardcode to be removed
         //$userId =this->session->userId;
 
-        $moduleProjects = $this->Dbquery->getModuleProjectForStudent($userId, $iteration); 
+        $moduleProjects = $this->Dbquery->getModuleProjectForStudent($userId, $iteration);
         $modules = $this->_getRegisteredAndNotRegisteredModule($moduleProjects);
         $unregisteredProjects = $this->_getAllUnregisteredProjects($modules[1]);
 
@@ -92,7 +92,7 @@ class Student extends CI_Controller {
         $result = array();
 
         foreach($modulesNotRegistered as $module){
-            $result[$module['moduleCode']] = $this->Dbquery->getProjectListWithNoMemberByModule($module['moduleID']);          
+            $result[$module['moduleCode']] = $this->Dbquery->getProjectListWithNoMemberByModule($module['moduleID']);
         }
 
         return $result;
