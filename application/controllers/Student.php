@@ -101,8 +101,6 @@ class Student extends CI_Controller {
     /* get coursemates who are still not in any projects */
     private function _selectMembersData($moduleId) {
         $iteration = $this->Dbquery->getLatestIteration();
-        //Hardcode - to be removed
-        //$moduleId = 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa';
         $student = $this->Dbquery->getStudentsNotInProjectGroupByModule($moduleId);
         $bodyData = [
             "data" => $student
