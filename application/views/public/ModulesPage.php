@@ -4,50 +4,63 @@
             <ul class="nav nav-sidebar wrap-sidebar">
                 <li class="active"><a href="/index.php/Modules/view">Overview <span class="sr-only">(current)</span></a></li>
                 <!-- generate the list of modules for the sidebar -->
-                <?php for ($i = 0; $i < count($modules); $i++) {
-                    $module = $modules[$i]; ?>
+                <?php
+                foreach($allModulesDetails as $details) { ?>
                     <li>
-                        <a href="/index.php/Modules/view/<?php echo $module['moduleCode']; ?>">
-                            <?php echo $module['moduleCode'] . " - " . $module['moduleName']; ?>
+                        <a href="/index.php/Modules/view/<?php echo $details['moduleCode']; ?>">
+                            <span class="sidebar-module-code"><?php echo $details['moduleCode']; ?></span>
+                            <span class="sidebar-separator"> - </span>
+                            <span class="sidebar-module-name"><?php echo $details['moduleName']; ?></span>
                         </a>
                     </li>
-                    <?php } ?>
-                </ul>
-            </div>
+                    <?php
+                } ?>
+            </ul>
+        </div>
 
-            <div class="col-md-10">
-                <div class="panel panel-default">
-                    <div class="panel-body" id="moduleContent">
-                        <!-- show the module pane if a module is selected -->
-                        <?php if (isset($selectedModule) && isset($projects)) { ?>
+        <div class="col-md-10">
+            <div class="panel panel-default">
+                <div class="panel-body" id="moduleContent">
+                    <!-- show the module pane if a module is selected -->
+                    <?php if (!is_null($selectedModuleData)) { ?>
                         <!-- module code, name and desc -->
-                        <h1><?php echo $selectedModule["moduleCode"]; ?></h1>
-                        <h2><?php echo $selectedModule["moduleName"]; ?></h2>
-                        <p><?php echo $selectedModule["moduleDescription"]; ?></p>
+                        <h1><?php echo $selectedModuleData["moduleCode"]; ?></h1>
+                        <h2><?php echo $selectedModuleData["moduleName"]; ?></h2>
+                        <p><?php echo $selectedModuleData["moduleDescription"]; ?></p>
                         <!-- break -->
                         <p>List of Projects:</p>
-                        <?php for ($i = 0; $i < count($projects); $i++) {
-                            $project = $projects[$i];
-                            $students = $projectDetails[$i]; ?>
+                        <?php
+                        $projects = $selectedModuleData["projectList"];
+                        foreach($projects as $project) { ?>
                             <!-- make a div for each project -->
                             <div class="col-sm-8">
                                 <h3><?php echo $project["title"]; ?></h3>
                                 <ul>
-                                    <?php for ($j = 0; $j < count($students); $j++) {
-                                        $student = $students[$j]; ?>
-                                        <li><?php echo $student["name"]; ?> - <?php echo $student["matricNo"]; ?></li>
-                                        <?php } ?>
-                                    </ul>
-                                    <p><?php echo $project["abstract"]; ?></p>
-                                </div>
-                                <?php } ?>
-                                <?php } else { ?>
-                                <!-- else show the default page content for this page -->
-                                <h1>Participating Modules</h1>
-                                <p>Choose a module on the sidebar to see more information about it.</p>
-                                <?php } ?>
+                                    <?php
+                                    if (isset($project["members"])) {
+                                        $students = $project["members"];
+                                    } else {
+                                        $students = [];
+                                    }
+                                    foreach($students as $student) {
+                                        ?>
+                                        <li>
+                                            <?php echo $student["name"]; ?> - <?php echo $student["userID"]; ?>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
+                                <p>
+                                    <?php echo $project["abstract"]; ?>
+                                </p>
                             </div>
-                        </div>
-                    </div>
+                        <?php } ?>
+                    <?php } else { ?>
+                        <!-- else show the default page content for this page -->
+                        <h1>Participating Modules</h1>
+                        <p>Choose a module on the sidebar to see more information about it.</p>
+                    <?php } ?>
                 </div>
-            </div> <!-- End of container -->
+            </div>
+        </div>
+    </div>
+</div> <!-- End of container -->
