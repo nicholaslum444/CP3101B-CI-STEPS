@@ -103,7 +103,8 @@ $(function() {
 	$('#editModuleForm').on('submit', function(e) {
 
 		//GETTING MODULE CODE AND NUMBER OF PROJECTS
-		var moduleCode = $("#editModalLabel").html();
+		var moduleCode = $("#editModalLabel").attr("moduleCode");
+		var moduleId = $("#editModalLabel").attr("moduleId");	
 		var numberOfProjects = $(".projectTitles[module="+moduleCode+"]").attr("numOfProject");
 
 		//GETTING ALL EDITED INPUTS
@@ -169,6 +170,7 @@ $(function() {
 		var editFormData =
 		{
 			"moduleCode" : moduleCode,
+			"moduleId" : moduleId,
 			"editedClassSize" : editedClassSize,
 			//"editedNumProjects" : editedNumProjects,
 			"editedModuleDescription" : editedModuleDescription,
@@ -198,10 +200,10 @@ $(function() {
 			}
 		})
 		//Temporary work around until Mun Aw patches the database
-		.complete(function(data) {
+/*		.complete(function(data) {
 			$('#editModal').modal('hide');
 			location.reload();
-		});
+		});*/
 
 		e.preventDefault();
 	});
@@ -210,7 +212,8 @@ $(function() {
 	$(".editModuleBtn").on('click', function(e) {
 
 		var moduleCode = $(this).attr("module");
-
+		var moduleId = $(this).attr("moduleid");
+		var moduleTitle = $("h3[moduleid="+moduleId+"]").html();
 		//THE CLEANING PART
 		$("#editClassSize").attr("value", "");
 		$("#editNumProjects").attr("value", "");
@@ -219,7 +222,9 @@ $(function() {
 		$(".addProjectTitleBtn").attr("moduleCode", "");
 
 		//THE EASY PART
-		$("#editModalLabel").html(moduleCode);
+		$("#editModalLabel").html(moduleTitle);
+		$("#editModalLabel").attr("moduleId", moduleId);
+		$("#editModalLabel").attr("moduleCode", moduleCode);
 		$("#editClassSize").attr("value", $(".classSizeText[module="+moduleCode+"]").html());
 		//$("#editNumProjects").attr("value", $(".numProjectsText[module="+moduleCode+"]").html());
 		$("#editModuleDescription").html($(".moduleDescriptionText[module="+moduleCode+"]").html());

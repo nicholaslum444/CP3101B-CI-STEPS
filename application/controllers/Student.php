@@ -30,12 +30,12 @@ class Student extends CI_Controller {
 		}
     }
 
-    public function registerProject() {
+    public function registerProject($moduleId, $projectId) {
 
         if ($this->_isAuthenticated()) {
 
             $this->load->view("persistent/Header", $this->_makeHeaderData());
-            $this->load->view("users/RegisterProjectPage", $this->_selectMembersData());
+            $this->load->view("users/RegisterProjectPage", $this->_selectMembersData($moduleId));
             $this->load->view("persistent/Footer");
 
         } else {
@@ -61,7 +61,7 @@ class Student extends CI_Controller {
 
         $moduleProjects = $this->Dbquery->getModuleProjectForStudent($userId, $iteration); 
         $modules = $this->_getRegisteredAndNotRegisteredModule($moduleProjects);
-        $unregisteredProjects = $this->_getAllUnregisteredProjects($modules[1], $iteration);
+        $unregisteredProjects = $this->_getAllUnregisteredProjects($modules[1]);
 
         $bodyData = [
             "data" => $modules,
@@ -87,24 +87,21 @@ class Student extends CI_Controller {
         return array($modulesRegistered, $modulesNotRegistered);
     }
 
-    /* retrieves all student's module's untaken projects */
-    private function _getAllUnregisteredProjects($modulesNotRegistered, $iteration){
+    /* retrieves student's unregistered module's untaken projects */
+    private function _getAllUnregisteredProjects($modulesNotRegistered){
         $result = array();
 
         foreach($modulesNotRegistered as $module){
-            $result[$module['moduleCode']] = $this->Dbquery->getProjectListWithNoMemberByModule($module['moduleCode'], $iteration);
-            
+            $result[$module['moduleCode']] = $this->Dbquery->getProjectListWithNoMemberByModule($module['moduleID']);          
         }
 
         return $result;
     }
 
     /* get coursemates who are still not in any projects */
-    private function _selectMembersData() {
+    private function _selectMembersData($moduleId) {
         $iteration = $this->Dbquery->getLatestIteration();
-        //Hardcode - to be removed
-        $module = 'SS3101';
-        $student = $this->Dbquery->getStudentsNotInProjectGroupByModule($module, $iteration);
+        $student = $this->Dbquery->getStudentsNotInProjectGroupByModule($moduleId);
         $bodyData = [
             "data" => $student
         ];

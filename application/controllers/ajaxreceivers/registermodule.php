@@ -47,7 +47,7 @@ class RegisterModule extends CI_Controller {
             ];
         } else {
             //$insertSuccess = $this->Dbinsert->createModule($moduleCode, $moduleId, $moduleName, $iteration, $this->session->userId);
-            $insertSuccess = $this->Dbinsert->createModule($moduleCode, $iteration, $moduleName, $this->session->userId);
+            $insertSuccess = $this->Dbinsert->createModule($moduleCode, $moduleName, $moduleId, $iteration, $this->session->userId);
             //$superviseSuccess = $this->Dbinsert->insertModuleSupervision($this->session->userId, $moduleCode, $iteration);
             if (isset($insertSuccess)) {
                 return [

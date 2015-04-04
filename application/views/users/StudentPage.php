@@ -1,7 +1,7 @@
 <div class="container">
 
 <div class="row">
-    <h3>Projects</h3>
+    <h4>Projects</h4>
 </div>
 
 
@@ -14,7 +14,7 @@
                 <div class="panel-body">
                     <div class="form-horizontal" role="form" index="1">
 
-                        <h3 class="col-sm-12"><?php echo $module['moduleCode'].'-'.$module['moduleName'] ?></h3>
+                        <h4 class="col-sm-12"><?php echo $module['moduleCode'].'-'.$module['moduleName'] ?></h4>
 
 
                         <div class="form-group">
@@ -33,7 +33,7 @@
 
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="">Team Members: </label>
-                            <div class="col-sm-5 field-group field-list projectTitles" module="" numOfProject = "4">
+                            <div class="col-sm-5 field-group teamMembers" project="">
                             </div>
                         </div>
                         <!-- Edit Button for Leaders -->
@@ -47,7 +47,7 @@
 ?>
 
 <div class="row">
-    <h3>Modules without registered project</h3>
+    <h4>Modules without registered project</h4>
 </div>
 
 <!--Modules where student has no project-->
@@ -58,8 +58,8 @@ if(isset($data[1])){
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h3><?php echo $module['moduleCode']. '-' . $module['moduleName'] ?></h3>
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registerProjectModal" data-module="<?php echo $module['moduleCode'] ?>">Sign up</button>
+                    <h4><?php echo $module['moduleCode']. '-' . $module['moduleName'] ?></h4>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registerProjectModal" data-moduleId="<?php echo $module['moduleID']?>" data-module="<?php echo $module['moduleCode'] ?>">Sign up</button>
                 </div>
             </div>
         </div><!--End md-12-->
@@ -80,42 +80,49 @@ if(isset($data[1])){
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="projectSelect">Select list:</label>
-                        <select class="form-control" name="projectTitle" id="projectSelect"> <!-- Dyanamic Project Titles -->
-                            <option value="" default selected>Select a Project</option>
-                            <?php 
-                            if(isset($dataUnregistered['BB3218'])){
-                                $module = $dataUnregistered['BB3218'];
-                                foreach($module as $project) {
-                                    echo "<option>". $project['title'] ."</option>";
-                                }
-                            } 
-                            ?>
+                        <label for="projectSelect">Select Project:</label>
+                        <select class="form-control" name="projectTitle" id="projectSelect"> <!-- Dyanamic Project Titles -->                            
                         </select>
                     </div>
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="projectSubmitBtn">Register</button>
+                    <button type="submit" class="btn btn-primary" id="projectSubmitBtn" moduleid="">Register</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<?php
-var_dump($dataUnregistered);
-?>
-
 <script> 
 $(function() {
     
+    var untakenProjects = <?php echo json_encode($dataUnregistered); ?>; //an object of arrays
+
     $('#registerProjectModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var moduleCode = button.data('module') // Extract info from data-* attributes
+        var currModuleId = button.attr('data-moduleId');
         var modal = $(this);
         modal.find('.modal-title').text(moduleCode + " Project Sign Up");
+        
+        //change register button moduleid attribute
+        modal.find('#projectSubmitBtn').attr('moduleid', currModuleId);
+
+        //empty selection
+        $('#projectSelect').html("");
+
+        //generate string
+        var projects = untakenProjects[moduleCode];
+        var str = '<option value="" default selected>Select a Project</option>' ;
+        for(var i = 0; i < projects.length; i++) {
+            str += ('<option value = "'+ projects[i].projectID +'">');
+            str += projects[i].title;
+            str += "</option>";
+        }
+
+        $('#projectSelect').append(str);
     }) 
 
     $('#projectSubmitBtn').click(function(event){
@@ -123,9 +130,11 @@ $(function() {
         var projectSelect = $("#projectSelect");
         var index = projectSelect[0].selectedIndex;
         var projectTitle = projectSelect[0].options[index].text;
-
-        console.log(projectTitle);
-
+        var projectId = projectSelect[0].options[index].value;
+        var moduleId = $(this).attr('moduleid');
+        console.log(projectId);
+        console.log(moduleId);
+        window.location.href = "/index.php/Student/registerProject/" + moduleId + "/" + projectId ;
     })
 });
 </script>
