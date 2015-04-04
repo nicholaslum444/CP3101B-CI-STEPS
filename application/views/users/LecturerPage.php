@@ -76,13 +76,21 @@
         </div>
     </div> <!-- end generated modules -->
 
-    <!-- Modal for registering module-->
     <!-- use the $ivleStaffedModules object to get the modules to fill the dropdown -->
     <!-- will need some preprocessing of the data to populate dropdown? -->
     <script>
     var allModules;
-
     $(function() {
+        // to update the fields when different module selected
+        function getModuleDetail(id, detail) {
+            for (var i = 0; i < allModules.length; i++) {
+                var oid = allModules[i]["ID"];
+                if (id === oid) {
+                    return allModules[i][detail];
+                }
+            }
+            return "Invalid Module ID";
+        }
         $("#moduleCode").change(function() {
             // sets the module details on select of module
             var id = $("#moduleCode option:selected").attr("value");
@@ -91,14 +99,7 @@
             $("#moduleYear").attr("value", getModuleDetail(id, "CourseAcadYear"));
         });
 
-        $("#registerModuleBtn").bind("click", function() {
-            if (!$("#moduleCode").attr("pop")) {
-                populateDropdown();
-            }
-        });
-    });
-
-    function populateDropdown() {
+        // to retrieve list of modules for lecturer to sign up
         $("#registerModuleFormBody").hide();
         $("#loadingSplash").show();
         var url = "/index.php/apibypass/ivleapibypass/getivlestaffedmodules/";
@@ -111,23 +112,14 @@
                 var option = "<option value='"+id+"'>"+code+"</option>";
                 $("#moduleCode").append(option);
             }
-            $("#moduleCode").attr("pop", true);
             $("#moduleCode").change();
             $("#loadingSplash").hide();
             $("#registerModuleFormBody").show();
         });
-    }
-
-    function getModuleDetail(id, detail) {
-        for (var i = 0; i < allModules.length; i++) {
-            var oid = allModules[i]["ID"];
-            if (id === oid) {
-                return allModules[i][detail];
-            }
-        }
-        return "Invalid Module ID";
-    }
+    });
     </script>
+
+    <!-- Modal for registering module-->
     <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -138,6 +130,7 @@
                     </div>
                     <div class="modal-body" id="loadingSplash">
                         <p>
+                            <!-- should make a proper loading screen -->
                             Please wait while we retrieve your modules..
                         </p>
                     </div>
