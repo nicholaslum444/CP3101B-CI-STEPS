@@ -34,6 +34,14 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="">Team Members: </label>
                             <div class="col-sm-5 field-group teamMembers" project="">
+                            <h5><?php foreach($module['project']['members'] as $member){ 
+                                    echo $member['name']; 
+                                    if($member['userID']== $module['project']['leader']) {
+                                        echo " (Leader)";
+                                    }
+                                    echo "<br />";
+                                } ?>
+                            </h5>
                             </div>
                         </div>
                         <!-- Edit Button for Leaders -->

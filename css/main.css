@@ -54,8 +54,37 @@ button[data-target="#registerProjectModal"] {
     float: right;
 }
 
+#submitMembers-btn {
+	float: left;
+}
+
 .addMemberBtn {
-    float: right;
+    float: left;
+}
+
+.memberDetails {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+/* seperate from title */
+.projectMemberandDetails {
+	margin-top: 50px;
+}
+
+/* seperate from first row of input */
+.firstRow {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.firstRow #name {
+	text-align: center;
+}
+
+.secondRow {
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 .projectTitleInput {
@@ -69,36 +98,31 @@ button[data-target="#registerProjectModal"] {
 	display: none;
 }
 
-.projectTitleInput:hover .deleteProjectBtn{
+.projectTitleInput:hover .deleteProjectBtn {
 	display: initial;
 }
 
-/*
+/* if large screen (min-width: 1200px), apply these rules */
+@media (min-width: 1200px) { 
 
-.afternav {
-position: relative;
-top: 70px;
+	#emailLabel {
+		margin-left: 9px;
+  		margin-right: 30px;
+	}
+
+	#foodLabel {
+		text-align: left;
+ 		margin-left: 30px;
+ 		width: 100px;
+	}
+
+	.emailDiv {
+		padding-left: 0px;
+	}
+
 }
 
-.inputText {
-cursor: pointer;
-}
+/* if small screen (max-width: 1200px), apply these rules instead */
+@media (max-width: 1200px) {
 
-.inputField {
-display: none;
 }
-
-.glyphicon-ok {
-display: none;
-}
-
-.glyphicon-pencil{
-display: none;
-}
-
-.btn-clear{
-cursor: pointer;
-background-color: #ffffff;
-}
-
-*/

@@ -20,14 +20,16 @@ class Student extends CI_Controller {
 
     public function console() {
 
-		if ($this->_isAuthenticated()) {
+        if ($this->_isAuthenticated()) {
 
-	        $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
-	        $this->load->view("users/StudentPage", $this->_makeBodyData());
-	        $this->load->view("persistent/SiteFooter");
-		} else {
-			$this->_denyAccess();
-		}
+           $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
+           $this->load->view("users/StudentPage", $this->_makeBodyData());
+           $this->load->view("persistent/SiteFooter");
+
+        } else {
+            $this->_denyAccess();
+
+        }
     }
 
     public function registerProject($moduleId, $projectId) {
@@ -35,7 +37,20 @@ class Student extends CI_Controller {
         if ($this->_isAuthenticated()) {
 
             $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
-            $this->load->view("users/RegisterProjectPage", $this->_selectMembersData($moduleId));
+            $this->load->view("users/RegisterProjectPage", $this->_selectMembersData($moduleId, $projectId));
+            $this->load->view("persistent/SiteFooter");
+
+        } else {
+            $this->_denyAccess();
+        }
+    }
+
+    public function updateMembers($projectId) {
+
+        if ($this->_isAuthenticated()) {
+
+            $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
+            $this->load->view("users/UpdateMembersPage", $this->retrieveMemberDetails($projectId));
             $this->load->view("persistent/SiteFooter");
 
         } else {
@@ -53,11 +68,11 @@ class Student extends CI_Controller {
         return ViewData::makeHeaderData($this->session, base_url());
     }
 
-	private function _makeBodyData() {
+    private function _makeBodyData() {
         $iteration = $this->Dbquery->getLatestIteration();
 
         $userId = 'A0201001B'; //Hardcode to be removed
-        //$userId =this->session->userId;
+        //$userId = $this->session->userId;
 
         $moduleProjects = $this->Dbquery->getModuleProjectForStudent($userId, $iteration);
         $modules = $this->_getRegisteredAndNotRegisteredModule($moduleProjects);
@@ -76,6 +91,7 @@ class Student extends CI_Controller {
         $modulesNotRegistered = [];
 
         foreach($moduleProjects['enrolled'] as $module) {
+            
             if($module['project']==null) {//did not sign up for project
                 array_push($modulesNotRegistered, $module);
             }
@@ -83,7 +99,7 @@ class Student extends CI_Controller {
                 array_push($modulesRegistered, $module);
             }
         }
-
+        
         return array($modulesRegistered, $modulesNotRegistered);
     }
 
@@ -99,24 +115,37 @@ class Student extends CI_Controller {
     }
 
     /* get coursemates who are still not in any projects */
-    private function _selectMembersData($moduleId) {
+    private function _selectMembersData($moduleId, $projectId) {
         $iteration = $this->Dbquery->getLatestIteration();
         $student = $this->Dbquery->getStudentsNotInProjectGroupByModule($moduleId);
         $bodyData = [
-            "data" => $student
+            "data" => $student,
+            "pId" => $projectId
         ];
+
         return $bodyData;
     }
 
-	private function _isLoggedIn() {
-		return $this->session->isLoggedIn;
-	}
+    private function retrieveMemberDetails($projectId) {
+        $memberDetails = $this->Dbquery->getMembersByProjectID($projectId);
+        
+        $bodyData = [
+            "data" => $memberDetails,
+            "projectData" => $this->Dbquery->getProjectDetailsByProjectID($projectId)
+        ];
 
-	private function _isStudent() {
-		return $this->session->userType === USER_TYPE_STUDENT;
-	}
+        return $bodyData;
+    }
 
-	private function _isAuthenticated() {
-		return $this->_isLoggedIn() && $this->_isStudent();
-	}
+    private function _isLoggedIn() {
+        return $this->session->isLoggedIn;
+    }
+
+    private function _isStudent() {
+        return $this->session->userType === USER_TYPE_STUDENT;
+    }
+
+    private function _isAuthenticated() {
+        return $this->_isLoggedIn() && $this->_isStudent();
+    }
 }
