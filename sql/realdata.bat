@@ -6,5 +6,6 @@ mysql test -e "source CS3218.sql";
 mysql test -e "source CS3240.sql";
 mysql test -e "source CS3247.sql";
 mysql test -e "source CS3284.sql";
-mysql test -e "source CS4344.sql";
+mysql test -e "source CS4244.sql";
 mysql test -e "source CP3101B.sql";
+mysql test -e "source IS5126.sql";
