@@ -72,7 +72,7 @@ class Student extends CI_Controller {
         $iteration = $this->Dbquery->getLatestIteration();
 
         $userId = 'A0201001B'; //Hardcode to be removed
-        //$userId = $this->session->userId;
+        //$userId = $this->session->userId; //must be student
 
         $moduleProjects = $this->Dbquery->getModuleProjectForStudent($userId, $iteration);
         $modules = $this->_getRegisteredAndNotRegisteredModule($moduleProjects);
