@@ -96,7 +96,7 @@ switch($loader) {
 
     <!-- include the navbar as well -->
     <nav class="navbar navbar-fixed-top navbar-default" role="navigation">
-        <div class="container-fluid">
+        <div class="container">
 
             <!-- contains the collapse and the brand name -->
             <div class="navbar-header">
@@ -129,7 +129,7 @@ switch($loader) {
                 </div>
 
                 <!-- sign-in boxes -->
-                <div class="navbar-right">
+                <div class="navbar-right navbar-login-container">
                     <?php
                     // (messy) code to load the correct buttons
                     // based on whether user logged in or not
