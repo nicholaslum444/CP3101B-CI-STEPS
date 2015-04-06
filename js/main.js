@@ -1,4 +1,3 @@
-/* BEAUTIFUL FUNCTIONS BELOW */
 var deletedProjects = [];
 
 function bindDeleteBtn() {
@@ -16,7 +15,6 @@ function bindDeleteBtn() {
 	});
 }
 
-/* FUNCTIONAL FUNCTIONS BELOW */
 $(function() {
 
 	// for header vvvvvvvvvvvvvvvvvvvvvvvvv
