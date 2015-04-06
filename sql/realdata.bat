@@ -1,0 +1,10 @@
+mysql test -e "source realProf.sql";
+mysql test -e "source realMod.sql";
+mysql test -e "source realSup.sql";
+mysql test -e "source CS3217.sql";
+mysql test -e "source CS3218.sql";
+mysql test -e "source CS3240.sql";
+mysql test -e "source CS3247.sql";
+mysql test -e "source CS3284.sql";
+mysql test -e "source CS4344.sql";
+mysql test -e "source CP3101B.sql";
