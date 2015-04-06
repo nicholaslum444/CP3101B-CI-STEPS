@@ -23,6 +23,15 @@ body {
 	color:aliceblue !important;
 }
 
+.registration-iframe-container {
+	padding-top: 40px;
+	text-align:center;
+}
+
+.registration-text-container {
+	text-align:left;
+}
+
 .nav-sidebar {
 	position:fixed;
 }
@@ -108,7 +117,7 @@ button[data-target="#registerProjectModal"] {
 }
 
 /* if large screen (min-width: 1200px), apply these rules */
-@media (min-width: 1200px) { 
+@media (min-width: 1200px) {
 
 	#emailLabel {
 		margin-left: 9px;
