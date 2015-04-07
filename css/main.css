@@ -14,8 +14,22 @@ body {
 	padding:0px;
 }
 
+.navbar-login-container {
+	padding:0px 15px;
+	display:none;
+}
+
 .navbar-login-text {
 	color:aliceblue !important;
+}
+
+.registration-iframe-container {
+	padding-top: 40px;
+	text-align:center;
+}
+
+.registration-text-container {
+	text-align:left;
 }
 
 .nav-sidebar {
@@ -103,7 +117,7 @@ button[data-target="#registerProjectModal"] {
 }
 
 /* if large screen (min-width: 1200px), apply these rules */
-@media (min-width: 1200px) { 
+@media (min-width: 1200px) {
 
 	#emailLabel {
 		margin-left: 9px;
