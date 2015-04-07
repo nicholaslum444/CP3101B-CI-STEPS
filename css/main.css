@@ -9,6 +9,10 @@ body {
 	padding-top: 60px;
 }
 
+.clear {
+    clear: both;
+}
+
 .login-iframe-container {
 	text-align: center;
 	padding:0px;
@@ -114,6 +118,36 @@ button[data-target="#registerProjectModal"] {
 
 .projectTitleInput:hover .deleteProjectBtn {
 	display: initial;
+}
+
+/*admin page*/
+.admin-container {
+	margin-top: 30px;
+}
+
+#admin-update-btn {
+	float: right;
+	display: block;
+}
+
+.eventDate-container{
+	margin-bottom: 25px;
+	margin-top: 25px;
+}
+
+#admin-accordion {
+	border-color: transparent;
+}
+#eventDate-btn {
+	float:right;
+}
+.food-container{
+	margin-bottom: 25px;
+	margin-top: 25px;
+}
+
+#veganDiv, #nonVeganDiv {
+	text-align: center;
 }
 
 /* if large screen (min-width: 1200px), apply these rules */
