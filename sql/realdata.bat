@@ -1,3 +1,4 @@
+mysql test -e "source DDL.sql";
 mysql test -e "source iterate.sql";
 mysql test -e "source realProf.sql";
 mysql test -e "source realMod.sql";
