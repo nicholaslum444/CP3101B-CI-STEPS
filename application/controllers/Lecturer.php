@@ -21,11 +21,11 @@ class Lecturer extends CI_Controller {
 
     }
 
-    public function viewModule($moduleID = NULL) {
+/*    public function viewModule($moduleID = NULL) {
         $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
         $this->load->view("users/ViewModulePage", $this->_getModuleInformation($moduleID));
         $this->load->view("persistent/SiteFooter");
-    }
+    }*/
 
     public function console() {
         if ($this->_isAuthenticated()) {
