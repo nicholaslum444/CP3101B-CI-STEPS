@@ -3,19 +3,13 @@
     <div class="row">
         <h2>Select your Team Members</h2>
     </div>
-    <div class="row">
-        <div class="col-lg-7"></div>
-        <button class="btn btn-default addMemberBtn">Add</button>
-    </div>
-
-    <form id ="memberNameForm">
-        <div class="members">
-            <div class="memberField">
-                <div class="row">  
-                    <div class="col-md-6">
-                        <div class="form-group studentOption">
-                            <label for="projectSelect"></label>
-                            <select class="form-control" name="memberIDs">
+    <div class = "row">
+        <form id ="memberNameForm">
+            <div class="members">
+                <div class="memberField">
+                    <div class="col-md-7 form-inline" style="padding: 5px; 0px; 5px; 0px">
+                        <div class="form-group studentOption col-md-10">
+                            <select class="form-control" name="memberIDs" style="width: 100%">
                                 <option value="" default selected>Select Member</option>
                                 <?php 
                                 if(isset($data)){
@@ -28,25 +22,40 @@
                                 }?>
                             </select>
                         </div>
-                    </div><!--End md-6-->
-                </div>
-            </div>
-        </div>  
 
-        <div class="row">
-            <div class="col-lg-7"></div>
-            <button type="button" class="btn btn-success" id="submitMembers-btn">Submit</button>
-        </div>
-    </form>
+                        <button class="btn btn-default addMemberBtn col-md-2">Add</button>
+                    </div>
+
+                </div>
+            </div> 
+        </form>
+    </div>
+    <div class="row">
+        <button type="button" class="btn btn-success pull-left col-md-1" style="margin-left: 20px" id="submitMembers-btn">Submit</button>
+    </div>
 </div><!-- Container -->
 
 
 <script>
+
+    function rebind() {
+        $(".deleteBtn").unbind();
+        $(".deleteBtn").click(function() {
+            $(".appended[id='"+$(this).attr("id")+"']").remove();
+        });
+    }
     $(function(){
-        $('.addMemberBtn').click(function() {
-        //Dynamically generate dropdowns
-        $('.members').append('<div class="memberField"><div class="row"><div class="col-md-6"><div class="form-group studentOption"><label for="projectSelect"></label><select class="form-control" name="memberIDs"><option value="" default selected>Select Member</option><?php if(isset($data)){foreach($data as $student){?><option value="<?php echo $student["userID"]; ?>"><?php echo $student["name"]; ?></option><?php }}?></select></div></div></div></div>');
-    });
+        var id = 1;
+
+        $('.addMemberBtn').click(function(e) {
+            //Dynamically generate dropdowns
+            $('.memberField').append('<div id = "'+id+'" class="col-md-7 form-inline appended" style="padding: 5px; 0px; 5px; 0px"><div class="form-group studentOption col-md-10"><select class="form-control" name="memberIDs" style="width:100%"><option value="" default selected>Select Member</option><?php if(isset($data)){foreach($data as $student){?><option value="<?php echo $student["userID"]; ?>"><?php echo $student["name"]; ?></option><?php }}?></select></div><button id = "'+id+'" class="btn btn-danger col-md-2 deleteBtn" type="button">Delete</button></div></div></div>');
+            rebind();
+            id++;
+            e.preventDefault();
+        });
+
+
 
         $('#submitMembers-btn').click(function(e) {
             var membersData = $('#memberNameForm').serializeArray();        
