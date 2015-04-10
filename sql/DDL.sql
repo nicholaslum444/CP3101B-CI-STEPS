@@ -7,9 +7,14 @@ DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS STEPSiteration;
 DROP TABLE IF EXISTS admin;
 
+set time_zone = '+08:00';
 
 CREATE TABLE IF NOT EXISTS STEPSiteration (
-	iteration INTEGER AUTO_INCREMENT,
+	iteration 			INTEGER AUTO_INCREMENT,
+	registration_date 	DATETIME,
+	start_time 			DATETIME,
+	end_time 			DATETIME,
+	cut_off 			DATETIME,
 	semester  VARCHAR(10)  NOT NULL,
 	PRIMARY KEY (iteration)
 );
