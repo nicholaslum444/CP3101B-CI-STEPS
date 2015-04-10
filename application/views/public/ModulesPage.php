@@ -19,7 +19,8 @@
                         </a>
                     </li>
                     <?php
-                } ?>
+                }
+                ?>
             </ul>
         </div>
 
@@ -37,8 +38,15 @@
                             // sum the total students
                             $numStudents += count($project["members"]);
                         }
-                        // TODO replace with real variable!!
-                        $moduleLecturer = "Dr. STEVEN HALIM";
+                        // real lecturer data
+                        $supervisors = $selectedModuleData["supervisors"];
+                        $numSups = count($supervisors);
+                        $moduleLecturer = $supervisors[$numSups - 1]["name"];
+                        if ($numSups > 1) {
+                            for ($i = 0; $i < $numSups - 1; $i++) {
+                                $moduleLecturer = $supervisors[$i]["name"] . " and " . $moduleLecturer;
+                            }
+                        }
                         ?>
 
                         <!-- module code, name and desc -->
@@ -111,6 +119,7 @@
                                                 </strong></small></h4>
                                             </li>
                                             <?php
+                                            // var_dump($project);
                                             if (isset($project["members"])) {
                                                 $students = $project["members"];
                                                 foreach($students as $student) {

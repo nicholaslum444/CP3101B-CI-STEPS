@@ -4,7 +4,7 @@
         <div class="col-sm-8 col-sm-offset-2">
             <h1 class="hero__heading">STePS</h1>
             <h2 class="hero__subheading">School of Computing's Term Project Showcase</h2>
-            <a class="btn btn-default btn-lg" href="/index.php/About">
+            <a class="btn btn-learn-more btn-lg" href="/index.php/About">
                 Learn More
             </a>
         </div>
@@ -18,18 +18,20 @@
         <ul class="list-stylised list-jumbo u-uppercase">
             <li>
                 <span class="glyphicon glyphicon-globe"></span>
-                <!-- need php -->
+                <!-- need php XXX -->
                 SoC COM1
             </li>
             <li>
                 <span class="glyphicon glyphicon-calendar"></span>
-                <!-- need php -->
-                22 April 2015
+                <!-- need php TODO -->
+                <?php echo $eventDate; ?>
             </li>
             <li>
                 <span class="glyphicon glyphicon-time"></span>
-                <!-- need php -->
-                6pm to 10pm
+                <!-- need php TODO -->
+                <?php echo $eventStartTime; ?>
+                to
+                <?php echo $eventEndTime; ?>
             </li>
         </ul>
     </div>
@@ -62,9 +64,11 @@
                     <p>
                         Students, faculty, technology entrepreneurs and prospective students will have the opportunity to experience the innovations created by the students.
                         <br>
-                        95 <!-- use php! -->
+                        <!-- use php! -->
+                        95
                         innovative projects from
-                        10 <!-- use php! -->
+                        <!-- use php! -->
+                        10
                         participating courses/tracks will be showcased in the Term Project Showcase this semester.
                     </p>
                 </div>
@@ -72,90 +76,32 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-sm-3">
-                <figure class="module-thumb">
-                    <a href="">
-                        <div class="module-thumb-img">
-                            <img src="/img/test.jpg">
-                        </div>
-                        <figcaption class="module-thumb-caption">
-                            <span class="module-thumb-caption-header">CS4203</span>
-                            <br>
-                            <span class="module-thumb-caption-text">SOUND AND MUSIC COMPUTING</span>
-                        </figcaption>
-                    </a>
-                </figure>
-            </div>
-            <div class="col-sm-3">
-                <figure class="module-thumb">
-                    <a href="">
-                        <div class="module-thumb-img">
-                            <img src="/img/test.jpg">
-                        </div>
-                        <figcaption class="module-thumb-caption">
-                            <span class="module-thumb-caption-header">CS4203</span>
-                            <br>
-                            <span class="module-thumb-caption-text">SOUND AND MUSIC COMPUTING</span>
-                        </figcaption>
-                    </a>
-                </figure>
-            </div>
-            <div class="col-sm-3">
-                <figure class="module-thumb">
-                    <a href="">
-                        <div class="module-thumb-img">
-                            <img src="/img/test.jpg">
-                        </div>
-                        <figcaption class="module-thumb-caption">
-                            <span class="module-thumb-caption-header">CS4203</span>
-                            <br>
-                            <span class="module-thumb-caption-text">SOUND AND MUSIC COMPUTING</span>
-                        </figcaption>
-                    </a>
-                </figure>
-            </div>
-            <div class="col-sm-3">
-                <figure class="module-thumb">
-                    <a href="">
-                        <div class="module-thumb-img">
-                            <img src="/img/test.jpg">
-                        </div>
-                        <figcaption class="module-thumb-caption">
-                            <span class="module-thumb-caption-header">CS4203</span>
-                            <br>
-                            <span class="module-thumb-caption-text">SOUND AND MUSIC COMPUTING</span>
-                        </figcaption>
-                    </a>
-                </figure>
-            </div>
-            <div class="col-sm-3">
-                <figure class="module-thumb">
-                    <a href="">
-                        <div class="module-thumb-img">
-                            <img src="/img/test.jpg">
-                        </div>
-                        <figcaption class="module-thumb-caption">
-                            <span class="module-thumb-caption-header">CS4203</span>
-                            <br>
-                            <span class="module-thumb-caption-text">SOUND AND MUSIC COMPUTING</span>
-                        </figcaption>
-                    </a>
-                </figure>
-            </div>
-            <div class="col-sm-3">
-                <figure class="module-thumb">
-                    <a href="">
-                        <div class="module-thumb-img">
-                            <img src="/img/test.jpg">
-                        </div>
-                        <figcaption class="module-thumb-caption">
-                            <span class="module-thumb-caption-header">CS4203</span>
-                            <br>
-                            <span class="module-thumb-caption-text">SOUND AND MUSIC COMPUTING</span>
-                        </figcaption>
-                    </a>
-                </figure>
-            </div>
+            <?php
+            // start generating the module thumbs
+            foreach ($modules as $module) {
+                ?>
+                <div class="col-sm-3">
+                    <figure class="module-thumb">
+                        <a href="/index.php/Modules/view/<?php echo $module['moduleCode']; ?>">
+                            <div class="module-thumb-img">
+                                <!-- TODO generate from php when ready -->
+                                <img src="/img/<?php echo $module['moduleCode']; ?>-img.jpg">
+                            </div>
+                            <figcaption class="module-thumb-caption">
+                                <span class="module-thumb-caption-header">
+                                    <?php echo $module['moduleCode']; ?>
+                                </span>
+                                <br>
+                                <span class="module-thumb-caption-text">
+                                    <?php echo $module['moduleName']; ?>
+                                </span>
+                            </figcaption>
+                        </a>
+                    </figure>
+                </div>
+                <?php
+            }
+            ?>
         </div>
         <br>
         <a href="talks.php" class="btn btn-primary">See all modules</a>

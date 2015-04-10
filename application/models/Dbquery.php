@@ -10,13 +10,13 @@ class Dbquery extends CI_Model {
     }
 
 	/*
-	* This function return the projects list of module where no one 
+	* This function return the projects list of module where no one
 	* has joined the project
 	* @param moduleID 	module code
 	* Return: 	Array of project obj: {title,projectID}
     */
    public function getProjectListWithNoMemberByModule($moduleID) {
-   		
+
 		$query = $this->queryProjectListWithNoMemberByModule($moduleID);
 
 		$result = array($query->num_rows());
@@ -36,7 +36,7 @@ class Dbquery extends CI_Model {
 	}
 
 	/*
-	* This function return the SQL query of projects list of module where no one 
+	* This function return the SQL query of projects list of module where no one
 	* has joined the project
 	* @param moduleID 	module code
 	* Return: 	SQL query of projects
@@ -126,17 +126,16 @@ class Dbquery extends CI_Model {
     public function getIterationInfoByIterate($iterate) {
 		$this->db->from('STEPSiteration');
 		$this->db->where('iteration',$iterate);
-		
+
 		$query = $this->db->get();
 		$result = array();
 		if($query->num_rows() == 1) {
-
 			$row = $query->result_array()[0];
-			$result['iteration'] = intval($row['iteration']);
-			$result['cutOff'] = intval($row['cut_off']);
-			$result['startTime'] = intval($row['start_time']);
-			$result['endTime'] = intval($row['end_time']);
-			$result['regisDate'] = intval($row['registration_date']);
+			$result['iteration'] = intval(strtotime($row['iteration']));
+			$result['cutOff'] = intval(strtotime($row['cut_off']));
+			$result['startTime'] = intval(strtotime($row['start_time']));
+			$result['endTime'] = intval(strtotime($row['end_time']));
+			$result['regisDate'] = intval(strtotime($row['registration_date']));
 			$result['semester'] = $row['semester'];
 		}
 		return $result;
@@ -159,7 +158,7 @@ class Dbquery extends CI_Model {
 
 
 	/*
-	* This function return the students details by project ID 
+	* This function return the students details by project ID
 	* @param projectID 	project ID
 	* Return: 	Array of sudent obj: {userID,name,email,contact,foodPref}
     */
@@ -185,7 +184,7 @@ class Dbquery extends CI_Model {
 	}
 
 	/*
-	* This function return the SQL query of students details by project ID 
+	* This function return the SQL query of students details by project ID
 	* @param projectID 	project ID
 	* Return: 	SQL query of students
     */
@@ -205,7 +204,7 @@ class Dbquery extends CI_Model {
 	}
 
 	/*
-	* This function return the supervisor details by module ID 
+	* This function return the supervisor details by module ID
 	* @param moduleID 	module ID
 	* Return: 	Array of supervisor obj: {userID,name}
     */
@@ -228,14 +227,14 @@ class Dbquery extends CI_Model {
 	}
 
 	/*
-	* This function return the SQL query of supervisor details by module ID 
+	* This function return the SQL query of supervisor details by module ID
 	* @param moduleID 	module ID
 	* Return: 	SQL query of supervisor
     */
 	private function querySupervisorByModule($moduleID) {
-		//SELECT * 
+		//SELECT *
 		//FROM supervise
-		//JOIN user 
+		//JOIN user
 		//ON user.user_id = supervise.user_id
 		//WHERE supervise.module_id = $moduleID
 		$this->db->from('supervise');
@@ -248,10 +247,10 @@ class Dbquery extends CI_Model {
 	}
 
 	/*
-	* This function return the project details 
+	* This function return the project details
 	* @param projectID 	project ID
 	* Return:	project obj: {title,abstract,poster,video,
-	*							projectID,moduleID,leaderID, 
+	*							projectID,moduleID,leaderID,
 	*							members:[{userID,name,email,
 	*										contact,foodPref
 	*									},{...}]
@@ -286,7 +285,7 @@ class Dbquery extends CI_Model {
 	*			null if no members
     */
 	public function getMembersByProjectID($projectID) {
-		
+
 		$query = $this->queryMembersByProjectID($projectID);
 
 		if($query->num_rows() > 0) {
@@ -309,7 +308,7 @@ class Dbquery extends CI_Model {
 	/*
 	* This function return the SQL query of members of a project
 	* @param projectID 	project ID
-	* Return:	SQL query of project members 
+	* Return:	SQL query of project members
     */
 	private function queryMembersByProjectID($projectID) {
 		//SELECT 	*
@@ -318,13 +317,14 @@ class Dbquery extends CI_Model {
 		//ON 		participate.project_id = project.project_id
 		//JOIN      user
 		//ON 		user.user_id = participate.project_id
-		//WHERE 	project.project_id = $projectID 
+		//WHERE 	project.project_id = $projectID
 		$this->db->from('project');
 		$this->db->join('participate',
 			'participate.project_id = project.project_id');
 		$this->db->join('user',
 			'user.user_id = participate.user_id');
 		$this->db->where('project.project_id',$projectID);
+		$this->db->where('user.user_type',USER_TYPE_STUDENT);
 		$query = $this->db->get();
 
 		return $query;
@@ -399,7 +399,7 @@ class Dbquery extends CI_Model {
 	}
 
 	/*
-	* This function return the boolean response of a particular person 
+	* This function return the boolean response of a particular person
 	* is the leader of a project team
 	* @param userID 	user ID
 	* @param projectID 	project ID
@@ -425,7 +425,7 @@ class Dbquery extends CI_Model {
 	/*
 	* This function return the all module details in a STEPS iteration
 	* @param iteration 	STEPS iteration
-	* Return: 	array of module object: 
+	* Return: 	array of module object:
 	*		{moduleID, moduleCode, moduleName,
 	* 		 moduleDescription,classSize,
 	*		 array of projectList: [
@@ -451,6 +451,8 @@ class Dbquery extends CI_Model {
 				$result[$i]['classSize'] = $row['class_size'];
 				$result[$i]['projectList'] =
 					$this->getProjectListByModule($row['module_id']);
+                $result[$i]['supervisors'] =
+                    $this->getSupervisorByModule($row['module_id']);
 				++$i;
 			}
 		}
@@ -466,8 +468,8 @@ class Dbquery extends CI_Model {
 	* Return: SQL query of Module
     */
 	public function queryModuleListByIteration($iteration) {
-		//SELECT 	* 
-		//FROM  	module 
+		//SELECT 	*
+		//FROM  	module
 		//WHERE 	module.iteration = $iteration;
 		$this->db->from('module');
 		$this->db->where('module.iteration', $iteration);
@@ -528,8 +530,8 @@ class Dbquery extends CI_Model {
 	* This function return the module supervised by the lecturer in the current iteration
 	* @param userID 	lecturer ID
 	* @param iteration 	STEPS iteration
-	* Return: 	array of module obj: {moduleID, moduleCode, 
-	* 								  moduleDescription, classSize, 
+	* Return: 	array of module obj: {moduleID, moduleCode,
+	* 								  moduleDescription, classSize,
 	*								  array of projectList: [
 	*									{projectID,title,abstract,poster,video,
 	*					 			 	 array of members:[{ userID,name,email,
@@ -603,12 +605,12 @@ class Dbquery extends CI_Model {
 	}
 
 	/*
-	* This function return student detail information including modules 
+	* This function return student detail information including modules
 	* that will be participating in STEPS
 	* @param userID 	student ID
 	* @param iteration  STEPS iteration
-	* Return: student obj: 
-	* 	{userID, name, email, contact, foodPref, 
+	* Return: student obj:
+	* 	{userID, name, email, contact, foodPref,
 	* 	 array of enrolled: [{moduleID,moduleCode,moduleName,
 	* 						 iteration,project:{title,abstract,poster,video,
 	*											projectID,leader,
@@ -616,7 +618,7 @@ class Dbquery extends CI_Model {
 	*																contact,foodPref},
 	*										  						{...}]
 	*											}
-	* 							
+	*
 	*						},{Another module...}]
 	*   }
     */
@@ -660,7 +662,7 @@ class Dbquery extends CI_Model {
 	*											contact,foodPref},
 	*										  {...}]
 	*						}
-	* 										
+	*
     */
 	private function getProjectListByStudentModule($userId, $moduleID) {
 		$query = $this->queryProjectListByStudentModule($userId, $moduleID);
@@ -686,7 +688,7 @@ class Dbquery extends CI_Model {
 	* This function return the SQL query of project detail information
 	* @param userID 	student ID
 	* @param moduleID  	module ID
-	* Return: SQL query of project and participants	
+	* Return: SQL query of project and participants
     */
 	private function queryProjectListByStudentModule($userId, $moduleID) {
 		//SELECT 	*
@@ -706,7 +708,7 @@ class Dbquery extends CI_Model {
 	}
 
 	/*
-	* This function return the SQL query of module supervised by the lecturer 
+	* This function return the SQL query of module supervised by the lecturer
 	* in the current iteration
 	* @param userID 	lecturer ID
 	* @param iteration 	STEPS iteration
@@ -776,14 +778,14 @@ class Dbquery extends CI_Model {
 	}
 
 	/*
-	* This function return the boolean response of existance of a 
+	* This function return the boolean response of existance of a
 	* user of certain type: lecturer or student
 	* @param userID  	user ID
 	* @param userType 	user Type - STUDENT / LECTURER
-	* Return: 	True if user exist, otherwise false 
+	* Return: 	True if user exist, otherwise false
     */
 	public function userExistByID($userId, $userType) {
-		//SELECT 	* 
+		//SELECT 	*
 		//FROM 		user
 		//WHERE 	user.user_type = $userType
 		//AND 		user.user_id   = $userID
@@ -863,20 +865,20 @@ class Dbquery extends CI_Model {
 	}
 
 	/*
-	* This function return the boolean response of a particular 
+	* This function return the boolean response of a particular
 	* user is a lecturer
 	* @param userID  	user ID
-	* Return: 	True if lecturer exist, otherwise false 
+	* Return: 	True if lecturer exist, otherwise false
     */
 	public function isLecturer($userID) {
 		return userExistByID($userId, USER_TYPE_LECTURER);
 	}
 
 	/*
-	* This function return the boolean response of a particular 
+	* This function return the boolean response of a particular
 	* user is a student
 	* @param userID  	student ID
-	* Return: 	True if student exist, otherwise false 
+	* Return: 	True if student exist, otherwise false
     */
 	public function isStudent($userID) {
 		return userExistByID($userId, USER_TYPE_STUDENT);

@@ -153,7 +153,7 @@ class Student extends CI_Controller {
             "data" => $memberDetails,
             "projectData" => $this->Dbquery->getProjectDetailsByProjectID($projectId)
         ];
-
+        //var_dump($bodyData["data"]);
         return $bodyData;
     }
 
