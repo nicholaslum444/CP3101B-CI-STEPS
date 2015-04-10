@@ -102,7 +102,7 @@
         // to retrieve list of modules for lecturer to sign up
         $("#registerModuleFormBody").hide();
         $("#loadingSplash").show();
-        var url = "/index.php/apibypass/ivleapibypass/GetIvleStaffedModules/";
+        var url = "/index.php/apibypass/IvleApiBypass/GetIvleStaffedModules/";
         $.get(url, function(data) {
             var data = JSON.parse(data)['Results'];
             allModules = data;
