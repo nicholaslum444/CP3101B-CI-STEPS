@@ -78,35 +78,38 @@
             <button type="submit" class="btn btn-default" id="admin-update-btn">Submit</button>
         </form>
 
-        <div>
-        <!-- EVENT DATES -->
-        <div class="eventDate-container clear">
-            <form class="form" role="form" id="eventDatesForm">
-                <div class="form-group col-md-12">
-                    <label for="startDate">Start Of Event</label>
-                    <input type="date" class="form-control" name="startDate" id="startDate" placeholder="DD/MM/YYYY">
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="endDate">End of Event</label>
-                    <input type="date" class="form-control" name="endDate" id="endDate" placeholder="DD/MM/YYYY">
-                </div>
-        </div>
+        <div> <!-- Date container -->
+        <?php if(isset($dates)) {
+            ?>
+            <!-- EVENT DATES -->
+            <div class="eventDate-container clear">
+                <form class="form" role="form" id="eventDatesForm">
+                    <div class="form-group col-md-12">
+                        <label for="startDate">Start Of Event</label>
+                        <input type="date" class="form-control" name="startDate" id="startDate" value="<?php echo $dates['startDate'] ?>" placeholder="DD/MM/YYYY">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="endDate">End of Event</label>
+                        <input type="date" class="form-control" name="endDate" id="endDate" value="<?php echo $dates['endDate'] ?>" placeholder="DD/MM/YYYY">
+                    </div>
+            </div>
 
 
-        <!-- REGISTRATION DATES -->
-        <div class="eventDate-container clear">        
-                <div class="form-group col-md-12">
-                    <label for="registrationDate">Registration Date</label>
-                    <input type="date" class="form-control" name="registrationDate" id="registrationDate" placeholder="DD/MM/YYYY">
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="cutOffDate">Cut-Off Date</label>
-                    <input type="date" class="form-control" name="cutOffDate" id="cutOffDate" placeholder="DD/MM/YYYY">
-                </div>
-                <button type="submit" class="btn btn-default" id="eventDate-btn">Save</button>
-            </form>
-        </div>
-        </div>
+            <!-- REGISTRATION DATES -->
+            <div class="eventDate-container clear">        
+                    <div class="form-group col-md-12">
+                        <label for="registrationDate">Registration Date</label>
+                        <input type="date" class="form-control" name="registrationDate" id="registrationDate" value="<?php echo $dates['registerDate'] ?>" placeholder="DD/MM/YYYY">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="cutOffDate">Cut-Off Date</label>
+                        <input type="date" class="form-control" name="cutOffDate" id="cutOffDate" value="<?php echo $dates['cutOffDate'] ?>" placeholder="DD/MM/YYYY">
+                    </div>
+                    <button type="submit" class="btn btn-default" id="eventDate-btn">Save</button>
+                </form>
+            </div>
+        <?php } ?>
+        </div> <!-- end of date container-->
 
         <!-- Food Preference -->
         <?php 
@@ -122,11 +125,14 @@
                     <h2 id="Vegans"><?php echo $foodPref["VEGE"] ?></h2>
                 </div>
             </div>
-            <?php } ?>
+        <?php } ?>
 
-        </div><!--End md-6-->
+        <!-- NEW STEPS BUTTON -->
+        <button class="btn btn-default" data-toggle="modal" data-target= "#newStepModal" id="newStepButton">NEW STEPS</button>
 
-    </div>
+    </div><!--End md-6-->
+
+</div><!-- End of row -->
 </div>
 
 <!-- Modal -->
@@ -181,8 +187,76 @@
     </div>
 </div><!-- End of Modal-->
 
+<!-- MODAL FOR NEW STEPS-->
+<div class="modal fade bs-example-modal-lg" id="newStepModal" tabindex="-1" role="dialog" aria-labelledby="newStepModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="newStepModalLabel">New STePS</h4>
+            </div>
+            <div class="modal-body">
+                <!--Form for editing module insert here-->
+                <form id="newStepForm" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <!-- SEM -->
+                        <label class="control-label col-sm-2" for="sem">Semester:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="sem" placeholder="1314/2" value="">
+                        </div>
+                        <!-- SEM -->
+                    </div>
+
+                    <div class="form-group">
+                        <!-- START DATE -->
+                        <label class="control-label col-sm-2" for="newStartDate">Start of STePS:</label>
+                        <div class="col-sm-9">
+                            <input required type="date" class="form-control" name="newStartDate" placeholder=""></input>
+                        </div>
+                        <!-- START DATE -->
+                    </div>
+
+                    <div class="form-group">
+                        <!-- END DATE -->
+                        <label class="control-label col-sm-2" for="newEndDate">End of STePS:</label>
+                        <div class="col-sm-9">
+                            <input required type="date" class="form-control" name="newEndDate" placeholder=""></input>
+                        </div>
+                        <!-- END DATE -->
+                    </div>
+
+                    <div class="form-group">
+                        <!-- REGISTRATION DATE -->
+                        <label class="control-label col-sm-2" for="newRegistrationDate">Registration Date:</label>
+                        <div class="col-sm-9">
+                            <input required type="date" class="form-control" name="newRegistrationDate" placeholder=""></input>
+                        </div>
+                        <!-- REGISTRATION DATE -->
+                    </div>
+
+                    <div class="form-group">
+                        <!-- CUTOFF DATE -->
+                        <label class="control-label col-sm-2" for="newCutOffDate">Cut Off Date:</label>
+                        <div class="col-sm-9">
+                            <input required type="date" class="form-control" name="newCutOffDate" placeholder=""></input>
+                        </div>
+                        <!-- CUTOFF DATE -->
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-9 col-sm-10">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div><!-- End of Modal-->
 
 <script type="text/javascript">
+
+$(function(){
 
 $('#eventDatesForm').submit(function(e){
     var dates = $(this).serializeArray();
@@ -194,7 +268,7 @@ $('#eventDatesForm').submit(function(e){
         "cutOffDate" : dates[3].value
     };
     
-    console.log(JSON.stringify(dateArr));
+    //console.log(JSON.stringify(dateArr));
 
     $.ajax({
         url: "/index.php/ajaxreceivers/setEventDates",
@@ -217,5 +291,47 @@ $('#eventDatesForm').submit(function(e){
 
     e.preventDefault();
 });
+
+$('#newStepForm').submit(function(e){
+    e.preventDefault();
+
+    var dates = $(this).serializeArray();
+    //console.log(dates);
+
+    var dateArr = {
+        "sem" : dates[0].value,
+        "startDate" : dates[1].value,
+        "endDate" : dates[2].value,
+        "registrationDate" : dates[3].value,
+        "cutOffDate" : dates[4].value
+    };
+    
+    //console.log(JSON.stringify(dateArr));
+
+    $.ajax({
+        url: "/index.php/ajaxreceivers/NewStep",
+        method: "POST",
+        data: dateArr,
+        dataType: "json"
+    })
+
+    .done(function(data) {
+        if(data["success"] == true) {
+            console.log("success");
+        }
+        else {
+            console.log("error " + JSON.stringify(data));
+        }
+    })
+    .fail(function(data) {
+        console.log("failed" + JSON.stringify(data));
+    });
+
+});
+
+
+
+
+})
 
 </script>
