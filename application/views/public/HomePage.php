@@ -24,12 +24,14 @@
             <li>
                 <span class="glyphicon glyphicon-calendar"></span>
                 <!-- need php TODO -->
-                22 April 2015
+                <?php echo $eventDate; ?>
             </li>
             <li>
                 <span class="glyphicon glyphicon-time"></span>
                 <!-- need php TODO -->
-                6pm to 10pm
+                <?php echo $eventStartTime; ?>
+                to
+                <?php echo $eventEndTime; ?>
             </li>
         </ul>
     </div>
