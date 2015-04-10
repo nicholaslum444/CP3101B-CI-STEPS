@@ -48,7 +48,7 @@ $(function() {
 
 	$('#registerModuleForm').on('submit',function (e) {
 		$.ajax({
-			url: "/index.php/ajaxreceivers/registermodule",
+			url: "/index.php/ajaxreceivers/RegisterModule",
 			method: "POST",
 			data: {"moduleId" : $("#moduleCode option:selected").attr("value")},
 			dataType: "json"
@@ -75,7 +75,7 @@ $(function() {
 		var moduleId = $("#editButton" + moduleCode).attr("moduleId");
 		console.log("sending" + moduleId);
 		$.ajax({
-			url: "/index.php/ajaxreceivers/syncclassroster",
+			url: "/index.php/ajaxreceivers/SyncClassRoster",
 			method: "POST",
 			data: {"moduleId" : moduleId},
 			dataType: "json"
@@ -102,7 +102,7 @@ $(function() {
 
 		//GETTING MODULE CODE AND NUMBER OF PROJECTS
 		var moduleCode = $("#editModalLabel").attr("moduleCode");
-		var moduleId = $("#editModalLabel").attr("moduleId");	
+		var moduleId = $("#editModalLabel").attr("moduleId");
 		var numberOfProjects = $(".projectTitles[module="+moduleCode+"]").attr("numOfProject");
 
 		//GETTING ALL EDITED INPUTS
@@ -181,7 +181,7 @@ $(function() {
 
 		// 4=(form)=}=> Server
 		$.ajax({
-			url: "/index.php/ajaxreceivers/editmodule",
+			url: "/index.php/ajaxreceivers/EditModule",
 			method: "POST",
 			data: editFormData,
 			dataType: "json"

@@ -71,7 +71,7 @@
                     </div>
                 <?php } ?>
             <?php } else {  ?>
-                <a href="/index.php/lecturer/viewModule">Dummy Module</a>
+                <a href="/index.php/Lecturer/viewModule">Dummy Module</a>
             <?php } ?>
         </div>
     </div> <!-- end generated modules -->
@@ -102,7 +102,7 @@
         // to retrieve list of modules for lecturer to sign up
         $("#registerModuleFormBody").hide();
         $("#loadingSplash").show();
-        var url = "/index.php/apibypass/ivleapibypass/getivlestaffedmodules/";
+        var url = "/index.php/apibypass/IvleApiBypass/GetIvleStaffedModules/";
         $.get(url, function(data) {
             var data = JSON.parse(data)['Results'];
             allModules = data;

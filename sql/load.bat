@@ -1,11 +1,6 @@
 mysql test -e "source DDL.sql";
 mysql test -e "source iterate.sql";
-mysql test -e "source user1.sql";
-mysql test -e "source user2.sql";
-mysql test -e "source user3.sql";
-mysql test -e "source user4.sql";
-mysql test -e "source user5.sql";
-mysql test -e "source user6.sql";
+mysql test -e "source user.sql";
 mysql test -e "source prof.sql";
 mysql test -e "source module.sql";
 mysql test -e "source supervise.sql";
