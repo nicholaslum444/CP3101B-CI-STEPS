@@ -81,6 +81,7 @@
     <script>
     var allModules;
     $(function() {
+        $("#alr-reg").hide();
         // to update the fields when different module selected
         function getModuleDetail(id, detail) {
             for (var i = 0; i < allModules.length; i++) {
@@ -101,6 +102,7 @@
 
         // to retrieve list of modules for lecturer to sign up
         $("#registerModuleFormBody").hide();
+        $("#getModulesFailedBody").hide();
         $("#loadingSplash").show();
         var url = "/index.php/apibypass/IvleApiBypass/GetIvleStaffedModules/";
         $.get(url, function(data) {
@@ -115,6 +117,9 @@
             $("#moduleCode").change();
             $("#loadingSplash").hide();
             $("#registerModuleFormBody").show();
+        }).fail(function(data) {
+            $("#loadingSplash").hide();
+            $("#getModulesFailedBody").show();
         });
     });
     </script>
@@ -134,20 +139,26 @@
                             Please wait while we retrieve your modules..
                         </p>
                     </div>
+                    <div class="modal-body" id="getModulesFailedBody">
+                        <p>
+                            <!-- should make a proper loading screen -->
+                            Failed to get modules from IVLE! If this occurs repeatedly, please contact the Administrator.
+                        </p>
+                    </div>
                     <div class="modal-body" id="registerModuleFormBody">
                         <div class="form-group">
-                            <label for="moduleCode">Module Code</label>
+                            <label for="moduleCode">Module Code<span style="color:red;" id="alr-reg"> already registered!</span></label>
                             <select class="form-control" name="moduleCode" id="moduleCode">
                             </select>
                         </div>
                         <div class="form-group">
                             <!-- TODO change these to static fields -->
                             <label for="moduleName">Module Name</label>
-                            <input type="text" class="form-control" id="moduleName" placeholder="Module Name">
+                            <input type="text" class="form-control" disabled id="moduleName" placeholder="Module Name">
                             <label for="moduleName">Semester</label>
-                            <input type="text" class="form-control" id="moduleSem" placeholder="Semester">
+                            <input type="text" class="form-control" disabled id="moduleSem" placeholder="Semester">
                             <label for="moduleName">Year</label>
-                            <input type="text" class="form-control" id="moduleYear" placeholder="Year">
+                            <input type="text" class="form-control" disabled id="moduleYear" placeholder="Year">
                         </div>
                     </div>
                     <div class="modal-footer">

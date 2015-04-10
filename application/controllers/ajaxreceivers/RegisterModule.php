@@ -36,9 +36,9 @@ class RegisterModule extends CI_Controller {
         $moduleName = $moduleDetails->Results[0]->CourseName;
         // if exist ($moduleId) then fail
         $iteration = $this->Dbquery->getLatestIteration();
-
-        //$moduleAlreadyExists = $this->Dbquery->isModuleExist($moduleId); // TODO change to this
-        $moduleAlreadyExists = $this->Dbquery->isModuleExist($moduleCode, $iteration);
+        // echo $moduleId;
+        $moduleAlreadyExists = $this->Dbquery->isModuleExist($moduleId); // TODO change to this
+        //$moduleAlreadyExists = $this->Dbquery->isModuleExist($moduleCode, $iteration);
         if ($moduleAlreadyExists) {
             // make fail obj
             return [
