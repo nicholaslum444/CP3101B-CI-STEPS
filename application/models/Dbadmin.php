@@ -143,22 +143,57 @@ class Dbadmin extends CI_Model {
 	*
 	*
     */
-	public function openSteps($username, $password, $stepSem) {
+	public function openSteps($username, $password, $stepSem, $startTime, $endTime, $cutOff, $regis) {
 		if($this->isAdmin($username, $password)) {
 			$data = array(
-				'semester' => $stepSem
+				'semester' => $stepSem,
+				'registration_date' => $regis,
+				'start_time' => $startTime,
+				'end_time' => $endTime,
+				'cut_off' => $cutOff
 			);
-			echo "CAN";
 			$this->db->insert('STEPSiteration',$data);
 			return true;
 		}
 		else {
 
-			echo "CANMPT";
 			return false;
 		}
 	}
 
+	public function editSteps($username, $password, $STEPSiteration, $stepSem, 
+								$startTime, $endTime, $cutOff, $regis) {
+		
+		if($this->isAdmin($username, $password)) {
+			$data = array();
+			if($stepSem != null) {
+				$data['semester'] => $stepSem
+			}
+			if($stepSem != null) {
+				$data['semester'] => $stepSem
+			}
+			if($startTime != null) {
+				$data['start_time'] => $startTime
+			}
+			if($endTime != null) {
+				$data['end_time'] => $endTime
+			}
+			if($cutOff != null) {
+				$data['cut_off'] => $cutOff
+			}
+			if($regis != null) {
+				$data['registration_date'] => $regis
+			}
+
+			$this->db->where('iteration',$STEPSiteration);
+			$this->db->update('STEPSiteration',$data);
+			return true;
+		}
+		else {
+
+			return false;
+		}
+	}
 	/*
 	*
 	*
@@ -174,6 +209,8 @@ class Dbadmin extends CI_Model {
 			return false;
 		}
 	}
+
+	public function 
 
 	/*
 	*
