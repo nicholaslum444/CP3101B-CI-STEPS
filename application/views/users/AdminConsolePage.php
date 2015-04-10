@@ -79,33 +79,36 @@
         </form>
 
         <div>
-        <!-- EVENT DATES -->
-        <div class="eventDate-container clear">
-            <form class="form" role="form" id="eventDatesForm">
-                <div class="form-group col-md-12">
-                    <label for="startDate">Start Of Event</label>
-                    <input type="date" class="form-control" name="startDate" id="startDate" placeholder="DD/MM/YYYY">
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="endDate">End of Event</label>
-                    <input type="date" class="form-control" name="endDate" id="endDate" placeholder="DD/MM/YYYY">
-                </div>
-        </div>
+        <?php if(isset($dates)) {
+            ?>
+            <!-- EVENT DATES -->
+            <div class="eventDate-container clear">
+                <form class="form" role="form" id="eventDatesForm">
+                    <div class="form-group col-md-12">
+                        <label for="startDate">Start Of Event</label>
+                        <input type="date" class="form-control" name="startDate" id="startDate" value="<?php echo $dates['startDate'] ?>" placeholder="DD/MM/YYYY">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="endDate">End of Event</label>
+                        <input type="date" class="form-control" name="endDate" id="endDate" value="<?php echo $dates['endDate'] ?>" placeholder="DD/MM/YYYY">
+                    </div>
+            </div>
 
 
-        <!-- REGISTRATION DATES -->
-        <div class="eventDate-container clear">        
-                <div class="form-group col-md-12">
-                    <label for="registrationDate">Registration Date</label>
-                    <input type="date" class="form-control" name="registrationDate" id="registrationDate" placeholder="DD/MM/YYYY">
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="cutOffDate">Cut-Off Date</label>
-                    <input type="date" class="form-control" name="cutOffDate" id="cutOffDate" placeholder="DD/MM/YYYY">
-                </div>
-                <button type="submit" class="btn btn-default" id="eventDate-btn">Save</button>
-            </form>
-        </div>
+            <!-- REGISTRATION DATES -->
+            <div class="eventDate-container clear">        
+                    <div class="form-group col-md-12">
+                        <label for="registrationDate">Registration Date</label>
+                        <input type="date" class="form-control" name="registrationDate" id="registrationDate" value="<?php echo $dates['registerDate'] ?>" placeholder="DD/MM/YYYY">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="cutOffDate">Cut-Off Date</label>
+                        <input type="date" class="form-control" name="cutOffDate" id="cutOffDate" value="<?php echo $dates['cutOffDate'] ?>" placeholder="DD/MM/YYYY">
+                    </div>
+                    <button type="submit" class="btn btn-default" id="eventDate-btn">Save</button>
+                </form>
+            </div>
+        <?php } ?>
         </div>
 
         <!-- Food Preference -->
@@ -194,7 +197,7 @@ $('#eventDatesForm').submit(function(e){
         "cutOffDate" : dates[3].value
     };
     
-    console.log(JSON.stringify(dateArr));
+    //console.log(JSON.stringify(dateArr));
 
     $.ajax({
         url: "/index.php/ajaxreceivers/setEventDates",

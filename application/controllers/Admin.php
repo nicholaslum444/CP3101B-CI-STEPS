@@ -147,9 +147,9 @@ class Admin extends CI_Controller {
     private function _makeBodyData() {
         $iteration = $this->Dbquery->getLatestIteration();
         $foodPref = $this->Dbquery->getFoodPrefByIteration($iteration);
+        $dates = $this->_getDates($iteration);
 
         $listOfModules = $this->Dbquery->getModuleListByIteration($iteration);
-        //print_r($listOfModules);
 
         $moduleData = [];
         //Loop through and query for module data
@@ -161,7 +161,8 @@ class Admin extends CI_Controller {
 
         $bodyData = [
             "moduleData" => $moduleData,
-            "foodPref" => $foodPref
+            "foodPref" => $foodPref,
+            "dates" => $dates
         ];
 
         return $bodyData;
@@ -188,5 +189,18 @@ class Admin extends CI_Controller {
 		];
 
         return $modInfo;
+    }
+
+    private function _getDates($iteration) {
+        $dates = $this->Dbquery->getIterationInfoByIterate($iteration);
+        
+        $formattedDates = [];
+
+        $formattedDates['startDate'] = date("Y-m-d", $dates['startTime']);
+        $formattedDates['endDate'] = date("Y-m-d", $dates['endTime']);
+        $formattedDates['registerDate'] = date("Y-m-d", $dates['regisDate']);
+        $formattedDates['cutOffDate'] = date("Y-m-d", $dates['cutOff']);
+
+        return $formattedDates;
     }
 }
