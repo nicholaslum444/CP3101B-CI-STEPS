@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container admin-container">
     <div class="row">
 
-        <div class="col-md-6">
+        <div class="col-md-6 accordion panel panel-primary" id="admin-accordion">
             <?php
             if (isset($moduleData)) {
                 foreach($moduleData as $module) {
@@ -15,11 +15,12 @@
                     $moduleDescription = $module['data']['moduleDescription'] == null ? "-" : $module['data']['moduleDescription'];
                     ?>
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><?php echo $moduleCode ?>  - <?php echo $moduleName; ?>
+                    <div class="accordion-group panel-default">
+                        <div class="accordion-heading accordion-toggle panel-heading" >
+                            <a data-toggle="collapse" data-target="#<?php echo $moduleCode ?>" href="#"><?php echo $moduleCode ?>  - <?php echo $moduleName; ?></a>
                             <button class="btn btn-xs btn-default editModuleBtn" data-toggle="modal" data-target= "#editModal" id="editButton<?php echo $moduleCode; ?>" module="<?php echo $moduleCode; ?>">Edit</button>
                         </div>
-                        <div class="panel-body">
+                        <div id="<?php echo $moduleCode ?>" class=" collapse panel-collapse">
                             <div class="form-horizontal" role="form" index="1">
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="classSize">Class Size:</label>
@@ -73,31 +74,33 @@
                     <label for="updates">Updates: </label>
                     <textarea class="form-control" rows="5" id="updates" placeholder="Add updates in front page"></textarea>
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default" id="admin-update-btn">Submit</button>
             </form>
 
-            <form class="form-inline" role="form" id="eventDates">
-                <div class="form-group">
-                    <label for="eventStartDate">Start of Event</label>
+
+            <div class="eventDate-container clear">
+            <form class="form" role="form" id="eventDates">
+                <div class="form-group col-md-12">
+                    <label for="eventStartDate">Start Of Event</label>
                     <input type="date" class="form-control" id="eventStartDate" placeholder="dd/mm/yyyy">
                 </div>
-                <br /><br />
-                <div class="form-group">
+                <div class="form-group col-md-12">
                     <label for="cutOffDate">Cut-Off Date</label>
                     <input type="date" class="form-control" id="cutOffDate" placeholder="dd/mm/yyyy">
                 </div>
-                <button type="submit" class="btn btn-default">Save</button>
+                <button type="submit" class="btn btn-default" id="eventDate-btn">Save</button>
             </form>
+            </div>
 
             <!-- Data to be fetched -->
-            <div class="thumbnail col-md-12">
-                <div class="thumbnail col-md-6">
-                    <h2>Non-Vegans</h2>
-                    <h2 id="NonVegans"></h2>
+            <div class="thumbnail col-md-12 food-container">
+                <div class="col-md-6" id="nonVeganDiv">
+                    <h3 class="text-muted">Non-Vegeterian</h3>
+                    <h2 id="NonVegans">50</h2>
                 </div>
-                <div class="thumbnail col-md-6">
-                    <h2>Vegans</h2>
-                    <h2 id="Vegans"></h2>
+                <div class="col-md-6" id="veganDiv">
+                    <h3 class="text-muted">Vegeterian</h3>
+                    <h2 id="Vegans">10</h2>
                 </div>
             </div>
 
@@ -108,10 +111,9 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade bs-example-modal-lg" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+    <!-- Modal for editing module-->
+    <div class="modal fade bs-example-modal-lg" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -126,13 +128,9 @@
                             <div class="col-sm-4">
                                 <input type="number" class="form-control" id="editClassSize" placeholder="Class Size" value="">
                             </div>
+                            <button type="button" class="btn btn-info" id="syncRosterButton" moduleId="">Sync Class Roster With IVLE</button>
                             <!-- CLASS SIZE -->
-                            <!-- NUMBER OF PROJECTS -->
-                            <label class="control-label col-sm-2" for="editNumProjects">Number of Projects:</label>
-                            <div class="col-sm-4">
-                                <input type="number" class="form-control" id="editNumProjects" placeholder="Number of Projects" value="">
-                            </div>
-                            <!-- NUMBER OF PROJECTS -->
+
                         </div>
 
                         <div class="form-group">
@@ -147,15 +145,12 @@
                         <div class="form-group">
                             <!-- PROJECT TITLES -->
                             <label class="control-label col-sm-2" for="">Project Titles:</label>
-                            <div id = "editProjectTitles" class="col-sm-5 projectTitleFields">
-                                <!-- DYNAMICALLY GENERATE AND INSERT INPUT FIELDS INTO HERE
-                                SAMPLE: <input type="text" class="form-control" placeholder="Project Title" -->
-                            </div>
+                            <div id = "editProjectTitles" class="col-sm-5 projectTitleFields"></div>
+                            <!-- DYNAMICALLY GENERATE AND INSERT INPUT FIELDS INTO HERE
+                            SAMPLE: <input type="text" class="form-control" innerIndex="" projectID="" moduleCode="" placeholder="Project Title">-->
                             <!-- PROJECT TITLES -->
-
                             <div class="col-sm-5"><div class="btn btn-default addProjectTitleBtn">Add</div></div>
                         </div>
-
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <button type="submit" class="btn btn-success">Submit</button>
@@ -165,5 +160,7 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </div><!-- End of Modal-->
+
+
+
