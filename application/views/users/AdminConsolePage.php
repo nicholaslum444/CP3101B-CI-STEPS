@@ -78,7 +78,8 @@
             <button type="submit" class="btn btn-default" id="admin-update-btn">Submit</button>
         </form>
 
-        <!-- DATES -->
+        <div>
+        <!-- EVENT DATES -->
         <div class="eventDate-container clear">
             <form class="form" role="form" id="eventDatesForm">
                 <div class="form-group col-md-12">
@@ -86,11 +87,25 @@
                     <input type="date" class="form-control" name="startDate" id="startDate" placeholder="DD/MM/YYYY">
                 </div>
                 <div class="form-group col-md-12">
+                    <label for="endDate">End of Event</label>
+                    <input type="date" class="form-control" name="endDate" id="endDate" placeholder="DD/MM/YYYY">
+                </div>
+        </div>
+
+
+        <!-- REGISTRATION DATES -->
+        <div class="eventDate-container clear">        
+                <div class="form-group col-md-12">
+                    <label for="registrationDate">Registration Date</label>
+                    <input type="date" class="form-control" name="registrationDate" id="registrationDate" placeholder="DD/MM/YYYY">
+                </div>
+                <div class="form-group col-md-12">
                     <label for="cutOffDate">Cut-Off Date</label>
                     <input type="date" class="form-control" name="cutOffDate" id="cutOffDate" placeholder="DD/MM/YYYY">
                 </div>
                 <button type="submit" class="btn btn-default" id="eventDate-btn">Save</button>
             </form>
+        </div>
         </div>
 
         <!-- Food Preference -->
@@ -171,18 +186,18 @@
 
 $('#eventDatesForm').submit(function(e){
     var dates = $(this).serializeArray();
-    //console.log(dates);
-    //console.log(JSON.stringify(dates));
 
     var dateArr = {
         "startDate" : dates[0].value,
-        "cutOffDate" : dates[1].value
+        "endDate" : dates[1].value,
+        "registrationDate" : dates[2].value,
+        "cutOffDate" : dates[3].value
     };
     
     console.log(JSON.stringify(dateArr));
 
     $.ajax({
-        url: "/index.php/ajaxreceivers/setDates",
+        url: "/index.php/ajaxreceivers/setEventDates",
         method: "POST",
         data: dateArr,
         dataType: "json"
@@ -190,7 +205,6 @@ $('#eventDatesForm').submit(function(e){
 
     .done(function(data) {
         if(data["success"] == true) {
-            //window.location.href="/index.php/Student/updateMembers/" + projectId;
             console.log("success");
         }
         else {
