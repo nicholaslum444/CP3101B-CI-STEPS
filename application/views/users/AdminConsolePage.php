@@ -11,7 +11,7 @@
                     $moduleCode = $module['data']['moduleCode'] == null ? "Dummy" : $module['data']['moduleCode'];
                     $moduleName = $module['data']['moduleName'] == null ? "-" : $module['data']['moduleName'];
                     $classSize = $module['data']['classSize'] == null ? 0 : $module['data']['classSize'];
-                    $numProjects = $module['data']['project'] == null ? 0 : count($module['data']['project']);
+                    $numProjects = $module['data']['projectList'] == null ? 0 : count($module['data']['projectList']);
                     $moduleDescription = $module['data']['moduleDescription'] == null ? "-" : $module['data']['moduleDescription'];
                     ?>
 
@@ -44,11 +44,12 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="">Project Titles:</label>
                                     <div class="col-sm-5 field-group field-list projectTitles" module="<?php echo $moduleCode; ?>" numOfProject = "4"> <!-- numOfProject should be DYNAMIC too -->
-                                        <?php $counter=1; ?>
-                                        <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" index="<?php echo $counter++; ?>">Awesome Posum</h5>
-                                        <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" index="<?php echo $counter++; ?>">Awesome Posum</h5>
-                                        <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" index="<?php echo $counter++; ?>">Awesome Posum</h5>
-                                        <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" index="<?php echo $counter++; ?>">Awesome Posum</h5>
+                                      <?php $counter = 1;
+                                      foreach($module['data']['projectList'] as $project) {
+                                        if(!is_null($project['title'])) { ?>
+                                        <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" projectId="<?php echo $project['projectID']; ?>" innerIndex="<?php echo $counter++; ?>"><?php echo $project['title']; ?></h5>
+                                        <?php } ?>
+                                        <?php } ?>
                                     </div>
                                 </div>
 
@@ -77,33 +78,36 @@
                 <button type="submit" class="btn btn-default" id="admin-update-btn">Submit</button>
             </form>
 
-
+            <!-- DATES -->
             <div class="eventDate-container clear">
-            <form class="form" role="form" id="eventDates">
-                <div class="form-group col-md-12">
-                    <label for="eventStartDate">Start Of Event</label>
-                    <input type="date" class="form-control" id="eventStartDate" placeholder="dd/mm/yyyy">
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="cutOffDate">Cut-Off Date</label>
-                    <input type="date" class="form-control" id="cutOffDate" placeholder="dd/mm/yyyy">
-                </div>
-                <button type="submit" class="btn btn-default" id="eventDate-btn">Save</button>
-            </form>
+                <form class="form" role="form" id="eventDatesForm">
+                    <div class="form-group col-md-12">
+                        <label for="startDate">Start Of Event</label>
+                        <input type="date" class="form-control" name="startDate" id="startDate" placeholder="dd/mm/yyyy">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="cutOffDate">Cut-Off Date</label>
+                        <input type="date" class="form-control" name="cutOffDate" id="cutOffDate" placeholder="dd/mm/yyyy">
+                    </div>
+                    <button type="submit" class="btn btn-default" id="eventDate-btn">Save</button>
+                </form>
             </div>
 
-            <!-- Data to be fetched -->
+            <!-- Food Preference -->
+            <?php 
+            if(isset($foodPref)) {
+            ?>
             <div class="thumbnail col-md-12 food-container">
                 <div class="col-md-6" id="nonVeganDiv">
                     <h3 class="text-muted">Non-Vegeterian</h3>
-                    <h2 id="NonVegans">50</h2>
+                    <h2 id="NonVegans"><?php echo $foodPref["NON_VEGE"] ?></h2>
                 </div>
                 <div class="col-md-6" id="veganDiv">
                     <h3 class="text-muted">Vegeterian</h3>
-                    <h2 id="Vegans">10</h2>
+                    <h2 id="Vegans"><?php echo $foodPref["VEGE"] ?></h2>
                 </div>
             </div>
-
+            <?php } ?>
 
         </div><!--End md-6-->
 
@@ -111,41 +115,41 @@
 </div>
 
 <!-- Modal -->
-    <!-- Modal for editing module-->
-    <div class="modal fade bs-example-modal-lg" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="editModalLabel"></h4>
-                </div>
-                <div class="modal-body">
-                    <!--Form for editing module insert here-->
-                    <form id="editModuleForm" class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <!-- CLASS SIZE -->
-                            <label class="control-label col-sm-2" for="editClassSize">Class Size:</label>
-                            <div class="col-sm-4">
-                                <input type="number" class="form-control" id="editClassSize" placeholder="Class Size" value="">
-                            </div>
-                            <button type="button" class="btn btn-info" id="syncRosterButton" moduleId="">Sync Class Roster With IVLE</button>
-                            <!-- CLASS SIZE -->
-
+<!-- Modal for editing module-->
+<div class="modal fade bs-example-modal-lg" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="editModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <!--Form for editing module insert here-->
+                <form id="editModuleForm" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <!-- CLASS SIZE -->
+                        <label class="control-label col-sm-2" for="editClassSize">Class Size:</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" id="editClassSize" placeholder="Class Size" value="">
                         </div>
+                        <button type="button" class="btn btn-info" id="syncRosterButton" moduleId="">Sync Class Roster With IVLE</button>
+                        <!-- CLASS SIZE -->
 
-                        <div class="form-group">
-                            <!-- DESCRIPTIONS -->
-                            <label class="control-label col-sm-2" for="editModuleDescription">Description:</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" rows="5" id="editModuleDescription" placeholder="Add Description for Module"></textarea>
-                            </div>
-                            <!-- DESCRIPTIONS -->
+                    </div>
+
+                    <div class="form-group">
+                        <!-- DESCRIPTIONS -->
+                        <label class="control-label col-sm-2" for="editModuleDescription">Description:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="5" id="editModuleDescription" placeholder="Add Description for Module"></textarea>
                         </div>
+                        <!-- DESCRIPTIONS -->
+                    </div>
 
-                        <div class="form-group">
-                            <!-- PROJECT TITLES -->
-                            <label class="control-label col-sm-2" for="">Project Titles:</label>
-                            <div id = "editProjectTitles" class="col-sm-5 projectTitleFields"></div>
+                    <div class="form-group">
+                        <!-- PROJECT TITLES -->
+                        <label class="control-label col-sm-2" for="">Project Titles:</label>
+                        <div id = "editProjectTitles" class="col-sm-5 projectTitleFields"></div>
                             <!-- DYNAMICALLY GENERATE AND INSERT INPUT FIELDS INTO HERE
                             SAMPLE: <input type="text" class="form-control" innerIndex="" projectID="" moduleCode="" placeholder="Project Title">-->
                             <!-- PROJECT TITLES -->
@@ -163,4 +167,12 @@
     </div><!-- End of Modal-->
 
 
+<script type="text/javascript">
 
+$('#eventDatesForm').submit(function(e){
+    var dates = $(this).serializeArray();
+    console.log(dates);
+    e.preventDefault();
+});
+
+</script>
