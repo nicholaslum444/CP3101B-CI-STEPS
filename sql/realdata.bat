@@ -1,3 +1,5 @@
+mysql test -e "source DDL.sql";
+mysql test -e "source iterate.sql";
 mysql test -e "source realProf.sql";
 mysql test -e "source realMod.sql";
 mysql test -e "source realSup.sql";
@@ -9,3 +11,4 @@ mysql test -e "source CS3284.sql";
 mysql test -e "source CS4244.sql";
 mysql test -e "source CP3101B.sql";
 mysql test -e "source IS5126.sql";
+mysql test -e "source admin.sql";

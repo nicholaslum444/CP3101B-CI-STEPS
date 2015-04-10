@@ -163,26 +163,26 @@ class Dbadmin extends CI_Model {
 
 	public function editSteps($username, $password, $STEPSiteration, $stepSem, 
 								$startTime, $endTime, $cutOff, $regis) {
-		
+
 		if($this->isAdmin($username, $password)) {
 			$data = array();
 			if($stepSem != null) {
-				$data['semester'] => $stepSem
+				$data['semester'] = $stepSem;
 			}
 			if($stepSem != null) {
-				$data['semester'] => $stepSem
+				$data['semester'] = $stepSem;
 			}
 			if($startTime != null) {
-				$data['start_time'] => $startTime
+				$data['start_time'] = $startTime;
 			}
 			if($endTime != null) {
-				$data['end_time'] => $endTime
+				$data['end_time'] = $endTime;
 			}
 			if($cutOff != null) {
-				$data['cut_off'] => $cutOff
+				$data['cut_off'] = $cutOff;
 			}
 			if($regis != null) {
-				$data['registration_date'] => $regis
+				$data['registration_date'] = $regis;
 			}
 
 			$this->db->where('iteration',$STEPSiteration);
@@ -209,8 +209,6 @@ class Dbadmin extends CI_Model {
 			return false;
 		}
 	}
-
-	public function 
 
 	/*
 	*
