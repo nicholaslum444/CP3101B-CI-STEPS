@@ -55,9 +55,9 @@
                                         <div class="col-sm-5 field-group field-list projectTitles" module="<?php echo $moduleCode; ?>"> <!-- numOfProject should be DYNAMIC too -->
                                            <!--<h5 class="inputText projectTitle" module="ABC123" projectId="123" innerIndex="1">A-Team</h5>-->
                                             <?php $counter = 1;
-                                            foreach($module['data']['project'] as $project) {
-                                                if(!is_null($project['projectTitle'])) { ?>
-                                                    <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" projectId="<?php echo $project['projectID']; ?>" innerIndex="<?php echo $counter++; ?>"><?php echo $project['projectTitle']; ?></h5>
+                                            foreach($module['data']['projectList'] as $project) {
+                                                if(!is_null($project['title'])) { ?>
+                                                    <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" projectId="<?php echo $project['projectID']; ?>" innerIndex="<?php echo $counter++; ?>"><?php echo $project['title']; ?></h5>
                                                     <?php } ?>
                                                 <?php } ?>
                                             <?php } ?>

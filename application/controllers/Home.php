@@ -40,12 +40,20 @@ class Home extends CI_Controller {
 			module name
 		*/
 		$iteration = $this->Dbquery->getLatestIteration();
-		$bodyData = [];
-		$bodyData["eventDate"] = 1;;
-		$bodyData["eventStartTime"] = 1;
-		$bodyData["eventEndTime"] = 1;
-		$bodyData["modules"] = $this->Dbquery->getModuleListByIteration($iteration);
+		$iterInfo = $this->Dbquery->getLatestIterationInfo();
+		$eventDateObj = new DateTime();
+		$eventDateObj->setTimestamp($iterInfo['startTime']);
+		$eventStartTimeObj = new DateTime();
+		$eventStartTimeObj->setTimestamp($iterInfo['startTime']);
+		$eventEndTimeObj = new DateTime();
+		$eventEndTimeObj->setTimestamp($iterInfo['endTime']);
 
+		$bodyData = [];
+		$bodyData["eventDate"] = $eventDateObj->format("jS F Y");
+		$bodyData["eventStartTime"] = $eventStartTimeObj->format("gA");
+		$bodyData["eventEndTime"] = $eventEndTimeObj->format("gA");
+		$bodyData["modules"] = $this->Dbquery->getModuleListByIteration($iteration);
+		var_dump($bodyData);
 		return $bodyData;
 	}
 }

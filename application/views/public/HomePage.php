@@ -24,12 +24,14 @@
             <li>
                 <span class="glyphicon glyphicon-calendar"></span>
                 <!-- need php TODO -->
-                22 April 2015
+                <?php echo $eventDate; ?>
             </li>
             <li>
                 <span class="glyphicon glyphicon-time"></span>
                 <!-- need php TODO -->
-                6pm to 10pm
+                <?php echo $eventStartTime; ?>
+                to
+                <?php echo $eventEndTime; ?>
             </li>
         </ul>
     </div>
@@ -74,90 +76,32 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-sm-3">
-                <figure class="module-thumb">
-                    <a href="">
-                        <div class="module-thumb-img">
-                            <img src="/img/test.jpg">
-                        </div>
-                        <figcaption class="module-thumb-caption">
-                            <span class="module-thumb-caption-header">CS4203</span>
-                            <br>
-                            <span class="module-thumb-caption-text">SOUND AND MUSIC COMPUTING</span>
-                        </figcaption>
-                    </a>
-                </figure>
-            </div>
-            <div class="col-sm-3">
-                <figure class="module-thumb">
-                    <a href="">
-                        <div class="module-thumb-img">
-                            <img src="/img/test.jpg">
-                        </div>
-                        <figcaption class="module-thumb-caption">
-                            <span class="module-thumb-caption-header">CS4203</span>
-                            <br>
-                            <span class="module-thumb-caption-text">SOUND AND MUSIC COMPUTING</span>
-                        </figcaption>
-                    </a>
-                </figure>
-            </div>
-            <div class="col-sm-3">
-                <figure class="module-thumb">
-                    <a href="">
-                        <div class="module-thumb-img">
-                            <img src="/img/test.jpg">
-                        </div>
-                        <figcaption class="module-thumb-caption">
-                            <span class="module-thumb-caption-header">CS4203</span>
-                            <br>
-                            <span class="module-thumb-caption-text">SOUND AND MUSIC COMPUTING</span>
-                        </figcaption>
-                    </a>
-                </figure>
-            </div>
-            <div class="col-sm-3">
-                <figure class="module-thumb">
-                    <a href="">
-                        <div class="module-thumb-img">
-                            <img src="/img/test.jpg">
-                        </div>
-                        <figcaption class="module-thumb-caption">
-                            <span class="module-thumb-caption-header">CS4203</span>
-                            <br>
-                            <span class="module-thumb-caption-text">SOUND AND MUSIC COMPUTING</span>
-                        </figcaption>
-                    </a>
-                </figure>
-            </div>
-            <div class="col-sm-3">
-                <figure class="module-thumb">
-                    <a href="">
-                        <div class="module-thumb-img">
-                            <img src="/img/test.jpg">
-                        </div>
-                        <figcaption class="module-thumb-caption">
-                            <span class="module-thumb-caption-header">CS4203</span>
-                            <br>
-                            <span class="module-thumb-caption-text">SOUND AND MUSIC COMPUTING</span>
-                        </figcaption>
-                    </a>
-                </figure>
-            </div>
-            <div class="col-sm-3">
-                <figure class="module-thumb">
-                    <a href="">
-                        <div class="module-thumb-img">
-                            <img src="/img/test.jpg">
-                        </div>
-                        <figcaption class="module-thumb-caption">
-                            <span class="module-thumb-caption-header">CS4203</span>
-                            <br>
-                            <span class="module-thumb-caption-text">SOUND AND MUSIC COMPUTING</span>
-                        </figcaption>
-                    </a>
-                </figure>
-            </div>
+            <?php
+            // start generating the module thumbs
+            foreach ($modules as $module) {
+                ?>
+                <div class="col-sm-3">
+                    <figure class="module-thumb">
+                        <a href="/index.php/Modules/view/<?php echo $module['moduleCode']; ?>">
+                            <div class="module-thumb-img">
+                                <!-- TODO generate from php when ready -->
+                                <img src="/img/<?php echo $module['moduleCode']; ?>-img.jpg">
+                            </div>
+                            <figcaption class="module-thumb-caption">
+                                <span class="module-thumb-caption-header">
+                                    <?php echo $module['moduleCode']; ?>
+                                </span>
+                                <br>
+                                <span class="module-thumb-caption-text">
+                                    <?php echo $module['moduleName']; ?>
+                                </span>
+                            </figcaption>
+                        </a>
+                    </figure>
+                </div>
+                <?php
+            }
+            ?>
         </div>
         <br>
         <a href="talks.php" class="btn btn-primary">See all modules</a>
