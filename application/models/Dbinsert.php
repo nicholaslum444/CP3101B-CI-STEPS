@@ -7,6 +7,10 @@ class Dbinsert extends CI_Model {
             parent::__construct();
     }
 
+    /*
+	*
+	*
+    */
     public function insertAndEnrolStudent($userID, $name, $moduleID) {
     	$this->db->from('user');
     	$this->db->where('user_id',$userID);
@@ -27,6 +31,10 @@ class Dbinsert extends CI_Model {
     	return true;
     }
 
+    /*
+	*
+	*
+    */
     public function dismissStudentfromModule($userID, $moduleID) {
     	$this->db->where('module_id', $moduleId);
     	$this->db->where('user_id', $userID);
@@ -36,6 +44,10 @@ class Dbinsert extends CI_Model {
 		return true;
     }
 	
+	/*
+	*
+	*
+    */
 	public function insertStudentBaseInfo($userID, $name) {
 		$data = array(
 			'user_id' => $userID,
@@ -47,6 +59,10 @@ class Dbinsert extends CI_Model {
 		return true;
 	}
 
+	/*
+	*
+	*
+    */
 	public function updateStudentDetail($userID, $email, $contact, $food) {
 		$data = array();
 		if($email == null && $contact == null && $food == null) {
@@ -69,6 +85,10 @@ class Dbinsert extends CI_Model {
 		return true;
 	}
 
+	/*
+	*
+	*
+    */
 	public function insertProfBasicDetail($userID, $name) {
 		$data = array(
 			'user_id' => $userID,
@@ -80,6 +100,10 @@ class Dbinsert extends CI_Model {
 		return true;
 	}
 
+	/*
+	*
+	*
+    */
 	public function updateProfDetail($userID, $name, $email, $food, $contact) {
 
 		$data = array();
@@ -103,6 +127,10 @@ class Dbinsert extends CI_Model {
 		return true;
 	}
 
+	/*
+	*
+	*
+    */
 	public function isModuleExist($moduleID) {
 		$this->db->from('module');
 		$this->db->where('module.module_id',$moduleID);
@@ -116,6 +144,10 @@ class Dbinsert extends CI_Model {
 		}
 	}
 
+	/*
+	*
+	*
+    */
 	public function createModule($moduleCode, $moduleName, $moduleID, $iteration, $userID) {
 		$data = array(
 			'module_code' => $moduleCode,
@@ -131,6 +163,10 @@ class Dbinsert extends CI_Model {
 		return true;
 	}
 
+	/*
+	*
+	*
+    */
 	public function updateModuleDescription($moduleID, $moduleName, $description, $classSize) {
 		
 		if($moduleName == null && $description == null && $classSize == null) {
@@ -156,6 +192,10 @@ class Dbinsert extends CI_Model {
 		return true;
 	}
 
+	/*
+	*
+	*
+    */
 	public function createProject($projectName, $moduleID) {
 		$data = array(
 			'title' => $projectName,
@@ -168,6 +208,10 @@ class Dbinsert extends CI_Model {
 
 	}
 
+	/*
+	*
+	*
+    */
 	public function updateProject($id, $title, $abstract, $poster, $video) {
 
 		$data = array();
@@ -194,6 +238,10 @@ class Dbinsert extends CI_Model {
 		return true;
 	}
 
+	/*
+	*
+	*
+    */
 	public function deleteProject($id) {
 		$this->db->where('project_id', $id);
 		$this->db->delete('project');
@@ -201,7 +249,11 @@ class Dbinsert extends CI_Model {
 		return true;
 
 	}
-	//TODO
+	
+	/*
+	*
+	*
+    */
 	public function checkParticipatedProjectInModule($moduleID, $userID) {
 		$this->db->from('participate');
 		$this->db->join('project',
@@ -226,6 +278,10 @@ class Dbinsert extends CI_Model {
 		return -1;
 	}
 
+	/*
+	*
+	*
+    */
 	public function insertStudentToProject($id, $userID) {
 		$data = array(
 			'user_id' => $userID,
@@ -237,6 +293,10 @@ class Dbinsert extends CI_Model {
 		return true;
 	}
 
+	/*
+	*
+	*
+    */
 	public function setLeaderForProject($userID, $Pid) {
 		$data = array(
 			'leader_user_id' => $userID,
@@ -248,6 +308,10 @@ class Dbinsert extends CI_Model {
 		return true;
 	}
 
+	/*
+	*
+	*
+    */
 	public function deleteStudentFromProject($id, $userID) {
 		$this->db->where('project_id', $id);
 		$this->db->where('user_id', $userID);
@@ -256,6 +320,10 @@ class Dbinsert extends CI_Model {
 		return true;
 	}
 
+	/*
+	*
+	*
+    */
 	public function insertModuleSupervision($userID, $moduleID) {
 		$data = array(
 			'user_id' => $userID,
@@ -267,6 +335,10 @@ class Dbinsert extends CI_Model {
 		return true;
 	}
 
+	/*
+	*
+	*
+    */
 	public function dropSupervising($userID, $moduleID) {
 
 		$this->db->where('module_id', $moduleID);
@@ -277,6 +349,10 @@ class Dbinsert extends CI_Model {
 		return true;
 	}
 
+	/*
+	*
+	*
+    */
 	public function dropParticipatingModule($moduleID) {
 
 		$this->db->where('module_id', $moduleID);
