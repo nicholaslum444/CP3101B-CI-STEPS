@@ -42,7 +42,8 @@ class RegisterProject extends CI_Controller {
            }
        }
 
-       $userId = 'A0201001B'; //hardcode to be removed
+       //$userId = 'A0201001B'; //hardcode to be removed
+      $userId = $this->session->userId;
         //insert himself
        $this->Dbinsert->insertStudentToProject($projectId, $userId);
 

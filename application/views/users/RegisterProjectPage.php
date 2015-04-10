@@ -65,7 +65,7 @@
                 "memberIDs": arrMemberIDs
             };
 
-            //console.log(jsonarr);
+            console.log(jsonArr);
 
             $.ajax({
                 url: "/index.php/ajaxreceivers/registerProject",
