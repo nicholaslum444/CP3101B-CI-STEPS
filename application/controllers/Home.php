@@ -53,7 +53,7 @@ class Home extends CI_Controller {
 		$bodyData["eventStartTime"] = $eventStartTimeObj->format("gA");
 		$bodyData["eventEndTime"] = $eventEndTimeObj->format("gA");
 		$bodyData["modules"] = $this->Dbquery->getModuleListByIteration($iteration);
-		//var_dump($bodyData);
+		var_dump($bodyData);
 		return $bodyData;
 	}
 }
