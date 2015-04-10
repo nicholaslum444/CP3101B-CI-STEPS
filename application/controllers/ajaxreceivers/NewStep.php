@@ -3,9 +3,9 @@
 // this call returns JSON objects.
 header("Content-Type: application/json");
 
-/* This class set the start and cut off dates */
+/* This class create a new instance of STePS*/
 
-class setEventDates extends CI_Controller {
+class NewStep extends CI_Controller {
 
     public function __construct() {
       parent::__construct();
@@ -13,7 +13,7 @@ class setEventDates extends CI_Controller {
 
     public function index() {
 
-        if(!(isset($_POST["startDate"])) || !(isset($_POST["endDate"]))
+        if(!(isset($_POST["sem"])) || !(isset($_POST["startDate"])) || !(isset($_POST["endDate"]))
             || !(isset($_POST["registrationDate"]))  || !(isset($_POST["cutOffDate"]))) {
             exit($this->_buildIncompleteFormResponse());
         } 
@@ -22,35 +22,34 @@ class setEventDates extends CI_Controller {
             exit($this->_buildAccessDeniedResponse());
         }
 
-        echo $this->_buildResponse($_POST["startDate"], $_POST["endDate"], 
+        echo $this->_buildResponse($_POST["sem"], $_POST["startDate"], $_POST["endDate"], 
                                    $_POST["registrationDate"], $_POST["cutOffDate"]);
     }
 
-    private function _buildResponse($startDate, $endDate, $registerDate, $cutOffDate) {
+    private function _buildResponse($sem, $startDate, $endDate, $registerDate, $cutOffDate) {
 
-        $setResult = $this->_editFieldsInDb($startDate, $endDate, $registerDate, $cutOffDate);
+        $setResult = $this->_insertIntoDb($sem, $startDate, $endDate, $registerDate, $cutOffDate);
 
         return json_encode($setResult);
     }
 
-    private function _editFieldsInDb($startDate, $endDate, $registerDate, $cutOffDate) {
+    private function _insertIntoDb($sem, $startDate, $endDate, $registerDate, $cutOffDate) {
 
         $START_TIME = " 00:00:00";
         $END_TIME = " 23:59:59";
 
         $user = $this->session->username;
         $password = $this->session->password;
-        $stepSem = null;    //i.e. AY13/14
-        $iteration = $this->Dbquery->getLatestIteration();
+        $stepSem = $sem;
         $startDate = $startDate . $START_TIME;
         $endDate = $endDate . $END_TIME;
         $registerDate = $registerDate . $START_TIME;
         $cutOffDate = $cutOffDate . $END_TIME;
 
-        $editSuccess = $this->Dbadmin->editSteps($user, $password, $iteration, $stepSem, 
-                                                 $startDate, $endDate, $cutOffDate, $registerDate);
+        $insertSuccess = $this->Dbadmin->openSteps($user, $password, $stepSem, 
+                                                   $startDate, $endDate, $cutOffDate, $registerDate);
 
-        if($editSuccess) {
+        if($insertSuccess) {
             return [
                 "success" => TRUE
             ];
