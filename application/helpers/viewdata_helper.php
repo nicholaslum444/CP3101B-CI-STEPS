@@ -15,7 +15,7 @@ class ViewData {
             "baseUrl" => $baseUrl,
             "iteration" => $CI->Dbquery->getLatestIteration(),
             "loader" => $loader,
-            "freeze" => $this->isFrozen()
+            "freeze" => ViewData::isFrozen($CI)
         ];
 
         // add additional data if user is logged in
@@ -38,9 +38,9 @@ class ViewData {
         return $headerData;
     }
 
-    public static function isFrozen() {
-        $iteration = $this->Dbquery->getLatestIteration();
-        $iterationInfo = $this->Dbquery->getIterationInfoByIterate($iteration);
+    private static function isFrozen($CI) {
+        $iteration = $CI->Dbquery->getLatestIteration();
+        $iterationInfo = $CI->Dbquery->getIterationInfoByIterate($iteration);
 
         $cutOff = $iterationInfo['cutOff'];
         $now = time();
