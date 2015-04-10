@@ -60,12 +60,15 @@ $(function() {
 				location.reload();
 			}
 			else {
+	            if (data["error"] == "MODULE_EXISTS") {
+	                $("#alr-reg").show();
+	            }
 				$('#registerModuleForm').addClass("has-error");
 			}
 		})
 
 		.fail(function(data) {
-			alert(JSON.stringify(data));
+			console.log(JSON.stringify(data));
 		});
 		e.preventDefault();
 	});
