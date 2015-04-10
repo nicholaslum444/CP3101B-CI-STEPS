@@ -171,8 +171,9 @@
                 <div class="u-center">
                     <p>
                         Buffet dinner will be provided to add registered attendees.<br>
-                        Confirm your spot by <a href="/index.php/register">registering</a>. It's free!
+                        Confirm your spot by registering. It's free!
                     </p>
+                    <a href="talks.php" class="btn btn-secondary">Register</a>
                 </div>
             </div>
         </div>
@@ -186,7 +187,7 @@
                 <div class="u-center">
                     <p>
                         Share the excitement with your friends and relatives!<br>
-                        Invite them down for a night of innovation, genius and enterprise
+                        Invite them down for a night of innovation, genius and enterprise<br>
                         <!-- fb like btn -->
                         <div class="fb-like" data-href="http://steps.tk/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
                     </p>

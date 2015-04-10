@@ -532,9 +532,9 @@ input[type="button"].btn-block {
   color: #fff;
 }
 .btn-secondary {
-  background-color: #25bfc7;
+  background-color: transparent;
   border-color: #25bfc7;
-  color: #fff;
+  color: #25bfc7;
 }
 .btn-secondary:hover {
   background-color: #21aab1;
