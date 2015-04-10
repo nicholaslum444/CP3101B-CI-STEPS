@@ -37,17 +37,17 @@ class Student extends CI_Controller {
         if ($this->_isAuthenticated()) {
             $allStudentsInProject = $this->Dbquery->getStudentDetailByProject($projectId);
             $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
-           
+            $loadRegister = true;
             foreach($allStudentsInProject as $student) {
                 if($student["userID"] === $this->session->userId) {
                     $this->load->view("users/UpdateMembersPage", $this->retrieveMemberDetails($projectId));
-                    $doNotLoadRegister = true;
+                    $loadRegister = false;
                     header("LOCATION: /index.php/Student/updateMembers/".$projectId);
                 }
             }
 
 
-            if($doNotLoadRegister) {
+            if($loadRegister) {
                 $this->load->view("users/RegisterProjectPage", $this->_selectMembersData($moduleId, $projectId));
             }
 
@@ -132,6 +132,12 @@ class Student extends CI_Controller {
     private function _selectMembersData($moduleId, $projectId) {
         $iteration = $this->Dbquery->getLatestIteration();
         $student = $this->Dbquery->getStudentsNotInProjectGroupByModule($moduleId);
+        foreach($student as $index=>$checkForUser) {
+            if($checkForUser["userID"] == $this->session->userId) {
+                unset($student[$index]);
+            }
+        }
+
         $bodyData = [
             "data" => $student,
             "pId" => $projectId
