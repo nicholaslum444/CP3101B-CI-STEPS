@@ -45,8 +45,8 @@
          <label class="control-label col-sm-2"></label>
          <label class="control-label col-sm-3" id="foodLabel" for="food">Food Preference: </label>
          <div class="radio col-sm-2 food" required>
-          <label><input type="radio" name="foodPref" value="Non-Vegetarians">Non-Vegetarians</label>
-          <label><input type="radio" name="foodPref" value="Vegetarians">Vegetarians</label>
+          <label><input type="radio" name="foodPref" <?php echo ($member['foodPref'] == 2)? "checked":""; ?> value="Non-Vegetarians">Non-Vegetarians</label>
+          <label><input type="radio" name="foodPref" <?php echo ($member['foodPref'] == 1)? "checked":""; ?> value="Vegetarians">Vegetarians</label>
         </div>
       </div>
     </div><!-- End of duplicate class, end of md-10 nested fields-->
@@ -57,7 +57,7 @@
   <div class="form-group">
     <label class="control-label col-sm-2" for="abstract">Abstract:</label>
     <div class="col-sm-10"> 
-      <textarea class="form-control" name="abstract" rows="5" id="abstract" value="<?php echo $projectData['abstract']; ?>" placeholder="Abstract for your project"></textarea>
+      <textarea class="form-control" name="abstract" rows="5" id="abstract" value="" placeholder="Abstract for your project"><?php echo $projectData['abstract']; ?></textarea>
     </div>
 
     <label class="control-label col-sm-2" for="poster">Poster:</label>
@@ -93,7 +93,7 @@
       var studentForms = $('form');
       //console.log(studentForms);
 
-
+      var doneOnce = false;
 
       $('form').each(function(index, value) {
         formData.push($(value).serializeArray());
@@ -114,8 +114,11 @@
 
         .done(function(data) {
             if(data["success"] == true) {
+              if(!doneOnce) 
+                  doneOnce = true;
+              else
                 window.location.href="/index.php/Student/updateMembers/" + <?php echo $projectData['projectId'] ?>;
-                console.log("success");
+              console.log("success");
             }
             else {
                 console.log("error " + JSON.stringify(data));
@@ -143,8 +146,11 @@
 
         .done(function(data) {
             if(data["success"] == true) {
+              if(!doneOnce) 
+                  doneOnce = true;
+              else
                 window.location.href="/index.php/Student/updateMembers/" + <?php echo $projectData['projectId'] ?>;
-                console.log("success");
+              console.log("success");
             }
             else {
                 console.log("error " + JSON.stringify(data));
