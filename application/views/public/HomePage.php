@@ -119,7 +119,7 @@
                         Buffet dinner will be provided to add registered attendees.<br>
                         Confirm your spot by registering. It's free!
                     </p>
-                    <a href="talks.php" class="btn btn-secondary">Register</a>
+                    <a href="index.php/Register" class="btn btn-secondary">Register</a>
                 </div>
             </div>
         </div>

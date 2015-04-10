@@ -8,4 +8,4 @@ INSERT INTO `supervise` (`user_id`,`module_id`) VALUES
 ('terrencesim','rrrrrrrr-rrrr-rrrr-rrrr-rrrrrrrrrrrr'),
 ('tanchewlim','kkkkkkkk-kkkk-kkkk-kkkk-kkkkkkkkkkkk'),
 ('ooiweitsang','kkkkkkkk-kkkk-kkkk-kkkk-kkkkkkkkkkkk'),
-('stevenha','zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz');
+('stevenha','16ceadcc-55ce-431c-be2e-fdb47db11a7c');
