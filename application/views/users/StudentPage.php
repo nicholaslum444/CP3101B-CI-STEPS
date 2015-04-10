@@ -7,7 +7,7 @@
 
 <!--To be shown only when student is signed up for it -->
 <?php if(isset($data[0])) {
-    var_dump($data);
+    //var_dump($data);
     foreach($data[0] as $module) { ?>
     <div class="row">     
         <div class="col-md-12">
