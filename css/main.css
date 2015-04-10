@@ -18,6 +18,10 @@ body {
 	padding:0px;
 }
 
+.fixed-height-container {
+    height: 100vh;
+}
+
 .navbar-login-container {
 	padding:0px 15px;
 	display:none;
