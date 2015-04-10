@@ -130,13 +130,12 @@ class Dbquery extends CI_Model {
 		$query = $this->db->get();
 		$result = array();
 		if($query->num_rows() == 1) {
-
 			$row = $query->result_array()[0];
-			$result['iteration'] = intval($row['iteration']);
-			$result['cutOff'] = intval($row['cut_off']);
-			$result['startTime'] = intval($row['start_time']);
-			$result['endTime'] = intval($row['end_time']);
-			$result['regisDate'] = intval($row['registration_date']);
+			$result['iteration'] = intval(strtotime($row['iteration']));
+			$result['cutOff'] = intval(strtotime($row['cut_off']));
+			$result['startTime'] = intval(strtotime($row['start_time']));
+			$result['endTime'] = intval(strtotime($row['end_time']));
+			$result['regisDate'] = intval(strtotime($row['registration_date']));
 			$result['semester'] = $row['semester'];
 		}
 		return $result;
