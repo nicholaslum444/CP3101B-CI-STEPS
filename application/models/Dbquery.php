@@ -453,7 +453,6 @@ class Dbquery extends CI_Model {
 					$this->getProjectListByModule($row['module_id']);
                 $result[$i]['supervisors'] =
                     $this->getSupervisorByModule($row['module_id']);
-    				    
 				++$i;
 			}
 		}
