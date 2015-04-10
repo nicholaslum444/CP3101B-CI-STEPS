@@ -150,11 +150,11 @@ switch($loader) {
                         <?php
                         // (messy) code to load the correct buttons
                         // based on whether user logged in or not
-                        $buttonType = "success";
+                        $buttonType = "student";
                         if ($isLoggedIn) {
                             if ($userType === USER_TYPE_LECTURER) {
                                 $userType = "Lecturer";
-                                $buttonType = "info";
+                                $buttonType = "lecturer";
                             } else if ($userType === USER_TYPE_STUDENT) {
                                 $userType = "Student";
                             } else if ($userType === USER_TYPE_ADMIN) {
@@ -166,15 +166,15 @@ switch($loader) {
                                     <?php echo $name; ?>
                                     <span class="caret"></span>
                                 </a>
-                                <ul class="dropdown-menu" role="menu">
+                                <ul class="dropdown-menu user-dropdown-menu" role="menu">
                                     <li>
-                                        <a href="/index.php/<?php echo $userType; ?>/console">
-                                            <button class="btn btn-<?php echo $buttonType; ?> navbar-btn">Console</button>
+                                        <a href="/index.php/<?php echo $userType; ?>/console" class="<?php echo $buttonType; ?>-console-choice">
+                                            Console
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/index.php/logout">
-                                            <button class="btn btn-danger navbar-btn">Logout</button>
+                                        <a href="/index.php/logout" class="logout-choice">
+                                            Logout
                                         </a>
                                     </li>
                                 </ul>
@@ -187,16 +187,16 @@ switch($loader) {
                                     Log in as:&nbsp;
                                     <span class="caret"></span>
                                 </a>
-                                <ul class="dropdown-menu" role="menu">
+                                <ul class="dropdown-menu user-dropdown-menu" role="menu">
                                     <li>
-                                        <button class="btn btn-success navbar-btn" id="loginBtnStudent" data-toggle="modal" data-target="#ivleStudentModal" data-backdrop="static">
+                                        <a href="#" class="student-login-choice" id="loginBtnStudent" data-toggle="modal" data-target="#ivleStudentModal" data-backdrop="static">
                                             Student
-                                        </button>
+                                        </a>
                                     </li>
                                     <li>
-                                        <button class="btn btn-info navbar-btn" id="loginBtnLecturer" data-toggle="modal" data-target="#ivleLecturerModal" data-backdrop="static">
+                                        <a href="#" class="lecturer-login-choice" id="loginBtnLecturer" data-toggle="modal" data-target="#ivleLecturerModal" data-backdrop="static">
                                             Lecturer
-                                        </button>
+                                        </a>
                                     </li>
                                 </ul>
                             </li>
