@@ -4,7 +4,7 @@
         <div class="col-sm-8 col-sm-offset-2">
             <h1 class="hero__heading">STePS</h1>
             <h2 class="hero__subheading">School of Computing's Term Project Showcase</h2>
-            <a class="btn btn-default btn-lg" href="/index.php/About">
+            <a class="btn btn-learn-more btn-lg" href="/index.php/About">
                 Learn More
             </a>
         </div>
