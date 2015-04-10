@@ -17,7 +17,7 @@ class Home extends CI_Controller {
 
 		// load the homepage views
 		$this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
-		$this->load->view('public/HomePage');
+		$this->load->view('public/HomePage', $this->_makeBodyData());
         $this->load->view("persistent/SiteFooter");
 
 	}
@@ -29,4 +29,23 @@ class Home extends CI_Controller {
     private function _makeHeaderData() {
         return ViewData::makeHeaderData($this->session, base_url());
     }
+
+	private function _makeBodyData() {
+		/*
+		date of event
+		start/end time of event
+		participating modules
+			picture
+			module code
+			module name
+		*/
+		$iteration = $this->Dbquery->getLatestIteration();
+		$bodyData = [];
+		$bodyData["eventDate"] = 1;;
+		$bodyData["eventStartTime"] = 1;
+		$bodyData["eventEndTime"] = 1;
+		$bodyData["modules"] = $this->Dbquery->getModuleListByIteration($iteration);
+
+		return $bodyData;
+	}
 }

@@ -4,7 +4,7 @@
         <div class="col-sm-8 col-sm-offset-2">
             <h1 class="hero__heading">STePS</h1>
             <h2 class="hero__subheading">School of Computing's Term Project Showcase</h2>
-            <a class="btn btn-default btn-lg" href="/index.php/About">
+            <a class="btn btn-learn-more btn-lg" href="/index.php/About">
                 Learn More
             </a>
         </div>
@@ -18,17 +18,17 @@
         <ul class="list-stylised list-jumbo u-uppercase">
             <li>
                 <span class="glyphicon glyphicon-globe"></span>
-                <!-- need php -->
+                <!-- need php XXX -->
                 SoC COM1
             </li>
             <li>
                 <span class="glyphicon glyphicon-calendar"></span>
-                <!-- need php -->
+                <!-- need php TODO -->
                 22 April 2015
             </li>
             <li>
                 <span class="glyphicon glyphicon-time"></span>
-                <!-- need php -->
+                <!-- need php TODO -->
                 6pm to 10pm
             </li>
         </ul>
@@ -62,9 +62,11 @@
                     <p>
                         Students, faculty, technology entrepreneurs and prospective students will have the opportunity to experience the innovations created by the students.
                         <br>
-                        95 <!-- use php! -->
+                        <!-- use php! -->
+                        95
                         innovative projects from
-                        10 <!-- use php! -->
+                        <!-- use php! -->
+                        10
                         participating courses/tracks will be showcased in the Term Project Showcase this semester.
                     </p>
                 </div>
