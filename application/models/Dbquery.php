@@ -123,6 +123,41 @@ class Dbquery extends CI_Model {
 		return -1;
     }
 
+    public function getIterationInfoByIterate($iterate) {
+		$this->db->from('STEPSiteration');
+		$this->db->where('iteration',$iterate);
+		
+		$query = $this->db->get();
+		$result = array();
+		if($query->num_rows() == 1) {
+
+			$row = $query->result_array()[0];
+			$result['iteration'] = intval($row['iteration']);
+			$result['cutOff'] = intval($row['cut_off']);
+			$result['startTime'] = intval($row['start_time']);
+			$result['endTime'] = intval($row['end_time']);
+			$result['regisDate'] = intval($row['registration_date']);
+			$result['semester'] = $row['semester'];
+		}
+		return $result;
+    }
+
+    public function getLatestIterationInfo() {
+		$iterate = $this->getLatestIteration();
+
+		return $this->getIterationInfoByIterate($iterate);
+    }
+
+//     getIterationInfo(ite)
+// getLatestIterationInfo
+// -> open registration
+// -> cut off info
+// -> event start time
+// -> end time
+// -> iteration
+// -> iteration semester
+
+
 	/*
 	* This function return the students details by project ID 
 	* @param projectID 	project ID
