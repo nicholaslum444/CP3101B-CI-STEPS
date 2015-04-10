@@ -59,6 +59,19 @@
     <div class="col-sm-10"> 
       <textarea class="form-control" name="abstract" rows="5" id="abstract" value="<?php echo $projectData['abstract']; ?>" placeholder="Abstract for your project"></textarea>
     </div>
+
+    <label class="control-label col-sm-2" for="poster">Poster:</label>
+    <div class="col-sm-10"> 
+      <input class="form-control" name="poster" rows="5" id="poster" value="<?php echo $projectData['poster']; ?>" placeholder="URL for your poster"></textarea>
+    </div>
+
+    <label class="control-label col-sm-2" for="video">Video:</label>
+    <div class="col-sm-10"> 
+      <input class="form-control" name="video" rows="5" id="video" value="<?php echo $projectData['video']; ?>" placeholder="URL for your video"></textarea>
+    </div>
+
+
+
   </div>
 
   <div class="form-group"> 
@@ -92,7 +105,7 @@
         "users" : formData
       }
 
-      $.ajax({
+        $.ajax({
             url: "/index.php/ajaxreceivers/editUserInformation",
             method: "POST",
             data: users,
@@ -101,7 +114,36 @@
 
         .done(function(data) {
             if(data["success"] == true) {
-                window.location.href="/index.php/Student/updateMembers/" + projectId;
+                window.location.href="/index.php/Student/updateMembers/" + <?php echo $projectData['projectId'] ?>;
+                console.log("success");
+            }
+            else {
+                console.log("error " + JSON.stringify(data));
+            }
+        })
+        .fail(function(data) {
+            console.log("failed" + JSON.stringify(data));
+        });
+
+      var projectData = { 
+                           "project" : {
+                                     "projectId" : <?php echo $projectData['projectId'] ?>,
+                                     "poster" : $("#poster").val(),
+                                     "video" : $("#video").val(),
+                                     "abstract" : $("#abstract").val()
+                                     }
+                          }
+
+      $.ajax({
+            url: "/index.php/ajaxreceivers/editProject",
+            method: "POST",
+            data: projectData,
+            dataType: "json"
+        })
+
+        .done(function(data) {
+            if(data["success"] == true) {
+                window.location.href="/index.php/Student/updateMembers/" + <?php echo $projectData['projectId'] ?>;
                 console.log("success");
             }
             else {
