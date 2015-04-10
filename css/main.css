@@ -49,6 +49,7 @@ body {
 	color: #fff !important;
 }
 
+<<<<<<< Updated upstream
 .module-thumb-img img:hover {
 	-webkit-filter: sepia(90%) hue-rotate(-225deg);
 	/*border-radius: 50%;*/
@@ -81,6 +82,11 @@ body {
 
 .fixed-height-container {
     height: 100vh;
+}
+
+.navbar-login-container {
+	padding:0px 15px;
+	/*display:none;*/
 }
 
 .module-thumb a:hover {
@@ -209,6 +215,15 @@ button[data-target="#registerProjectModal"] {
 
 #veganDiv, #nonVeganDiv {
 	text-align: center;
+}
+
+.glyphicon-chevron-down {
+	padding-right: 2%;
+	cursor: pointer;
+}
+
+.admin-accordion-modulename {
+	font-size: 13px;
 }
 
 /* if large screen (min-width: 1200px), apply these rules */

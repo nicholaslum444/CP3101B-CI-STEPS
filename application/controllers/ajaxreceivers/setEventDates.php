@@ -28,19 +28,42 @@ class setEventDates extends CI_Controller {
 
     private function _buildResponse($startDate, $endDate, $registerDate, $cutOffDate) {
 
-        /*$setResult = $this->_insertIntoDb($startDate, $endDate);
+        $setResult = $this->_editFieldsInDb($startDate, $endDate, $registerDate, $cutOffDate);
 
-        return json_encode($setResult);*/
+        return json_encode($setResult);
 
-        return json_encode("HELLLLLoooooo");
+        //return json_encode("HELLLLLoooooo");
     }
 
-    private function _insertIntoDb($startDate, $endDate) {
+    private function _editFieldsInDb($startDate, $endDate, $registerDate, $cutOffDate) {
 
+        $START_TIME = " 00:00:00";
+        $END_TIME = " 23:59:59";
 
-       return [
-        "success" => TRUE
-       ];
+        $user = $this->session->username;
+        $password = $this->session->password;
+        $stepSem = null;    //i.e. AY13/14
+        $iteration = $this->Dbquery->getLatestIteration();
+        $startDate = $startDate . $START_TIME;
+        $endDate = $endDate . $END_TIME;
+        $registerDate = $registerDate . $START_TIME;
+        $cutOffDate = $cutOffDate . $END_TIME;
+
+        $editSuccess = $this->Dbadmin->editSteps($user, $password, $iteration, $stepSem, 
+                                                 $startDate, $endDate, $cutOffDate, $registerDate);
+
+        if($editSuccess) {
+            return [
+                "success" => TRUE
+            ];
+        } else {
+
+            return [
+                "success" => FALSE,
+                "error" => "EDIT FAIL"
+            ];
+        }
+       
     }
 
     private function _buildIncompleteFormResponse() {
