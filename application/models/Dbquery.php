@@ -324,6 +324,7 @@ class Dbquery extends CI_Model {
 		$this->db->join('user',
 			'user.user_id = participate.user_id');
 		$this->db->where('project.project_id',$projectID);
+		$this->db->where('user.user_type',USER_TYPE_STUDENT);
 		$query = $this->db->get();
 
 		return $query;
