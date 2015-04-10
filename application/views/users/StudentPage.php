@@ -43,6 +43,7 @@
                                     echo "<br />";
                                 } ?>
                             </h5>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registerProjectModal" data-moduleId="<?php echo $module['moduleID']?>" data-module="<?php echo $module['moduleCode'] ?>">Sign up</button>
                             </div>
                         </div>
                         <!-- Edit Button for Leaders -->

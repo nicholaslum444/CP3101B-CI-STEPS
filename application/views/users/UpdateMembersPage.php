@@ -45,8 +45,8 @@
          <label class="control-label col-sm-2"></label>
          <label class="control-label col-sm-3" id="foodLabel" for="food">Food Preference: </label>
          <div class="radio col-sm-2 food" required>
-          <label><input type="radio" name="foodPref" value="Non-Vegeterians">Non-Vegeterians</label>
-          <label><input type="radio" name="foodPref" value="Vegeterians">Vegeterians</label>
+          <label><input type="radio" name="foodPref" value="Non-Vegetarians">Non-Vegetarians</label>
+          <label><input type="radio" name="foodPref" value="Vegetarians">Vegetarians</label>
         </div>
       </div>
     </div><!-- End of duplicate class, end of md-10 nested fields-->
@@ -88,10 +88,14 @@
 
       console.log(formData);
 
+      var users = {
+        "users" : formData
+      }
+
       $.ajax({
             url: "/index.php/ajaxreceivers/editUserInformation",
             method: "POST",
-            data: JSON.stringify(formData),
+            data: users,
             dataType: "json"
         })
 
