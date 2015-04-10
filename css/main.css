@@ -3,19 +3,87 @@
 /* ==========================================================================
 Author's custom styles
 ========================================================================== */
+html, body {
+  width: auto !important;
+  overflow-x: hidden !important;
+}
 
 body {
 	font-family: 'Lato', sans-serif;
 	padding-top: 60px;
 }
 
+.btn-learn-more {
+  color: #ffffff;
+  background-color: transparent;
+  border-color: #ffffff;
+}
+
+.btn-learn-more:hover {
+  background-color: #fff;
+  border-color: #25bfc7;
+  color: #25bfc7;
+}
+
 .clear {
     clear: both;
+}
+
+.centered-navbar {
+	text-align:center;
 }
 
 .login-iframe-container {
 	text-align: center;
 	padding:0px;
+}
+
+.user-dropdown-menu {
+	background-color:#2c3e50;
+	text-align:center;
+}
+
+.logout-choice {
+	color: #d44 !important;
+	font-weight: bold !important;
+}
+
+.student-console-choice,
+.student-login-choice {
+	color: #fff !important;
+}
+
+.lecturer-console-choice,
+.lecturer-login-choice {
+	color: #fff !important;
+}
+
+.module-thumb-img img:hover {
+	-webkit-filter: sepia(90%) hue-rotate(-225deg);
+	width: 300px;
+    height: 300px;
+}
+
+.module-thumb-img img {
+	width: 300px;
+    height: 300px;
+}
+
+.module-thumb-caption {
+	text-align:center;
+	background: #04173f;
+	border-top: solid 2px #fff;
+	color: #fff;
+	font-size: 16px;
+	padding: 10px;
+	width: auto;
+	margin-bottom:20px;
+}
+
+.module-thumb-caption-header {
+	/*font-weight: ;*/
+	font-size: 1.1em;
+
 }
 
 .fixed-height-container {
@@ -27,8 +95,9 @@ body {
 	//display:none;
 }
 
-.navbar-login-text {
-	color:aliceblue !important;
+.module-thumb a:hover {
+	text-decoration:none;
+	display:inline-block;
 }
 
 .registration-iframe-container {
@@ -152,6 +221,15 @@ button[data-target="#registerProjectModal"] {
 
 #veganDiv, #nonVeganDiv {
 	text-align: center;
+}
+
+.glyphicon-chevron-down {
+	padding-right: 2%;
+	cursor: pointer;
+}
+
+.admin-accordion-modulename {
+	font-size: 13px;
 }
 
 /* if large screen (min-width: 1200px), apply these rules */
