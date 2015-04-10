@@ -127,8 +127,17 @@ class DatabaseT extends CI_Controller {
 		 $result5 =  $this->Dbinsert->createModule("CS4321","TESTING MOD","gggggggg-gggg-gggg-gggg-gggggggggggg",4,"A0101075B");
 		$result31 =  $this->Dbinsert
 		->createProject("PLAY game","gggggggg-gggg-gggg-gggg-gggggggggggg");
+		$resultzz = $this->Dbquery->getProjectListWithNoMemberByModule("gggggggg-gggg-gggg-gggg-gggggggggggg");
+		$myID = "";
+		for($i = 0; $i < count($resultzz); ++$i) {
+			if(strcmp($resultzz[$i]['title'],"PLAY game") == 0) {
+				$myID = $resultzz[$i]['projectID'];
+				break;
+			}
+		}
+		echo $myID . " is HERER                  g bf<br>";
 		$result32 =  $this->Dbinsert
-		->updateProject(1300,"Play another game","play play play","www.post.com/abs","www.video.com/fjdb");
+		->updateProject($myID,"Play another game","play play play","www.post.com/abs","www.video.com/fjdb");
 		 $result61 = $this->Dbinsert
 		 ->updateModuleDescription("gggggggg-gggg-gggg-gggg-gggggggggggg",null,null,null);
 		 echo json_encode($result61);
@@ -137,21 +146,21 @@ class DatabaseT extends CI_Controller {
 		echo json_encode($result63)."<br><br>";
 
 		$result32 =  $this->Dbinsert
-		->setLeaderForProject("A999B",1300);
+		->setLeaderForProject("A999B",$myID);
 
 		$result34 =  $this->Dbinsert
 		->checkParticipatedProjectInModule("gggggggg-gggg-gggg-gggg-gggggggggggg","A999B");
 
 		$result35 =  $this->Dbinsert
-		->insertStudentToProject(1300,"A999B");
+		->insertStudentToProject($myID,"A999B");
 		$result36 =  $this->Dbinsert
 		->checkParticipatedProjectInModule("gggggggg-gggg-gggg-gggg-gggggggggggg","A999B");
 		
 
 		$result37 =  $this->Dbinsert
-		->deleteStudentFromProject(1300,"A999B");
+		->deleteStudentFromProject($myID,"A999B");
 		 $result33 =  $this->Dbinsert
-		 ->deleteProject(1300);
+		 ->deleteProject($myID);
 
 		 $result38 =  $this->Dbinsert
 		->insertModuleSupervision("A999B","gggggggg-gggg-gggg-gggg-gggggggggggg");
@@ -181,7 +190,7 @@ class DatabaseT extends CI_Controller {
 		for($i = 0; $i < count($result); ++$i) {
 
 			echo "<tr>";	
-			echo "<td style='border: solid 1px;'>".$result[$i]['matricNo']."</td>";
+			echo "<td style='border: solid 1px;'>".$result[$i]['userID']."</td>";
 			echo "<td style='border: solid 1px;'>".$result[$i]['name']."</td>";
 			echo "<td style='border: solid 1px;'>".$result[$i]['contact']."</td>";
 			echo "<td style='border: solid 1px;'>".$result[$i]['foodPref']."</td>";	

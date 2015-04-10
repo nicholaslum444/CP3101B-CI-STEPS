@@ -76,6 +76,11 @@ body {
 .module-thumb-caption-header {
 	/*font-weight: ;*/
 	font-size: 1.1em;
+
+}
+
+.fixed-height-container {
+    height: 100vh;
 }
 
 .module-thumb a:hover {

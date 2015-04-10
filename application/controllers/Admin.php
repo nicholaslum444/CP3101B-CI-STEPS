@@ -146,6 +146,7 @@ class Admin extends CI_Controller {
 
     private function _makeBodyData() {
         $iteration = $this->Dbquery->getLatestIteration();
+        $foodPref = $this->Dbquery->getFoodPrefByIteration($iteration);
 
         $listOfModules = $this->Dbquery->getModuleListByIteration($iteration);
         //print_r($listOfModules);
@@ -159,7 +160,8 @@ class Admin extends CI_Controller {
         }
 
         $bodyData = [
-            "moduleData" => $moduleData
+            "moduleData" => $moduleData,
+            "foodPref" => $foodPref
         ];
 
         return $bodyData;

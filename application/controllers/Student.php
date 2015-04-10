@@ -35,9 +35,22 @@ class Student extends CI_Controller {
     public function registerProject($moduleId, $projectId) {
 
         if ($this->_isAuthenticated()) {
-
+            $allStudentsInProject = $this->Dbquery->getStudentDetailByProject($projectId);
             $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
-            $this->load->view("users/RegisterProjectPage", $this->_selectMembersData($moduleId, $projectId));
+            $loadRegister = true;
+            foreach($allStudentsInProject as $student) {
+                if($student["userID"] === $this->session->userId) {
+                    $this->load->view("users/UpdateMembersPage", $this->retrieveMemberDetails($projectId));
+                    $loadRegister = false;
+                    header("LOCATION: /index.php/Student/updateMembers/".$projectId);
+                }
+            }
+
+
+            if($loadRegister) {
+                $this->load->view("users/RegisterProjectPage", $this->_selectMembersData($moduleId, $projectId));
+            }
+
             $this->load->view("persistent/SiteFooter");
 
         } else {
@@ -71,8 +84,8 @@ class Student extends CI_Controller {
     private function _makeBodyData() {
         $iteration = $this->Dbquery->getLatestIteration();
 
-        $userId = 'A0201001B'; //Hardcode to be removed
-        //$userId = $this->session->userId; //must be student
+        //$userId = 'A0201001B'; //Hardcode to be removed
+        $userId = $this->session->userId; //must be student
 
         $moduleProjects = $this->Dbquery->getModuleProjectForStudent($userId, $iteration);
         $modules = $this->_getRegisteredAndNotRegisteredModule($moduleProjects);
@@ -89,14 +102,15 @@ class Student extends CI_Controller {
     private function _getRegisteredAndNotRegisteredModule($moduleProjects) {
         $modulesRegistered = [];
         $modulesNotRegistered = [];
-
-        foreach($moduleProjects['enrolled'] as $module) {
-            
-            if($module['project']==null) {//did not sign up for project
-                array_push($modulesNotRegistered, $module);
-            }
-            else { //has a project under this module
-                array_push($modulesRegistered, $module);
+        if(isset($moduleProjects['enrolled'])) {
+            foreach($moduleProjects['enrolled'] as $module) {
+                
+                if($module['project']==null) {//did not sign up for project
+                    array_push($modulesNotRegistered, $module);
+                }
+                else { //has a project under this module
+                    array_push($modulesRegistered, $module);
+                }
             }
         }
         
@@ -118,6 +132,12 @@ class Student extends CI_Controller {
     private function _selectMembersData($moduleId, $projectId) {
         $iteration = $this->Dbquery->getLatestIteration();
         $student = $this->Dbquery->getStudentsNotInProjectGroupByModule($moduleId);
+        foreach($student as $index=>$checkForUser) {
+            if($checkForUser["userID"] == $this->session->userId) {
+                unset($student[$index]);
+            }
+        }
+
         $bodyData = [
             "data" => $student,
             "pId" => $projectId

@@ -7,7 +7,7 @@
 
 <!--To be shown only when student is signed up for it -->
 <?php if(isset($data[0])) {
-    var_dump($data);
+    //var_dump($data);
     foreach($data[0] as $module) { ?>
     <div class="row">     
         <div class="col-md-12">
@@ -46,6 +46,7 @@
                             </div>
                         </div>
                         <!-- Edit Button for Leaders -->
+                        <button type="button" class="editBtn btn btn-success pull-right" projectId="<?php echo $module['project']['projectID']?>">Edit</button>
                     </div>
                 </div>
             </div>
@@ -144,6 +145,10 @@ $(function() {
         console.log(projectId);
         console.log(moduleId);
         window.location.href = "/index.php/Student/registerProject/" + moduleId + "/" + projectId ;
-    })
+    });
+
+    $('.editBtn').on('click', function() {
+    	window.location.href="/index.php/Student/updateMembers/" + $(this).attr("projectId");
+    });
 });
 </script>

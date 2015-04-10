@@ -13,7 +13,7 @@
             <div class="memberField">
                 <div class="row">  
                     <div class="col-md-6">
-                        <div class="form-group">
+                        <div class="form-group studentOption">
                             <label for="projectSelect"></label>
                             <select class="form-control" name="memberIDs">
                                 <option value="" default selected>Select Member</option>
@@ -45,7 +45,7 @@
     $(function(){
         $('.addMemberBtn').click(function() {
         //Dynamically generate dropdowns
-        $('.members').append('<div class="memberField"><div class="row"><div class="col-md-6"><div class="form-group"><label for="projectSelect"></label><select class="form-control" name="memberIDs"><option value="" default selected>Select Member</option><?php if(isset($data)){foreach($data as $student){?><option value="<?php echo $student["userID"]; ?>"><?php echo $student["name"]; ?></option><?php }}?></select></div></div></div></div>');
+        $('.members').append('<div class="memberField"><div class="row"><div class="col-md-6"><div class="form-group studentOption"><label for="projectSelect"></label><select class="form-control" name="memberIDs"><option value="" default selected>Select Member</option><?php if(isset($data)){foreach($data as $student){?><option value="<?php echo $student["userID"]; ?>"><?php echo $student["name"]; ?></option><?php }}?></select></div></div></div></div>');
     });
 
         $('#submitMembers-btn').click(function(e) {
@@ -59,13 +59,32 @@
             }
             console.log(JSON.stringify(arrMemberIDs));
 
+            for(var i = 0; i < membersData.length; i++) {
+
+                if(membersData[i].value == "") {
+                    $(".studentOption").addClass("has-error");
+                    return;
+                }
+
+                for(var j = i; j < membersData.length; j++) {
+                    if(i!= j) {    
+                        if(membersData[i].value == membersData[j].value) {
+                            $(".studentOption").addClass("has-error");
+                            return;
+                        }
+                    }
+                } 
+            }
+
+
+            $(".studentOption").removeClass("has-error");
             
             var jsonArr ={
                 "projectId": projectId,
                 "memberIDs": arrMemberIDs
             };
 
-            //console.log(jsonarr);
+            console.log(jsonArr);
 
             $.ajax({
                 url: "/index.php/ajaxreceivers/registerProject",
