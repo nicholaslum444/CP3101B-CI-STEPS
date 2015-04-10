@@ -41,7 +41,7 @@ $(function() {
     	var index = $("#editProjectTitles input").length+1;
     	var moduleCode = $('.addProjectTitleBtn').attr('moduleCode');
     	$('.projectTitleFields').append('<span class = "projectTitleInput"><input type="text" class="form-control" innerIndex="-1" projectID="-1" moduleCode="'
-    		+ moduleCode + '" placeholder="projectTitle" value="'+ moduleCode +"-"+ index +'">'+
+    		+ moduleCode + '" placeholder="projectTitle" value="'+ moduleCode +"-"+ index +'" >'+
 				'<button type="button" innerIndex = "-1" class="close deleteProjectBtn" aria-label="Close"><span aria-hidden="true">×</span></button></span>');
     	bindDeleteBtn();
     });

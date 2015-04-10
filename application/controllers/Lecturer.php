@@ -31,6 +31,7 @@ class Lecturer extends CI_Controller {
         if ($this->_isAuthenticated()) {
             // load the console views
             $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
+            //print_r($this->_makeHeaderData());
             $this->load->view("users/LecturerPage", $this->_makeBodyData());
             $this->load->view("persistent/SiteFooter");
 

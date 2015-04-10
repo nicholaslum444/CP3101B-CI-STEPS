@@ -1,8 +1,7 @@
 <div class="container">
-
-<div class="row">
-    <h4>Projects</h4>
-</div>
+    <div class="row">
+        <h4>Projects</h4>
+    </div>
 
 
 <!--To be shown only when student is signed up for it -->
@@ -46,7 +45,7 @@
                             </div>
                         </div>
                         <!-- Edit Button for Leaders -->
-                        <button type="button" class="editBtn btn btn-success pull-right" projectId="<?php echo $module['project']['projectID']?>">Edit</button>
+                        <button <?php echo $freeze == 1 ? "disabled" : ""; ?> type="button" class="editBtn btn btn-success pull-right" projectId="<?php echo $module['project']['projectID']?>">Edit</button>
                     </div>
                 </div>
             </div>
@@ -69,7 +68,7 @@ if(isset($data[1])){
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h4><?php echo $module['moduleCode']. '-' . $module['moduleName'] ?></h4>
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registerProjectModal" data-moduleId="<?php echo $module['moduleID']?>" data-module="<?php echo $module['moduleCode'] ?>">Sign up</button>
+                    <button <?php echo $freeze == 1 ? "disabled" : ""; ?> type="button" class="btn btn-success" data-toggle="modal" data-target="#registerProjectModal" data-moduleId="<?php echo $module['moduleID']?>" data-module="<?php echo $module['moduleCode'] ?>">Sign up</button>
                 </div>
             </div>
         </div><!--End md-12-->
@@ -98,7 +97,7 @@ if(isset($data[1])){
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="projectSubmitBtn" moduleid="">Register</button>
+                    <button <?php echo $freeze == 1 ? "disabled" : ""; ?> type="submit" class="btn btn-primary" id="projectSubmitBtn" moduleid="">Register</button>
                 </div>
             </div>
         </div>

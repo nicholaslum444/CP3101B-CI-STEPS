@@ -3,7 +3,7 @@
         <div class="form-group">
             <input type="hidden" class="form-control" id="registerModule">
         </div>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registerModal" id="registerModuleBtn">Register Module</button>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registerModal" id="registerModuleBtn" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Register Module</button>
     </form>
     <!--List of modules to be generated-->
     <div class="row">
@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <button type="button" class="btn btn-default editModuleBtn" data-toggle="modal" data-target="#editModal" id="editButton<?php echo $moduleCode ?>" module="<?php echo $moduleCode; ?>" moduleId="<?php echo $moduleId; ?>">Edit Module</button>
+                                    <button type="button" class="btn btn-default editModuleBtn" data-toggle="modal" data-target="#editModal" id="editButton<?php echo $moduleCode ?>" module="<?php echo $moduleCode; ?>" moduleId="<?php echo $moduleId; ?>" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Edit Module</button>
                                 </div>
                             </div>
                         </div>
@@ -137,22 +137,22 @@
                     <div class="modal-body" id="registerModuleFormBody">
                         <div class="form-group">
                             <label for="moduleCode">Module Code</label>
-                            <select class="form-control" name="moduleCode" id="moduleCode">
+                            <select class="form-control" name="moduleCode" id="moduleCode" <?php echo $freeze == 1 ? "disabled" : ""; ?>>
                             </select>
                         </div>
                         <div class="form-group">
                             <!-- TODO change these to static fields -->
                             <label for="moduleName">Module Name</label>
-                            <input type="text" class="form-control" id="moduleName" placeholder="Module Name">
+                            <input type="text" class="form-control" id="moduleName" placeholder="Module Name" <?php echo $freeze == 1 ? "disabled" : ""; ?> >
                             <label for="moduleName">Semester</label>
-                            <input type="text" class="form-control" id="moduleSem" placeholder="Semester">
+                            <input type="text" class="form-control" id="moduleSem" placeholder="Semester" <?php echo $freeze == 1 ? "disabled" : ""; ?> >
                             <label for="moduleName">Year</label>
-                            <input type="text" class="form-control" id="moduleYear" placeholder="Year">
+                            <input type="text" class="form-control" id="moduleYear" placeholder="Year" <?php echo $freeze == 1 ? "disabled" : ""; ?> >
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Register</button>
+                        <button type="submit" class="btn btn-primary" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Register</button>
                     </div>
                 </form>
             </div>
@@ -174,9 +174,9 @@
                             <!-- CLASS SIZE -->
                             <label class="control-label col-sm-2" for="editClassSize">Class Size:</label>
                             <div class="col-sm-4">
-                                <input type="number" class="form-control" id="editClassSize" placeholder="Class Size" value="">
+                                <input type="number" class="form-control" id="editClassSize" placeholder="Class Size" value="" <?php echo $freeze == 1 ? "disabled" : ""; ?>>
                             </div>
-                            <button type="button" class="btn btn-info" id="syncRosterButton" moduleId="">Sync Class Roster With IVLE</button>
+                            <button type="button" class="btn btn-info" id="syncRosterButton" moduleId="" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Sync Class Roster With IVLE</button>
                             <!-- CLASS SIZE -->
 
                         </div>
@@ -185,7 +185,7 @@
                             <!-- DESCRIPTIONS -->
                             <label class="control-label col-sm-2" for="editModuleDescription">Description:</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" rows="5" id="editModuleDescription" placeholder="Add Description for Module"></textarea>
+                                <textarea class="form-control" rows="5" id="editModuleDescription" placeholder="Add Description for Module" <?php echo $freeze == 1 ? "disabled" : ""; ?>></textarea>
                             </div>
                             <!-- DESCRIPTIONS -->
                         </div>
@@ -197,11 +197,11 @@
                             <!-- DYNAMICALLY GENERATE AND INSERT INPUT FIELDS INTO HERE
                             SAMPLE: <input type="text" class="form-control" innerIndex="" projectID="" moduleCode="" placeholder="Project Title">-->
                             <!-- PROJECT TITLES -->
-                            <div class="col-sm-5"><div class="btn btn-default addProjectTitleBtn">Add</div></div>
+                            <div class="col-sm-5"><div class="btn btn-default addProjectTitleBtn" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Add</div></div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-success">Submit</button>
+                                <button type="submit" class="btn btn-success" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Submit</button>
                             </div>
                         </div>
                     </form>
