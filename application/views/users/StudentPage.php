@@ -43,10 +43,10 @@
                                     echo "<br />";
                                 } ?>
                             </h5>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registerProjectModal" data-moduleId="<?php echo $module['moduleID']?>" data-module="<?php echo $module['moduleCode'] ?>">Sign up</button>
                             </div>
                         </div>
                         <!-- Edit Button for Leaders -->
+                        <button type="button" class="editBtn btn btn-success pull-right" projectId="<?php echo $module['project']['projectID']?>">Edit</button>
                     </div>
                 </div>
             </div>
@@ -145,6 +145,10 @@ $(function() {
         console.log(projectId);
         console.log(moduleId);
         window.location.href = "/index.php/Student/registerProject/" + moduleId + "/" + projectId ;
-    })
+    });
+
+    $('.editBtn').on('click', function() {
+    	window.location.href="/index.php/Student/updateMembers/" + $(this).attr("projectId");
+    });
 });
 </script>
