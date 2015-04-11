@@ -4,14 +4,14 @@
 Author's custom styles
 ========================================================================== */
 html, body {
-  width: auto !important;
-  overflow-x: hidden !important;
-  height: 100%;
+    width: auto !important;
+    overflow-x: hidden !important;
+    height: 100%;
 }
 
 body {
-	font-family: 'Lato', sans-serif;
-	padding-top: 60px;
+    font-family: 'Lato', sans-serif;
+    padding-top: 60px;
     height: auto;
     /*font-size: 2em;*/
 }
@@ -22,41 +22,41 @@ body {
 }
 
 textarea {
-	resize: none;
+    resize: none;
 }
 
 .spaceout-align {
-	margin: 2% auto 0 0;
-	text-align: right;
+    margin: 2% auto 0 0;
+    text-align: right;
 }
 .align-text-box {
-	margin: 1.5% 0 0 0;
+    margin: 1.5% 0 0 0;
 }
 
 .spaceout {
-	margin: 1% auto;
+    margin: 1% auto;
 }
 .subtitle {
-	font-size: 30px;
-	text-align: center;
+    font-size: 30px;
+    text-align: center;
 }
 
 #submitUpdate {
-  	margin-left: auto;
-  	margin-right: auto;
-  	width: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 5%;
 }
 
 .btn-learn-more {
-  color: #ffffff;
-  background-color: transparent;
-  border-color: #ffffff;
+    color: #ffffff;
+    background-color: transparent;
+    border-color: #ffffff;
 }
 
 .btn-learn-more:hover {
-  background-color: #fff;
-  border-color: #25bfc7;
-  color: #25bfc7;
+    background-color: #fff;
+    border-color: #25bfc7;
+    color: #25bfc7;
 }
 
 .clear {
@@ -64,72 +64,72 @@ textarea {
 }
 
 .centered-navbar {
-	text-align:center;
+    text-align:center;
 }
 
 .login-iframe-container {
-	text-align: center;
-	padding:0px;
+    text-align: center;
+    padding:0px;
 }
 
 .user-dropdown-menu {
-	background-color:#2c3e50;
-	text-align:center;
+    background-color:#2c3e50;
+    text-align:center;
 }
 
 .logout-choice {
-	color: #d44 !important;
-	font-weight: bold !important;
+    color: #d44 !important;
+    font-weight: bold !important;
 }
 
 .student-console-choice,
 .student-login-choice {
-	color: #fff !important;
+    color: #fff !important;
 }
 
 .lecturer-console-choice,
 .lecturer-login-choice {
-	color: #fff !important;
+    color: #fff !important;
 }
 
 .module-thumb-img img:hover {
-	-webkit-filter: sepia(90%) hue-rotate(-225deg);
-	/*width: 300px;
-    height: 300px;*/
-	/*width: 100%;*/
-    border-radius: 50%;
+    -webkit-filter: sepia(90%) hue-rotate(-225deg);
+/*width: 300px;
+height: 300px;*/
+/*width: 100%;*/
+border-radius: 50%;
 }
 
 .module-thumb-img img {
-	width: 100%;
+    width: 100%;
     border-radius: 50%;
     /*height: 300px;*/
 }
 
 /*.module-thumb-caption:hover {
-    text-align:center;
-	background: #04173f;
-	border-top: solid 2px #fff;
-	color: #fff;
-	font-size: 16px;
-	padding: 10px;
-	width: 100%;
-    /*height: 100px;*/
-	/*margin-bottom:20px;*/
-    /*overflow:hidden;*/
+text-align:center;
+background: #04173f;
+border-top: solid 2px #fff;
+color: #fff;
+font-size: 16px;
+padding: 10px;
+width: 100%;
+/*height: 100px;*/
+/*margin-bottom:20px;*/
+/*overflow:hidden;*/
 /*}*/
 
 .module-thumb-caption,
 .module-thumb-caption:hover {
-	text-align:center;
-	background: #04173f;
-	border-top: solid 2px #fff;
-	color: #fff;
-	font-size: 16px;
-	padding: 10px;
-	width: 100%;
+    text-align:center;
+    background: #04173f;
+    border-top: solid 2px #fff;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
     height: 90px;
-	margin-bottom:20px;
+    margin-bottom:20px;
     display:inline-block;
     overflow:hidden;
     border-radius: 20px;
@@ -137,8 +137,8 @@ textarea {
 
 .module-thumb-caption-header,
 .module-thumb-caption-header:hover {
-	/*font-weight: ;*/
-	font-size: 1.1em;
+    /*font-weight: ;*/
+    font-size: 1.1em;
     display:inline-block;
 }
 
@@ -148,53 +148,53 @@ textarea {
 }
 
 .navbar-login-container {
-	padding:0px 15px;
-	//display:none;
+    padding:0px 15px;
+    //display:none;
 }
 
 .module-thumb a:hover {
-	text-decoration:none;
-	display:inline-block;
+    text-decoration:none;
+    display:inline-block;
 }
 
 .registration-iframe-container {
-	padding-top: 40px;
-	text-align:center;
+    padding-top: 40px;
+    text-align:center;
 }
 
 .registration-text-container {
-	text-align:left;
+    text-align:left;
 }
 
 .nav-sidebar {
-	//position:fixed;
+    //position:fixed;
 }
 
 .wrap-sidebar {
-	width: 200px;
-	margin: 0 auto;
+    width: 200px;
+    margin: 0 auto;
 }
 
 #moduleContent {
-	min-height: 450px;
+    min-height: 450px;
 }
 #moduleList .container {
-	margin-top: 4.5%;
+    margin-top: 4.5%;
 }
 
 /*admin panel edit button*/
 .panel-heading button {
-	float:right;
+    float:right;
 }
 
 /*lecturer edit button*/
 #moduleList button {
-	float:right;
+    float:right;
 }
 
 /*lecturer register button*/
 button[data-target="#registerModal"] {
-	float: right;
+    float: right;
 }
 
 /*student register project button*/
@@ -203,7 +203,7 @@ button[data-target="#registerProjectModal"] {
 }
 
 #submitMembers-btn {
-	float: left;
+    float: left;
 }
 
 .addMemberBtn {
@@ -211,8 +211,8 @@ button[data-target="#registerProjectModal"] {
 }
 
 .memberDetails {
-	margin-top: 30px;
-	margin-bottom: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 /* seperate from title */
@@ -220,71 +220,71 @@ button[data-target="#registerProjectModal"] {
 
 /* seperate from first row of input */
 .firstRow {
-	margin-top: 10px;
-	margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .firstRow #name {
-	text-align: center;
+    text-align: center;
 }
 
 .secondRow {
-	margin-top: 5px;
-	margin-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .projectTitleInput {
-	position: relative;
+    position: relative;
 }
 
 .deleteProjectBtn {
-	position: absolute;
-	top: -43px;
-	left: 322px;
-	display: none;
+    position: absolute;
+    top: -43px;
+    left: 322px;
+    display: none;
 }
 
 .projectTitleInput:hover .deleteProjectBtn {
-	display: initial;
+    display: initial;
 }
 
 /*admin page*/
 .admin-container {
-	margin-top: 30px;
+    margin-top: 30px;
 }
 
 #admin-update-btn {
-	float: right;
-	display: block;
+    float: right;
+    display: block;
 }
 
 .eventDate-container{
-	margin-bottom: 25px;
-	margin-top: 25px;
+    margin-bottom: 25px;
+    margin-top: 25px;
 }
 
 #admin-accordion {
-	border-color: transparent;
+    border-color: transparent;
 }
 #eventDate-btn {
-	float:right;
+    float:right;
 }
 .food-container{
-	margin-bottom: 25px;
-	margin-top: 25px;
+    margin-bottom: 25px;
+    margin-top: 25px;
 }
 
 #veganDiv, #nonVeganDiv {
-	text-align: center;
+    text-align: center;
 }
 
 .glyphicon-chevron-down {
-	padding-right: 2%;
-	cursor: pointer;
+    padding-right: 2%;
+    cursor: pointer;
 }
 
 .admin-accordion-modulename {
-	font-size: 13px;
+    font-size: 13px;
 }
 
 .about-page-right {
