@@ -16,9 +16,9 @@ class Home extends CI_Controller {
 		// possibly reroute the user to his landing page if he is logged in?
 
 		// load the homepage views
-		$this->load->view("persistent/Header", $this->_makeHeaderData());
-		$this->load->view('public/HomePage');
-        $this->load->view("persistent/Footer");
+		$this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
+		$this->load->view('public/HomePage', $this->_makeBodyData());
+        $this->load->view("persistent/SiteFooter");
 
 	}
 
@@ -29,4 +29,31 @@ class Home extends CI_Controller {
     private function _makeHeaderData() {
         return ViewData::makeHeaderData($this->session, base_url());
     }
+
+	private function _makeBodyData() {
+		/*
+		date of event
+		start/end time of event
+		participating modules
+			picture
+			module code
+			module name
+		*/
+		$iteration = $this->Dbquery->getLatestIteration();
+		$iterInfo = $this->Dbquery->getLatestIterationInfo();
+		$eventDateObj = new DateTime();
+		$eventDateObj->setTimestamp($iterInfo['startTime']);
+		$eventStartTimeObj = new DateTime();
+		$eventStartTimeObj->setTimestamp($iterInfo['startTime']);
+		$eventEndTimeObj = new DateTime();
+		$eventEndTimeObj->setTimestamp($iterInfo['endTime']);
+
+		$bodyData = [];
+		$bodyData["eventDate"] = $eventDateObj->format("jS F Y");
+		$bodyData["eventStartTime"] = $eventStartTimeObj->format("gA");
+		$bodyData["eventEndTime"] = $eventEndTimeObj->format("gA");
+		$bodyData["modules"] = $this->Dbquery->getModuleListByIteration($iteration);
+		// var_dump($bodyData);
+		return $bodyData;
+	}
 }

@@ -41,7 +41,13 @@ class Admin extends CI_Controller {
 		} else if ((isset($_POST["username"]) && isset($_POST["password"]))) {
 
             // both username and password supplied
-            $this->_processLogin();
+	        // load the username and password
+	        $u = htmlspecialchars($_POST["username"]);
+	        $p = htmlspecialchars($_POST["password"]);
+
+            $this->_processLogin($u, $p);
+
+			// remove from the post array after processing
 			$_POST["username"] = null;
 			$_POST["password"] = null;
 
@@ -73,9 +79,9 @@ class Admin extends CI_Controller {
 		if($this->_isAuthenticated()) {
 
     		// load the console views
-            $this->load->view("persistent/Header", $this->_makeHeaderData());
+            $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
     		$this->load->view('users/AdminConsolePage', $this->_makeBodyData());
-            $this->load->view("persistent/Footer");
+            $this->load->view("persistent/SiteFooter");
 
 		} else {
 
@@ -101,11 +107,7 @@ class Admin extends CI_Controller {
         return sha1(microtime(true).mt_rand(10000,90000));
     }
 
-    private function _processLogin() {
-
-        // load the username and password
-        $username = htmlspecialchars($_POST["username"]);
-        $password = htmlspecialchars($_POST["password"]);
+    private function _processLogin($username, $password) {
 
         $isAdmin = $this->Dbadmin->isAdmin($username, $password);
 
@@ -126,6 +128,7 @@ class Admin extends CI_Controller {
                 "token" => $adminToken,
                 "adminProfile" => $adminProfile,
                 "username" => $username,
+				"password" => $password, // store the password for queries later
                 "isLoggedIn" => TRUE,
                 "userType" => $userType
             ];
@@ -143,21 +146,23 @@ class Admin extends CI_Controller {
 
     private function _makeBodyData() {
         $iteration = $this->Dbquery->getLatestIteration();
+        $foodPref = $this->Dbquery->getFoodPrefByIteration($iteration);
+        $dates = $this->_getDates($iteration);
 
         $listOfModules = $this->Dbquery->getModuleListByIteration($iteration);
-        //print_r($listOfModules);
 
-        $data = [];
+        $moduleData = [];
         //Loop through and query for module data
+        $i = 0;
         foreach($listOfModules as $module) {
-            if(!isset($data[$module["moduleCode"]])) {
-                $data[$module["moduleCode"]] = array();
-            }
-            $data[$module["moduleCode"]] = $this->_getModuleInformation($module["moduleCode"]);
+            $moduleData[$i] = $this->_getModuleInformation($module["moduleID"]);
+			$i++;
         }
 
         $bodyData = [
-            "data" => $data
+            "moduleData" => $moduleData,
+            "foodPref" => $foodPref,
+            "dates" => $dates
         ];
 
         return $bodyData;
@@ -173,25 +178,29 @@ class Admin extends CI_Controller {
 
     private function _loadLoginView($retry = FALSE) {
 
-        $this->load->view("persistent/Header", $this->_makeHeaderData());
+        $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
         $this->load->view('users/AdminLoginPage', $this->_makePageData($retry));
-        $this->load->view("persistent/Footer");
+        $this->load->view("persistent/SiteFooter");
     }
 
-    private function _getModuleInformation($moduleCode) {
-        //echo $moduleCode;
-        if (isset($moduleCode)) {
-            $modInfo = [
-                "data" => $this->Dbquery->getModuleDetailByModuleCode($moduleCode, $this->Dbquery->getLatestIteration())
-            ];
-            //echo json_encode($modInfo);
-            return $modInfo;
-        } else {
-            $modInfo = [
-                "data" => []
-            ];
-            //echo json_encode($modInfo);
-            return $modInfo;
-        }
+    private function _getModuleInformation($moduleId) {
+		$modInfo = [
+			"data" => $this->Dbquery->getModuleDetailByModuleID($moduleId)
+		];
+
+        return $modInfo;
+    }
+
+    private function _getDates($iteration) {
+        $dates = $this->Dbquery->getIterationInfoByIterate($iteration);
+        
+        $formattedDates = [];
+
+        $formattedDates['startDate'] = date("Y-m-d", $dates['startTime']);
+        $formattedDates['endDate'] = date("Y-m-d", $dates['endTime']);
+        $formattedDates['registerDate'] = date("Y-m-d", $dates['regisDate']);
+        $formattedDates['cutOffDate'] = date("Y-m-d", $dates['cutOff']);
+
+        return $formattedDates;
     }
 }

@@ -1,7 +1,7 @@
 
 <!-- please style this page when there is time -->
 
-<div class="container">
+<div class="container fixed-height-container">
   <div class="row">
     <h3>Admin Login</h3>
     <!-- form must POST the username and password to this page -->

@@ -7,9 +7,14 @@ DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS STEPSiteration;
 DROP TABLE IF EXISTS admin;
 
+set time_zone = '+08:00';
 
 CREATE TABLE IF NOT EXISTS STEPSiteration (
-	iteration INTEGER AUTO_INCREMENT,
+	iteration 			INTEGER AUTO_INCREMENT,
+	registration_date 	DATETIME,
+	start_time 			DATETIME,
+	end_time 			DATETIME,
+	cut_off 			DATETIME,
 	semester  VARCHAR(10)  NOT NULL,
 	PRIMARY KEY (iteration)
 );
@@ -25,12 +30,14 @@ CREATE TABLE IF NOT EXISTS user (
 );
 
 CREATE TABLE IF NOT EXISTS module (
+	module_id CHAR(36),
 	module_code VARCHAR(8),
 	iteration INTEGER,
 	class_size INTEGER,
 	module_name VARCHAR(100) NOT NULL,
 	module_description VARCHAR(2000),
-	PRIMARY KEY(module_code, iteration),
+	UNIQUE(module_code, iteration),
+	PRIMARY KEY(module_id),
 	FOREIGN KEY (iteration)
 		REFERENCES STEPSiteration(iteration)
 );
@@ -41,18 +48,16 @@ CREATE TABLE IF NOT EXISTS project (
 	poster VARCHAR(100),
 	video VARCHAR(100),
 	project_id INTEGER AUTO_INCREMENT,
-	module_code VARCHAR(8) NOT NULL,
-	iteration INTEGER NOT NULL,
 	leader_user_id CHAR(9),
+	module_id CHAR(36),
 	PRIMARY KEY(project_id),
-	FOREIGN KEY(module_code, iteration) 
-	    REFERENCES module(module_code, iteration)
+	FOREIGN KEY(module_id) 
+	    REFERENCES module(module_id)
 	    ON UPDATE CASCADE,
 	FOREIGN KEY(leader_user_id) 
 	    REFERENCES user(user_id)
-	    ON UPDATE CASCADE,
-	FOREIGN KEY (iteration)
-		REFERENCES STEPSiteration(iteration)
+	    ON UPDATE CASCADE
+	
 );
 
 CREATE TABLE IF NOT EXISTS participate (
@@ -69,33 +74,27 @@ CREATE TABLE IF NOT EXISTS participate (
 
 CREATE TABLE IF NOT EXISTS supervise (
 	user_id VARCHAR(20), 
-	module_code VARCHAR(8), 
-	iteration INTEGER,
-	PRIMARY KEY(user_id, module_code, iteration),
+	module_id CHAR(36),
+	PRIMARY KEY(user_id, module_id),
 	FOREIGN KEY(user_id) 
 		REFERENCES user(user_id)
 		ON UPDATE CASCADE,
-	FOREIGN KEY(module_code, iteration) 
-		REFERENCES module(module_code, iteration)
-		ON UPDATE CASCADE,
-	FOREIGN KEY (iteration)
-		REFERENCES STEPSiteration(iteration)
+	FOREIGN KEY(module_id) 
+	    REFERENCES module(module_id)
+	    ON UPDATE CASCADE
 );
 
 
 CREATE TABLE IF NOT EXISTS enrolled (
 	user_id VARCHAR(20),
-	module_code VARCHAR(8), 
-	iteration INTEGER,
-	PRIMARY KEY(user_id, module_code, iteration),
+	module_id CHAR(36),
+	PRIMARY KEY(user_id, module_id),
 	FOREIGN KEY(user_id) 
 		REFERENCES user(user_id)
 		ON UPDATE CASCADE,
-	FOREIGN KEY(module_code, iteration) 
-		REFERENCES module(module_code, iteration)
-		ON UPDATE CASCADE,
-	FOREIGN KEY (iteration)
-		REFERENCES STEPSiteration(iteration)
+	FOREIGN KEY(module_id) 
+		REFERENCES module(module_id)
+		ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS admin (

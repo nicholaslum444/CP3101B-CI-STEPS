@@ -15,17 +15,17 @@ class Modules extends CI_Controller {
         if (is_null($moduleCode) || $moduleCode == "index") {
             // show overview page if no module clicked
 
-            $this->load->view("persistent/Header", $this->_makeHeaderData());
+            $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
             // pass the data into modulespage
             $this->load->view("public/ModulesPage", $this->_makeBodyData());
-            $this->load->view("persistent/Footer");
+            $this->load->view("persistent/SiteFooter");
         } else {
             // show module page with projects
 
-            $this->load->view("persistent/Header", $this->_makeHeaderData());
+            $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
             // pass the data into modulespage
             $this->load->view("public/ModulesPage", $this->_makeBodyData($moduleCode));
-            $this->load->view("persistent/Footer");
+            $this->load->view("persistent/SiteFooter");
         }
     }
 
@@ -34,39 +34,52 @@ class Modules extends CI_Controller {
 	}
 
     private function _makeHeaderData() {
-        return ViewData::makeHeaderData($this->session, base_url());
+        return ViewData::makeHeaderData($this->session, base_url(), LOADER_TYPE_PUBLIC_MODULES);
     }
 
-    private function _makeBodyData($moduleCode = NULL) {
-        $iteration = $this->Dbquery->getLatestIteration();
-        $bodyData = [];
-        $bodyData["modules"] = $this->Dbquery->getModuleListByIteration($iteration);
-        if (isset($moduleCode)) {
-            $selectedModule = $this->_findModule($moduleCode, $bodyData["modules"]);
-            if (isset($selectedModule)) {
-                $bodyData["selectedModule"] = $selectedModule;
-                $bodyData["projects"] = $this->Dbquery->getProjectListByModule($moduleCode, $iteration);
-                $bodyData["projectDetails"] = $this->_getProjectDetails($bodyData["projects"]);
-            }
+    private function _makeBodyData($moduleCode = NULL, $iteration = NULL) {
+        if (is_null($iteration)) {
+            $iteration = $this->Dbquery->getLatestIteration();
         }
 
+        $allModulesData = $this->Dbquery->getModuleListByIteration($iteration);
+
+        $allModulesDetails = $this->_getDetails($allModulesData);
+        $selectedModuleData = $this->_getModuleData($moduleCode, $allModulesData);
+
+        $bodyData = [
+            "allModulesDetails" => $allModulesDetails,
+            "selectedModuleData" => $selectedModuleData
+        ];
+        //echo json_encode($bodyData);
         return $bodyData;
     }
 
-    private function _getProjectDetails($projects) {
-        $projectDetails = [];
-        for ($i = 0; $i < count($projects); $i++) {
-            $projectDetails[$i] = $this->Dbquery->getStudentDetailByProject($projects[$i]["projectID"]);
+    private function _getDetails($allModules) {
+        $allDetails = [];
+
+        foreach($allModules as $module) {
+            $details = [
+                "moduleCode" => $module['moduleCode'],
+                "moduleName" => $module['moduleName'],
+                "moduleId" => $module['moduleID']
+            ];
+            array_push($allDetails, $details);
         }
-        return $projectDetails;
+
+        return $allDetails;
     }
 
-    private function _findModule($mc, $mods) {
-        for ($i = 0; $i < count($mods); $i++) {
-            if (strtolower($mods[$i]["moduleCode"]) === strtolower($mc)) {
-                return $mods[$i];
+    private function _getModuleData($moduleCode, $allModules) {
+        $moduleCode = strtolower($moduleCode);
+
+        foreach ($allModules as $module) {
+            $other = strtolower($module["moduleCode"]);
+            if ($moduleCode === $other) {
+                return $module;
             }
         }
+
         return NULL;
     }
 

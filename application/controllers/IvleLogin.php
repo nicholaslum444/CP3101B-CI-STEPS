@@ -32,16 +32,16 @@ class IvleLogin extends CI_Controller {
         // reassign the token cos it may have been updated
         $token = $validationResult->Token;
 
+        // note the user id
+        $userId = UserInfo::getUserID($token);
+
         // get the user type (USING DEBUG FUNCTION, TODO CHANGE TO ORIGINAL)
         //$userType = UserInfo::__getUserTypeDEBUG__($token);
-        $userType = $this->_getUserType();
+        $userType = $this->_getUserType($userId);
 
         if ($userType === USER_TYPE_UNKNOWN) {
             exit("user type unknown");
         }
-
-        // note the user id
-        $userId = UserInfo::getUserID($token);
 
         // get the profile
         $userProfile = UserInfo::getUserProfile($token);
@@ -72,17 +72,24 @@ class IvleLogin extends CI_Controller {
         $this->session->set_userdata($userData);
 
         // load the script that closes the popup window
-        $this->load->view("login/LoginPopup");
+        $this->load->view("login/LoginPopup", $this->_makeHeaderData());
     }
 
-    private function _getUserType() {
-        if (isset($_GET["s"])) {
+    private function _getUserType($userId) {
+        if (isset($_GET["s"]) && $this->_isUserIdStudent($userId)) {
             return USER_TYPE_STUDENT;
         }
-        if (isset($_GET["l"])) {
+        if (isset($_GET["l"]) /*&& !$this->_isUserIdStudent($userId)*/) {
             return USER_TYPE_LECTURER;
         }
         return USER_TYPE_UNKNOWN;
     }
 
+    private function _isUserIdStudent($userId) {
+        return (preg_match(REGEX_STUDENT_ID, $userId) === 1);
+    }
+
+    private function _makeHeaderData() {
+        return ViewData::makeHeaderData($this->session, base_url());
+    }
 }

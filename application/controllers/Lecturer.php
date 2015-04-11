@@ -21,29 +21,39 @@ class Lecturer extends CI_Controller {
 
     }
 
-    public function viewModule($moduleCode = NULL) {
-        $this->load->view("persistent/Header", $this->_makeHeaderData());
-        $this->load->view("users/ViewModulePage", $this->_getModuleInformation($moduleCode));
-        $this->load->view("persistent/Footer");
-    }
+	/*	public function viewModule($moduleID = NULL) {
+        $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
+        $this->load->view("users/ViewModulePage", $this->_getModuleInformation($moduleID));
+        $this->load->view("persistent/SiteFooter");
+    }*/
 
     public function console() {
         if ($this->_isAuthenticated()) {
             // load the console views
-            $this->load->view("persistent/Header", $this->_makeHeaderData());
+            $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
+            //print_r($this->_makeHeaderData());
             $this->load->view("users/LecturerPage", $this->_makeBodyData());
-            $this->load->view("persistent/Footer");
+            $this->load->view("persistent/SiteFooter");
 
         } else {
             $this->_denyAccess();
         }
     }
 
-    private function _getModuleInformation($moduleCode) {
+	private function _getIvleStaffedModules() {
+		// TODO REVERT TO THIS WHEN CONFIRMED
+
+		// return IvleApi::getStaffedModules($this->session->userToken);
+
+		// ELSE simply return all modules and assume it's for staff
+		return IvleApi::getAllModules($this->session->userToken);
+	}
+
+    private function _getModuleInformation($moduleID) {
         //echo $moduleCode;
-        if (isset($moduleCode)) {
+        if (isset($moduleID)) {
             $modInfo = [
-                "data" => $this->Dbquery->getModuleDetailByModuleCode($moduleCode, $this->Dbquery->getLatestIteration())
+                "data" => $this->Dbquery->getModuleDetailByModuleID($moduleID)
             ];
             //echo json_encode($modInfo);
             return $modInfo;
@@ -57,12 +67,6 @@ class Lecturer extends CI_Controller {
 
     }
 
-    private function _denyAccess() {
-        $this->load->view("persistent/Header", $this->_makeHeaderData());
-        $this->load->view("users/AccessDeniedPage");
-        $this->load->view("persistent/Footer");
-    }
-
     private function _makeHeaderData() {
         return ViewData::makeHeaderData($this->session, base_url());
     }
@@ -70,18 +74,13 @@ class Lecturer extends CI_Controller {
     private function _makeBodyData() {
         $iteration = $this->Dbquery->getLatestIteration();
         //Get all modules
-        $allModules = $this->Dbquery->getSupervisedModuleByID($this->session->userId, $iteration); // A0101075B
-        $data = [];
-        //Loop through and query for module data
-        foreach($allModules as $module) {
-            if(!isset($data[$module["moduleCode"]])) {
-                $data[$module["moduleCode"]] = array();
-            }
-            $data[$module["moduleCode"]] = $this->_getModuleInformation($module["moduleCode"]);
-        }
+        $data = $this->Dbquery->getSupervisedModuleByID($this->session->userId, $iteration); // A0101075B
+        // $data = [];
 
         $bodyData = [
-            "data" => $data
+            "data" => $data,
+			//"ivleStaffedModules" => $this->_getIvleStaffedModules()
+			"userToken" => $this->session->userToken
         ];
 
         return $bodyData;
@@ -98,4 +97,10 @@ class Lecturer extends CI_Controller {
 	private function _isAuthenticated() {
 		return $this->_isLoggedIn() && $this->_isLecturer();
 	}
+
+    private function _denyAccess() {
+        $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
+        $this->load->view("users/AccessDeniedPage");
+        $this->load->view("persistent/SiteFooter");
+    }
 }

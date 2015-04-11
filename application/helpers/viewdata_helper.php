@@ -2,11 +2,20 @@
 
 class ViewData {
 
-    public static function makeHeaderData($session, $baseUrl) {
-        // initialise the data that goes into the header
+
+    // initialises the data that goes into the header
+    public static function makeHeaderData($session, $baseUrl, $loader = NULL) {
+
+        // get an instance of codeigniter object so that
+        // we can load models
+        $CI = get_instance();
+
         $headerData = [
             "isLoggedIn" => $session->isLoggedIn,
-            "baseUrl" => $baseUrl
+            "baseUrl" => $baseUrl,
+            "iteration" => $CI->Dbquery->getLatestIteration(),
+            "loader" => $loader,
+            "freeze" => ViewData::isFrozen($CI)
         ];
 
         // add additional data if user is logged in
@@ -27,6 +36,22 @@ class ViewData {
         }
 
         return $headerData;
+    }
+
+    private static function isFrozen($CI) {
+
+        $iteration = $CI->Dbquery->getLatestIteration();
+        $iterationInfo = $CI->Dbquery->getIterationInfoByIterate($iteration);
+
+        $cutOff = $iterationInfo['cutOff'];
+        $now = time();
+
+        if($cutOff < $now) {
+            return 1;
+        } else {
+            return 0;
+        }
+
     }
 
 }
