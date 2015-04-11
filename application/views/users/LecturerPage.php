@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container site-container">
     <form class="form">
         <div class="form-group">
             <input type="hidden" class="form-control" id="registerModule">

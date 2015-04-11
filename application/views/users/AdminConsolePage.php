@@ -1,4 +1,4 @@
-<div class="container admin-container fixed-height-container">
+<div class="container admin-container site-container">
 <div class="row">
 
     <div class="col-md-6 accordion panel panel-primary" id="admin-accordion">

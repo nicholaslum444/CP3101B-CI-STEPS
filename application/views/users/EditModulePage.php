@@ -1,5 +1,5 @@
 
-<div class="container">
+<div class="container site-container">
   <div class="row">
     <h3>Module <span id="moduleCode">CS1010</span></h3>
     <div class="form-horizontal" role="form">       

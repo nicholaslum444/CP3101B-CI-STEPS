@@ -1,3 +1,3 @@
-<div class="container fixed-height-container">
+<div class="container site-container">
 <h1>ACCESS DENIED!</h1>
 </div>
