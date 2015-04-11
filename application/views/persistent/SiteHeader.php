@@ -14,17 +14,22 @@ $lecturerUrl = "https://ivle.nus.edu.sg/api/login/?"
 $modulesActive = "";
 $registerActive = "";
 $sponsorsActive = "";
+$aboutActive = "";
 switch($loader) {
     case LOADER_TYPE_PUBLIC_MODULES :
     $modulesActive = "active";
     break;
 
-    case /*LOADER_TYPE_PUBLIC_REGISTER*/1 :
+    case LOADER_TYPE_PUBLIC_REGISTER :
     $registerActive = "active";
     break;
 
-    case /*LOADER_TYPE_PUBLIC_SPONSOR*/2 :
+    case LOADER_TYPE_PUBLIC_SPONSORS :
     $sponsorsActive = "active";
+    break;
+
+    case LOADER_TYPE_PUBLIC_ABOUT :
+    $aboutActive = "active";
     break;
 }
 ?>
@@ -134,13 +139,16 @@ switch($loader) {
                     <!-- <div class="navbar-left">  -->
                     <ul class="nav navbar-nav navbar-left">
                         <li class="<?php echo $modulesActive; ?>">
-                            <a href="/index.php/modules">Modules</a>
+                            <a href="/index.php/Modules">Modules</a>
                         </li>
                         <li class="<?php echo $registerActive; ?>">
-                            <a href="/index.php/register">Register</a>
+                            <a href="/index.php/Register">Register</a>
                         </li>
                         <li class="<?php echo $sponsorsActive; ?>">
-                            <a href="/index.php/sponsors">Sponsors</a>
+                            <a href="/index.php/Sponsors">Sponsors</a>
+                        </li>
+                        <li class="<?php echo $aboutActive; ?>">
+                            <a href="/index.php/About">About</a>
                         </li>
                     </ul>
                     <!-- </div> -->

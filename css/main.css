@@ -284,6 +284,14 @@ button[data-target="#registerProjectModal"] {
 	font-size: 13px;
 }
 
+.about-page-right {
+    text-align:right;
+}
+
+.steps-poster-container img {
+    width: 100%;
+}
+
 /* if large screen (min-width: 1200px), apply these rules */
 @media (min-width: 1200px) {
 
@@ -293,5 +301,13 @@ button[data-target="#registerProjectModal"] {
 
 /* if small screen (max-width: 1200px), apply these rules instead */
 @media (max-width: 1200px) {
+
+.blank-heading {
+    display:none;
+}
+
+.about-page-right {
+    text-align:left;
+}
 
 }
