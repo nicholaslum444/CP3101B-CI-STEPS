@@ -8,24 +8,26 @@
     <!--List of modules to be generated-->
     <div class="row">
         <div id = "moduleList">
-            <?php if (isset($data)) {
+            <?php
+            if (isset($data)) {
                 foreach($data as $module) {
+                    // var_dump($module['moduleID']);
                     //Preprocess the data nicely
-/*                    $data = $module['data'];
+                    /* $data = $module;
                     if (isset($data["moduleId"])) {
-                        $moduleId = $module['data']['moduleId'];
+                        $moduleId = $module['moduleId'];
                     } else {
                         $moduleId = "dummy-id";
                     }*/
                     //Check the 3 essentials
-                    if(isset($module['data']['moduleID']) && isset($module['data']['moduleName']) && isset($module['data']['moduleCode'])) {
-                        $moduleId = $module['data']['moduleID'];
-                        $moduleCode = $module['data']['moduleCode'];
-                        $moduleName = $module['data']['moduleName'];
+                    if(isset($module['moduleID']) && isset($module['moduleName']) && isset($module['moduleCode'])) {
+                        $moduleId = $module['moduleID'];
+                        $moduleCode = $module['moduleCode'];
+                        $moduleName = $module['moduleName'];
                         //Just set 0 if not exist
-                        $classSize = isset($module['data']['classSize']) ? $module['data']['classSize'] : 0;
-                        $numProjects = isset($module['data']['numProjects']) ? $module['data']['numProjects'] : 0;
-                        $moduleDescription = isset($module['data']['moduleDescription']) ? $module['data']['moduleDescription'] : '-';?>
+                        $classSize = isset($module['classSize']) ? $module['classSize'] : 0;
+                        $numProjects = isset($module['numProjects']) ? $module['numProjects'] : 0;
+                        $moduleDescription = isset($module['moduleDescription']) ? $module['moduleDescription'] : '-';?>
                         <div class="container" moduleId="<?php echo $moduleId; ?>">
                             <div class="row">
                                 <h3 moduleId = "<?php echo $moduleId; ?>"><?php echo $moduleCode; ?> - <?php echo $moduleName; ?></h3>
@@ -55,24 +57,32 @@
                                         <div class="col-sm-5 field-group field-list projectTitles" module="<?php echo $moduleCode; ?>"> <!-- numOfProject should be DYNAMIC too -->
                                            <!--<h5 class="inputText projectTitle" module="ABC123" projectId="123" innerIndex="1">A-Team</h5>-->
                                             <?php $counter = 1;
-                                            foreach($module['data']['projectList'] as $project) {
+                                            foreach($module['projectList'] as $project) {
                                                 if(!is_null($project['title'])) { ?>
                                                     <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" projectId="<?php echo $project['projectID']; ?>" innerIndex="<?php echo $counter++; ?>"><?php echo $project['title']; ?></h5>
-                                                    <?php } ?>
-                                                <?php } ?>
-                                            <?php } ?>
+                                                    <?php
+                                                }
+                                                ?>
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-default editModuleBtn" data-toggle="modal" data-target="#editModal" id="editButton<?php echo $moduleCode ?>" module="<?php echo $moduleCode; ?>" moduleId="<?php echo $moduleId; ?>" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Edit Module</button>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-default editModuleBtn" data-toggle="modal" data-target="#editModal" id="editButton<?php echo $moduleCode ?>" module="<?php echo $moduleCode; ?>" moduleid="<?php echo $moduleId; ?>" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Edit Module</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                <?php } ?>
-            <?php } else {  ?>
+                        <?php
+                    }
+                }
+            } else {
+                ?>
                 <a href="/index.php/Lecturer/viewModule">Dummy Module</a>
-            <?php } ?>
+                <?php
+            }
+            ?>
         </div>
     </div> <!-- end generated modules -->
 
@@ -184,8 +194,8 @@
                         <div class="form-group">
                             <!-- CLASS SIZE -->
                             <label class="control-label col-sm-2" for="editClassSize">Class Size:</label>
-                            <div class="col-sm-4">
-                                <input type="number" class="form-control" id="editClassSize" placeholder="Class Size" value="" <?php echo $freeze == 1 ? "disabled" : ""; ?>>
+                            <div class="col-sm-2">
+                                <input type="number" disabled class="form-control" id="editClassSize" placeholder="Class Size" value="" <?php echo $freeze == 1 ? "disabled" : ""; ?>>
                             </div>
                             <button type="button" class="btn btn-info" id="syncRosterButton" moduleId="" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Sync Class Roster With IVLE</button>
                             <!-- CLASS SIZE -->

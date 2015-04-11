@@ -1,7 +1,7 @@
 <?php
 
 class SyncClassRoster extends CI_Controller {
- 
+
     public function __construct() {
 		parent::__construct();
     }
@@ -37,11 +37,11 @@ class SyncClassRoster extends CI_Controller {
 
         // need to check if the students in db are not in roster.
         // students in enrol and not in roster == remove from enrol
-        $enrollment = $this->Dbquery->getStudentByModule($moduleId, 6);
+        $enrollment = $this->Dbquery->getStudentByModule($moduleId);
         if (count($roster) > count($enrollment)) {
-            $limit = count($roster) + 1;
+            $limit = count($roster);
         } else {
-            $limit = count($enrollment) + 1;
+            $limit = count($enrollment);
         }
 
         // SEARCH THROUGH the two arrays and add or remove respectively
@@ -54,16 +54,16 @@ class SyncClassRoster extends CI_Controller {
                 // add all the rest from roster and exi
                 $this->_addAllFrom($roster, $r, $moduleId);
 
-            } else if ($this->_isEqual($roster[$r]->Name, $enrollment[$e]->name)) {
+            } else if ($this->_isEqual($roster[$r]->UserID, $enrollment[$e]["userID"])) {
                 // do nothing and increment both pointers
 
-            } else if ($this->_isGreater($roster[$r]->Name, $enrollment[$e]->name)) {
+            } else if ($this->_isGreater($roster[$r]->UserID, $enrollment[$e]["userID"])) {
                 // remove from db and increment only e
                 $r = $r - 1;
                 $student = $enrollment[$e];
                 $this->_removeEnrollment($student, $moduleId);
 
-            } else if ($this->_isLesser($roster[$r]->Name, $enrollment[$e]->name)) {
+            } else if ($this->_isLesser($roster[$r]->UserID, $enrollment[$e]["userID"])) {
                 // add to db and increment only r
                 $e = $e - 1;
                 $student = $roster[$r];
@@ -73,7 +73,7 @@ class SyncClassRoster extends CI_Controller {
 
         return [
             "success" => TRUE,
-            "classSize" => count($roster)
+            "classSize" => count($this->Dbquery->getStudentByModule($moduleId))
         ];
     }
 
@@ -92,14 +92,18 @@ class SyncClassRoster extends CI_Controller {
     }
 
     private function _removeEnrollment($student, $moduleId) {
-        $studentId = $student->userId;
-        $this->Dbinsert->removeFromEnrollment($studentId, $moduleId);
+        $studentId = $student["userID"];
+        $this->Dbinsert->dismissStudentfromModule($studentId, $moduleId);
     }
 
     private function _addStudent($student, $moduleId) {
         $studentName = $student->Name;
         $studentId = $student->UserID;
-        $this->Dbinsert->insertStudentBaseInfo($studentId, $studentName, $moduleId);
+        $studentExist = $this->Dbquery->userExistByID($studentId, USER_TYPE_STUDENT);
+        if (!$studentExist) {
+            $this->Dbinsert->insertAndEnrolStudent($studentId, $studentName, $moduleId);
+        }
+
     }
 
 

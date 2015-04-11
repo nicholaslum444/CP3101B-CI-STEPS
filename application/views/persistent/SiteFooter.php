@@ -1,7 +1,7 @@
 	<div class="container">
 	<hr>
 		<footer>
-			<p>&copy; Website for STePS</p>
+			<p>&copy; STePS</p>
 		</footer>
 
 	</div> <!-- End of container -->

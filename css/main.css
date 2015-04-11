@@ -11,6 +11,7 @@ html, body {
 body {
 	font-family: 'Lato', sans-serif;
 	padding-top: 60px;
+    /*font-size: 2em;*/
 }
 
 textarea {
@@ -32,8 +33,8 @@ textarea {
 	font-size: 30px;
 	text-align: center;
 }
+
 #submitUpdate {
-	
   	margin-left: auto;
   	margin-right: auto;
   	width: 5%;
@@ -89,14 +90,16 @@ textarea {
 	/*width: 300px;
     height: 300px;*/
 	/*width: 100%;*/
+    border-radius: 50%;
 }
 
 .module-thumb-img img {
 	width: 100%;
+    border-radius: 50%;
     /*height: 300px;*/
 }
 
-.module-thumb-caption:hover {
+/*.module-thumb-caption:hover {
     text-align:center;
 	background: #04173f;
 	border-top: solid 2px #fff;
@@ -105,9 +108,9 @@ textarea {
 	padding: 10px;
 	width: 100%;
     /*height: 100px;*/
-	margin-bottom:20px;
+	/*margin-bottom:20px;*/
     /*overflow:hidden;*/
-}
+/*}*/
 
 .module-thumb-caption,
 .module-thumb-caption:hover {
@@ -122,6 +125,7 @@ textarea {
 	margin-bottom:20px;
     display:inline-block;
     overflow:hidden;
+    border-radius: 20px;
 }
 
 .module-thumb-caption-header,
@@ -283,7 +287,7 @@ button[data-target="#registerProjectModal"] {
 /* if large screen (min-width: 1200px), apply these rules */
 @media (min-width: 1200px) {
 
-	
+
 
 }
 

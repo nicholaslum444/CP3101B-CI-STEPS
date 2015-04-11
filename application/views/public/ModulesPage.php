@@ -15,7 +15,7 @@
                         <a href="/index.php/Modules/view/<?php echo $details['moduleCode']; ?>">
                             <span class="sidebar-module-code"><?php echo $details['moduleCode']; ?></span>
                             <span class="sidebar-separator"><br></span>
-                            <small class="sidebar-module-name"><?php echo $details['moduleName']; ?></small>
+                            <small class="sidebar-module-name"><?php echo ucwords(strtolower($details['moduleName'])); ?></small>
                         </a>
                     </li>
                     <?php
@@ -41,10 +41,10 @@
                         // real lecturer data
                         $supervisors = $selectedModuleData["supervisors"];
                         $numSups = count($supervisors);
-                        $moduleLecturer = $supervisors[$numSups - 1]["name"];
+                        $moduleLecturer = ucwords(strtolower($supervisors[$numSups - 1]["name"]));
                         if ($numSups > 1) {
                             for ($i = 0; $i < $numSups - 1; $i++) {
-                                $moduleLecturer = $supervisors[$i]["name"] . " and " . $moduleLecturer;
+                                $moduleLecturer = ucwords(strtolower($supervisors[$i]["name"])) . " and " . $moduleLecturer;
                             }
                         }
                         ?>
@@ -54,7 +54,7 @@
                             <h1>
                                 <?php echo $selectedModuleData["moduleCode"]; ?>
                                 <small><br>
-                                    <?php echo $selectedModuleData["moduleName"]; ?>
+                                    <?php echo (strtoupper($selectedModuleData['moduleName'])); ?>
                                 </small>
                             </h1>
                             <p><strong>

@@ -75,7 +75,8 @@ $(function() {
 
 	$('#syncRosterButton').click(function (e) {
 		var moduleCode = $("#editModalLabel").html();
-		var moduleId = $("#editButton" + moduleCode).attr("moduleId");
+		var moduleId = $("#editModalLabel").attr("moduleid");
+
 		console.log("sending" + moduleId);
 		$.ajax({
 			url: "/index.php/ajaxreceivers/SyncClassRoster",
@@ -85,18 +86,25 @@ $(function() {
 		})
 
 		.done(function(data) {
-			if(data["success"] == true) {
-				$('#registerModal').modal('hide');
-				location.reload();
+			if(data["success"]) {
+				//$('#registerModal').modal('hide');
+				//location.reload();
+				console.log(data);
+				$('#syncFailedMsg').hide();
+				$('#syncRosterButton').removeClass("btn-info");
+				$('#syncRosterButton').removeClass("btn-warning").addClass("btn-success");
+				$("#editClassSize").attr("value", data["classSize"]);
 			}
 			else {
-				$('#syncRosterButton').removeClass("btn-primary").addClass("btn-warning");
+				$('#syncRosterButton').removeClass("btn-info").addClass("btn-warning");
+				$('#syncFailedMsg').show();
 			}
 		})
 
 		.fail(function(data) {
-			alert(JSON.stringify(data));
+			console.log(JSON.stringify(data));
 			$('#syncRosterButton').removeClass("btn-primary").addClass("btn-warning");
+			$('#syncFailedMsg').show();
 		});
 		e.preventDefault();
 	});
@@ -105,7 +113,7 @@ $(function() {
 
 		//GETTING MODULE CODE AND NUMBER OF PROJECTS
 		var moduleCode = $("#editModalLabel").attr("moduleCode");
-		var moduleId = $("#editModalLabel").attr("moduleId");
+		var moduleId = $("#editModalLabel").attr("moduleid");
 		var numberOfProjects = $(".projectTitles[module="+moduleCode+"]").attr("numOfProject");
 
 		//GETTING ALL EDITED INPUTS
@@ -213,8 +221,8 @@ $(function() {
 	$(".editModuleBtn").on('click', function(e) {
 
 		var moduleCode = $(this).attr("module");
-		var moduleId = $(this).attr("moduleid");
-		var moduleTitle = $("h3[moduleid="+moduleId+"]").html();
+		var moduleId = $(this).attr("moduleId");
+		var moduleTitle = $("h3[moduleId="+moduleId+"]").html();
 		//THE CLEANING PART
 		$("#editClassSize").attr("value", "");
 		$("#editNumProjects").attr("value", "");

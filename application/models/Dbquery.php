@@ -241,6 +241,7 @@ class Dbquery extends CI_Model {
 		$this->db->join('user',
 			'user.user_id = supervise.user_id');
 		$this->db->where('supervise.module_id', $moduleID);
+        $this->db->where('user.user_type', USER_TYPE_LECTURER);
 		$query = $this->db->get();
 
 		return $query;
@@ -448,7 +449,8 @@ class Dbquery extends CI_Model {
 				$result[$i]['moduleCode'] = $row['module_code'];
 				$result[$i]['moduleName'] = $row['module_name'];
 				$result[$i]['moduleDescription'] = $row['module_description'];
-				$result[$i]['classSize'] = $row['class_size'];
+                $result[$i]['classSize'] = count($this->getStudentByModule($row['module_id']));
+				$result[$i]['classList'] = $this->getStudentByModule($row['module_id']);
 				$result[$i]['projectList'] =
 					$this->getProjectListByModule($row['module_id']);
                 $result[$i]['supervisors'] =
@@ -500,7 +502,8 @@ class Dbquery extends CI_Model {
 				$result['moduleCode'] = $row['module_code'];
 				$result['moduleName'] = $row['module_name'];
 				$result['moduleDescription'] = $row['module_description'];
-				$result['classSize'] = $row['class_size'];
+                $result['classSize'] = count($this->getStudentByModule($row['module_id']));
+				$result['classList'] = $this->getStudentByModule($row['module_id']);
 				$result['projectList'] =
 					$this->getProjectListByModule($moduleID);
 
@@ -552,8 +555,10 @@ class Dbquery extends CI_Model {
 				$result[$i]['moduleCode'] = $row['module_code'];
 				$result[$i]['moduleName'] = $row['module_name'];
 				$result[$i]['moduleDescription'] = $row['module_description'];
-				$result[$i]['classSize'] = $row['class_size'];
+				$result[$i]['classList'] = $this->getStudentByModule($row['module_id']);
+                $result[$i]['classSize'] = count($result[$i]['classList']);
 				$result[$i]['projectList'] = $this->getProjectListByModule($row['module_id']);
+                $result[$i]['numProjects'] = count($result[$i]['projectList']);
 				++$i;
 			}
 		} else {
@@ -763,8 +768,8 @@ class Dbquery extends CI_Model {
 		//SELECT * FROM user
 		//JOIN enrolled ON user.user_id = enrolled.user_id
 		//JOIN module ON module.module_id = enrolled.module_id
-		//WHERE module.module_id = $moduleID
-		//AND user.user_type = STUDENT;
+		//WHERE module.module_id = 16ceadcc-55ce-431c-be2e-fdb47db11a7c
+		//AND user.user_type = 3;
 		$this->db->from('user');
 		$this->db->join('enrolled',
 			'user.user_id = enrolled.user_id');
@@ -774,6 +779,7 @@ class Dbquery extends CI_Model {
 		$this->db->where('user.user_type', USER_TYPE_STUDENT);
 		$this->db->order_by('user.name ASC');
 		$query = $this->db->get();
+        // echo json_encode($this->db);
 		return $query;
 	}
 
