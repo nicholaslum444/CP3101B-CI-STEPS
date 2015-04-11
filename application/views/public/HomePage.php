@@ -93,7 +93,7 @@
                                 </span>
                                 <br>
                                 <span class="module-thumb-caption-text">
-                                    <?php echo $module['moduleName']; ?>
+                                    <?php echo namecaps($module['moduleName']); ?>
                                 </span>
                             </figcaption>
                         </a>
