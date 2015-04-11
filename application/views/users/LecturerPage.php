@@ -85,6 +85,7 @@
             ?>
         </div>
     </div> <!-- end generated modules -->
+</div>
 
     <!-- use the $ivleStaffedModules object to get the modules to fill the dropdown -->
     <!-- will need some preprocessing of the data to populate dropdown? -->

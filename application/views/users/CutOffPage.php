@@ -1,5 +1,5 @@
 
-<div></div>
+<div container="fixed-height-container"></div>
 <div>
 	<div>
 	<h1 align="center">Time for editing is up!</h1>
