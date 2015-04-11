@@ -6,12 +6,19 @@ Author's custom styles
 html, body {
   width: auto !important;
   overflow-x: hidden !important;
+  height: 100%;
 }
 
 body {
 	font-family: 'Lato', sans-serif;
 	padding-top: 60px;
+    height: auto;
     /*font-size: 2em;*/
+}
+
+/*important to always keep footer at the bottom*/
+.site-container {
+    min-height: 100vh;
 }
 
 textarea {
@@ -140,10 +147,6 @@ textarea {
     display:inline-block;
 }
 
-.fixed-height-container {
-    height: 100vh;
-}
-
 .navbar-login-container {
 	padding:0px 15px;
 	//display:none;
@@ -164,7 +167,7 @@ textarea {
 }
 
 .nav-sidebar {
-	position:fixed;
+	//position:fixed;
 }
 
 .wrap-sidebar {
@@ -294,8 +297,50 @@ button[data-target="#registerProjectModal"] {
 
 /* if large screen (min-width: 1200px), apply these rules */
 @media (min-width: 1200px) {
+.site-footer {
+  width: 100%;
+  color: #656565;
+  padding-top: 11px;
+  padding-bottom: 40px;
+  background-color: #2c3e50;
+}
 
+.site-footer  a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+}
 
+.site-footer a:hover {
+    color: #18bc9c;
+}
+
+.list-inline {
+  padding-left: 0;
+  list-style: none;
+  margin-left: -5px;
+}
+
+.list-inline>li {
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.footer-nav-social a {
+  display: block;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  background-color: #0C2032;
+  border-radius: 13px;
+  -webkit-transition: all ease-out .25s;
+  transition: all ease-out .25s;
+}
+
+/* if large screen (min-width: 1200px), apply these rules */
+@media (min-width: 1200px) {
 
 }
 

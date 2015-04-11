@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container site-container">
 
     <div class="row">
         <h2>Select your Team Members</h2>
