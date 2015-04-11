@@ -17,7 +17,7 @@
 			<div class="col-sm-6 col-md-3">
 				<h4 class="footer-heading">About Us</h4>
 				<ul class="footer-nav list-inline">
-					<li><a href="http://steps.comp.nus.edu.sg/steps6/">STePS</a></li>
+					<li><a href="http://steps.comp.nus.edu.sg/steps6/">STePS Classic</a></li>
 					<li><a href="#">Contact</a></li>
 				</ul>
 			</div>
@@ -35,9 +35,10 @@
 				</ul>
 			</div>
 			<div class="col-sm-6 col-md-3">
-				<h4 class="footer-heading"><span id="year-copy">2014-15</span> © <span id="title">STePS</span></h4>
+				<!-- <span id="title">STePS</span> -->
+				<h4 class="footer-heading">&copy; <span id="year-copy">2015</span></h4>
 				<ul class="footer-nav list-inline">
-					<li>Created by the awesome team</li>
+					<li>The STePS Improvement Team</li>
 				</ul>
 			</div>
 		</div>
