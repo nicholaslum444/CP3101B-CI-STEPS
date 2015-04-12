@@ -1,4 +1,4 @@
-<div id="page-container" class="sidebar-visible-lg">
+<div id="page-container" class="sidebar-no-animations sidebar-visible-xs">
     <div id="sidebar-alt">
         <div id="sidebar-alt-scroll">
         </div>
@@ -8,16 +8,26 @@
             <div class="sidebar-content">
                 <ul class="sidebar-nav wrap-sidebar">
                     <?php
-                    foreach ($allModulesDetails as $details) { ?>
-                    <li>
-                        <a href="/index.php/Modules/view/<?php echo $details['moduleCode']; ?>">
-                            <span class="sidebar-module-code"><?php echo $details['moduleCode']; ?></span>
-                            <span class="sidebar-separator"><br></span>
-                            <small class="sidebar-module-name"><?php echo $details['moduleName']; ?></small>
-                        </a>
-                    </li>
-                    <?php
-                } ?>
+                    foreach ($allModulesDetails as $details) {
+                        ?>
+                        <li>
+                            <a href="/index.php/Modules/view/<?php echo $details['moduleCode']; ?>">
+                                <div class="sidebar-module-box">
+                                    <div class="sidebar-module-code-box">
+                                        <span class="sidebar-module-code"><?php echo $details['moduleCode']; ?></span>
+                                    </div>
+                                    <div class="sidebar-module-name-box">
+                                        <span class="sidebar-module-name"><?php echo $details['moduleName']; ?></span>
+                                    </div>
+                                </div>
+                                <!-- <br> -->
+                                <span class="sidebar-separator"></span>
+                                <!-- <hr> -->
+                            </a>
+                        </li>
+                        <?php
+                    }
+                    ?>
                 </ul>
             </div>
         </div>
@@ -25,7 +35,14 @@
     <!-- The box to the right of the side-bar, just replace with the contents you want-->
     <div id="main-container">
         <div id="page-content" style="min-height: 873px;">
-            <button class="btn btn-default" id="toggle-btn">Module Sidebar</button>
+
+            <!-- sidebar toggle btn -->
+            <button class="btn btn-default" id="toggle-btn">
+                <span id="sidebar-direction" class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                <span>See More</span>
+            </button>
+
+            <!-- actual content -->
             <div class="panel-body" id="moduleContent">
                 <!-- show the module pane if a module is selected -->
                 <?php
@@ -38,8 +55,16 @@
                                     // sum the total students
                         $numStudents += count($project["members"]);
                     }
-                                // TODO replace with real variable!!
-                    $moduleLecturer = "Dr. STEVEN HALIM";
+
+                    // realdata
+                    $supervisors = $selectedModuleData["supervisors"];
+                    $numSups = count($supervisors);
+                    $moduleLecturer = namecaps($supervisors[$numSups - 1]["name"]);
+                    if ($numSups > 1) {
+                        for ($i = 0; $i < $numSups - 1; $i++) {
+                            $moduleLecturer = namecaps($supervisors[$i]["name"]) . " and " . $moduleLecturer;
+                        }
+                    }
                     ?>
 
                     <!-- module code, name and desc -->
@@ -47,7 +72,7 @@
                         <h2>
                             <?php echo $selectedModuleData["moduleCode"]; ?>
                             <small><br>
-                                <?php echo $selectedModuleData["moduleName"]; ?>
+                                <?php echo strtoupper($selectedModuleData["moduleName"]); ?>
                             </small>
                         </h2>
                         <p><strong>
@@ -111,17 +136,17 @@
                                                                                 <?php $studentNames .= (namecaps($student["name"]) . ','); ?>
                                                                                 <!-- <?php //echo $student["userID"]; ?> -->
                                                                             </span>
-                                                                            <?php  
+                                                                            <?php
                                                                         }
-                                                                        //remove last comma 
+                                                                        //remove last comma
                                                                         $studentNames = substr($studentNames, 0, -1);
                                                                             echo $studentNames;
-                                                                        ?>                                                
+                                                                        ?>
                                                                     <?php
                                                                     } else {
                                                                         //show that there are no students!
                                                                         ?>
-                                                                        Group members not yet available!                                                   
+                                                                        Group members not yet available!
                                                                         <?php
                                                                     }
                                                                     ?>
@@ -147,7 +172,7 @@
                                                             </p>
                                                             <?php
                                                         }
-                                                        ?>                                            
+                                                        ?>
                                                     </div>
 
                                             </div>
@@ -194,15 +219,16 @@ $(window).resize(function() {
         $('#page-container').removeClass();
         $('#toggle-btn').css("display","inline-block");
 
-    }   else {
+    } else {
         $('#page-container').addClass('sidebar-visible-lg');
-       $('#toggle-btn').css("display","none");
+        $('#toggle-btn').css("display","none");
 
     }
 });
 
 $('#toggle-btn').click(function(){
     $('#page-container').toggleClass('sidebar-visible-lg sidebar-no-animations sidebar-visible-xs');
+    //$("#sidebar-direction").toggleClass("glyphicon-menu-left");
 });
 
 </script>

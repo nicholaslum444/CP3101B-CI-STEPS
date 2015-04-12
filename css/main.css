@@ -175,6 +175,34 @@ textarea {
     margin: 0 auto;
 }
 
+.sidebar-module-box {
+    width: 100%;
+    padding: 5px;
+}
+
+.sidebar-module-code-box {
+    padding: 0px;
+}
+
+.sidebar-module-name-box {
+    /*top: -10px;*/
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.sidebar-module-name {
+    font-variant: small-caps;
+    font-size: smaller;
+}
+
+.sidebar-separator {
+    background-color: white;
+    display: block;
+    height: 1px;
+    width: 100%;
+}
+
 #moduleContent {
     min-height: 450px;
 }

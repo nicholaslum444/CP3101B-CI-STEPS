@@ -407,11 +407,11 @@ li.dropdown-header {
     width: 65px;
 }
 
-.sidebar-alt-partial #sidebar-alt:hover, 
-.sidebar-alt-visible-lg #sidebar-alt, 
-.sidebar-alt-visible-lg.sidebar-alt-partial #sidebar-alt, 
-.sidebar-partial #sidebar:hover, 
-.sidebar-visible-lg #sidebar, 
+.sidebar-alt-partial #sidebar-alt:hover,
+.sidebar-alt-visible-lg #sidebar-alt,
+.sidebar-alt-visible-lg.sidebar-alt-partial #sidebar-alt,
+.sidebar-partial #sidebar:hover,
+.sidebar-visible-lg #sidebar,
 .sidebar-visible-lg.sidebar-partial #sidebar {
     width: 208px;
     opacity: 1;
@@ -501,7 +501,7 @@ li.dropdown-header {
 
 
 /*-------------------------------
-            WIDGETS 
+            WIDGETS
 ---------------------------------*/
 .widget-main {
     height: 310px;
@@ -745,12 +745,3 @@ a.widget.widget-hover-effect4:active {
 .themed-background-muted-light {
     background-color: #f9f9f9!important
 }
-
-
-
-
-
-
-
-
-
