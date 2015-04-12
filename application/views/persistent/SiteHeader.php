@@ -14,17 +14,22 @@ $lecturerUrl = "https://ivle.nus.edu.sg/api/login/?"
 $modulesActive = "";
 $registerActive = "";
 $sponsorsActive = "";
+$aboutActive = "";
 switch($loader) {
     case LOADER_TYPE_PUBLIC_MODULES :
     $modulesActive = "active";
     break;
 
-    case /*LOADER_TYPE_PUBLIC_REGISTER*/1 :
+    case LOADER_TYPE_PUBLIC_REGISTER :
     $registerActive = "active";
     break;
 
-    case /*LOADER_TYPE_PUBLIC_SPONSOR*/2 :
+    case LOADER_TYPE_PUBLIC_SPONSORS :
     $sponsorsActive = "active";
+    break;
+
+    case LOADER_TYPE_PUBLIC_ABOUT :
+    $aboutActive = "active";
     break;
 }
 ?>
@@ -41,8 +46,9 @@ switch($loader) {
     <link rel="stylesheet" href="/css/bootswatch-flatly.css">
     <!-- <link rel="stylesheet" href="/css/jqueryuk15.css"> -->
     <link rel="stylesheet" href="/css/jqueryuk15extracted.css">
+    <link rel="stylesheet" href="/css/flatui.css">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700' rel='stylesheet' type='text/css'>
 
@@ -62,7 +68,6 @@ switch($loader) {
 </head>
 
 <body>
-
     <!-- facebook like code -->
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
@@ -134,13 +139,16 @@ switch($loader) {
                     <!-- <div class="navbar-left">  -->
                     <ul class="nav navbar-nav navbar-left">
                         <li class="<?php echo $modulesActive; ?>">
-                            <a href="/index.php/modules">Modules</a>
+                            <a href="/index.php/Modules">Modules</a>
                         </li>
                         <li class="<?php echo $registerActive; ?>">
-                            <a href="/index.php/register">Register</a>
+                            <a href="/index.php/Register">Register</a>
                         </li>
                         <li class="<?php echo $sponsorsActive; ?>">
-                            <a href="/index.php/sponsors">Sponsors</a>
+                            <a href="/index.php/Sponsors">Sponsors</a>
+                        </li>
+                        <li class="<?php echo $aboutActive; ?>">
+                            <a href="/index.php/About">About</a>
                         </li>
                     </ul>
                     <!-- </div> -->

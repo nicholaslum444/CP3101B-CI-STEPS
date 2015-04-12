@@ -6,38 +6,45 @@ Author's custom styles
 html, body {
   width: auto !important;
   overflow-x: hidden !important;
+  height: 100%;
 }
 
 body {
-	font-family: 'Lato', sans-serif;
-	padding-top: 60px;
+    font-family: 'Lato', sans-serif;
+    padding-top: 60px;
+    height: auto;
     /*font-size: 2em;*/
 }
 
+/*important to always keep footer at the bottom*/
+.site-container {
+    min-height: 100vh;
+}
+
 textarea {
-	resize: none;
+    resize: none;
 }
 
 .spaceout-align {
-	margin: 2% auto 0 0;
-	text-align: right;
+    margin: 2% auto 0 0;
+    text-align: right;
 }
 .align-text-box {
-	margin: 1.5% 0 0 0;
+    margin: 1.5% 0 0 0;
 }
 
 .spaceout {
-	margin: 1% auto;
+    margin: 1% auto;
 }
 .subtitle {
-	font-size: 30px;
-	text-align: center;
+    font-size: 30px;
+    text-align: center;
 }
 
 #submitUpdate {
-  	margin-left: auto;
-  	margin-right: auto;
-  	width: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 5%;
 }
 
 .btn-learn-more {
@@ -57,72 +64,72 @@ textarea {
 }
 
 .centered-navbar {
-	text-align:center;
+    text-align:center;
 }
 
 .login-iframe-container {
-	text-align: center;
-	padding:0px;
+    text-align: center;
+    padding:0px;
 }
 
 .user-dropdown-menu {
-	background-color:#2c3e50;
-	text-align:center;
+    background-color:#2c3e50;
+    text-align:center;
 }
 
 .logout-choice {
-	color: #d44 !important;
-	font-weight: bold !important;
+    color: #d44 !important;
+    font-weight: bold !important;
 }
 
 .student-console-choice,
 .student-login-choice {
-	color: #fff !important;
+    color: #fff !important;
 }
 
 .lecturer-console-choice,
 .lecturer-login-choice {
-	color: #fff !important;
+    color: #fff !important;
 }
 
 .module-thumb-img img:hover {
-	-webkit-filter: sepia(90%) hue-rotate(-225deg);
-	/*width: 300px;
+    -webkit-filter: sepia(90%) hue-rotate(-225deg);
+    /*width: 300px;
     height: 300px;*/
-	/*width: 100%;*/
+    /*width: 100%;*/
     border-radius: 50%;
 }
 
 .module-thumb-img img {
-	width: 100%;
+    width: 100%;
     border-radius: 50%;
     /*height: 300px;*/
 }
 
 /*.module-thumb-caption:hover {
     text-align:center;
-	background: #04173f;
-	border-top: solid 2px #fff;
-	color: #fff;
-	font-size: 16px;
-	padding: 10px;
-	width: 100%;
+    background: #04173f;
+    border-top: solid 2px #fff;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
     /*height: 100px;*/
-	/*margin-bottom:20px;*/
+    /*margin-bottom:20px;*/
     /*overflow:hidden;*/
 /*}*/
 
 .module-thumb-caption,
 .module-thumb-caption:hover {
-	text-align:center;
-	background: #04173f;
-	border-top: solid 2px #fff;
-	color: #fff;
-	font-size: 16px;
-	padding: 10px;
-	width: 100%;
+    text-align:center;
+    background: #04173f;
+    border-top: solid 2px #fff;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
     height: 90px;
-	margin-bottom:20px;
+    margin-bottom:20px;
     display:inline-block;
     overflow:hidden;
     border-radius: 20px;
@@ -130,8 +137,8 @@ textarea {
 
 .module-thumb-caption-header,
 .module-thumb-caption-header:hover {
-	/*font-weight: ;*/
-	font-size: 1.1em;
+    /*font-weight: ;*/
+    font-size: 1.1em;
     display:inline-block;
 }
 
@@ -140,58 +147,86 @@ textarea {
     display:inline-block;
 }
 
-.fixed-height-container {
-    height: 100vh;
-}
-
 .navbar-login-container {
-	padding:0px 15px;
-	//display:none;
+    padding:0px 15px;
+    //display:none;
 }
 
 .module-thumb a:hover {
-	text-decoration:none;
-	display:inline-block;
+    text-decoration:none;
+    display:inline-block;
 }
 
 .registration-iframe-container {
-	padding-top: 40px;
-	text-align:center;
+    padding-top: 40px;
+    text-align:center;
 }
 
 .registration-text-container {
-	text-align:left;
+    text-align:left;
 }
 
 .nav-sidebar {
-	position:fixed;
+    //position:fixed;
 }
 
 .wrap-sidebar {
-	width: 200px;
-	margin: 0 auto;
+    width: 200px;
+    margin: 0 auto;
+}
+
+.sidebar-module-box {
+    width: 100%;
+    padding: 5px;
+}
+
+.sidebar-module-code-box {
+    padding: 0px;
+}
+
+.sidebar-module-name-box {
+    /*top: -10px;*/
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.sidebar-module-name {
+    font-variant: small-caps;
+    font-size: smaller;
+}
+
+.sidebar-separator {
+    background-color: white;
+    display: block;
+    height: 1px;
+    width: 100%;
+}
+
+.project-student-names {
+    font-variant: small-caps;
 }
 
 #moduleContent {
-	min-height: 450px;
+    min-height: 450px;
 }
 #moduleList .container {
-	margin-top: 4.5%;
+    margin-top: 4.5%;
 }
 
 /*admin panel edit button*/
 .panel-heading button {
-	float:right;
+    float:right;
 }
 
 /*lecturer edit button*/
 #moduleList button {
-	float:right;
+    float:right;
 }
 
 /*lecturer register button*/
 button[data-target="#registerModal"] {
-	float: right;
+    float: right;
 }
 
 /*student register project button*/
@@ -200,7 +235,7 @@ button[data-target="#registerProjectModal"] {
 }
 
 #submitMembers-btn {
-	float: left;
+    float: left;
 }
 
 .addMemberBtn {
@@ -208,8 +243,8 @@ button[data-target="#registerProjectModal"] {
 }
 
 .memberDetails {
-	margin-top: 30px;
-	margin-bottom: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 /* seperate from title */
@@ -217,81 +252,143 @@ button[data-target="#registerProjectModal"] {
 
 /* seperate from first row of input */
 .firstRow {
-	margin-top: 10px;
-	margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .firstRow #name {
-	text-align: center;
+    text-align: center;
 }
 
 .secondRow {
-	margin-top: 5px;
-	margin-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .projectTitleInput {
-	position: relative;
+    position: relative;
 }
 
 .deleteProjectBtn {
-	position: absolute;
-	top: -43px;
-	left: 322px;
-	display: none;
+    position: absolute;
+    top: -43px;
+    left: 322px;
+    display: none;
 }
 
 .projectTitleInput:hover .deleteProjectBtn {
-	display: initial;
+    display: initial;
 }
 
 /*admin page*/
 .admin-container {
-	margin-top: 30px;
+    margin-top: 30px;
 }
 
 #admin-update-btn {
-	float: right;
-	display: block;
+    float: right;
+    display: block;
 }
 
 .eventDate-container{
-	margin-bottom: 25px;
-	margin-top: 25px;
+    margin-bottom: 25px;
+    margin-top: 25px;
 }
 
 #admin-accordion {
-	border-color: transparent;
+    border-color: transparent;
 }
 #eventDate-btn {
-	float:right;
+    float:right;
 }
 .food-container{
-	margin-bottom: 25px;
-	margin-top: 25px;
+    margin-bottom: 25px;
+    margin-top: 25px;
 }
 
 #veganDiv, #nonVeganDiv {
-	text-align: center;
+    text-align: center;
 }
 
 .glyphicon-chevron-down {
-	padding-right: 2%;
-	cursor: pointer;
+    padding-right: 2%;
+    cursor: pointer;
 }
 
 .admin-accordion-modulename {
-	font-size: 13px;
+    font-size: 13px;
+}
+
+.about-page-right {
+    text-align:right;
+}
+
+.steps-poster-container img {
+    width: 100%;
+}
+
+.site-footer {
+    width: 100%;
+    color: #2c3e50;
+    padding-top: 11px;
+    padding-bottom: 40px;
+    /*background-color: #2c3e50;*/
+    background-image: -webkit-linear-gradient(top, #55bfc7 0%, #459fc7 100%);
+    background-image: -o-linear-gradient(top, #55bfc7 0%, #459fc7 100%);
+    background-image: linear-gradient(to bottom, #55bfc7 0%, #459fc7 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff2da8c7', endColorstr='#ff25bfc7', GradientType=0);
+    background-color: #2da8c7;
+}
+
+.site-footer  a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.site-footer a:hover {
+    color: #2c3e50;
+}
+
+.footer-nav-social a {
+    display: block;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    background-color: #0C2032;
+    border-radius: 13px;
+    -webkit-transition: all ease-out .25s;
+    transition: all ease-out .25s;
 }
 
 /* if large screen (min-width: 1200px), apply these rules */
 @media (min-width: 1200px) {
 
+    .list-inline {
+        padding-left: 0;
+        list-style: none;
+        margin-left: -5px;
+    }
 
+    .list-inline>li {
+        display: inline-block;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
 
 }
 
 /* if small screen (max-width: 1200px), apply these rules instead */
 @media (max-width: 1200px) {
+
+    .blank-heading {
+        display:none;
+    }
+
+    .about-page-right {
+        text-align:left;
+    }
 
 }

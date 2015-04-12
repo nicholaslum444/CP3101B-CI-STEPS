@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container site-container">
     <div class="row">
         <h4>Projects</h4>
     </div>

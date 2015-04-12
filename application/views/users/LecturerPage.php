@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container site-container">
     <form class="form">
         <div class="form-group">
             <input type="hidden" class="form-control" id="registerModule">
@@ -85,6 +85,7 @@
             ?>
         </div>
     </div> <!-- end generated modules -->
+</div>
 
     <!-- use the $ivleStaffedModules object to get the modules to fill the dropdown -->
     <!-- will need some preprocessing of the data to populate dropdown? -->
