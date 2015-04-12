@@ -18,7 +18,7 @@
             <div class="block--spaced">
                 <h2 class="section__heading about-page-right">About STePS</h2>
                 <div class="steps-poster-container">
-                    <img src="/img/6thsteps.jpg">
+                    <img src="/img/6thStePS.jpg">
                 </div>
             </div>
         </div>
