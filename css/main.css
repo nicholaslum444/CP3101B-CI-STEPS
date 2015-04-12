@@ -203,6 +203,10 @@ textarea {
     width: 100%;
 }
 
+.project-student-names {
+    font-variant: small-caps;
+}
+
 #moduleContent {
     min-height: 450px;
 }

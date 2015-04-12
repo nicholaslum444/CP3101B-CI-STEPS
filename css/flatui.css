@@ -12,7 +12,21 @@ SIDE BAR
     }
 
     .widget-main {
+        /*height: 320px;*/
+    }
+}
+
+@media(min-width:768px) {
+    #toggle-btn {
+        display: inline-block;
+    }
+
+    .widget-main {
         height: 320px;
+    }
+
+    .widget-advanced .widget-content-image {
+        position: initial;
     }
 }
 
@@ -504,7 +518,8 @@ li.dropdown-header {
             WIDGETS
 ---------------------------------*/
 .widget-main {
-    height: 310px;
+    /*height: 310px;*/
+    overflow: hidden;
 }
 
 .widget-advanced #pjtTitle {

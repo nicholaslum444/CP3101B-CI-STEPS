@@ -83,11 +83,11 @@ INSERT INTO `user` (`user_id`,`name`,`email`,`contact`,`user_type`,`food_prefere
 INSERT INTO `enrolled` (`user_id`,`module_id`) VALUES ('A5000076B','pppppppp-pppp-pppp-pppp-pppppppppppp');
 INSERT INTO `participate` (`user_id`,`project_id`) VALUES ('A5000076B','5022');
 INSERT INTO `user` (`user_id`,`name`,`email`,`contact`,`user_type`,`food_preference`) VALUES
-('A5000077B',' CHONG JIA','a@nus.edu.sg',60000076,2,1);
+('A5000077B','CHONG JIA WEI','a@nus.edu.sg',60000076,2,1);
 INSERT INTO `enrolled` (`user_id`,`module_id`) VALUES ('A5000077B','pppppppp-pppp-pppp-pppp-pppppppppppp');
 INSERT INTO `participate` (`user_id`,`project_id`) VALUES ('A5000077B','5022');
 INSERT INTO `user` (`user_id`,`name`,`email`,`contact`,`user_type`,`food_preference`) VALUES
-('A5000078B',' WEI JOEL NG','a@nus.edu.sg',60000077,2,1);
+('A5000078B',' JOEL NG','a@nus.edu.sg',60000077,2,1);
 INSERT INTO `enrolled` (`user_id`,`module_id`) VALUES ('A5000078B','pppppppp-pppp-pppp-pppp-pppppppppppp');
 INSERT INTO `participate` (`user_id`,`project_id`) VALUES ('A5000078B','5022');
 INSERT INTO `user` (`user_id`,`name`,`email`,`contact`,`user_type`,`food_preference`) VALUES

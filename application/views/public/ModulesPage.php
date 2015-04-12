@@ -107,10 +107,9 @@
                                 foreach ($projects as $project) {
                                     ?>
                                     <!-- make a div for each project -->
-                                    <div class="col-md-6">
+                                    <div class="col-lg-4 col-md-6">
                                         <div class="widget">
                                             <div class="widget-advanced widget-advanced-alt">
-
                                                 <div class="widget-header text-left">
                                                   <!--   <img src="/css/noimage.jpg" alt="background" class="widget-background"> -->
                                                     <h4 class="widget-content widget-content-image widget-content-light clearfix">
@@ -120,29 +119,29 @@
                                                         <a href="javascript:void(0)" class="widget-icon pull-right">
                                                             <i class="fa fa-video-camera"></i>
                                                         </a>
-                                                        <span class="themed-color-default text-success" id="pjtTitle">
+                                                        <span class="themed-color-default text-warning" id="pjtTitle">
                                                             <?php echo $project["title"]; ?>
-                                                        </span><br />
-                                                                <!-- Group member names -->
-                                                                <small><?php
+                                                        </span>
+                                                        <br />
+                                                            <!-- Group member names -->
+                                                            <small>
+                                                                <span>
+                                                                    <?php
                                                                     if (isset($project["members"])) {
                                                                         $students = $project["members"];
-                                                                        ?> by <span>
-                                                                        <?php
                                                                         $studentNames = "";
                                                                         foreach($students as $student) {
-                                                                            ?>
-                                                                            <span>
-                                                                                <?php $studentNames .= (namecaps($student["name"]) . ','); ?>
-                                                                                <!-- <?php //echo $student["userID"]; ?> -->
-                                                                            </span>
-                                                                            <?php
+                                                                            $studentNames .= (namecaps($student["name"]) . ', ');
                                                                         }
                                                                         //remove last comma
-                                                                        $studentNames = substr($studentNames, 0, -1);
-                                                                            echo $studentNames;
+                                                                        $studentNames = substr($studentNames, 0, -2);
                                                                         ?>
-                                                                    <?php
+                                                                        by
+                                                                        <span class="project-student-names">
+                                                                            <!-- code here -->
+                                                                            <?php echo $studentNames; ?>
+                                                                        </span>
+                                                                        <?php
                                                                     } else {
                                                                         //show that there are no students!
                                                                         ?>
@@ -150,8 +149,8 @@
                                                                         <?php
                                                                     }
                                                                     ?>
-                                                                </small>
                                                                 </span>
+                                                        </small>
                                                     </h4>
                                                 </div>
 
@@ -222,9 +221,10 @@ $(window).resize(function() {
     } else {
         $('#page-container').addClass('sidebar-visible-lg');
         $('#toggle-btn').css("display","none");
-
     }
 });
+
+$(window).resize();
 
 $('#toggle-btn').click(function(){
     $('#page-container').toggleClass('sidebar-visible-lg sidebar-no-animations sidebar-visible-xs');
