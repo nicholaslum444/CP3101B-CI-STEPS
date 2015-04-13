@@ -3,7 +3,7 @@
 // this call returns JSON objects.
 header("Content-Type: application/json");
 
-/* This class updates students information in the db entered */
+/* This class updates project information*/
 
 class EditProject extends CI_Controller {
 
@@ -38,10 +38,15 @@ class EditProject extends CI_Controller {
       if($project['projectId'] == null) {
         $fail = ["success" => FALSE,
         "error" => "No_PROJECT_ID"];
+
         return json_encode($fail);
       }
 
       $projectID = $project['projectId'];
+
+      if($project['title' != null] && $this->session->userType === USER_TYPE_PROFESSOR) {
+        $title = $project['title'];
+      }
 
       if($project['poster'] != null) {
         $poster = $project['poster'];
