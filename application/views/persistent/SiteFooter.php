@@ -30,8 +30,12 @@
 			</div>
 			<div class="col-sm-6 col-md-3">
 				<h4 class="footer-heading">Follow Us</h4>
+				<!-- <i class="icon-large icon-facebook icon-white"></i> -->
 				<ul class="footer-nav footer-nav-social list-inline">
-					<li><a href="https://www.facebook.com/events/737647543000395/"><i style="color:white;"class="fa fa-facebook"></i></a></li>
+					<li><a href="https://www.facebook.com/events/737647543000395/">
+						<!-- <i style="color:white;"class="fa fa-facebook"></i> -->
+						<b>f</b>
+					</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-6 col-md-3">

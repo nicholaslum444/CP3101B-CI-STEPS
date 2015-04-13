@@ -122,7 +122,7 @@
                 </div>
                 <div class="col-md-6" id="veganDiv">
                     <h3 class="text-muted">Vegetarian</h3>
-                    <h2 id="Vegans"><?php echo $foodPref["VEGE"] ?></h2>
+                    <h2 id="Vegans"><?php echo $foodPref["VEGE"]; ?></h2>
                 </div>
             </div>
         <?php } ?>

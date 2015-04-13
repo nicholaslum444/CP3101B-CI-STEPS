@@ -19,7 +19,7 @@
         <input class="form-control" name="video" rows="5" id="video" value="<?php echo $projectData['video']; ?>" placeholder="URL for your video"></textarea>
       </div>
       <div class="col-sm-12">
-        <h4 class="control-label subtitle" >Team Member</h4>
+        <h4 class="control-label subtitle" >Team Members </h4>
         <?php $odd = true; foreach($data as $member) { ?>
         
           <div class="projectMemberandDetails control-label col-md-5 col-sm-12" >
@@ -29,11 +29,12 @@
                 <h5 id="name" class="panel-title" ><?php echo $member['name']; ?></h5>      
               </div>
 
-            <input class="form-control" style="display:none" name="userId" class="userId" value="<?php echo $member['userID']; ?>" placeholder="UserID" required>
              
              <div class="panel-body">
               <form class="form-horizontal " role="form" id="updateMembersForm">
-             <div class="row">
+               <!-- hidden field of ID -->
+               <input class="form-control" style="display:none" name="userId" class="userId" value="<?php echo $member['userID']; ?>" placeholder="UserID" required>
+              <div class="row">
                 <!-- <label class="control-label col-sm-2"></label> -->
                 <label class="control-label col-sm-4 align-text-box"   for="email">Email:</label>
                 <div class="control-label col-sm-8" >
@@ -88,7 +89,6 @@
 <script>
   $(function(){
 
-
     $('#updateMembers-btn').click(function(e) {
       var membersData = $('#updateMembersForm').serializeArray();        
       //console.log(membersData);
@@ -109,6 +109,8 @@
         "users" : formData
       }
 
+      console.log(users);
+
         $.ajax({
             url: "/index.php/ajaxreceivers/editUserInformation",
             method: "POST",
@@ -118,10 +120,11 @@
 
         .done(function(data) {
             if(data["success"] == true) {
-              if(!doneOnce) 
+              if(!doneOnce) { 
                   doneOnce = true;
-              else
-                window.location.href="/index.php/Student/updateMembers/" + <?php echo $projectData['projectId'] ?>;
+              } else {
+                //window.location.href="/index.php/Student/updateMembers/" + <?php echo $projectData['projectId'] ?>;
+              }
               console.log("success");
             }
             else {
@@ -152,8 +155,9 @@
             if(data["success"] == true) {
               if(!doneOnce) 
                   doneOnce = true;
-              else
-                window.location.href="/index.php/Student/updateMembers/" + <?php echo $projectData['projectId'] ?>;
+              else {
+                //window.location.href="/index.php/Student/updateMembers/" + <?php echo $projectData['projectId'] ?>;
+              }
               console.log("success");
             }
             else {
@@ -165,6 +169,7 @@
         });
 
       e.preventDefault();
+      window.location.href="/index.php/Student/console";
     });
   });
 

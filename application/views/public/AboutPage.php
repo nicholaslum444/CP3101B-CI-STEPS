@@ -85,7 +85,8 @@
                                 Registration
                             </h3>
                             <span class="schedule__item__desc">
-                                Collect Food Coupon and Voter ID Number
+                                <!-- Collect Welcome Pack and Voter ID Number -->
+                                <!-- &nbsp; -->
                             </span>
                         </div>
                         <span class="schedule__item__time">
@@ -97,10 +98,11 @@
                     <a class="schedule__item__link" href="talks.php#">
                         <div class="schedule__item__name">
                             <h3 class="schedule__item__heading">
-                                Catering Opens
+                                Exhibitors' Dinner
                             </h3>
                             <span class="schedule__item__desc">
-                                For Exhibitors and Organisers
+                                <!-- For Participants and Organisers -->
+                                &nbsp;
                             </span>
                         </div>
                         <span class="schedule__item__time">
@@ -127,10 +129,11 @@
                     <a class="schedule__item__link" href="talks.php#">
                         <div class="schedule__item__name">
                             <h3 class="schedule__item__heading">
-                                Buffet Dinner
+                                Guests' Buffet Dinner
                             </h3>
                             <span class="schedule__item__desc">
-                                For registered guests. Food Coupon to be used.
+                                <!-- Mingle with the industry's best -->
+                                <!-- &nbsp; -->
                             </span>
                         </div>
                         <span class="schedule__item__time">
@@ -145,7 +148,8 @@
                                 Last Call for Votes
                             </h3>
                             <span class="schedule__item__desc">
-                                Poster session still ongoing
+                                <!-- Poster session still ongoing -->
+                                &nbsp;
                             </span>
                         </div>
                         <span class="schedule__item__time">
@@ -175,7 +179,7 @@
                                 Finish
                             </h3>
                             <span class="schedule__item__desc">
-                                &nbsp;
+                                <!-- &nbsp; -->
                             </span>
                         </div>
                         <span class="schedule__item__time">
@@ -196,9 +200,10 @@
                 <h2 class="section__heading">Come On Down</h2>
                 <div class="u-center">
                     <p>
-                        Buffet dinner will be provided to add registered attendees.<br>
+                        Buffet dinner will be provided to all registered guests.<br>
                         Confirm your spot by registering. It's free!
                     </p>
+                    <br>
                     <a href="index.php/Register" class="btn btn-secondary">Register</a>
                 </div>
             </div>
