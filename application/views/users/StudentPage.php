@@ -123,15 +123,19 @@ $(function() {
         $('#projectSelect').html("");
 
         //generate string
-        var projects = untakenProjects[moduleCode];
-        var str = '<option value="" default selected>Select a Project</option>' ;
-        for(var i = 0; i < projects.length; i++) {
-            str += ('<option value = "'+ projects[i].projectID +'">');
-            str += projects[i].title;
-            str += "</option>";
-        }
-
-        $('#projectSelect').append(str);
+        if(projects[0] != 0) {
+	        var projects = untakenProjects[moduleCode];
+	        var str = '<option value="" default selected>Select a Project</option>' ;
+	        for(var i = 0; i < projects.length; i++) {
+	            str += ('<option value = "'+ projects[i].projectID +'">');
+	            str += projects[i].title;
+	            str += "</option>";
+	        }
+	        $('#projectSelect').append(str);
+	    }
+	    else {
+	    	$('#projectSelect').prop( "disabled", true );
+	    }
     }) 
 
     $('#projectSubmitBtn').click(function(event){

@@ -115,6 +115,7 @@
         $("#registerModuleFormBody").hide();
         $("#getModulesFailedBody").hide();
         $("#loadingSplash").show();
+        $("#registerBtn").prop("disabled", true);
         var url = "/index.php/apibypass/IvleApiBypass/GetIvleStaffedModules/";
         $.get(url, function(data) {
             var data = JSON.parse(data)['Results'];
@@ -127,9 +128,11 @@
             }
             $("#moduleCode").change();
             $("#loadingSplash").hide();
+            $("#registerBtn").prop("disabled", false);
             $("#registerModuleFormBody").show();
         }).fail(function(data) {
             $("#loadingSplash").hide();
+            $("#registerBtn").prop("disabled", false);
             $("#getModulesFailedBody").show();
         });
     });
@@ -174,7 +177,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Register</button>
+                        <button id="registerBtn" type="submit" class="btn btn-primary" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Register</button>
                     </div>
                 </form>
             </div>

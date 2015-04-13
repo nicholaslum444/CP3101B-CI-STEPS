@@ -100,7 +100,17 @@ class SyncClassRoster extends CI_Controller {
         $studentName = $student->Name;
         $studentId = $student->UserID;
         $studentExist = $this->Dbquery->userExistByID($studentId, USER_TYPE_STUDENT);
-        if (!$studentExist) {
+        $insideAlready = false;
+        $studentModules = $this->Dbquery->getModuleProjectForStudent($studentId, $this->Dbquery->getLatestIteration());
+        if(isset($studentModules["enrolled"])) {
+        	$studentModules = $studentModules["enrolled"];
+        	foreach($studentModules as $check) {
+        		if($check['moduleID'] === $moduleId) {
+        			$insideAlready = true;
+        		}
+        	}
+        }
+        if (!$studentExist || !$insideAlready) {
             $this->Dbinsert->insertAndEnrolStudent($studentId, $studentName, $moduleId);
         }
 
