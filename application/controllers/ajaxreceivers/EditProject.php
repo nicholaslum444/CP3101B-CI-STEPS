@@ -44,7 +44,7 @@ class EditProject extends CI_Controller {
 
       $projectID = $project['projectId'];
 
-      if($project['title' != null] && $this->session->userType === USER_TYPE_PROFESSOR) {
+      if($project['title' != null] && $this->session->userType === USER_TYPE_LECTURER) {
         $title = $project['title'];
       }
 
