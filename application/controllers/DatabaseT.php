@@ -16,6 +16,10 @@ class DatabaseT extends CI_Controller {
 		$this -> load -> model('Dbadmin');
         $this -> load -> model('Dbquery');
 		$this -> load -> model('Dbinsert');
+		$qqq = $this->Dbquery->getLatestIterationInfo();
+		echo json_encode($qqq)."<br>";
+		echo gettype(strtotime($qqq['endTime']));
+		echo strtotime($qqq['endTime']);
 		echo password_verify("munaw",'$2y$10$ot03u.TUWEIztwB1NrwSEOUc5qESTtFpcLSp2smk7L49GFANId6k.');
 		echo "<br>".password_hash("munaaw",PASSWORD_DEFAULT)."<br>";
 		 echo "<br>";
@@ -111,10 +115,10 @@ class DatabaseT extends CI_Controller {
 		
 		$this->Dbadmin->dropSteps("munaw","munaw",5);
 		$this->Dbadmin->dropSteps("munaw","munaw",8);
-		$this->Dbadmin->openSteps("munaw","munaw","myste5p");
+		$this->Dbadmin->openSteps("munaw","munaw","myste5p","2012-02-05","2012-02-06","2012-02-07","2012-02-08");
 
-		$this->Dbadmin->editIteration("munaw","munaw",14,17);
-		$this->Dbadmin->openSteps("munaw","munaw","aaagrtgaaa");
+		$this->Dbadmin->editIteration("munaw","munaw",14,17,null,null,null,null);
+		// $this->Dbadmin->openSteps("munaw","munaw","aaagrtgaaa");
 		$test = $this -> Dbquery->getModuleDetailByModuleID("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
 		echo JSON_encode($test);
 		echo "************************";

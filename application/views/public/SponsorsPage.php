@@ -1,5 +1,5 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron afternav">
+<!-- <div class="jumbotron afternav">
     <div class="container">
         <h1>STePS<br>
             <small>
@@ -8,7 +8,7 @@
             </small>
         </h1>
     </div>
-</div>
+</div> -->
 
 <div class="container">
     <div class="container-fluid">

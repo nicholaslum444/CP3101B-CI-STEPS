@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS trophic;
 DROP TABLE IF EXISTS supervise;
 DROP TABLE IF EXISTS enrolled;
 DROP TABLE IF EXISTS participate;
@@ -36,6 +37,8 @@ CREATE TABLE IF NOT EXISTS module (
 	class_size INTEGER,
 	module_name VARCHAR(100) NOT NULL,
 	module_description VARCHAR(2000),
+	poster VARCHAR(100),
+	video VARCHAR(100),
 	UNIQUE(module_code, iteration),
 	PRIMARY KEY(module_id),
 	FOREIGN KEY (iteration)
@@ -104,4 +107,17 @@ CREATE TABLE IF NOT EXISTS admin (
 	email VARCHAR(50),
 	contact INTEGER,
 	PRIMARY KEY(user_id,password)
+);
+
+CREATE TABLE IF NOT EXISTS trophic (
+	module_id CHAR(36),
+	project_id INTEGER,
+	rank INTEGER,
+	PRIMARY KEY(module_id, project_id),
+	FOREIGN KEY(module_id) 
+		REFERENCES module(module_id)
+		ON UPDATE CASCADE,
+	FOREIGN KEY(project_id) 
+		REFERENCES project(project_id)
+		ON UPDATE CASCADE
 );

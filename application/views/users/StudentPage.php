@@ -55,13 +55,16 @@
 }}
 ?>
 
-<div class="row">
-    <h4>Modules without registered project</h4>
-</div>
 
 <!--Modules where student has no project-->
 <?php 
-if(isset($data[1])){
+if(isset($data[1]) && count($data[1])>0) { ?>
+    
+    <div class="row">
+    <h4>Modules without registered project</h4>
+    </div>
+
+    <?php
     foreach($data[1] as $module) {  ?>
     <div class="row">     
         <div class="col-md-12">
@@ -124,14 +127,18 @@ $(function() {
 
         //generate string
         var projects = untakenProjects[moduleCode];
-        var str = '<option value="" default selected>Select a Project</option>' ;
-        for(var i = 0; i < projects.length; i++) {
-            str += ('<option value = "'+ projects[i].projectID +'">');
-            str += projects[i].title;
-            str += "</option>";
-        }
-
-        $('#projectSelect').append(str);
+        if(projects[0] != 0) {
+	        var str = '<option value="" default selected>Select a Project</option>' ;
+	        for(var i = 0; i < projects.length; i++) {
+	            str += ('<option value = "'+ projects[i].projectID +'">');
+	            str += projects[i].title;
+	            str += "</option>";
+	        }
+	        $('#projectSelect').append(str);
+	    }
+	    else {
+	    	$('#projectSelect').prop( "disabled", true );
+	    }
     }) 
 
     $('#projectSubmitBtn').click(function(event){

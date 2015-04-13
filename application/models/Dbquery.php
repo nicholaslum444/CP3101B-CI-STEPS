@@ -451,6 +451,8 @@ class Dbquery extends CI_Model {
 				$result[$i]['moduleDescription'] = $row['module_description'];
                 $result[$i]['classSize'] = count($this->getStudentByModule($row['module_id']));
 				$result[$i]['classList'] = $this->getStudentByModule($row['module_id']);
+				$result[$i]['poster'] = $row['poster'];
+				$result[$i]['video'] = $row['video'];
 				$result[$i]['projectList'] =
 					$this->getProjectListByModule($row['module_id']);
                 $result[$i]['supervisors'] =
@@ -472,9 +474,11 @@ class Dbquery extends CI_Model {
 	public function queryModuleListByIteration($iteration) {
 		//SELECT 	*
 		//FROM  	module
-		//WHERE 	module.iteration = $iteration;
+		//WHERE 	module.iteration = $iteration
+		//ORDER BY  moduleCode;
 		$this->db->from('module');
 		$this->db->where('module.iteration', $iteration);
+		$this->db->order_by('module.module_code ASC');
 		$query = $this->db->get();
 		return $query;
 	}
@@ -502,6 +506,8 @@ class Dbquery extends CI_Model {
 				$result['moduleCode'] = $row['module_code'];
 				$result['moduleName'] = $row['module_name'];
 				$result['moduleDescription'] = $row['module_description'];
+				$result['poster'] = $row['poster'];
+				$result['video'] = $row['video'];
                 $result['classSize'] = count($this->getStudentByModule($row['module_id']));
 				$result['classList'] = $this->getStudentByModule($row['module_id']);
 				$result['projectList'] =
@@ -555,6 +561,8 @@ class Dbquery extends CI_Model {
 				$result[$i]['moduleCode'] = $row['module_code'];
 				$result[$i]['moduleName'] = $row['module_name'];
 				$result[$i]['moduleDescription'] = $row['module_description'];
+				$result[$i]['poster'] = $row['poster'];
+				$result[$i]['video'] = $row['video'];
 				$result[$i]['classList'] = $this->getStudentByModule($row['module_id']);
                 $result[$i]['classSize'] = count($result[$i]['classList']);
 				$result[$i]['projectList'] = $this->getProjectListByModule($row['module_id']);
@@ -818,8 +826,11 @@ class Dbquery extends CI_Model {
 		$result;
 		$i = 0;
 		if($query->num_rows() > 0) {
-			$result = array($query->num_rows());
-
+			$result = array();
+			$result["VEGE"] = 0;
+			$result["NON_VEGE"] = 0;
+			$result["MUSLIM"] = 0;
+			$result["NON_MUSLIM"] = 0;
 			foreach ($query->result_array() as $row) {
 				if($row['food_preference'] == FOOD_PREFERENCE_VEGETARIAN) {
 					$result["VEGE"] = $row["count"];
