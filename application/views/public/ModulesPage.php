@@ -69,12 +69,12 @@
 
                     <!-- module code, name and desc -->
                     <div class="page-header">
-                        <h2>
+                        <h1>
                             <?php echo $selectedModuleData["moduleCode"]; ?>
                             <small><br>
                                 <?php echo strtoupper($selectedModuleData["moduleName"]); ?>
                             </small>
-                        </h2>
+                        </h1>
                         <p><strong>
                             Chaired by
                             <?php echo $moduleLecturer ?>
@@ -90,172 +90,108 @@
 
                     <!-- projects section -->
                     <div class="row">
+                    <?php
+                    if (count($projects) <= 0) {
+                        // if no projects
+                        ?>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <p>
+                                    Projects not yet available!
+                                </p>
+                            </div>
+                        </div>
                         <?php
-                        if (count($projects) <= 0) {
-                            // if no projects
+                    } else {
+                        // there are projects
+                        foreach ($projects as $project) {
                             ?>
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <p>
-                                        Projects not yet available!
-                                    </p>
-                                </div>
+                            <!-- make a div for each project -->
+                            <div class="col-lg-4 col-md-6">
+                                <div class="project-box">
+                                    <div class="project-box-header">
+                                        <div class="project-header-details">
+                                            <div class="project-title-container">
+                                                <span class="project-title">
+                                                    <?php echo $project["title"]; ?>
+                                                </span>
+                                            </div>
+                                            <div class="project-members-container">
+                                                <span class="project-members">
+                                                    <?php
+                                                    if (isset($project["members"])) {
+                                                        $students = $project["members"];
+                                                        $studentNames = "";
+                                                        foreach($students as $student) {
+                                                            $studentNames .= (namecaps($student["name"]) . ', ');
+                                                        }
+                                                        //remove last comma
+                                                        $studentNames = substr($studentNames, 0, -2);
+                                                        ?>
+                                                        <!-- by -->
+                                                        <span class="project-student-names">
+                                                            <!-- code here -->
+                                                            <?php echo $studentNames; ?>
+                                                        </span>
+                                                        <?php
+                                                    } else {
+                                                        //show that there are no students!
+                                                        ?>
+                                                        Group members not yet available!
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </span>
+                                            </div>
+                                        </div> <!--end project box header details -->
+                                        <div class="project-header-links pull-right">
+                                            <a href="">
+                                                <i class="fa fa-external-link fa-inverse fa-2x"></i>
+                                            </a>
+                                        </div>
+                                    </div> <!--end project box header -->
+                                    <div class="project-box-body">
+                                        <div class="project-video-container">
+                                            <!-- <img src="http://img.youtube.com/vi/KYmOuiGRnWE/hqdefault.jpg"> -->
+                                            <iframe class="project-video-embed" width="356" height="200" src="https://www.youtube.com/embed/KYmOuiGRnWE?rel=0" frameborder="0" allowfullscreen></iframe>
+                                        </div>
+                                        <div class="project-abstract-container">
+                                            <span class="project-abstract-heading">
+                                                Abstract:
+                                            </span>
+                                            <span class="project-abstract-text">
+                                                <?php echo $project["abstract"]; ?>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div> <!-- end of project box -->
                             </div>
                             <?php
-                            } else {
-                                // there are projects
-                                foreach ($projects as $project) {
-                                    ?>
-                                    <!-- make a div for each project -->
-                                    <div class="col-lg-4 col-md-6 project-box">
-                                        <div class="project-box-header">
-                                            <div class="project-header-details">
-                                                <div class="project-title-container">
-                                                    <span class="project-title">
-                                                        <?php echo $project["title"]; ?>
-                                                    </span>
-                                                </div>
-                                                <div class="project-members-container">
-                                                    <span class="project-members">
-                                                        <?php
-                                                        if (isset($project["members"])) {
-                                                            $students = $project["members"];
-                                                            $studentNames = "";
-                                                            foreach($students as $student) {
-                                                                $studentNames .= (namecaps($student["name"]) . ', ');
-                                                            }
-                                                            //remove last comma
-                                                            $studentNames = substr($studentNames, 0, -2);
-                                                            ?>
-                                                            <!-- by -->
-                                                            <span class="project-student-names">
-                                                                <!-- code here -->
-                                                                <?php echo $studentNames; ?>
-                                                            </span>
-                                                            <?php
-                                                        } else {
-                                                            //show that there are no students!
-                                                            ?>
-                                                            Group members not yet available!
-                                                            <?php
-                                                        }
-                                                        ?>
-                                                    </span>
-                                                </div>
-                                            </div> <!--end project box header details -->
-                                            <div class="project-header-links">
-                                                <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
-                                            </div>
-                                        </div> <!--end project box header -->
-                                        <div class="project-box-body">
-                                            <div class="project-abstract-container">
-                                                <span class="project-abstract-heading">
-                                                    Abstract:
-                                                </span>
-                                                <span class="project-abstract-text">
-                                                    <?php echo $project["abstract"]; ?>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4 col-md-6">
-                                        <div class="widget">
-                                            <div class="widget-advanced widget-advanced-alt">
-                                                <div class="widget-header text-left">
-                                                  <!--   <img src="/css/noimage.jpg" alt="background" class="widget-background"> -->
-                                                    <h4 class="widget-content widget-content-image widget-content-light clearfix">
-                                                        <a href="javascript:void(0)" class="widget-icon pull-right">
-                                                            <i class="fa fa-picture-o"></i>
-                                                        </a>
-                                                        <a href="javascript:void(0)" class="widget-icon pull-right">
-                                                            <i class="fa fa-video-camera"></i>
-                                                        </a>
-                                                        <span class="themed-color-default text-warning" id="pjtTitle">
-                                                            <?php echo $project["title"]; ?>
-                                                        </span>
-                                                        <br />
-                                                            <!-- Group member names -->
-                                                            <small>
-                                                                <span>
-                                                                    <?php
-                                                                    if (isset($project["members"])) {
-                                                                        $students = $project["members"];
-                                                                        $studentNames = "";
-                                                                        foreach($students as $student) {
-                                                                            $studentNames .= (namecaps($student["name"]) . ', ');
-                                                                        }
-                                                                        //remove last comma
-                                                                        $studentNames = substr($studentNames, 0, -2);
-                                                                        ?>
-                                                                        by
-                                                                        <span class="project-student-names">
-                                                                            <!-- code here -->
-                                                                            <?php echo $studentNames; ?>
-                                                                        </span>
-                                                                        <?php
-                                                                    } else {
-                                                                        //show that there are no students!
-                                                                        ?>
-                                                                        Group members not yet available!
-                                                                        <?php
-                                                                    }
-                                                                    ?>
-                                                                </span>
-                                                        </small>
-                                                    </h4>
-                                                </div>
-
-                                                    <div class="widget-main">
-                                                        <?php
-                                                        if (count($project["abstract"]) <= 0) {
-                                                            ?>
-                                                            <h4>
-                                                                <small>
-                                                                    Project abstract not yet available!
-                                                                </small>
-                                                            </h4>
-                                                            <?php
-                                                        } else {
-                                                            ?>
-                                                            <p>
-                                                                <?php echo $project["abstract"]; ?>
-                                                            </p>
-                                                            <?php
-                                                        }
-                                                        ?>
-                                                    </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                                <?php
-                                            }
-                                        }
-                                        ?>
-                                    </div>
-                                    <?php
-                                } else {
-                                    ?>
-                                    <!-- else show the default page content for this page -->
-                                    <div class="page-header">
-                                        <h1>
-                                            Participating Modules
-                                        </h1>
-                                        <p>
-                                            Students, faculty, technology entrepreneurs and prospective students will have the opportunity to experience the innovations
-                                            created by the students.
-                                            EIGHT courses are participating in the Term Project Showcase this semester.
-                                        </p>
-                                        <p>
-                                            Click on the modules on the right to view their respective projects.
-                                        </p>
-                                    </div>
-                <?php
+                        }
+                    }
+                    ?>
+                    </div>
+                    <?php
+                } else {
+                    ?>
+                    <!-- else show the default page content for this page -->
+                    <div class="page-header">
+                        <h1>
+                            Participating Modules
+                        </h1>
+                        <p>
+                            Students, faculty, technology entrepreneurs and prospective students will have the opportunity to experience the innovations
+                            created by the students.
+                            <?php echo count($allModulesDetails); ?> 
+                            courses are participating in the Term Project Showcase this semester.
+                        </p>
+                        <p>
+                            Click on the modules on the right to view their respective projects.
+                        </p>
+                    </div>
+                    <?php
                 }
                 ?>
-                    </div>
             </div><!-- End of Module Content -->
         </div>
     </div>
