@@ -52,6 +52,8 @@ switch($loader) {
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700' rel='stylesheet' type='text/css'>
 
+    <link rel="icon" href="/img/temp-favicon2.jpg">
+
     <script src="/js/jquery-2.1.3.min.js"></script>
     <script src="/js/bootstrap.js"></script>
     <script src="/js/main.js"></script>
@@ -120,7 +122,7 @@ switch($loader) {
     <header class="navbar navbar-fixed-top navbar-default site__header" role="navigation">
         <!-- <div class="nav__contain"> -->
             <div class="container">
-                <a href="/index.php" class="navbar-brand"><?php echo $iteration ?>th STePS&nbsp;</a>
+                <a href="/" class="navbar-brand"><?php echo $iteration ?>th STePS&nbsp;</a>
                 <!-- contains the collapse and the brand name -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -176,12 +178,12 @@ switch($loader) {
                                 </a>
                                 <ul class="dropdown-menu user-dropdown-menu" role="menu">
                                     <li>
-                                        <a href="/index.php/<?php echo $userType; ?>/console" class="<?php echo $buttonType; ?>-console-choice">
+                                        <a href="/<?php echo $userType; ?>/console" class="<?php echo $buttonType; ?>-console-choice">
                                             Console
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/index.php/logout" class="logout-choice">
+                                        <a href="/logout" class="logout-choice">
                                             Logout
                                         </a>
                                     </li>

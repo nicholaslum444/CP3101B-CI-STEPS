@@ -1,10 +1,19 @@
+<?php
+//var_dump($modules);
+$totalProj = 0;
+$totalMod = count($modules);
+foreach ($modules as $module) {
+    $totalProj += count($module['projectList']);
+}
+?>
+
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="hero afternav">
     <div class="row">
         <div class="col-xs-8 col-xs-offset-2">
             <h1 class="hero__heading">STePS</h1>
             <h2 class="hero__subheading">School of Computing's Term Project Showcase</h2>
-            <a class="btn btn-learn-more btn-lg" href="/index.php/about">
+            <a class="btn btn-learn-more btn-lg" href="/about">
                 Learn More
             </a>
         </div>
@@ -46,7 +55,10 @@
                         The School of Computing Term Project Showcase (STePS) aims to bring together all of the class-based projects and project module in the School of Computing (SoC).
                     </p>
                     <p>
-                        Get the <a href="">Programme Booklet</a> or view our <a href="">Poster Invitation</a>
+                        Download our
+                        <a href="/res/6stepsflyer.pdf" target="_blank">flyer invitation</a>
+                        or visit our
+                        <a href="https://www.facebook.com/events/737647543000395/" target="_blank">event page</a>.
                     </p>
                 </div>
             </div>
@@ -63,13 +75,16 @@
                 <div class="u-center">
                     <p>
                         Students, faculty, technology entrepreneurs and prospective students will have the opportunity to experience the innovations created by the students.
-                        <br>
+                        <!-- <br> -->
                         <!-- use php! -->
-                        95
+                        <?php echo $totalProj; ?>
                         innovative projects from
                         <!-- use php! -->
-                        10
+                        <?php echo $totalMod; ?>
                         participating courses/tracks will be showcased in the Term Project Showcase this semester.
+                    </p>
+                    <p>
+                        Click on any of the modules below to learn more about their projects.
                     </p>
                 </div>
             </div>
@@ -82,7 +97,7 @@
                 ?>
                 <div class="col-sm-3 col-xs-12">
                     <figure class="module-thumb">
-                        <a href="/index.php/modules/view/<?php echo $module['moduleCode']; ?>">
+                        <a href="/modules/view/<?php echo $module['moduleCode']; ?>">
                             <div class="module-thumb-img">
                                 <!-- TODO generate from php when ready -->
                                 <img src="/img/<?php echo $module['moduleCode']; ?>-img.jpg">
@@ -104,7 +119,7 @@
             ?>
         </div>
         <br>
-        <a href="index.php/Modules" class="btn btn-primary">See all modules</a>
+        <a href="/modules" class="btn btn-primary">See all modules</a>
     </div>
 
     <hr>
@@ -116,11 +131,11 @@
                 <h2 class="section__heading">Come On Down</h2>
                 <div class="u-center">
                     <p>
-                        Buffet dinner will be provided to add registered attendees.<br>
+                        Buffet dinner will be provided to all registered guests.<br>
                         Confirm your spot by registering. It's free!
                     </p>
                     <br>
-                    <a href="index.php/register" class="btn btn-secondary">Register</a>
+                    <a href="register" class="btn btn-secondary">Register</a>
                 </div>
             </div>
         </div>
