@@ -1,4 +1,4 @@
-<div id="page-container" class="sidebar-no-animations sidebar-visible-xs">
+<div id="page-container" class="sidebar-visible-lg sidebar-no-animations sidebar-visible-xs">
     <div id="sidebar-alt">
         <div id="sidebar-alt-scroll">
         </div>
@@ -11,13 +11,13 @@
                     foreach ($allModulesDetails as $details) {
                         ?>
                         <li>
-                            <a href="/index.php/Modules/view/<?php echo $details['moduleCode']; ?>">
+                            <a href="/modules/view/<?php echo $details['moduleCode']; ?>">
                                 <div class="sidebar-module-box">
                                     <div class="sidebar-module-code-box">
                                         <span class="sidebar-module-code"><?php echo $details['moduleCode']; ?></span>
                                     </div>
                                     <div class="sidebar-module-name-box">
-                                        <span class="sidebar-module-name"><?php echo $details['moduleName']; ?></span>
+                                        <span class="sidebar-module-name"><?php echo namecaps($details['moduleName']); ?></span>
                                     </div>
                                 </div>
                                 <!-- <br> -->
@@ -34,7 +34,7 @@
     </div>
     <!-- The box to the right of the side-bar, just replace with the contents you want-->
     <div id="main-container">
-        <div id="page-content" style="min-height: 873px;">
+        <div id="page-content">
 
             <!-- sidebar toggle btn -->
             <button class="btn btn-default" id="toggle-btn">
@@ -43,7 +43,7 @@
             </button>
 
             <!-- actual content -->
-            <div class="panel-body" id="moduleContent">
+            <div class="module-container" id="moduleContent">
                 <!-- show the module pane if a module is selected -->
                 <?php
                 if (!is_null($selectedModuleData)) {
@@ -68,7 +68,7 @@
                     ?>
 
                     <!-- module code, name and desc -->
-                    <div>
+                    <div class="page-header">
                         <h2>
                             <?php echo $selectedModuleData["moduleCode"]; ?>
                             <small><br>
@@ -89,10 +89,10 @@
                     </div>
 
                     <!-- projects section -->
-                    <div class="projects-container panel">
+                    <div class="row">
                         <?php
                         if (count($projects) <= 0) {
-                                        // if no projects
+                            // if no projects
                             ?>
                             <div class="panel panel-default">
                                 <div class="panel-body">
@@ -213,7 +213,7 @@
 
 $(window).resize(function() {
     var width = $(this).width();
-    console.log(width);
+    //console.log(width);
     if (width < 768) {
         $('#page-container').removeClass();
         $('#toggle-btn').css("display","inline-block");
@@ -225,6 +225,9 @@ $(window).resize(function() {
 });
 
 $(window).resize();
+$(function() {
+    $("#page-content").css("min-height", ($("#sidebar").height() + 100));
+});
 
 $('#toggle-btn').click(function(){
     $('#page-container').toggleClass('sidebar-visible-lg sidebar-no-animations sidebar-visible-xs');

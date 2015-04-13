@@ -210,6 +210,10 @@ textarea {
     font-variant: small-caps;
 }
 
+.module-container {
+    padding: 0px 30px;
+}
+
 #moduleContent {
     min-height: 450px;
 }
@@ -413,6 +417,10 @@ button[data-target="#registerProjectModal"] {
 
     .about-page-right {
         text-align:left;
+    }
+
+    .module-container {
+        padding: 0px 10px;
     }
 
 }
