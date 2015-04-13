@@ -226,6 +226,50 @@ textarea {
     padding: 0px 30px;
 }
 
+.project-box {
+    background: #eaedf1;
+    height: 400px;
+    margin-bottom: 20px;
+    padding: 0px;
+}
+
+.project-box-header {
+    background: rgba(0, 0, 0, .6);
+    width: 100%;
+    height: 90px;
+    padding: 10px;
+}
+
+.project-header-details {
+    width: 80%;
+    display: inline-block;
+}
+
+.project-title {
+    color: #f39c12;
+    font-size: 1.5em;
+}
+
+.project-members {
+    color: #ffffff;
+}
+
+.project-header-links {
+    width: 19%;
+    text-align: right;
+    display: inline-block
+}
+
+.project-box-body {
+    padding: 10px;
+}
+
+.project-abstract-heading {
+    font-weight: bold;
+    font-size: 1.1em;
+    display: block;
+}
+
 #moduleContent {
     min-height: 450px;
 }

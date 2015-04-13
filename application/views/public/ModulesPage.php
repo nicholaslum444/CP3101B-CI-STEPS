@@ -103,10 +103,62 @@
                             </div>
                             <?php
                             } else {
-                                        // there are projects
+                                // there are projects
                                 foreach ($projects as $project) {
                                     ?>
                                     <!-- make a div for each project -->
+                                    <div class="col-lg-4 col-md-6 project-box">
+                                        <div class="project-box-header">
+                                            <div class="project-header-details">
+                                                <div class="project-title-container">
+                                                    <span class="project-title">
+                                                        <?php echo $project["title"]; ?>
+                                                    </span>
+                                                </div>
+                                                <div class="project-members-container">
+                                                    <span class="project-members">
+                                                        <?php
+                                                        if (isset($project["members"])) {
+                                                            $students = $project["members"];
+                                                            $studentNames = "";
+                                                            foreach($students as $student) {
+                                                                $studentNames .= (namecaps($student["name"]) . ', ');
+                                                            }
+                                                            //remove last comma
+                                                            $studentNames = substr($studentNames, 0, -2);
+                                                            ?>
+                                                            <!-- by -->
+                                                            <span class="project-student-names">
+                                                                <!-- code here -->
+                                                                <?php echo $studentNames; ?>
+                                                            </span>
+                                                            <?php
+                                                        } else {
+                                                            //show that there are no students!
+                                                            ?>
+                                                            Group members not yet available!
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </span>
+                                                </div>
+                                            </div> <!--end project box header details -->
+                                            <div class="project-header-links">
+                                                <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+                                            </div>
+                                        </div> <!--end project box header -->
+                                        <div class="project-box-body">
+                                            <div class="project-abstract-container">
+                                                <span class="project-abstract-heading">
+                                                    Abstract:
+                                                </span>
+                                                <span class="project-abstract-text">
+                                                    <?php echo $project["abstract"]; ?>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="col-lg-4 col-md-6">
                                         <div class="widget">
                                             <div class="widget-advanced widget-advanced-alt">
