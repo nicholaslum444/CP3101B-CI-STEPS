@@ -4,7 +4,7 @@
         <div class="col-xs-8 col-xs-offset-2">
             <h1 class="hero__heading">STePS</h1>
             <h2 class="hero__subheading">School of Computing's Term Project Showcase</h2>
-            <a class="btn btn-learn-more btn-lg" href="/index.php/About">
+            <a class="btn btn-learn-more btn-lg" href="/index.php/about">
                 Learn More
             </a>
         </div>
@@ -80,9 +80,9 @@
             // start generating the module thumbs
             foreach ($modules as $module) {
                 ?>
-                <div class="col-sm-3">
+                <div class="col-sm-3 col-xs-12">
                     <figure class="module-thumb">
-                        <a href="/index.php/Modules/view/<?php echo $module['moduleCode']; ?>">
+                        <a href="/index.php/modules/view/<?php echo $module['moduleCode']; ?>">
                             <div class="module-thumb-img">
                                 <!-- TODO generate from php when ready -->
                                 <img src="/img/<?php echo $module['moduleCode']; ?>-img.jpg">
@@ -119,7 +119,8 @@
                         Buffet dinner will be provided to add registered attendees.<br>
                         Confirm your spot by registering. It's free!
                     </p>
-                    <a href="index.php/Register" class="btn btn-secondary">Register</a>
+                    <br>
+                    <a href="index.php/register" class="btn btn-secondary">Register</a>
                 </div>
             </div>
         </div>

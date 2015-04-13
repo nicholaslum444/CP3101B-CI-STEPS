@@ -102,6 +102,8 @@ textarea {
 
 .module-thumb-img img {
     width: 100%;
+    /*width: 263px;
+    height: 263px;*/
     border-radius: 50%;
     /*height: 300px;*/
 }
@@ -385,6 +387,27 @@ button[data-target="#registerProjectModal"] {
 
     .blank-heading {
         display:none;
+    }
+
+    .about-page-right {
+        text-align:left;
+    }
+
+}
+
+/* if small screen (max-width: 1200px), apply these rules instead */
+@media (max-width: 767px) {
+
+    .blank-heading {
+        display:none;
+    }
+
+    .module-thumb-img img {
+        /*width: 100%;*/
+        width: 263px;
+        height: 263px;
+        border-radius: 50%;
+        /*height: 300px;*/
     }
 
     .about-page-right {

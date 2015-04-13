@@ -139,16 +139,16 @@ switch($loader) {
                     <!-- <div class="navbar-left">  -->
                     <ul class="nav navbar-nav navbar-left">
                         <li class="<?php echo $modulesActive; ?>">
-                            <a href="/index.php/Modules">Modules</a>
+                            <a href="/modules">Modules</a>
                         </li>
                         <li class="<?php echo $registerActive; ?>">
-                            <a href="/index.php/Register">Register</a>
+                            <a href="/register">Register</a>
                         </li>
                         <li class="<?php echo $sponsorsActive; ?>">
-                            <a href="/index.php/Sponsors">Sponsors</a>
+                            <a href="/sponsors">Sponsors</a>
                         </li>
                         <li class="<?php echo $aboutActive; ?>">
-                            <a href="/index.php/About">About</a>
+                            <a href="/about">About</a>
                         </li>
                     </ul>
                     <!-- </div> -->
