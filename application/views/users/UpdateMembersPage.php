@@ -28,6 +28,7 @@
               <div class="panel-heading">
                 <h5 id="name" class="panel-title" ><?php echo $member['name']; ?></h5>      
               </div>
+
             <input class="form-control" style="display:none" name="userId" class="userId" value="<?php echo $member['userID']; ?>" placeholder="UserID" required>
              
              <div class="panel-body">
@@ -36,7 +37,7 @@
                 <!-- <label class="control-label col-sm-2"></label> -->
                 <label class="control-label col-sm-4 align-text-box"   for="email">Email:</label>
                 <div class="control-label col-sm-8" >
-                  <input id="email" type="email" class="form-control" name="email" class="email" value="<?php echo $member['email']; ?>" placeholder="Email" required>
+                  <input <?php echo $freeze == 1 ? "disabled" : ""; ?> id="email" type="email" class="form-control" name="email" class="email" value="<?php echo $member['email']; ?>" placeholder="Email" required>
                 </div>
                 
               </div><!-- End of First Row -->
@@ -45,14 +46,14 @@
                 <!-- <label class="control-label col-sm-2"></label> -->
                 <label class="control-label col-sm-4 align-text-box" for="mobile">Mobile:</label>
                 <div class="control-label col-sm-8">
-                  <input type="tel" class="form-control" name="contact" class="mobile" value="<?php echo $member['contact']; ?>"placeholder="Mobile" required>
+                  <input <?php echo $freeze == 1 ? "disabled" : ""; ?> type="tel" class="form-control" name="contact" class="mobile" value="<?php echo $member['contact']; ?>"placeholder="Mobile" required>
                 </div> 
               </div><!-- End of second row -->
 
               <div class="row">
                 <!-- <label class="control-label col-sm-2"></label> -->
                 <label class="control-label col-sm-4 align-text-box"  id="foodLabel"  for="food">Food Preference:</label>
-                <div class="radio col-sm-8"  required>
+                <div <?php echo $freeze == 1 ? "disabled" : ""; ?> class="radio col-sm-8"  required>
                   <label><input type="radio" name="foodPref" <?php echo ($member['foodPref'] == 2)? "checked":""; ?> value="Non-Vegetarians">Non-Vegetarians</label>
                   <br>
                   <label><input type="radio" name="foodPref" <?php echo ($member['foodPref'] == 1)? "checked":""; ?> value="Vegetarians">Vegetarians</label>
@@ -74,17 +75,11 @@
 
     
   </div>
-    
-    
-
-
-
-
   </div>
 
   <div class="form-group"> 
     <div id="submitUpdate">
-      <button type="submit" class="btn btn-default" id="updateMembers-btn">Submit</button>
+      <button <?php echo $freeze == 1 ? "disabled" : ""; ?> type="submit" class="btn btn-default" id="updateMembers-btn">Submit</button>
     </div>
   </div>
     

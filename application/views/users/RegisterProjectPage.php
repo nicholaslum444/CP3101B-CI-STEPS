@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container site-container">
 
     <div class="row">
         <h2>Select your Team Members</h2>
@@ -9,7 +9,7 @@
                 <div class="memberField">
                     <div class="col-md-7 form-inline" style="padding: 5px; 0px; 5px; 0px">
                         <div class="form-group studentOption col-md-10">
-                            <select class="form-control" name="memberIDs" style="width: 100%">
+                            <select class="form-control" name="memberIDs" style="width: 100%" <?php echo $freeze == 1 ? "disabled" : ""; ?>>
                                 <option value="" default selected>Select Member</option>
                                 <?php 
                                 if(isset($data)){
@@ -23,7 +23,7 @@
                             </select>
                         </div>
 
-                        <button class="btn btn-default addMemberBtn col-md-2">Add</button>
+                        <button class="btn btn-default addMemberBtn col-md-2" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Add</button>
                     </div>
 
                 </div>
@@ -31,7 +31,7 @@
         </form>
     </div>
     <div class="row">
-        <button type="button" class="btn btn-success pull-left col-md-1" style="margin-left: 20px" id="submitMembers-btn">Submit</button>
+        <button type="button" class="btn btn-success pull-left col-md-1" style="margin-left: 20px" id="submitMembers-btn" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Submit</button>
     </div>
 </div><!-- Container -->
 

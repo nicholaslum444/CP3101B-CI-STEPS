@@ -39,6 +39,7 @@ class ViewData {
     }
 
     private static function isFrozen($CI) {
+
         $iteration = $CI->Dbquery->getLatestIteration();
         $iterationInfo = $CI->Dbquery->getIterationInfoByIterate($iteration);
 
@@ -46,9 +47,9 @@ class ViewData {
         $now = time();
 
         if($cutOff < $now) {
-            return true;
+            return 1;
         } else {
-            return false;
+            return 0;
         }
 
     }

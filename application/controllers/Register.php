@@ -27,6 +27,6 @@ class Register extends CI_Controller {
 	}
 
     private function _makeHeaderData() {
-        return ViewData::makeHeaderData($this->session, base_url());
+        return ViewData::makeHeaderData($this->session, base_url(), LOADER_TYPE_PUBLIC_REGISTER);
     }
 }

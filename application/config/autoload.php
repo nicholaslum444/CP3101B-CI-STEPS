@@ -88,7 +88,7 @@ $autoload['drivers'] = array();
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'viewdata', 'definitions', 'userinfo', 'ivleapi');
+$autoload['helper'] = array('url', 'name', 'viewdata', 'definitions', 'userinfo', 'ivleapi');
 
 
 /*
