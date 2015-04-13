@@ -19,7 +19,7 @@
         <input class="form-control" name="video" rows="5" id="video" value="<?php echo $projectData['video']; ?>" placeholder="URL for your video"></textarea>
       </div>
       <div class="col-sm-12">
-        <h4 class="control-label subtitle" >Team Member</h4>
+        <h4 class="control-label subtitle" >Team Members </h4>
         <?php $odd = true; foreach($data as $member) { ?>
         
           <div class="projectMemberandDetails control-label col-md-5 col-sm-12" >
@@ -88,7 +88,6 @@
 <script>
   $(function(){
 
-
     $('#updateMembers-btn').click(function(e) {
       var membersData = $('#updateMembersForm').serializeArray();        
       //console.log(membersData);
@@ -118,10 +117,11 @@
 
         .done(function(data) {
             if(data["success"] == true) {
-              if(!doneOnce) 
+              if(!doneOnce) { 
                   doneOnce = true;
-              else
+              } else {
                 window.location.href="/index.php/Student/updateMembers/" + <?php echo $projectData['projectId'] ?>;
+              }
               console.log("success");
             }
             else {
