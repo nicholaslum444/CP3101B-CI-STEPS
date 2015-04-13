@@ -174,29 +174,41 @@ textarea {
 }
 
 .wrap-sidebar {
-    width: 200px;
+    width: 100%;
     margin: 0 auto;
+}
+
+.sidebar-chosen-module {
+    background: #1a242f;
 }
 
 .sidebar-module-box {
     width: 100%;
-    padding: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .sidebar-module-code-box {
     padding: 0px;
 }
 
+.sidebar-module-code {
+    padding: 0px;
+    line-height: 0px;
+}
+
 .sidebar-module-name-box {
     /*top: -10px;*/
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    /*overflow: hidden;*/
+    /*white-space: nowrap;*/
+    /*text-overflow: ellipsis;*/
+    /*line-height: 0px;*/
 }
 
 .sidebar-module-name {
     font-variant: small-caps;
     font-size: smaller;
+    line-height: 0px;
 }
 
 .sidebar-separator {

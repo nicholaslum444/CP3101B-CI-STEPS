@@ -10,7 +10,7 @@
                     <?php
                     foreach ($allModulesDetails as $details) {
                         ?>
-                        <li>
+                        <li class="<?php if($selectedModuleData['moduleCode'] === $details['moduleCode']) { echo "sidebar-chosen-module"; } ?>">
                             <a href="/modules/view/<?php echo $details['moduleCode']; ?>">
                                 <div class="sidebar-module-box">
                                     <div class="sidebar-module-code-box">

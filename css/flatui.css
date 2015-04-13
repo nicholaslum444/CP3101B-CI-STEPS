@@ -173,7 +173,7 @@ a.sidebar-brand:focus, a.sidebar-brand:hover, a.sidebar-title:focus, a.sidebar-t
     color: #eaedf1;
     padding: 0 10px;
     min-height: 35px;
-    line-height: 35px;
+    /*line-height: 35px;*/
     font-size: 16.5px;
     color:#FFF;
     transition: text-shadow 0.4s;
