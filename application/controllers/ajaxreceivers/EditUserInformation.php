@@ -22,17 +22,17 @@ class EditUserInformation extends CI_Controller {
         exit($this->_buildResponse($_POST["users"]));
     }
 
-    private function _buildResponse($userIDs) {
+    private function _buildResponse($users) {
 
-        $insertResult = $this->_insertIntoDb($userIDs);
+        $insertResult = $this->_insertIntoDb($users);
 
         return json_encode($insertResult);
     }
 
-    private function _insertIntoDb($userIDs) {
-      //echo json_encode($userIDs);
-      // echo json_encode($userIDs[0]);
-      foreach($userIDs as $user) {
+    private function _insertIntoDb($users) {
+      //echo json_encode($users);
+      //echo json_encode($users[0]);
+      foreach($users as $user) {
         $userID = null;
         $email = null;
         $food = null;
@@ -41,7 +41,7 @@ class EditUserInformation extends CI_Controller {
           if(strlen($field['value']) == 0) 
             continue;
           switch($field['name']) {
-            case 'userId': $userID = $field['value']; break;
+            case 'userId': $userID = $field['value']; break; 
             case 'name': $name = $field['value']; break;
             case 'foodPref': 
               switch($field['value']) {
