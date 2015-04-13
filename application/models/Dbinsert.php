@@ -36,7 +36,7 @@ class Dbinsert extends CI_Model {
 	*
     */
     public function dismissStudentfromModule($userID, $moduleID) {
-    	$this->db->where('module_id', $moduleId);
+    	$this->db->where('module_id', $moduleID);
     	$this->db->where('user_id', $userID);
     	
 		$this->db->delete('enrolled');

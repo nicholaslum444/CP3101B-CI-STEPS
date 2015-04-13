@@ -110,7 +110,7 @@ class SyncClassRoster extends CI_Controller {
         		}
         	}
         }
-        if (!$studentExist && !$insideAlready) {
+        if (!$studentExist || !$insideAlready) {
             $this->Dbinsert->insertAndEnrolStudent($studentId, $studentName, $moduleId);
         }
 
