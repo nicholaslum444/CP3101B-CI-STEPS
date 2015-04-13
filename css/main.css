@@ -503,4 +503,13 @@ button[data-target="#registerProjectModal"] {
         padding: 0px 10px;
     }
 
+    .project-box,
+    .project-box-header {
+        height: auto;
+    }
+
+    .project-video-container {
+        display: none;
+    }
+
 }

@@ -182,7 +182,7 @@
                         <p>
                             Students, faculty, technology entrepreneurs and prospective students will have the opportunity to experience the innovations
                             created by the students.
-                            <?php echo count($allModulesDetails); ?> 
+                            <?php echo count($allModulesDetails); ?>
                             courses are participating in the Term Project Showcase this semester.
                         </p>
                         <p>
