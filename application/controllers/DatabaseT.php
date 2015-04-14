@@ -188,19 +188,35 @@ class DatabaseT extends CI_Controller {
 		$result8 =  $this->Dbquery->getModuleListByIteration(6);
 		$result9 =  $this->Dbquery->getSupervisedModuleByID("A0101095B", 6);
 		$result0 =  $this->Dbquery->getFoodPrefByIteration(6);
-		
-		echo "<table style='border: solid 1px;'>";
-		echo "<tr  style='border: solid 1px;'><td>Matric No</td><td>Name</td><td>Contact</td><td>FoodPref</td>";
-		for($i = 0; $i < count($result); ++$i) {
 
-			echo "<tr>";	
-			echo "<td style='border: solid 1px;'>".$result[$i]['userID']."</td>";
-			echo "<td style='border: solid 1px;'>".$result[$i]['name']."</td>";
-			echo "<td style='border: solid 1px;'>".$result[$i]['contact']."</td>";
-			echo "<td style='border: solid 1px;'>".$result[$i]['foodPref']."</td>";	
-			echo "</tr>";
-		}
-		echo "</table>";
+
+		$qwe = $this->Dbinsert->rankProjectInModule("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",1000,1);
+		$qwe = $this->Dbinsert->rankProjectInModule("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",1001,2);
+		$qwe = $this->Dbinsert->rankProjectInModule("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",1002,3);
+		$qwe = $this->Dbinsert->rankProjectInModule("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",1003,3);
+		$qwe = $this->Dbinsert->rankProjectInModule("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",1004,3);
+		$qwe = $this->Dbinsert->dropRanking(1004);
+		$qwe = $this->Dbquery->getRankingByModule("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
+
+		echo json_encode($qwe);
+
+		$this->Dbinsert->addMediaToModule("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "gg", "game over");
+		$wer = $this->Dbquery->getModuleDetailByModuleID("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
+
+		echo json_encode($wer['poster']." ".$wer['video']);
+
+		// echo "<table style='border: solid 1px;'>";
+		// echo "<tr  style='border: solid 1px;'><td>Matric No</td><td>Name</td><td>Contact</td><td>FoodPref</td>";
+		// for($i = 0; $i < count($result); ++$i) {
+
+		// 	echo "<tr>";	
+		// 	echo "<td style='border: solid 1px;'>".$result[$i]['userID']."</td>";
+		// 	echo "<td style='border: solid 1px;'>".$result[$i]['name']."</td>";
+		// 	echo "<td style='border: solid 1px;'>".$result[$i]['contact']."</td>";
+		// 	echo "<td style='border: solid 1px;'>".$result[$i]['foodPref']."</td>";	
+		// 	echo "</tr>";
+		// }
+		// echo "</table>";
 
 
 	}

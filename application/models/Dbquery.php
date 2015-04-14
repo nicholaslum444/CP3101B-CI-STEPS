@@ -900,5 +900,64 @@ class Dbquery extends CI_Model {
 	public function isStudent($userID) {
 		return userExistByID($userId, USER_TYPE_STUDENT);
 	}
+
+	/*
+	* This function return the boolean response of a particular
+	* student is in a module
+	* @param userID  	student ID
+	* @param moduleID 	module ID
+	* Return: 	True if student enrolled in a module, otherwise false
+    */
+	public function isStudentEnrolledInModule($userID, $moduleID) {
+		//SELECT *
+		//FROM user JOIN enrolled
+		//ON user.user_id = enrolled.user_id
+		//WHERE module.module_id = $moduleID 
+		//AND 	user.user_id = $userID
+		//AND 	user.user_type = STUDENT;
+		
+		$this->db->from('user');
+		$this->db->join('enrolled', 
+			'user.user_id = enrolled.user_id');
+		$this->db->where("user.user_id",$userID);
+		$this->db->where("enrolled.module_id",$moduleID);
+		$this->db->where("user.user_type", USER_TYPE_STUDENT);
+
+		$query = $this->db->get();
+		if($query->num_rows() == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getRankingByModule($moduleID) {
+		$query = $this->queryRankingByModule($moduleID);
+
+		$result = array();
+		$result['first'] = array();
+		$result['second'] = array();
+		$result['third'] = array();
+		foreach($query->result_array() as $row) {
+			switch(intval($row['rank'])) {
+				case 1: array_push($result['first'],$row['project_id']); break;
+				case 2: array_push($result['second'],$row['project_id']); break;
+				case 3: array_push($result['third'],$row['project_id']); break;
+			}
+		} 
+		return $result;	
+	} 
+
+	private function queryRankingByModule($moduleID) {
+		$this->db->from('module');
+		$this->db->join('ranking',
+			'ranking.module_id = module.module_id');
+		$this->db->where('module.module_id', $moduleID);
+
+		$query = $this->db->get();
+
+		return $query;
+	}
+
 }
 ?>

@@ -362,5 +362,42 @@ class Dbinsert extends CI_Model {
 		return true;
 	}
 
+	public function rankProjectInModule($moduleID, $projectID, $rank) {
+		$data = array(
+			'module_id' => $moduleID,
+			'project_id' => $projectID,
+			'rank' => $rank
+		);
+
+		$this->db->insert('ranking', $data);
+
+		return true;
+	}
+
+	public function dropRanking($projectID) {
+		$this->db->where('project_id',$projectID);
+		$this->db->delete('ranking');
+
+		return true;
+	}
+
+	public function addMediaToModule($moduleID, $poster, $video) {
+		$data = array();
+		if($poster == null && $video == null) {
+			return true;
+		}
+
+		if($poster != null) {
+			$data['poster'] = $poster;
+		}
+		if($video != null) {
+			$data['video'] = $video;
+		}
+
+		$this->db->where('module_id', $moduleID);
+		$this->db->update('module',$data);
+
+		return true;
+	}
 }
 ?>
