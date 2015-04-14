@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS trophic;
+DROP TABLE IF EXISTS ranking;
 DROP TABLE IF EXISTS supervise;
 DROP TABLE IF EXISTS enrolled;
 DROP TABLE IF EXISTS participate;
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS admin (
 	PRIMARY KEY(user_id,password)
 );
 
-CREATE TABLE IF NOT EXISTS trophic (
+CREATE TABLE IF NOT EXISTS ranking (
 	module_id CHAR(36),
 	project_id INTEGER,
 	rank INTEGER,
