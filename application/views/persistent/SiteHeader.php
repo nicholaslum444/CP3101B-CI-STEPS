@@ -60,6 +60,7 @@ switch($loader) {
     <script src="/js/bootstrap.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/ui.js"></script>
+    <script src="/js/jquery.slimscroll.js"></script>
 
     <script>
     // for the binding later
