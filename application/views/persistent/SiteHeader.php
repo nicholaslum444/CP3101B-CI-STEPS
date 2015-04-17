@@ -41,7 +41,7 @@ switch($loader) {
 
     <meta name="description" content="The School of Computing Term Project Showcase (STePS) aims to bring together all of the class-based projects and project module in the School of Computing (SoC). It's a festive yet serious class showcase, in which students present their projects in all aspects of computer science and information systems to the respective Faculty for grading and to Industry guests, Government agencies, Sponsors and Investors to connect with potential employers and to seek opportunities for further development of their work through collaboration.">
 
-    <meta property="og:image" content="/img/fb-site-img.png">
+    <meta property="og:image" content="http://steps.tk/img/fb-site-img.png">
 
     <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" href="/css/bootstrap-theme.min.css"> -->
