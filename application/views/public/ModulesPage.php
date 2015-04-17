@@ -208,9 +208,18 @@ $(window).resize(function() {
         $('#toggle-btn').css("display","inline-block");
 
     } else {
+
         $('#page-container').addClass('sidebar-visible-lg');
-        console.log("height");
-        $("#thisbloody").css("height","238px");
+        setTimeout(function(){ 
+            $(".page-header img").css("height","");}, 
+        1);
+
+/*        $('#page-container')
+            .addClass('sidebar-visible-lg')
+            .queue(function() {         
+                $(".page-header img").css("height","").dequeue();
+        });*/
+        
         $('#toggle-btn').css("display","none");
     }
 });
