@@ -353,9 +353,6 @@ button[data-target="#registerProjectModal"] {
     margin-bottom: 30px;
 }
 
-/* seperate from title */
-
-
 /* seperate from first row of input */
 .firstRow {
     margin-top: 10px;
@@ -386,9 +383,48 @@ button[data-target="#registerProjectModal"] {
     display: initial;
 }
 
+/* admin login */
+.admin-loginPage-container{
+    background-image: -webkit-linear-gradient(top, #2c3e50 0%, #55bfc7 100%);
+    background-image: -o-linear-gradient(top, #2c3e50 0%, #55bfc7 100%);
+    background-image: linear-gradient(to bottom, #2c3e50 0%, #55bfc7 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff2da8c7', endColorstr='#ff25bfc7', GradientType=0);
+    background-color: #2da8c7;
+}
+
+.small-login-box {
+  background-color: #fff;
+  border-radius: 8px;
+  margin-top: 170px;
+  margin-bottom: 0px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.small-login-box label {
+   margin-top: 12px;
+}
+
+.small-login-box input[type=text], .small-login-box input[type=password]{
+    color: rgba(128, 130, 133, 1);
+    background: transparent;
+    border-bottom: 2px solid #f2f3f3;
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 2px;
+    font-weight: 400;
+    padding: 25px;
+}
+
+#admin-bad-login-msg{
+    color: red;
+    margin-top: 60px;
+}
+
 /*admin page*/
 .admin-container {
     margin-top: 30px;
+
 }
 
 #admin-update-btn {
@@ -553,7 +589,7 @@ button[data-target="#registerProjectModal"] {
 
 }
 
-/* if small screen (max-width: 1200px), apply these rules instead */
+/* if small screen (max-width: 768px), apply these rules instead */
 @media (max-width: 767px) {
 
     .blank-heading {
