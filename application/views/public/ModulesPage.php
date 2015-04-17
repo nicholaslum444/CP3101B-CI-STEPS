@@ -65,12 +65,13 @@
                             $moduleLecturer = namecaps($supervisors[$i]["name"]) . " and " . $moduleLecturer;
                         }
                     }
+                    $moduleCode = $selectedModuleData["moduleCode"];
                     ?>
 
                     <!-- module code, name and desc -->
                     <div class="page-header">
                         <h1>
-                            <?php echo $selectedModuleData["moduleCode"]; ?>
+                            <?php echo $moduleCode; ?>
                             <small><br>
                                 <?php echo strtoupper($selectedModuleData["moduleName"]); ?>
                             </small>
@@ -104,7 +105,13 @@
                         <?php
                     } else {
                         // there are projects
-                        foreach ($projects as $project) {
+                        // echo json_encode($projects);
+                        for ($i = 0; $i < count($projects); $i++) {
+                            $projectIdName = $moduleCode;
+                            if ($moduleCode !== "FYP") {
+                                $projectIdName = substr($projectIdName, 2);
+                            }
+                            $project = $projects[$i];
                             $studentNames = "Group members not yet available!";
                             if (isset($project["members"])) {
                                 $studentNames = "";
@@ -120,23 +127,27 @@
                             <div class="col-lg-4 col-md-6">
                                 <div class="project-box">
                                     <div class="project-box-header">
-                                        <div class="project-header-details scroll-header">
-                                            <div class="project-title-container">
+                                        <div class="project-header-details">
+                                            <div class="project-title-container scroll-title">
                                                 <span class="project-title">
                                                     <?php echo $project["title"]; ?>
                                                 </span>
                                             </div>
-                                            <div class="project-members-container">
+                                            <div class="project-header-id pull-right">
+                                                <p>
+                                                    <span class="project-id-name"><?php echo $projectIdName."<br>";?></span>
+                                                    <!-- <br> -->
+                                                    <span class="project-id-num">
+                                                        <?php echo sprintf("%'.02d", ($i + 1)); ?>
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div class="project-members-container scroll-members">
                                                 <div class="project-members project-student-names">
                                                     <?php echo $studentNames; ?>
                                                 </div>
                                             </div>
                                         </div> <!--end project box header details -->
-                                        <!-- <div class="project-header-links pull-right">
-                                            <a href="">
-                                                <i class="fa fa-external-link fa-inverse fa-2x"></i>
-                                            </a>
-                                        </div> -->
                                     </div> <!--end project box header -->
                                     <div class="project-box-body">
                                         <div class="project-video-container">
