@@ -169,9 +169,7 @@ textarea {
     text-align:left;
 }
 
-.nav-sidebar {
-    //position:fixed;
-}
+/*Module Page*/
 
 .wrap-sidebar {
     width: 100%;
@@ -296,6 +294,20 @@ textarea {
 }
 #moduleList .container {
     margin-top: 4.5%;
+}
+
+#modulePage-module-img {
+    float: right;
+}
+
+#modulePage-module-img > .module-thumb > .module-thumb-img > img:hover {
+    -webkit-filter: none;
+
+}
+
+#modulePage-moduledesc {
+    margin-bottom: 20px;
+    padding-left: 0px;
 }
 
 /*admin panel edit button*/

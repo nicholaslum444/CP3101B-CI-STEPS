@@ -69,6 +69,13 @@
 
                     <!-- module code, name and desc -->
                     <div class="page-header">
+                        <div id="modulePage-module-img" class="col-lg-3 col-md-4 col-sm-5">
+                            <figure class="module-thumb">
+                                    <div class="module-thumb-img">
+                                        <img src="/img/<?php echo $selectedModuleData['moduleCode']; ?>-img.jpg">
+                                    </div>
+                            </figure>
+                        </div>
                         <h1>
                             <?php echo $selectedModuleData["moduleCode"]; ?>
                             <small><br>
@@ -85,7 +92,7 @@
                             <?php echo $numProjects ?>
                             groups
                         </em></p>
-                        <p><?php echo $selectedModuleData["moduleDescription"]; ?></p>
+                        <div id="modulePage-moduledesc" class="col-md-8 col-lg-9"><?php echo $selectedModuleData["moduleDescription"]; ?></div>
                     </div>
 
                     <!-- projects section -->
@@ -190,12 +197,20 @@
 $(window).resize(function() {
     var width = $(this).width();
     //console.log(width);
+    if (width < 500 ) {
+        $(".page-header img").css("display","none");
+    } else {
+        $(".page-header img").css("display","inline-block");
+    }
+
     if (width < 768) {
         $('#page-container').removeClass();
         $('#toggle-btn').css("display","inline-block");
 
     } else {
         $('#page-container').addClass('sidebar-visible-lg');
+        console.log("height");
+        $("#thisbloody").css("height","238px");
         $('#toggle-btn').css("display","none");
     }
 });
