@@ -235,7 +235,7 @@ textarea {
 .project-box-header {
     background: rgba(0, 0, 0, .6);
     width: 100%;
-    height: 120px;
+    height: 140px;
     padding: 10px 20px;
 }
 
@@ -245,9 +245,31 @@ textarea {
     display: inline-block;
 }
 
+.project-header-id {
+    width: 19%;
+    /*height: 100px;*/
+    text-align: right;
+    display: inline-block;
+}
+
+.project-id-name {
+    color: #f39c12;
+    font-size: 1.2em;
+}
+
+.project-id-num {
+    color: #f36c12;
+    font-size: 1.5em;
+}
+
 .project-title {
     color: #f39c12;
     font-size: 1.5em;
+}
+
+.project-title-container {
+    width: 80%;
+    display: inline-block;
 }
 
 .project-members {
@@ -512,16 +534,29 @@ button[data-target="#registerProjectModal"] {
 
     .project-abstract-container {
         overflow: hidden;
-        height: 300px;
+        height: 280px;
     }
-
-    .project-header-details:hover,
     .project-abstract-container:hover {
         overflow: auto;
     }
 
-    .project-header-details {
+    .project-members-container,
+    .project-title-container {
         overflow: hidden;
+    }
+
+    .project-title-container {
+        height: 60px;
+    }
+
+    .project-members-container {
+        height: 40px;
+        width: 100%;
+    }
+
+    .project-title-container:hover,
+    .project-members-container:hover {
+        overflow: auto;
     }
 
 }
@@ -539,28 +574,30 @@ button[data-target="#registerProjectModal"] {
 
     .project-abstract-container {
         overflow: hidden;
-        height: 300px;
+        height: 280px;
     }
-
-    .project-header-details:hover,
     .project-abstract-container:hover {
         overflow: auto;
     }
 
-    .project-header-details {
+    .project-members-container,
+    .project-title-container {
         overflow: hidden;
     }
 
-    /*.project-box,
-    .project-box-header {
-        height: auto;
+    .project-title-container {
+        height: 60px;
     }
 
-    .project-box,
-    .project-header-details,
-    .project-box-header {
-        height: auto;
-    }*/
+    .project-members-container {
+        height: 40px;
+        width: 100%;
+    }
+
+    .project-title-container:hover,
+    .project-members-container:hover {
+        overflow: auto;
+    }
 
 }
 
@@ -595,6 +632,33 @@ button[data-target="#registerProjectModal"] {
 
     .project-video-container {
         display: none;
+    }
+
+    .project-abstract-container {
+        overflow: hidden;
+        height: auto;
+    }
+    .project-abstract-container:hover {
+        overflow: auto;
+    }
+
+    .project-members-container,
+    .project-title-container {
+        overflow: hidden;
+    }
+
+    .project-title-container {
+        height: auto;
+    }
+
+    .project-members-container {
+        height: auto;
+        width: 100%;
+    }
+
+    .project-title-container:hover,
+    .project-members-container:hover {
+        overflow: auto;
     }
 
 }
