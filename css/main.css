@@ -228,7 +228,7 @@ textarea {
 
 .project-box {
     background: #eaedf1;
-    height: 650px;
+    height: 450px;
     width: 100%;
     margin-bottom: 25px;
     padding: 0px;
@@ -237,12 +237,13 @@ textarea {
 .project-box-header {
     background: rgba(0, 0, 0, .6);
     width: 100%;
-    height: 90px;
+    height: 120px;
     padding: 10px 20px;
 }
 
 .project-header-details {
-    width: 80%;
+    width: 100%;
+    height: 100px;
     display: inline-block;
 }
 
@@ -288,10 +289,6 @@ textarea {
     font-weight: bold;
     font-size: 1.1em;
     display: block;
-}
-
-.project-abstract-text {
-    overflow: hidden;
 }
 
 #moduleContent {
@@ -504,10 +501,24 @@ button[data-target="#registerProjectModal"] {
         padding-right: 5px;
     }
 
+    .project-abstract-container {
+        overflow: hidden;
+        height: 300px;
+    }
+
+    .project-header-details:hover,
+    .project-abstract-container:hover {
+        overflow: auto;
+    }
+
+    .project-header-details {
+        overflow: hidden;
+    }
+
 }
 
 /* if small screen (max-width: 1200px), apply these rules instead */
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
 
     .blank-heading {
         display:none;
@@ -516,6 +527,31 @@ button[data-target="#registerProjectModal"] {
     .about-page-right {
         text-align:left;
     }
+
+    .project-abstract-container {
+        overflow: hidden;
+        height: 300px;
+    }
+
+    .project-header-details:hover,
+    .project-abstract-container:hover {
+        overflow: auto;
+    }
+
+    .project-header-details {
+        overflow: hidden;
+    }
+
+    /*.project-box,
+    .project-box-header {
+        height: auto;
+    }
+
+    .project-box,
+    .project-header-details,
+    .project-box-header {
+        height: auto;
+    }*/
 
 }
 
@@ -543,6 +579,7 @@ button[data-target="#registerProjectModal"] {
     }
 
     .project-box,
+    .project-header-details,
     .project-box-header {
         height: auto;
     }

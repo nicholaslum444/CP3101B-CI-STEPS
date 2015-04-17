@@ -105,57 +105,45 @@
                     } else {
                         // there are projects
                         foreach ($projects as $project) {
+                            $studentNames = "Group members not yet available!";
+                            if (isset($project["members"])) {
+                                $studentNames = "";
+                                $students = $project["members"];
+                                foreach($students as $student) {
+                                    $studentNames .= (namecaps($student["name"]) . ', ');
+                                }
+                                //remove last comma
+                                $studentNames = substr($studentNames, 0, -2);
+                            }
                             ?>
                             <!-- make a div for each project -->
                             <div class="col-lg-4 col-md-6">
                                 <div class="project-box">
                                     <div class="project-box-header">
-                                        <div class="project-header-details">
+                                        <div class="project-header-details scroll-header">
                                             <div class="project-title-container">
                                                 <span class="project-title">
                                                     <?php echo $project["title"]; ?>
                                                 </span>
                                             </div>
                                             <div class="project-members-container">
-                                                <span class="project-members">
-                                                    <?php
-                                                    if (isset($project["members"])) {
-                                                        $students = $project["members"];
-                                                        $studentNames = "";
-                                                        foreach($students as $student) {
-                                                            $studentNames .= (namecaps($student["name"]) . ', ');
-                                                        }
-                                                        //remove last comma
-                                                        $studentNames = substr($studentNames, 0, -2);
-                                                        ?>
-                                                        <!-- by -->
-                                                        <span class="project-student-names">
-                                                            <!-- code here -->
-                                                            <?php echo $studentNames; ?>
-                                                        </span>
-                                                        <?php
-                                                    } else {
-                                                        //show that there are no students!
-                                                        ?>
-                                                        Group members not yet available!
-                                                        <?php
-                                                    }
-                                                    ?>
-                                                </span>
+                                                <div class="project-members project-student-names">
+                                                    <?php echo $studentNames; ?>
+                                                </div>
                                             </div>
                                         </div> <!--end project box header details -->
-                                        <div class="project-header-links pull-right">
+                                        <!-- <div class="project-header-links pull-right">
                                             <a href="">
                                                 <i class="fa fa-external-link fa-inverse fa-2x"></i>
                                             </a>
-                                        </div>
+                                        </div> -->
                                     </div> <!--end project box header -->
                                     <div class="project-box-body">
                                         <div class="project-video-container">
                                             <!-- <img src="http://img.youtube.com/vi/KYmOuiGRnWE/hqdefault.jpg"> -->
-                                            <iframe class="project-video-embed" width="356" height="200" src="https://www.youtube.com/embed/KYmOuiGRnWE?rel=0" frameborder="0" allowfullscreen></iframe>
+                                            <!-- <iframe class="project-video-embed" width="356" height="200" src="https://www.youtube.com/embed/KYmOuiGRnWE?rel=0" frameborder="0" allowfullscreen></iframe> -->
                                         </div>
-                                        <div class="project-abstract-container">
+                                        <div class="project-abstract-container scroll-abstract">
                                             <span class="project-abstract-heading">
                                                 Abstract:
                                             </span>

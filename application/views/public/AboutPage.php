@@ -74,6 +74,7 @@
                     <?php echo $eventEndTime; ?>
                 </li>
             </ul>
+            <img class="pull-right" src="/img/LOGOSMALLBLACK.jpg">
         </div>
         <div class="col-sm-6">
             <h2 class="section__heading about-page-right blank-heading">&nbsp;</h2>
