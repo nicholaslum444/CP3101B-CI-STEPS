@@ -622,4 +622,31 @@ button[data-target="#registerProjectModal"] {
         display: none;
     }
 
+    .project-abstract-container {
+        overflow: hidden;
+        height: auto;
+    }
+    .project-abstract-container:hover {
+        overflow: auto;
+    }
+
+    .project-members-container,
+    .project-title-container {
+        overflow: hidden;
+    }
+
+    .project-title-container {
+        height: auto;
+    }
+
+    .project-members-container {
+        height: auto;
+        width: 100%;
+    }
+
+    .project-title-container:hover,
+    .project-members-container:hover {
+        overflow: auto;
+    }
+
 }
