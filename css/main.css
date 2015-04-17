@@ -331,9 +331,6 @@ button[data-target="#registerProjectModal"] {
     margin-bottom: 30px;
 }
 
-/* seperate from title */
-
-
 /* seperate from first row of input */
 .firstRow {
     margin-top: 10px;
@@ -555,7 +552,7 @@ button[data-target="#registerProjectModal"] {
 
 }
 
-/* if small screen (max-width: 1200px), apply these rules instead */
+/* if small screen (max-width: 768px), apply these rules instead */
 @media (max-width: 767px) {
 
     .blank-heading {
