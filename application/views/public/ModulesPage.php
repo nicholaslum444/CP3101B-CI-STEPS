@@ -117,7 +117,7 @@
                             }
                             ?>
                             <!-- make a div for each project -->
-                            <div class="col-lg-6 col-mds-6">
+                            <div class="col-lg-4 col-md-6">
                                 <div class="project-box">
                                     <div class="project-box-header">
                                         <div class="project-header-details scroll-header">

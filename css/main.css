@@ -489,7 +489,21 @@ button[data-target="#registerProjectModal"] {
         text-align:left;
     }
 
-    .project-box,
+    .project-abstract-container {
+        overflow: hidden;
+        height: 300px;
+    }
+
+    .project-header-details:hover,
+    .project-abstract-container:hover {
+        overflow: auto;
+    }
+
+    .project-header-details {
+        overflow: hidden;
+    }
+
+    /*.project-box,
     .project-box-header {
         height: auto;
     }
@@ -498,7 +512,7 @@ button[data-target="#registerProjectModal"] {
     .project-header-details,
     .project-box-header {
         height: auto;
-    }
+    }*/
 
 }
 
