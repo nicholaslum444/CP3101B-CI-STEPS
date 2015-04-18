@@ -329,6 +329,82 @@ textarea {
     /*border-radius: 50%;*/
 }
 
+/* BEGIN LECTURER CONSOLE */
+
+.console-register-btn-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+.console-module-list {
+    margin: 10px 0px;
+}
+
+.console-module-block {
+    background: #eee;
+    box-shadow: 5px 5px 3px #999;
+    padding: 10px;
+    margin: 20px 0px;
+}
+
+.console-module-block-header {
+    background: lightblue;
+    text-align: center;
+    padding: 10px;
+    margin: -10px;
+    margin-bottom: 0px;
+}
+
+.console-module-block-header-code {
+    font-size: 1.7em;
+}
+
+.console-module-block-entry {
+    margin-bottom: 10px;
+}
+
+.console-module-block-details {
+    padding: 10px;
+}
+
+.console-module-block-entry-header {
+    font-weight: bolder;
+    font-size: 1.1em;
+}
+
+.description-text-container {
+    width: 100%;
+    /*height: 200px;*/
+    overflow: scroll;
+}
+
+.project-titles-text {
+    padding: 5px;
+    background: #ddd;
+    border-radius: 20px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+.console-edit-btn-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+.console-edit-btn {
+    border-radius: 50%;
+}
+
+.console-sync-btn {
+    border-radius: 50%;
+}
+
+.console-edit-submit-container {
+    text-align: right;
+}
+
 #moduleContent {
     min-height: 450px;
 }
@@ -336,33 +412,23 @@ textarea {
     margin-top: 4.5%;
 }
 
-/*#modulePage-module-img {
-    float: right;
-}*/
-
-/*#modulePage-module-img > .module-thumb > .module-thumb-img > img:hover {
-    -webkit-filter: none;
-
-}*/
-
-/*#modulePage-moduledesc {
-    margin-bottom: 20px;
-    padding-left: 0px;
-}*/
-
-/*admin panel edit button*/
-.panel-heading button {
-    float:right;
-}
-
 /*lecturer edit button*/
 #moduleList button {
-    float:right;
+    /*float:right;*/
 }
 
 /*lecturer register button*/
 button[data-target="#registerModal"] {
-    float: right;
+    /*float: right;*/
+}
+
+/* END LECTUERER CONSOLE */
+
+
+
+/*admin panel edit button*/
+.panel-heading button {
+    float:right;
 }
 
 /*student register project button*/
@@ -723,5 +789,9 @@ button[data-target="#registerProjectModal"] {
     .project-title-container:hover,
     .project-members-container:hover {
         overflow: auto;
+    }
+
+    .ivle-sync-instructions {
+        display:none
     }
 }

@@ -40,10 +40,30 @@ $(function() {
     	//Dynamically generate buttons
     	var index = $("#editProjectTitles input").length+1;
     	var moduleCode = $('.addProjectTitleBtn').attr('moduleCode');
-    	$('.projectTitleFields').append('<span class = "projectTitleInput"><input type="text" class="form-control" innerIndex="-1" projectID="-1" moduleCode="'
-    		+ moduleCode + '" placeholder="projectTitle" value="'+ moduleCode +"-"+ index +'" >'+
-				'<button type="button" innerIndex = "-1" class="close deleteProjectBtn" aria-label="Close"><span aria-hidden="true">×</span></button></span>');
-    	bindDeleteBtn();
+
+		// make the project entry in the list
+		var entry = '<span class = "projectTitleInput">'
+		+ '<input type="text" class="form-control" placeholder="Project Title"'
+		+ ' innerIndex="'
+		+ -1
+		+ '" projectID="'
+		+ -1
+		+ '" moduleCode="'
+		+ moduleCode
+		+ '" value="'
+		+ moduleCode + "-" + index
+		+ '"><button type="button" class="close deleteProjectBtn" aria-label="Close"'
+		+ ' innerIndex="'
+		+ -1
+		+ '"><span aria-hidden="true">×</span></button></span>';
+
+		$(".projectTitleFields").append(entry);
+		bindDeleteBtn();
+
+    	// $('.projectTitleFields').append('<span class = "projectTitleInput"><input type="text" class="form-control" innerIndex="-1" projectID="-1" moduleCode="'
+    	// 	+ moduleCode + '" placeholder="projectTitle" value="'+ moduleCode +"-"+ index +'" >'+
+		// 		'<button type="button" innerIndex = "-1" class="close deleteProjectBtn" aria-label="Close"><span aria-hidden="true">×</span></button></span>');
+
     });
 
 	$('#registerModuleForm').on('submit',function (e) {
@@ -74,10 +94,10 @@ $(function() {
 	});
 
 	$('#syncRosterButton').click(function (e) {
-		var moduleCode = $("#editModalLabel").html();
-		var moduleId = $("#editModalLabel").attr("moduleid");
-
-		console.log("sending" + moduleId);
+		var moduleCode = $('#syncRosterButton').attr("moduleCode");
+		var moduleId = $('#syncRosterButton').attr("moduleId");
+		$('#ivleSyncFa').addClass("fa-spin");
+		console.log("sending " + moduleId);
 		$.ajax({
 			url: "/index.php/ajaxreceivers/SyncClassRoster",
 			method: "POST",
@@ -86,6 +106,9 @@ $(function() {
 		})
 
 		.done(function(data) {
+			while ($('#ivleSyncFa').hasClass("fa-spin")) {
+				$('#ivleSyncFa').removeClass("fa-spin");
+			}
 			if(data["success"]) {
 				//$('#registerModal').modal('hide');
 				//location.reload();
@@ -217,35 +240,70 @@ $(function() {
 		e.preventDefault();
 	});
 
+	// a convenience function to get the correct module
+	function getModule(id) {
+		for (module of _allModuleData) {
+			if (module["moduleID"] == id) {
+				return module;
+			}
+		}
+		return {};
+	}
+
 	//HANDLER TO DYNAMICALLY UPDATE EDIT MODULE FORM
 	$(".editModuleBtn").on('click', function(e) {
 
-		var moduleCode = $(this).attr("module");
 		var moduleId = $(this).attr("moduleId");
-		var moduleTitle = $("h3[moduleId="+moduleId+"]").html();
+		var module = getModule(moduleId);
+		// console.log(module);
+
 		//THE CLEANING PART
 		$("#editClassSize").attr("value", "");
 		$("#editNumProjects").attr("value", "");
-		$("#editModuleDescription").html("");
-		$("#editProjectTitles").html("");
+		$("#editModuleDescription").html("-");
+		$("#editProjectTitles").val("");
 		$(".addProjectTitleBtn").attr("moduleCode", "");
 
 		//THE EASY PART
-		$("#editModalLabel").html(moduleTitle);
-		$("#editModalLabel").attr("moduleId", moduleId);
-		$("#editModalLabel").attr("moduleCode", moduleCode);
-		$("#editClassSize").attr("value", $(".classSizeText[module="+moduleCode+"]").html());
-		//$("#editNumProjects").attr("value", $(".numProjectsText[module="+moduleCode+"]").html());
-		$("#editModuleDescription").html($(".moduleDescriptionText[module="+moduleCode+"]").html());
-		$(".addProjectTitleBtn").attr("moduleCode", moduleCode);
+		$("#editModalLabel").html("Editing: " + module["moduleCode"]);
+		$("#editModalLabel").attr("moduleId", module["moduleID"]);
+		$("#syncRosterButton").attr("moduleId", module["moduleID"]);
+		$("#editModalLabel").attr("moduleCode", module["moduleCode"]);
+		$("#editClassSize").attr("value", module["classSize"]);
+		$("#editModuleDescription").val(module["moduleDescription"]);
+		console.log("this");
+		$(".addProjectTitleBtn").attr("moduleCode", module["moduleCode"]);
 
 		//THE HARD PART
-		var projects = $(".projectTitles[module="+moduleCode+"] .projectTitle");
-		$.each(projects, function(index, value) {
-			$("#editProjectTitles").append('<span class = "projectTitleInput"><input type="text" class="form-control" innerIndex="' + $(this).attr('innerIndex') +
-				'" projectID="' + $(this).attr('projectID') + '" moduleCode="' + $(this).attr('module') + '" placeholder="Project Title" value="' + value.innerHTML + '">'+
-				'<button type="button" innerIndex = "' + $(this).attr('innerIndex') + '" class="close deleteProjectBtn" aria-label="Close"><span aria-hidden="true">×</span></button></span>');
+		var projects = module["projectList"];
+		// console.log(projects);
+		for (var i = 0; i < projects.length; i++) {
+			var project = projects[i];
+			var innerIndex = i + 1;
+			// make the project entry in the list
+			var entry = '<span class = "projectTitleInput">'
+			+ '<input type="text" class="form-control" placeholder="Project Title"'
+			+ ' innerIndex="'
+			+ innerIndex
+			+ '" projectID="'
+			+ project["projectID"]
+			+ '" moduleCode="'
+			+ module["moduleCode"]
+			+ '" value="'
+			+ project["title"]
+			+ '"><button type="button" class="close deleteProjectBtn" aria-label="Close"'
+			+ ' innerIndex="'
+			+ innerIndex
+			+ '"><span aria-hidden="true">×</span></button></span>';
+
+			$("#editProjectTitles").append(entry);
+
 			bindDeleteBtn();
-		});
+			// $("#editProjectTitles").append('<span class = "projectTitleInput"><input type="text" class="form-control" innerIndex="' + $(this).attr('innerIndex') +
+			// 	'" projectID="' + $(this).attr('projectID') + '" moduleCode="' + $(this).attr('module') + '" placeholder="Project Title" value="' + value.innerHTML + '">'+
+			// 	'<button type="button" innerIndex = "' + $(this).attr('innerIndex') + '" class="close deleteProjectBtn" aria-label="Close"><span aria-hidden="true">×</span></button></span>');
+		}
 	});
 });
+
+var _allModuleData = [];

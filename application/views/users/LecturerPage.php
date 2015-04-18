@@ -1,89 +1,197 @@
 <div class="container site-container">
-    <form class="form">
-        <div class="form-group">
-            <input type="hidden" class="form-control" id="registerModule">
-        </div>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registerModal" id="registerModuleBtn" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Register Module</button>
-    </form>
+    <div class='console-register-btn-container'>
+        <button type="button" class="btn btn-success console-register-btn" data-toggle="modal" data-backdrop="static" data-target="#registerModal" id="registerModuleBtn" <?php echo $freeze == 1 ? "disabled" : ""; ?>>
+            <i class="fa fa-plus"></i>&nbsp;Register Module
+        </button>
+    </div>
     <!--List of modules to be generated-->
-    <div class="row">
-        <div id = "moduleList">
+    <div class="console-module-list" id="moduleList">
+        <?php
+        if (isset($data)) {
+            ?>
+
+            <script>
+            // set the modules data as a variable to be extracted
+            <?php echo "_allModuleData=" . json_encode($data); ?>;
+            <?php echo "console.log(" . json_encode($data) . ")"; ?>;
+            </script>
+
             <?php
-            if (isset($data)) {
-                foreach($data as $module) {
-                    // var_dump($module['moduleID']);
-                    //Preprocess the data nicely
-                    /* $data = $module;
-                    if (isset($data["moduleId"])) {
-                        $moduleId = $module['moduleId'];
-                    } else {
-                        $moduleId = "dummy-id";
-                    }*/
-                    //Check the 3 essentials
-                    if(isset($module['moduleID']) && isset($module['moduleName']) && isset($module['moduleCode'])) {
-                        $moduleId = $module['moduleID'];
-                        $moduleCode = $module['moduleCode'];
-                        $moduleName = $module['moduleName'];
-                        //Just set 0 if not exist
-                        $classSize = isset($module['classSize']) ? $module['classSize'] : 0;
-                        $numProjects = isset($module['numProjects']) ? $module['numProjects'] : 0;
-                        $moduleDescription = isset($module['moduleDescription']) ? $module['moduleDescription'] : '-';?>
-                        <div class="container" moduleId="<?php echo $moduleId; ?>">
+            foreach($data as $module) {
+                // var_dump($module['moduleID']);
+                //Preprocess the data nicely
+                /* $data = $module;
+                if (isset($data["moduleId"])) {
+                    $moduleId = $module['moduleId'];
+                } else {
+                    $moduleId = "dummy-id";
+                }*/
+
+                // Build the module only if these fields are set
+                if(isset($module['moduleID']) && isset($module['moduleName']) && isset($module['moduleCode'])) {
+                    $moduleId = $module['moduleID'];
+                    $moduleCode = $module['moduleCode'];
+                    $moduleName = $module['moduleName'];
+                    //Just set 0 if not exist
+                    $classSize = 0;
+                    $numProjects = 0;
+                    $moduleDescription = 0;
+                    if (isset($module['classSize'])) {
+                        $classSize = $module['classSize'];
+                    }
+                    if (isset($module['numProjects'])) {
+                        $numProjects = $module['numProjects'];
+                    }
+                    if (isset($module['moduleDescription'])) {
+                        $moduleDescription = $module['moduleDescription'];
+                    }
+                    ?>
+                    <!-- module block (individual module) -->
+                    <div class="console-module-block" moduleId="<?php echo $moduleId; ?>">
+
+                        <div class="console-module-block-header">
+                            <div class="console-module-block-header-code-container">
+                                <span class="console-module-block-header-code" moduleId = "<?php echo $moduleId; ?>">
+                                    <?php echo $moduleCode; ?>
+                                </span>
+                            </div>
+                            <div class="console-module-block-header-name-container">
+                                <span class="console-module-block-header-name">
+                                    <?php echo $moduleName; ?>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="console-module-block-details">
+                            <!-- class size and num projects -->
                             <div class="row">
-                                <h3 moduleId = "<?php echo $moduleId; ?>"><?php echo $moduleCode; ?> - <?php echo $moduleName; ?></h3>
-
-                                <div class="form-horizontal" role="form" index="1">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-2" for="classSize">Class Size:</label>
-                                        <div class="col-sm-4 field-group has-feedback">
-                                            <h5 class="inputText classSizeText" module="<?php echo $moduleCode; ?>"><?php echo $classSize; ?></h5>
-                                        </div>
-
-                                        <label class="control-label col-sm-2" for="numProjects">Number of Projects:</label>
-                                        <div class="col-sm-4 field-group has-feedback">
-                                            <h5 class="inputText numProjectsText" module="<?php echo $moduleCode; ?>"><?php echo $numProjects; ?></h5>
-                                        </div>
+                                <div class="col-xs-6 console-module-block-entry">
+                                    <div class="class-size-header-container">
+                                        <span class="class-size-header console-module-block-entry-header">
+                                            Class Size
+                                        </span>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-2" for="moduleDescription">Description:</label>
-                                        <div class="col-sm-10 field-group">
-                                            <h5 class="inputText moduleDescriptionText" module="<?php echo $moduleCode; ?>"><?php echo $moduleDescription; ?></h5>
-                                        </div>
+                                    <div class="class-size-text-container">
+                                        <span class="class-size-text">
+                                            <?php echo $classSize; ?>
+                                        </span>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-2" for="">Project Titles:</label>
-                                        <div class="col-sm-5 field-group field-list projectTitles" module="<?php echo $moduleCode; ?>"> <!-- numOfProject should be DYNAMIC too -->
-                                           <!--<h5 class="inputText projectTitle" module="ABC123" projectId="123" innerIndex="1">A-Team</h5>-->
-                                            <?php $counter = 1;
-                                            foreach($module['projectList'] as $project) {
-                                                if(!is_null($project['title'])) { ?>
-                                                    <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" projectId="<?php echo $project['projectID']; ?>" innerIndex="<?php echo $counter++; ?>"><?php echo $project['title']; ?></h5>
-                                                    <?php
-                                                }
-                                                ?>
+                                </div>
+                                <div class="col-xs-6 console-module-block-entry">
+                                    <div class="project-num-header-container">
+                                        <span class="project-num-header console-module-block-entry-header">
+                                            No. of Projects
+                                        </span>
+                                    </div>
+                                    <div class="project-num-text-container">
+                                        <span class="project-num-text">
+                                            <?php echo $numProjects; ?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 console-module-block-entry">
+                                    <div class="project-titles-header-container">
+                                        <span class="project-titles-header console-module-block-entry-header">
+                                            Project Titles
+                                        </span>
+                                    </div>
+                                    <div class="project-titles-text-container">
+                                        <?php $counter = 1;
+                                        foreach($module['projectList'] as $project) {
+                                            if(!is_null($project['title'])) { ?>
+                                                <div class="project-titles-text" module="<?php echo $moduleCode; ?>" projectId="<?php echo $project['projectID']; ?>" innerIndex="<?php echo $counter++; ?>"><?php echo $project['title']; ?></div>
                                                 <?php
                                             }
                                             ?>
-                                        </div>
+                                            <?php
+                                        }
+                                        ?>
                                     </div>
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-default editModuleBtn" data-toggle="modal" data-target="#editModal" id="editButton<?php echo $moduleCode ?>" module="<?php echo $moduleCode; ?>" moduleid="<?php echo $moduleId; ?>" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Edit Module</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 console-module-block-entry">
+                                    <div class="description-header-container">
+                                        <span class="description-header console-module-block-entry-header">
+                                            Module Description
+                                        </span>
+                                    </div>
+                                    <div class="description-text-container">
+                                        <span class="description-text">
+                                            <?php echo $moduleDescription; ?>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <?php
-                    }
+                        <div class="console-edit-btn-container">
+                            <button
+                                type="button"
+                                class="btn btn-default editModuleBtn console-edit-btn"
+                                data-toggle="modal"
+                                data-target="#editModal"
+                                data-backdrop="static"
+                                id="editButton<?php echo $moduleCode ?>"
+                                module="<?php echo $moduleCode; ?>"
+                                moduleid="<?php echo $moduleId; ?>" <?php echo $freeze == 1 ? "disabled" : ""; ?>>
+                                <i class="fa fa-pencil fa-5"></i>
+                            </button>
+                        </div>
+
+                        <!-- <div class="console-module-block-details">
+                            <div class="form-horizontal" role="form" index="1">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="classSize">Class Size:</label>
+                                    <div class="col-sm-4 field-group has-feedback">
+                                        <h5 class="inputText classSizeText" module="<?php echo $moduleCode; ?>"><?php echo $classSize; ?></h5>
+                                    </div>
+
+                                    <label class="control-label col-sm-2" for="numProjects">Number of Projects:</label>
+                                    <div class="col-sm-4 field-group has-feedback">
+                                        <h5 class="inputText numProjectsText" module="<?php echo $moduleCode; ?>"><?php echo $numProjects; ?></h5>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="moduleDescription">Description:</label>
+                                    <div class="col-sm-10 field-group">
+                                        <h5 class="inputText moduleDescriptionText" module="<?php echo $moduleCode; ?>"><?php echo $moduleDescription; ?></h5>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="">Project Titles:</label>
+                                    <div class="col-sm-5 field-group field-list projectTitles" module="<?php echo $moduleCode; ?>">
+                                        <?php $counter = 1;
+                                        // numOfProject should be DYNAMIC too
+                                        foreach($module['projectList'] as $project) {
+                                            if(!is_null($project['title'])) { ?>
+                                                <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" projectId="<?php echo $project['projectID']; ?>" innerIndex="<?php echo $counter++; ?>"><?php echo $project['title']; ?></h5>
+                                                <?php
+                                            }
+                                            ?>
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <?php
                 }
-            } else {
-                ?>
-                <a href="/index.php/Lecturer/viewModule">Dummy Module</a>
-                <?php
             }
+        } else {
             ?>
-        </div>
+            <a href="/index.php/Lecturer/viewModule">Dummy Module</a>
+            <?php
+        }
+        ?>
     </div> <!-- end generated modules -->
 </div>
 
@@ -150,13 +258,18 @@
                     <div class="modal-body" id="loadingSplash">
                         <p>
                             <!-- should make a proper loading screen -->
+                            <span class="fa fa-refresh fa-spin"></span>&nbsp;
                             Please wait while we retrieve your modules..
                         </p>
                     </div>
                     <div class="modal-body" id="getModulesFailedBody">
                         <p>
                             <!-- should make a proper loading screen -->
-                            Failed to get modules from IVLE! If this occurs repeatedly, please contact the Administrator.
+                            <span class="fa fa-exclamation btn btn-danger"></span>&nbsp;
+                            Failed to get modules from IVLE. Please <a href="">refresh</a> the page.
+                        </p>
+                        <p>
+                            Contact the Administrator if this occurs repeatedly.
                         </p>
                     </div>
                     <div class="modal-body" id="registerModuleFormBody">
@@ -197,20 +310,23 @@
                     <form id="editModuleForm" class="form-horizontal" role="form">
                         <div class="form-group">
                             <!-- CLASS SIZE -->
-                            <label class="control-label col-sm-2" for="editClassSize">Class Size:</label>
-                            <div class="col-sm-2">
+                            <label class="control-label col-xs-2" for="editClassSize">Class Size:</label>
+                            <div class="col-xs-6">
                                 <input type="number" disabled class="form-control" id="editClassSize" placeholder="Class Size" value="" <?php echo $freeze == 1 ? "disabled" : ""; ?>>
                             </div>
-                            <button type="button" class="btn btn-info" id="syncRosterButton" moduleId="" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Sync Class Roster With IVLE</button>
-                            <!-- CLASS SIZE -->
-
+                            <div class="col-xs-2">
+                            <button type="button" class="btn btn-info console-sync-btn" id="syncRosterButton" moduleCode="" moduleId="" <?php echo $freeze == 1 ? "disabled" : ""; ?>>
+                                <span class="fa fa-refresh" id="ivleSyncFa"></span></button>
+                                <span class="ivle-sync-instructions">IVLE Sync</span>
+                            </div>
+                            <!-- END CLASS SIZE -->
                         </div>
 
                         <div class="form-group">
                             <!-- DESCRIPTIONS -->
                             <label class="control-label col-sm-2" for="editModuleDescription">Description:</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" rows="5" id="editModuleDescription" placeholder="Add Description for Module" <?php echo $freeze == 1 ? "disabled" : ""; ?>></textarea>
+                                <textarea rows="6" class="form-control" id="editModuleDescription" placeholder="Add Description for Module" <?php echo $freeze == 1 ? "disabled" : ""; ?>></textarea>
                             </div>
                             <!-- DESCRIPTIONS -->
                         </div>
@@ -222,10 +338,16 @@
                             <!-- DYNAMICALLY GENERATE AND INSERT INPUT FIELDS INTO HERE
                             SAMPLE: <input type="text" class="form-control" innerIndex="" projectID="" moduleCode="" placeholder="Project Title">-->
                             <!-- PROJECT TITLES -->
-                            <div class="col-sm-5"><div class="btn btn-default addProjectTitleBtn" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Add</div></div>
+                            <div class="col-sm-5">
+                                <div class="btn btn-default addProjectTitleBtn" <?php echo $freeze == 1 ? "disabled" : ""; ?>>
+                                    <span class="glyphicon glyphicon-plus"><span>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
+                            <div class="col-xs-12 console-edit-submit-container">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="cancel">Cancel</button>
                                 <button type="submit" class="btn btn-success" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Submit</button>
                             </div>
                         </div>
