@@ -242,7 +242,8 @@ $(function() {
 
 	// a convenience function to get the correct module
 	function getModule(id) {
-		for (module of _allModuleData) {
+		for (var i = 0; i < _allModuleData.length; i++) {
+			var module = _allModuleData[i];
 			if (module["moduleID"] == id) {
 				return module;
 			}

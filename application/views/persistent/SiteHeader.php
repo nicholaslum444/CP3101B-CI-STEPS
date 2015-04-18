@@ -42,8 +42,10 @@ switch($loader) {
     <meta name="description" content="The School of Computing Term Project Showcase (STePS) aims to bring together all of the class-based projects and project module in the School of Computing (SoC). It's a festive yet serious class showcase, in which students present their projects in all aspects of computer science and information systems to the respective Faculty for grading and to Industry guests, Government agencies, Sponsors and Investors to connect with potential employers and to seek opportunities for further development of their work through collaboration.">
     <meta name="keywords" content="new steps, steps, NUS, soc, steps soc, soc steps, showcase, computing, projects, programming">
 
-    <meta property="og:title" content="">
+    <meta property="og:title" content="STePS - SoC Term Project Showcase">
     <meta property="og:image" content="http://steps.tk/img/fb-site-img.png">
+    <meta property="og:url" content="http://steps.tk/">
+    <meta property="og:description" content="The School of Computing Term Project Showcase (STePS) aims to bring together all of the class-based projects and project module in the School of Computing (SoC). It's a festive yet serious class showcase, in which students present their projects in all aspects of computer science and information systems to the respective Faculty for grading and to Industry guests, Government agencies, Sponsors and Investors to connect with potential employers and to seek opportunities for further development of their work through collaboration.">
 
     <link rel="stylesheet" href="/css/bootswatch-flatly.css">
     <link rel="stylesheet" href="/css/jqueryuk15extracted.css">
