@@ -216,6 +216,14 @@ textarea {
     width: 100%;
 }
 
+.module-page-module-header {
+    margin-bottom: 20px;
+}
+
+.module-page-module-img {
+    padding: 20px;
+}
+
 .project-student-names {
     font-variant: small-caps;
 }
@@ -246,7 +254,7 @@ textarea {
 }
 
 .project-header-id {
-    width: 19%;
+    /*width: 19%;*/
     /*height: 100px;*/
     text-align: right;
     display: inline-block;
@@ -311,6 +319,16 @@ textarea {
     display: block;
 }
 
+.btt-btn-container {
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: right;
+}
+
+.btt-btn {
+    /*border-radius: 50%;*/
+}
+
 #moduleContent {
     min-height: 450px;
 }
@@ -318,19 +336,19 @@ textarea {
     margin-top: 4.5%;
 }
 
-#modulePage-module-img {
+/*#modulePage-module-img {
     float: right;
-}
+}*/
 
-#modulePage-module-img > .module-thumb > .module-thumb-img > img:hover {
+/*#modulePage-module-img > .module-thumb > .module-thumb-img > img:hover {
     -webkit-filter: none;
 
-}
+}*/
 
-#modulePage-moduledesc {
+/*#modulePage-moduledesc {
     margin-bottom: 20px;
     padding-left: 0px;
-}
+}*/
 
 /*admin panel edit button*/
 .panel-heading button {
@@ -661,4 +679,49 @@ button[data-target="#registerProjectModal"] {
         overflow: auto;
     }
 
+}
+
+/* if small screen (max-width: 993px), apply these rules instead */
+@media (max-width: 993px) {
+
+    .module-page-module-img {
+        display:none;
+    }
+
+    .project-box,
+    .project-header-details,
+    .project-box-header {
+        height: auto;
+    }
+
+    .project-video-container {
+        display: none;
+    }
+
+    .project-abstract-container {
+        overflow: hidden;
+        height: auto;
+    }
+    .project-abstract-container:hover {
+        overflow: auto;
+    }
+
+    .project-members-container,
+    .project-title-container {
+        overflow: hidden;
+    }
+
+    .project-title-container {
+        height: auto;
+    }
+
+    .project-members-container {
+        height: auto;
+        width: 100%;
+    }
+
+    .project-title-container:hover,
+    .project-members-container:hover {
+        overflow: auto;
+    }
 }

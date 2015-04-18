@@ -36,14 +36,16 @@
     <div id="main-container">
         <div id="page-content">
 
-            <!-- sidebar toggle btn -->
-            <button class="btn btn-default" id="toggle-btn">
-                <span id="sidebar-direction" class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-                <span>See More</span>
-            </button>
 
             <!-- actual content -->
             <div class="module-container" id="moduleContent">
+
+                <!-- sidebar toggle btn -->
+                <button class="btn btn-default toggle-btn">
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                    <span>See More</span>
+                </button>
+
                 <!-- show the module pane if a module is selected -->
                 <?php
                 if (!is_null($selectedModuleData)) {
@@ -66,34 +68,39 @@
                         }
                     }
                     $moduleCode = $selectedModuleData["moduleCode"];
+                    $moduleName = strtoupper($selectedModuleData["moduleName"]);
                     ?>
 
-                    <!-- module code, name and desc -->
-                    <div class="page-header">
-                        <div id="modulePage-module-img" class="col-lg-3 col-md-4 col-sm-5">
+                    <!-- module code, name, img and desc -->
+                    <div class="row">
+                        <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12 module-page-module-header">
+                            <h1>
+                                <?php echo $moduleCode; ?>
+                                <small><br>
+                                    <?php echo $moduleName ?>
+                                </small>
+                            </h1>
+                            <p><strong>
+                                Chaired by
+                                <?php echo $moduleLecturer ?>
+                            </strong></p>
+                            <p><em>
+                                <?php echo $numStudents ?>
+                                students in
+                                <?php echo $numProjects ?>
+                                groups
+                            </em></p>
+                            <p>
+                                <?php echo $selectedModuleData["moduleDescription"]; ?>
+                            </p>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 module-page-module-img">
                             <figure class="module-thumb">
                                     <div class="module-thumb-img">
-                                        <img src="/img/<?php echo $selectedModuleData['moduleCode']; ?>-img.jpg">
+                                        <img src="/img/<?php echo $moduleCode; ?>-img.jpg">
                                     </div>
                             </figure>
                         </div>
-                        <h1>
-                            <?php echo $moduleCode; ?>
-                            <small><br>
-                                <?php echo strtoupper($selectedModuleData["moduleName"]); ?>
-                            </small>
-                        </h1>
-                        <p><strong>
-                            Chaired by
-                            <?php echo $moduleLecturer ?>
-                        </strong></p>
-                        <p><em>
-                            <?php echo $numStudents ?>
-                            students in
-                            <?php echo $numProjects ?>
-                            groups
-                        </em></p>
-                        <div id="modulePage-moduledesc" class="col-md-8 col-lg-9"><?php echo $selectedModuleData["moduleDescription"]; ?></div>
                     </div>
 
                     <!-- projects section -->
@@ -181,26 +188,39 @@
                 } else {
                     ?>
                     <!-- else show the default page content for this page -->
-                    <div class="page-header">
-                        <h1>
-                            Participating Modules
-                        </h1>
-                        <p>
-                            Students, faculty, technology entrepreneurs and prospective students will have the opportunity to experience the innovations
-                            created by the students.
-                            <?php echo count($allModulesDetails); ?>
-                            courses are participating in the Term Project Showcase this semester.
-                        </p>
-                        <p>
-                            Click on the modules on the right to view their respective projects.
-                        </p>
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <h1>
+                                Participating Modules
+                            </h1>
+                            <p>
+                                Students, faculty, technology entrepreneurs and prospective students will have the opportunity to experience the innovations
+                                created by the students.
+                                <?php echo count($allModulesDetails); ?>
+                                courses are participating in the Term Project Showcase this semester.
+                            </p>
+                            <p>
+                                Click on the modules on the sidebar to view their respective projects.
+                            </p>
+                        </div>
                     </div>
                     <?php
                 }
                 ?>
+
+                <!-- back to top btn -->
+                <div class="btt-btn-container">
+                    <button class="btn btn-default btt-btn">
+                        <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+                        <span></span>
+                    </button>
+                </div>
+
             </div><!-- End of Module Content -->
+
+
         </div>
-    </div>
+    </div><!-- end of main container -->
 </div>
 
 <script>
@@ -216,22 +236,16 @@ $(window).resize(function() {
 
     if (width < 768) {
         $('#page-container').removeClass();
-        $('#toggle-btn').css("display","inline-block");
+        $('.toggle-btn').css("display","inline-block");
 
     } else {
 
         $('#page-container').addClass('sidebar-visible-lg');
-        setTimeout(function(){ 
-            $(".page-header img").css("height","");}, 
+        setTimeout(function(){
+            $(".page-header img").css("height","");},
         1);
 
-/*        $('#page-container')
-            .addClass('sidebar-visible-lg')
-            .queue(function() {         
-                $(".page-header img").css("height","").dequeue();
-        });*/
-        
-        $('#toggle-btn').css("display","none");
+        $('.toggle-btn').css("display","none");
     }
 });
 
@@ -240,9 +254,32 @@ $(function() {
     $("#page-content").css("min-height", ($("#sidebar").height() + 100));
 });
 
-$('#toggle-btn').click(function(){
+$('.toggle-btn').click(function(){
     $('#page-container').toggleClass('sidebar-visible-lg sidebar-no-animations sidebar-visible-xs');
-    //$("#sidebar-direction").toggleClass("glyphicon-menu-left");
+    // if ($('#page-container').attr("overflow") == "hidden") {
+    //     $('#page-container').attr("overflow") = "inherit";
+    // } else {
+    //     $('#page-container').attr("overflow") = "hidden";
+    // }
+});
+
+// for back to top button
+jQuery(document).ready(function() {
+    var offset = 250;
+    var duration = 300;
+    jQuery(window).scroll(function() {
+        if (jQuery(this).scrollTop() > offset) {
+            jQuery('.btt-btn').fadeIn(duration);
+        } else {
+            jQuery('.btt-btn').fadeOut(duration);
+        }
+    });
+
+    jQuery('.btt-btn').click(function(event) {
+        event.preventDefault();
+        jQuery('html, body').animate({scrollTop: 0}, duration);
+        return false;
+    })
 });
 
 </script>
