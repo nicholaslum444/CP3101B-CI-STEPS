@@ -35,7 +35,7 @@
                     //Just set 0 if not exist
                     $classSize = 0;
                     $numProjects = 0;
-                    $moduleDescription = 0;
+                    $moduleDescription = "-";
                     if (isset($module['classSize'])) {
                         $classSize = $module['classSize'];
                     }
