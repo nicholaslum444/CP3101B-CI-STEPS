@@ -43,20 +43,16 @@ switch($loader) {
 
     <meta property="og:image" content="http://steps.tk/img/fb-site-img.png">
 
-    <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
-    <!-- <link rel="stylesheet" href="/css/bootstrap-theme.min.css"> -->
     <link rel="stylesheet" href="/css/bootswatch-flatly.css">
-    <!-- <link rel="stylesheet" href="/css/jqueryuk15.css"> -->
     <link rel="stylesheet" href="/css/jqueryuk15extracted.css">
     <link rel="stylesheet" href="/css/flatui.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"> -->
 
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700' rel='stylesheet' type='text/css'>
 
-    <link rel="icon" href="/img/temp-favicon2.jpg">
+    <link rel="icon" href="/resources/favicon3.png">
 
     <script src="/js/jquery-2.1.3.min.js"></script>
     <script src="/js/bootstrap.js"></script>
