@@ -261,7 +261,7 @@ $(function() {
 		//THE CLEANING PART
 		$("#editClassSize").attr("value", "");
 		$("#editNumProjects").attr("value", "");
-		$("#editModuleDescription").html("-");
+		$("#editModuleDescription").val("-");
 		$("#editProjectTitles").val("");
 		$(".addProjectTitleBtn").attr("moduleCode", "");
 
