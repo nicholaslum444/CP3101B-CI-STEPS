@@ -261,8 +261,8 @@ $(function() {
 		//THE CLEANING PART
 		$("#editClassSize").attr("value", "");
 		$("#editNumProjects").attr("value", "");
-		$("#editModuleDescription").html("-");
-		$("#editProjectTitles").val("");
+		$("#editModuleDescription").val("-");
+		$("#editProjectTitles").html("");
 		$(".addProjectTitleBtn").attr("moduleCode", "");
 
 		//THE EASY PART
