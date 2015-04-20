@@ -227,7 +227,7 @@
 
 $(window).resize(function() {
     var width = $(this).width();
-    //console.log(width);
+
     if (width < 500 ) {
         $(".page-header img").css("display","none");
     } else {
@@ -242,7 +242,7 @@ $(window).resize(function() {
 
         $('#page-container').addClass('sidebar-visible-lg');
         setTimeout(function(){
-            $(".page-header img").css("height","");},
+            $(".module-thumb-img img").css("height","");},
         1);
 
         $('.toggle-btn').css("display","none");

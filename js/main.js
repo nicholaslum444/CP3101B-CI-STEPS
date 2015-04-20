@@ -17,6 +17,12 @@ function bindDeleteBtn() {
 
 $(function() {
 
+	/* This function helps to load unavailable-img when error exist on path to src 
+	   When the posters link are uploaded for real, we can use php instead to check for null */
+	$(".module-thumb-img img").error(function(){
+	  $(this)[0].src = "/img/unavailable-img.jpg";
+	});
+	
 	// for header vvvvvvvvvvvvvvvvvvvvvvvvv
 
 	$("#loginBtnStudent").bind("click", function() {
