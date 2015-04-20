@@ -151,13 +151,22 @@
         formData.push($(value).serializeArray());
       });
 
-      console.log(formData);
+      //console.log(formData);
+      //sanitize input
+      for(var i=0;i<formData.length;i++) {
+        for(var j=0; j<formData[i].length; j++) {
+          //console.log(formData[i][j]);
+          if(formData[i][j].name == 'email' || formData[i][j].name == 'contact') {
+            formData[i][j].value = sanitize(formData[i][j].value);
+          }
+        }
+      }
 
       var users = {
         "users" : formData
       }
 
-      console.log(users);
+      //console.log(users);
 
         $.ajax({
             url: "/index.php/ajaxreceivers/editUserInformation",
@@ -186,9 +195,9 @@
       var projectData = { 
                            "project" : {
                                      "projectId" : <?php echo $projectData['projectId'] ?>,
-                                     "poster" : $("#poster").val(),
-                                     "video" : $("#video").val(),
-                                     "abstract" : $("#abstract").val()
+                                     "poster" : sanitize($("#poster").val()),
+                                     "video" : sanitize($("#video").val()),
+                                     "abstract" : sanitize($("#abstract").val())
                                      }
                           }
 
@@ -231,7 +240,6 @@
         })
       }
       ';} ?>
-
 
 
       e.preventDefault();

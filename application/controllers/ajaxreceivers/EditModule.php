@@ -58,7 +58,7 @@ class EditModule extends CI_Controller {
             }
 
             if(isset($_POST["editedNewProjectTitles"])) {
-                $editedNewProjectTitles = $_POST["editedNewProjectTitles"];    
+                $editedNewProjectTitles = $_POST["editedNewProjectTitles"];
             }
             else {
                 $editedNewProjectTitles = null;   

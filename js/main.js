@@ -15,6 +15,31 @@ function bindDeleteBtn() {
 	});
 }
 
+var tagBody = '(?:[^"\'>]|"[^"]*"|\'[^\']*\')*';
+
+var tagOrComment = new RegExp(
+    '<(?:'
+    // Comment body.
+    + '!--(?:(?:-*[^->])*--+|-?)'
+    // Special "raw text" elements whose content should be elided.
+    + '|script\\b' + tagBody + '>[\\s\\S]*?</script\\s*'
+    + '|style\\b' + tagBody + '>[\\s\\S]*?</style\\s*'
+    // Regular name
+    + '|/?[a-z]'
+    + tagBody
+    + ')>',
+    'gi');
+
+function sanitize(input) {
+  var oldHtml;
+  do {
+    oldHtml = input;
+    input = input.replace(tagOrComment, '');
+  } while (input !== oldHtml);
+  return input.replace(/</g, '&lt;');
+}
+
+
 $(function() {
 
 	/* This function helps to load unavailable-img when error exist on path to src 
@@ -155,7 +180,7 @@ $(function() {
 		//GETTING ALL EDITED INPUTS
 		var editedClassSize = $("#editClassSize").val();
 		//var editedNumProjects = $("#editNumProjects").val();
-		var editedModuleDescription = $("#editModuleDescription").val();
+		var editedModuleDescription = sanitize($("#editModuleDescription").val());
 		var allProjectTitles = $("#editProjectTitles input");
 		var editedExistingProjectTitles = new Array();
 		var editedNewProjectTitles = new Array();
@@ -184,7 +209,7 @@ $(function() {
 
 		$.each(allProjectTitles, function(index, newInput) {
 			editedProjectInnerIndex = $(this).attr('innerIndex');
-			editedValueOfProjectTitle = newInput.value;
+			editedValueOfProjectTitle = sanitize(newInput.value);
 			//Edited from current title
 			if(editedProjectInnerIndex != -1) {
 				//Get original title
@@ -302,7 +327,7 @@ $(function() {
 		$("#editModalLabel").attr("moduleCode", module["moduleCode"]);
 		$("#editClassSize").attr("value", module["classSize"]);
 		$("#editModuleDescription").val(module["moduleDescription"]);
-		console.log("this");
+		//console.log("this");
 		$(".addProjectTitleBtn").attr("moduleCode", module["moduleCode"]);
 
 		//THE HARD PART
