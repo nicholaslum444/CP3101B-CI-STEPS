@@ -112,6 +112,10 @@ $(function() {
     
     var untakenProjects = <?php echo json_encode($dataUnregistered); ?>; //an object of arrays
 
+    $('#registerProjectModal').on('hidden.bs.modal', function () {
+        $('#projectSelect').prop( "disabled", false );
+    })
+
     $('#registerProjectModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var moduleCode = button.data('module') // Extract info from data-* attributes
