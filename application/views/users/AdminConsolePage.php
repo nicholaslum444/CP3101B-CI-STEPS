@@ -15,45 +15,104 @@
                 $moduleDescription = $module['data']['moduleDescription'] == null ? "-" : $module['data']['moduleDescription'];
                 ?>
 
-                <div class="accordion-group panel-default">
-                    <div class="accordion-heading accordion-toggle panel-heading"  data-toggle="collapse" data-target="#<?php echo $moduleCode ?>" href="#" >
-                        <i class="glyphicon glyphicon-chevron-down text-muted"></i><span class="admin-accordion-modulename text-success"><?php echo $moduleCode ?>  - <?php echo $moduleName; ?></span>
-                        <button class="btn btn-xs btn-default editModuleBtn" data-toggle="modal" data-target= "#editModal" id="editButton<?php echo $moduleCode; ?>" module="<?php echo $moduleCode; ?>">Edit</button>
+                <div class="accordion-group console-module-block">
+                    <div class="accordion-heading accordion-toggle console-module-block-header"  data-toggle="collapse" data-target="#<?php echo $moduleCode ?>" href="#" >
+                        <div class="console-module-block-header-code-container">
+                            <span class="console-module-block-header-code" moduleId = "<?php echo $moduleId; ?>">
+                                <?php echo $moduleCode; ?>
+                            </span>
+                        </div>
+                        <div class="console-module-block-header-name-container">
+                            <span class="console-module-block-header-name">
+                                <?php echo $moduleName; ?>
+                            </span>
+                        </div>
                     </div>
-                    <div id="<?php echo $moduleCode ?>" class=" collapse panel-collapse">
-                        <div class="form-horizontal" role="form" index="1">
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="classSize">Class Size:</label>
-                                <div class="col-sm-4 field-group has-feedback">
-                                    <h5 class="inputText classSizeText" module="<?php echo $moduleCode; ?>"><?php echo $classSize; ?></h5>
-                                </div>
 
-                                <label class="control-label col-sm-2" for="numProjects">Number of Projects:</label>
-                                <div class="col-sm-4 field-group has-feedback">
-                                    <h5 class="inputText numProjectsText" module="<?php echo $moduleCode; ?>"><?php echo $numProjects; ?></h5>
-                                </div>
+                    <!--
+                    <i class="glyphicon glyphicon-chevron-down text-muted"></i>
+                    <div class="console-module-block-header">
+                            <div class="console-module-block-header-code-container">
+                                <span class="console-module-block-header-code" moduleId = "<?php echo $moduleId; ?>">
+                                    <?php echo $moduleCode; ?>
+                                </span>
                             </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="moduleDescription">Description:</label>
-                                <div class="col-sm-10 field-group">
-                                    <h5 class="inputText moduleDescriptionText" module="<?php echo $moduleCode; ?>"><?php echo $moduleDescription; ?></h5>
-                                </div>
+                            <div class="console-module-block-header-name-container">
+                                <span class="console-module-block-header-name">
+                                    <?php echo $moduleName; ?>
+                                </span>
                             </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="">Project Titles:</label>
-                                <div class="col-sm-5 field-group field-list projectTitles" module="<?php echo $moduleCode; ?>" numOfProject = "4"> <!-- numOfProject should be DYNAMIC too -->
-                                  <?php $counter = 1;
-                                  foreach($module['data']['projectList'] as $project) {
-                                    if(!is_null($project['title'])) { ?>
-                                    <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" projectId="<?php echo $project['projectID']; ?>" innerIndex="<?php echo $counter++; ?>"><?php echo $project['title']; ?></h5>
-                                    <?php } ?>
-                                    <?php } ?>
+                            <button class="btn btn-xs btn-default editModuleBtn" data-toggle="modal" data-target= "#editModal" id="editButton<?php echo $moduleCode; ?>" module="<?php echo $moduleCode; ?>">Edit</button>
+                        </div>
+                    -->
+                    <div  class="accordion-body collapse in ">
+                        <div id="<?php echo $moduleCode ?>" class="accordion-inner collapse panel-collapse">
+                            <br>
+                            <div class="form-horizontal" role="form" index="1">
+                                
+                                <div class="col-xs-6 console-module-block-entry">
+                                    <div class="class-size-header-container">
+                                        <span class="class-size-header console-module-block-entry-header">
+                                            Class Size
+                                        </span>
+                                    </div>
+                                    <div class="class-size-text-container">
+                                        <span class="class-size-text">
+                                            <?php echo $classSize; ?>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
+                                <div class="col-xs-6 console-module-block-entry">
+                                    <div class="project-num-header-container">
+                                        <span class="project-num-header console-module-block-entry-header">
+                                            No. of Projects
+                                        </span>
+                                    </div>
+                                    <div class="project-num-text-container">
+                                        <span class="project-num-text">
+                                            <?php echo $numProjects; ?>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 console-module-block-entry">
+                                    <div class="description-header-container">
+                                        <span class="description-header console-module-block-entry-header">
+                                            Module Description
+                                        </span>
+                                    </div>
+                                    <div class="">
+                                        <span class="description-text">
+                                            <?php echo $moduleDescription; ?>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 console-module-block-entry">
+                                    <div class="project-titles-header-container">
+                                        <span class="project-titles-header console-module-block-entry-header">
+                                            Project Titles
+                                        </span>
+                                    </div>
+                                    <div class="project-titles-text-container">
+                                        <?php $counter = 1;
+                                        foreach($module['data']['projectList'] as $project) {
+                                            if(!is_null($project['title'])) { ?>
+                                                <div class="project-titles-text" module="<?php echo $moduleCode; ?>" projectId="<?php echo $project['projectID']; ?>" innerIndex="<?php echo $counter++; ?>">
+                                                    <?php echo $project['title']; ?>
+                                                </div>
+                                            <?php
+                                            }
+                                            ?>
+                                        <?php
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -70,33 +129,44 @@
 
 
     <div class="col-md-6">
-        <form role="form">
-            <div class="form-group">
-                <label for="updates">Updates: </label>
-                <textarea class="form-control" rows="5" id="updates" placeholder="Add updates in front page"></textarea>
+        <div class="panel panel-primary">
+            <div class="form-group panel-heading">
+                <label for="updates">Updates </label>
             </div>
-            <button type="submit" class="btn btn-default" id="admin-update-btn">Submit</button>
-        </form>
+            <div class="panel panel-body">
+                <form role="form">
+                    <textarea class="form-control" rows="5" id="updates" placeholder="Add updates in front page"></textarea>
+                    <br>
+                    <button type="submit" class="btn btn-default" id="admin-update-btn">Submit</button>
+                </form>
+            </div>
+        </div>
+        
 
-        <div> <!-- Date container -->
-        <?php if(isset($dates)) {
-            ?>
-            <!-- EVENT DATES -->
-            <div class="eventDate-container clear">
-                <form class="form" role="form" id="eventDatesForm">
-                    <div class="form-group col-md-12">
-                        <label for="startDate">Start Of Event</label>
-                        <input type="date" class="form-control" name="startDate" id="startDate" value="<?php echo $dates['startDate'] ?>" placeholder="DD/MM/YYYY">
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label for="endDate">End of Event</label>
-                        <input type="date" class="form-control" name="endDate" id="endDate" value="<?php echo $dates['endDate'] ?>" placeholder="DD/MM/YYYY">
-                    </div>
+        <div class="panel panel-primary"> <!-- Date container -->
+            <div class="panel-heading">
+                STEPS Event Dates
             </div>
 
+            <?php if(isset($dates)) { ?>
 
-            <!-- REGISTRATION DATES -->
-            <div class="eventDate-container clear">        
+            <div class=" panel-body">
+                <!-- EVENT DATES -->
+                <div class="eventDate-container clear">
+                    <form class="form" role="form" id="eventDatesForm">
+                        <div class="form-group col-md-12">
+                            <label for="startDate">Start Of Event</label>
+                            <input type="date" class="form-control" name="startDate" id="startDate" value="<?php echo $dates['startDate'] ?>" placeholder="DD/MM/YYYY">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="endDate">End of Event</label>
+                            <input type="date" class="form-control" name="endDate" id="endDate" value="<?php echo $dates['endDate'] ?>" placeholder="DD/MM/YYYY">
+                        </div>
+                </div>
+
+
+                <!-- REGISTRATION DATES -->
+                <div class="eventDate-container clear">        
                     <div class="form-group col-md-12">
                         <label for="registrationDate">Registration Date</label>
                         <input type="date" class="form-control" name="registrationDate" id="registrationDate" value="<?php echo $dates['registerDate'] ?>" placeholder="DD/MM/YYYY">
@@ -106,30 +176,42 @@
                         <input type="date" class="form-control" name="cutOffDate" id="cutOffDate" value="<?php echo $dates['cutOffDate'] ?>" placeholder="DD/MM/YYYY">
                     </div>
                     <button type="submit" class="btn btn-default" id="eventDate-btn">Save</button>
-                </form>
-            </div>
-        <?php } ?>
-        </div> <!-- end of date container-->
+                    </form>
+                <!-- NEW STEPS BUTTON -->
+                <button class="btn btn-default" data-toggle="modal" data-target= "#newStepModal" id="newStepButton">NEW STEPS</button>
 
+                </div>
+
+            <?php } ?>
+
+            </div> <!-- end of date container-->
+
+        </div>
+            
         <!-- Food Preference -->
-        <?php 
-        if(isset($foodPref)) {
-            ?>
-            <div class="thumbnail col-md-12 food-container">
-                <div class="col-md-6" id="nonVeganDiv">
-                    <h3 class="text-muted">Non-Vegetarian</h3>
-                    <h2 id="NonVegans"><?php echo $foodPref["NON_VEGE"] ?></h2>
+        <?php if(isset($foodPref)) { ?>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Food Preferences Count
                 </div>
-                <div class="col-md-6" id="veganDiv">
-                    <h3 class="text-muted">Vegetarian</h3>
-                    <h2 id="Vegans"><?php echo $foodPref["VEGE"]; ?></h2>
+                <div class="food-container panel-body">
+                    <div class=" col-md-12 ">
+                        <div class="col-md-6" id="nonVeganDiv">
+                            <h3 class="text-muted">Non-Vegetarian</h3>
+                            <h2 id="NonVegans"><?php echo $foodPref["NON_VEGE"] ?></h2>
+                        </div>
+                        <div class="col-md-6" id="veganDiv">
+                            <h3 class="text-muted">Vegetarian</h3>
+                            <h2 id="Vegans"><?php echo $foodPref["VEGE"]; ?></h2>
+                        </div>
+                    </div>
+                        
                 </div>
             </div>
+                
         <?php } ?>
 
-        <!-- NEW STEPS BUTTON -->
-        <button class="btn btn-default" data-toggle="modal" data-target= "#newStepModal" id="newStepButton">NEW STEPS</button>
-
+        
     </div><!--End md-6-->
 
 </div><!-- End of row -->

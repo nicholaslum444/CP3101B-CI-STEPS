@@ -536,6 +536,9 @@ button[data-target="#registerProjectModal"] {
 #admin-accordion {
     border-color: transparent;
 }
+.console-module-block > .accordion-toggle {
+    cursor: pointer;
+}
 #eventDate-btn {
     float:right;
 }
