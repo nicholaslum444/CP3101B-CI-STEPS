@@ -101,7 +101,9 @@
                                         <?php $counter = 1;
                                         foreach($module['projectList'] as $project) {
                                             if(!is_null($project['title'])) { ?>
-                                                <div class="project-titles-text" module="<?php echo $moduleCode; ?>" projectId="<?php echo $project['projectID']; ?>" innerIndex="<?php echo $counter++; ?>"><?php echo $project['title']; ?></div>
+                                                <div class="project-titles-text" module="<?php echo $moduleCode; ?>" projectId="<?php echo $project['projectID']; ?>" innerIndex="<?php echo $counter++; ?>">
+                                                	<a href="/index.php/Student/updateMembers/<?php echo $project['projectID']; ?>"><?php echo $project['title']; ?></a>
+                                                </div>
                                                 <?php
                                             }
                                             ?>
@@ -330,7 +332,7 @@
                             </div>
                             <!-- DESCRIPTIONS -->
                         </div>
-
+                        <div class="form-group" id="error"></div>
                         <div class="form-group">
                             <!-- PROJECT TITLES -->
                             <label class="control-label col-sm-2" for="">Project Titles:</label>
@@ -348,7 +350,7 @@
                         <div class="form-group">
                             <div class="col-xs-12 console-edit-submit-container">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="cancel">Cancel</button>
-                                <button type="submit" class="btn btn-success" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Submit</button>
+                                <button id="editModuleSubmitBtn" type="submit" class="btn btn-success" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Submit</button>
                             </div>
                         </div>
                     </form>

@@ -8,7 +8,7 @@ class Student extends CI_Controller {
 
     public function index() {
 
-        if ($this->_isAuthenticated()) {
+        if ($this->_isAuthenticatedAsStudent()) {
 
             $this->console();
 
@@ -20,7 +20,7 @@ class Student extends CI_Controller {
 
     public function console() {
 
-        if ($this->_isAuthenticated()) {
+        if ($this->_isAuthenticatedAsStudent()) {
 
            $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
            $this->load->view("users/StudentPage", $this->_makeBodyData());
@@ -34,7 +34,7 @@ class Student extends CI_Controller {
 
     public function registerProject($moduleId, $projectId) {
 
-        if ($this->_isAuthenticated()) {
+        if ($this->_isAuthenticatedAsStudent()) {
             $allStudentsInProject = $this->Dbquery->getStudentDetailByProject($projectId);
             $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
             $loadRegister = true;
@@ -60,7 +60,7 @@ class Student extends CI_Controller {
 
     public function updateMembers($projectId) {
 
-        if ($this->_isAuthenticated()) {
+        if ($this->_isAuthenticatedAsStudent() || $this->_isAuthenticatedAsLecturer()) {
 
             $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
             $this->load->view("users/UpdateMembersPage", $this->retrieveMemberDetails($projectId));
@@ -149,9 +149,15 @@ class Student extends CI_Controller {
     private function retrieveMemberDetails($projectId) {
         $memberDetails = $this->Dbquery->getMembersByProjectID($projectId);
         
+        //Determines if the user can remove students, currently all can for debugging purposes
+        $canRemoveMember = $this->_isLecturer();
+        $isLecturer = $this->_isLecturer();
+
         $bodyData = [
             "data" => $memberDetails,
-            "projectData" => $this->Dbquery->getProjectDetailsByProjectID($projectId)
+            "projectData" => $this->Dbquery->getProjectDetailsByProjectID($projectId),
+            "canRemoveMember" => $canRemoveMember,
+            "isLecturer" => $isLecturer
         ];
         //var_dump($bodyData["data"]);
         return $bodyData;
@@ -165,7 +171,15 @@ class Student extends CI_Controller {
         return $this->session->userType === USER_TYPE_STUDENT;
     }
 
-    private function _isAuthenticated() {
+    private function _isLecturer() {
+        return $this->session->userType === USER_TYPE_LECTURER;
+    }
+
+    private function _isAuthenticatedAsStudent() {
         return $this->_isLoggedIn() && $this->_isStudent();
+    }
+
+    private function _isAuthenticatedAsLecturer() {
+        return $this->_isLoggedIn() && $this->_isLecturer();
     }
 }
