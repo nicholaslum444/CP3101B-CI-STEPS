@@ -12,31 +12,36 @@ class DropStudentFromProject extends CI_Controller {
     }
 
     public function index() {
-        if (!(isset($_POST["project"]))) 
+        if (!(isset($_POST["projectId"])) || !(isset($_POST["members"]))) 
             exit($this->_buildIncompleteFormResponse());
 
         if (!$this->session->isLoggedIn || !($this->session->userType === USER_TYPE_LECTURER)) {
             exit($this->_buildAccessDeniedResponse());
         }
 
-        exit($this->_buildResponse($_POST["project"]));
+        exit($this->_buildResponse($_POST["projectId"], $_POST["members"]));
     }
 
-    private function _buildResponse($project) {
+    private function _buildResponse($projectId, $members) {
 
-        $insertResult = $this->_insertIntoDb($project);
+        $insertResult = $this->_insertIntoDb($projectId, $members);
 
         return json_encode($insertResult);
     }
 
-    private function _insertIntoDb($project) {
-      $id = $project['projectID'];
-      $userID = $project['userID'];
-      $isLeader = $project['leader'];
+    private function _insertIntoDb($projectId, $members) {
+      $id = $projectId;
+      $leaderIsGone = false;
+      
+      foreach($members as $toDelete) {
+        $userID = $toDelete;
+        if($this->Dbquery->isLeader($userID, $projectId)) {
+          $leaderIsGone = true;
+        }
+        $this->Dbinsert->deleteStudentFromProject($projectId, $toDelete); 
+      }
 
-      $this->Dbinsert->deleteStudentFromProject($id, $userID); 
-    
-      if($isLeader) {
+      if($leaderIsGone) {
         $query = $this->Dbquery->getStudentDetailByProject($id);
         if(count($query) > 0) {
           $this->Dbinsert->setLeaderForProject($query[1]['userID'], $id);  

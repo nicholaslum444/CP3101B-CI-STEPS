@@ -33,6 +33,8 @@ class EditModule extends CI_Controller {
         $iteration = $this->Dbquery->getLatestIteration();
         $moduleCode = $_POST["moduleCode"];
         $moduleId = $_POST["moduleId"];
+        $projectsNotDeleted = [];
+        $cannotDelete = false;
         if (!$this->Dbquery->isModuleExist($moduleId)) {
             // make fail obj
             return [
@@ -98,16 +100,34 @@ class EditModule extends CI_Controller {
             //Delete existing project titles
             if(!is_null($deletedProjects) && !empty($deletedProjects)) {
                 foreach($deletedProjects as $deleteId) {
-                    $updateSuccess = $this->Dbinsert->deleteProject($deleteId);
+                    $deleteInfo = $this->Dbquery->getProjectDetailsByProjectID($deleteId);
+                    if(count($deleteInfo['members']) > 1) {
+                        array_push($projectsNotDeleted, $deleteInfo);
+                        $cannotDelete = true;
+                    }
+                }
+
+                if(!$cannotDelete) {
+                    foreach($deletedProjects as $deleteId) {
+                        $updateSuccess = $this->Dbinsert->deleteProject($deleteId);
+                    }
                 }
             }
 
             //$updateSuccess = $this->Dbinsert;
             //$updateSuccess = TRUE; // TODO remove
             if (isset($updateSuccess) && $updateSuccess == true) {
-                return [
-                    "success" => TRUE
-                ];
+                if(count($projectsNotDeleted) == 0) {
+                    return [
+                        "success" => TRUE
+                    ];
+                }
+                else {
+                    return [
+                        "success" => TRUE,
+                        "undeletedProjects" => $projectsNotDeleted
+                    ];
+                }
             } else {
                 return [
                     "success" => FALSE,

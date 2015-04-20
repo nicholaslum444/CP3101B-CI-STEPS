@@ -138,8 +138,15 @@ $(function() {
 		e.preventDefault();
 	});
 
-	$('#editModuleForm').on('submit', function(e) {
+	$('#editModal').on('hidden.bs.modal', function () {
+  		$("#editModuleSubmitBtn").attr("disabled", false);
+  		deletedProjects = [];
+	})
 
+	$('#editModuleForm').on('submit', function(e) {
+		//Lock the submit button to prevent multiple inserts
+		$("#editModuleSubmitBtn").attr("disabled", true);
+		
 		//GETTING MODULE CODE AND NUMBER OF PROJECTS
 		var moduleCode = $("#editModalLabel").attr("moduleCode");
 		var moduleId = $("#editModalLabel").attr("moduleid");
@@ -228,13 +235,29 @@ $(function() {
 		})
 		.done(function(data) {
 			// Client <={=(result)=4
-			if(data["success"] == true) {
+			if(data["success"] == true && (data["undeletedProjects"] == null || data["undeletedProjects"].length == 0)) {
 				$('#editModal').modal('hide');
 				location.reload();
+			}
+			else if(data["success"] == true && (data["undeletedProjects"] != null && !data["undeletedProjects"].length == 0)) {
+				//Add back and say cannot delete
+				$("#editModuleSubmitBtn").attr("disabled", true);
+				var error =
+					'<div class="alert alert-danger alert-dismissible fade in" role="alert">'
+			    +	'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'
+			    + 	'<h4>Please go back and ensure projects are empty before deleting!</h4>'
+			    +  	'<p>The following projects are currently occupied: ';
+
+			    for(var i = 0; i < data["undeletedProjects"].length-1; i++) {
+			    	error += data["undeletedProjects"][i]["title"] + ", ";
+			    }
+			    error += data["undeletedProjects"][data["undeletedProjects"].length-1]["title"] + "." + "</p></div>"
+			   	$("#error").prepend(error);
 			}
 			else {
 				alert("Adding error");
 				$('#editModuleForm').addClass("has-error");
+				$("#editModuleSubmitBtn").attr("disabled", false);
 			}
 		})
 		//Temporary work around until Mun Aw patches the database
@@ -268,7 +291,8 @@ $(function() {
 		$("#editClassSize").attr("value", "");
 		$("#editNumProjects").attr("value", "");
 		$("#editModuleDescription").val("-");
-		$("#editProjectTitles").val("");
+		$("#editProjectTitles").empty();
+		$("#error").empty();
 		$(".addProjectTitleBtn").attr("moduleCode", "");
 
 		//THE EASY PART
