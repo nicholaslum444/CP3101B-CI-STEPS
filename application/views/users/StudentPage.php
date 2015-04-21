@@ -1,14 +1,184 @@
 <div class="container site-container">
+
+    <?php
+    /* $data is an array of two parts
+    data[0] is the modules that he already registered for.
+    data[1] is the projects that he have not registered for.
+
+    data[0] is an array of modules
+    data[0][i] is an object of the modules detail, with project as the attr.
+
+    data[1] is an array of
+    data[1][i] is an object of the little project detail.
+
+    */
+    $modules = $data[0];
+    $unregisteredModules = $data[1];
+    ?>
+    <script>
+    <?php echo ("_modulesWithProjects=" . json_encode($data[0])); ?>
+    <?php echo ("_modulesWithoutProjects=" . json_encode($data[1])); ?>
+    </script>
+
+    <div class="alert-container">
+        <div class="alert alert-warning alert-dismissible fade in" role="alert">
+
+            <h4>Unregistered Projects</h4>
+            <p>
+                You should encourage your group leader to register for a project under these modules.
+            </p>
+            <p>
+                <?php
+                foreach ($unregisteredModules as $unregisteredModule) {
+                    $unregisteredModuleCode = $unregisteredModule['moduleCode'];
+                    ?>
+                    <button type="button" class="btn btn-info">
+                        <?php echo $unregisteredModuleCode; ?>
+                    </button>
+                    <?php
+                }
+                ?>
+            </p>
+        </div>
+    </div>
+
+    <?php
+    foreach ($modules as $module) {
+        $project = $module['project'];
+        $moduleCode = $module['moduleCode'];
+        $projectTitle = $project['title'];
+        $projectAbstract = $project['abstract'];
+        $projectId = $project['projectID'];
+        $projectPosterUrl = $project['poster'];
+        $projectMembers = $project['members'];
+        $projectLeaderId = $project['leader'];
+        ?>
+        <div class="console-module-list" id="moduleList">
+            <div class="console-module-block" moduleId="hasd">
+                <!-- header -->
+                <div class="console-module-block-header">
+                    <div class="console-module-block-header-code-container">
+                        <span class="console-module-block-header-code" moduleId = "asdasd">
+                            <?php echo $projectTitle; ?>
+                        </span>
+                    </div>
+                    <div class="console-module-block-header-name-container">
+                        <span class="console-module-block-header-name">
+                            <?php echo $moduleCode; ?>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- body of box -->
+                <div class="console-module-block-details">
+                    <!-- poster
+                    video
+                    teammembers
+                    abstract -->
+                    <div class="row">
+                        <div class="col-xs-12 console-module-block-entry">
+                            <div class="project-num-header-container">
+                                <span class="project-num-header console-module-block-entry-header">
+                                    Video
+                                </span>
+                            </div>
+                            <div style="text-align:center;" class="console-project-video-container">
+                                <!-- <img class="img-responsive" src="<?php echo $projectPosterUrl; ?>"> -->
+                                <iframe
+                                class="img-responsive console-project-video"
+                                src="https://www.youtube.com/embed/Vck2Q0GYJdo?rel=0"
+                                frameborder="0"
+                                allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 console-module-block-entry">
+                            <div class="class-size-header-container">
+                                <span class="class-size-header console-module-block-entry-header">
+                                    Poster
+                                </span>
+                            </div>
+                            <div class="console-project-poster-container">
+                                <img class="img-responsive console-project-poster"
+                                src="http://i.imgur.com/fHonJzph.png"
+                                ssrc="http://www.comp.nus.edu.sg/~stevenha/cp3101b/poster11.png">
+                                <!-- <img class="img-responsive"
+                                src="http://i.imgur.com/fHonJzph.png"> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 console-module-block-entry">
+                            <div class="class-size-header-container">
+                                <span class="class-size-header console-module-block-entry-header">
+                                    Team Members
+                                </span>
+                            </div>
+                            <div class="project-titles-text-container">
+                                <?php
+                                foreach ($projectMembers as $member) {
+                                    $memberName = $member['name'];
+                                    $memberId = $member['userID'];
+                                    $leaderTag = ($memberId == $projectLeaderId) ? "leader" : "";
+                                    ?>
+                                    <div class="project-titles-text">
+                                        <span><?php echo $memberName; ?></span>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 console-module-block-entry">
+                            <div class="description-header-container">
+                                <span class="description-header console-module-block-entry-header">
+                                    Project Abstract
+                                </span>
+                            </div>
+                            <div class="description-text-container">
+                                <span class="description-text">
+                                    <?php echo $projectAbstract; ?>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="console-edit-btn-container">
+                    <button
+                        type="button"
+                        class="btn btn-info editModuleBtn console-edit-btn"
+                        data-toggle="modal"
+                        data-target="#editModal"
+                        data-backdrop="static"
+                        id="editButton<?php echo $moduleCode ?>"
+                        module="<?php echo $moduleCode; ?>"
+                        projectid="<?php echo $projectId; ?>"
+                        <?php echo $freeze == 1 ? "disabled" : ""; ?>>
+                        <i class="fa fa-pencil fa-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+    ?>
+
     <div class="row">
         <h4>Projects</h4>
     </div>
 
 
-<!--To be shown only when student is signed up for it -->
-<?php if(isset($data[0])) {
+    <!--To be shown only when student is signed up for it -->
+    <?php if(isset($data[0])) {
     //var_dump($data);
     foreach($data[0] as $module) { ?>
-    <div class="row">     
+    <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -34,8 +204,8 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="">Team Members: </label>
                             <div class="col-sm-5 field-group teamMembers" project="">
-                            <h5><?php foreach($module['project']['members'] as $member){ 
-                                    echo $member['name']; 
+                            <h5><?php foreach($module['project']['members'] as $member){
+                                    echo $member['name'];
                                     if($member['userID']== $module['project']['leader']) {
                                         echo " (Leader)";
                                     }
@@ -45,28 +215,33 @@
                             </div>
                         </div>
                         <!-- Edit Button for Leaders -->
-                        <button <?php echo $freeze == 1 ? "disabled" : ""; ?> type="button" class="editBtn btn btn-success pull-right" projectId="<?php echo $module['project']['projectID']?>">Edit</button>
+                        <button <?php echo $freeze == 1 ? "disabled" : ""; ?>
+                            type="button"
+                            class="editBtn btn btn-success pull-right"
+                            projectId="<?php echo $module['project']['projectID']?>">
+                            Edit
+                        </button>
                     </div>
                 </div>
             </div>
         </div><!--End md-12-->
     </div>
-    <?php 
-}}
-?>
+    <?php
+    }}
+    ?>
 
 
 <!--Modules where student has no project-->
-<?php 
+<?php
 if(isset($data[1]) && count($data[1])>0) { ?>
-    
+
     <div class="row">
     <h4>Modules without registered project</h4>
     </div>
 
     <?php
     foreach($data[1] as $module) {  ?>
-    <div class="row">     
+    <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -93,7 +268,7 @@ if(isset($data[1]) && count($data[1])>0) { ?>
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="projectSelect">Select Project:</label>
-                        <select class="form-control" name="projectTitle" id="projectSelect"> <!-- Dyanamic Project Titles -->                            
+                        <select class="form-control" name="projectTitle" id="projectSelect"> <!-- Dyanamic Project Titles -->
                         </select>
                     </div>
                 </div>
@@ -107,9 +282,9 @@ if(isset($data[1]) && count($data[1])>0) { ?>
     </div>
 </div>
 
-<script> 
+<script>
 $(function() {
-    
+
     var untakenProjects = <?php echo json_encode($dataUnregistered); ?>; //an object of arrays
 
     $('#registerProjectModal').on('hidden.bs.modal', function () {
@@ -122,7 +297,7 @@ $(function() {
         var currModuleId = button.attr('data-moduleId');
         var modal = $(this);
         modal.find('.modal-title').text(moduleCode + " Project Sign Up");
-        
+
         //change register button moduleid attribute
         modal.find('#projectSubmitBtn').attr('moduleid', currModuleId);
 
@@ -143,7 +318,7 @@ $(function() {
 	    else {
 	    	$('#projectSelect').prop( "disabled", true );
 	    }
-    }) 
+    })
 
     $('#projectSubmitBtn').click(function(event){
 
@@ -162,3 +337,7 @@ $(function() {
     });
 });
 </script>
+
+<?php
+echo json_encode($data);
+?>

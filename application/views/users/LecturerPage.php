@@ -13,7 +13,6 @@
             <script>
             // set the modules data as a variable to be extracted
             <?php echo "_allModuleData=" . json_encode($data); ?>;
-            <?php echo "console.log(" . json_encode($data) . ")"; ?>;
             </script>
 
             <?php
@@ -101,9 +100,11 @@
                                         <?php $counter = 1;
                                         foreach($module['projectList'] as $project) {
                                             if(!is_null($project['title'])) { ?>
-                                                <div class="project-titles-text" module="<?php echo $moduleCode; ?>" projectId="<?php echo $project['projectID']; ?>" innerIndex="<?php echo $counter++; ?>">
-                                                	<a href="/index.php/Student/updateMembers/<?php echo $project['projectID']; ?>"><?php echo $project['title']; ?></a>
-                                                </div>
+                                                <a href="/index.php/Student/updateMembers/<?php echo $project['projectID']; ?>">
+                                                    <div class="project-titles-text" module="<?php echo $moduleCode; ?>" projectId="<?php echo $project['projectID']; ?>" innerIndex="<?php echo $counter++; ?>">
+                                                    	<span><?php echo $project['title']; ?></span>
+                                                    </div>
+                                                </a>
                                                 <?php
                                             }
                                             ?>
@@ -131,59 +132,17 @@
                         <div class="console-edit-btn-container">
                             <button
                                 type="button"
-                                class="btn btn-default editModuleBtn console-edit-btn"
+                                class="btn btn-info editModuleBtn console-edit-btn"
                                 data-toggle="modal"
                                 data-target="#editModal"
                                 data-backdrop="static"
                                 id="editButton<?php echo $moduleCode ?>"
                                 module="<?php echo $moduleCode; ?>"
-                                moduleid="<?php echo $moduleId; ?>" <?php echo $freeze == 1 ? "disabled" : ""; ?>>
+                                moduleid="<?php echo $moduleId; ?>"
+                                <?php echo $freeze == 1 ? "disabled" : ""; ?>>
                                 <i class="fa fa-pencil fa-5"></i>
                             </button>
                         </div>
-
-                        <!-- <div class="console-module-block-details">
-                            <div class="form-horizontal" role="form" index="1">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="classSize">Class Size:</label>
-                                    <div class="col-sm-4 field-group has-feedback">
-                                        <h5 class="inputText classSizeText" module="<?php echo $moduleCode; ?>"><?php echo $classSize; ?></h5>
-                                    </div>
-
-                                    <label class="control-label col-sm-2" for="numProjects">Number of Projects:</label>
-                                    <div class="col-sm-4 field-group has-feedback">
-                                        <h5 class="inputText numProjectsText" module="<?php echo $moduleCode; ?>"><?php echo $numProjects; ?></h5>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="moduleDescription">Description:</label>
-                                    <div class="col-sm-10 field-group">
-                                        <h5 class="inputText moduleDescriptionText" module="<?php echo $moduleCode; ?>"><?php echo $moduleDescription; ?></h5>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="">Project Titles:</label>
-                                    <div class="col-sm-5 field-group field-list projectTitles" module="<?php echo $moduleCode; ?>">
-                                        <?php $counter = 1;
-                                        // numOfProject should be DYNAMIC too
-                                        foreach($module['projectList'] as $project) {
-                                            if(!is_null($project['title'])) { ?>
-                                                <h5 class="inputText projectTitle" module="<?php echo $moduleCode; ?>" projectId="<?php echo $project['projectID']; ?>" innerIndex="<?php echo $counter++; ?>"><?php echo $project['title']; ?></h5>
-                                                <?php
-                                            }
-                                            ?>
-                                            <?php
-                                        }
-                                        ?>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                     <?php
                 }

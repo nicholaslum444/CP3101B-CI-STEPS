@@ -349,11 +349,12 @@ textarea {
 }
 
 .console-module-block-header {
-    background: lightblue;
+    background: #2c3e50;
     text-align: center;
     padding: 10px;
     margin: -10px;
     margin-bottom: 0px;
+    color: white;
 }
 
 .console-module-block-header-code {
@@ -375,16 +376,15 @@ textarea {
 
 .description-text-container {
     width: 100%;
-    /*height: 200px;*/
-    overflow: scroll;
 }
 
 .project-titles-text {
-    padding: 5px;
-    background: #ddd;
+    padding: 10px;
+    background: #ccc;
     border-radius: 20px;
-    margin-bottom: 5px;
+    margin: 5px 0px;
     display: inline-block;
+    color: steelblue;
 }
 
 .console-edit-btn-container {
@@ -424,6 +424,32 @@ button[data-target="#registerModal"] {
 
 /* END LECTUERER CONSOLE */
 
+/*-----------------------*/
+
+/* BEGIN STUDENT CONSOLE */
+
+.alert-container {
+    margin: 10px 0px 0px 0px;
+    text-align: center;
+}
+
+.console-unregistered-projects-container,
+.warning-mark-container {
+    display: inline-block;
+}
+
+.console-project-poster-container,
+.console-project-video-container {
+    text-align: center;
+}
+
+.console-project-poster,
+.console-project-video {
+    margin: 5px auto;
+    max-height: 300px;
+}
+
+/* END STUDENT CONSOLE */
 
 
 /*admin panel edit button*/
