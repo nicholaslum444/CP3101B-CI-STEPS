@@ -405,23 +405,6 @@ textarea {
     text-align: right;
 }
 
-#moduleContent {
-    min-height: 450px;
-}
-#moduleList .container {
-    margin-top: 4.5%;
-}
-
-/*lecturer edit button*/
-#moduleList button {
-    /*float:right;*/
-}
-
-/*lecturer register button*/
-button[data-target="#registerModal"] {
-    /*float: right;*/
-}
-
 /* END LECTUERER CONSOLE */
 
 /*-----------------------*/
@@ -455,11 +438,6 @@ button[data-target="#registerModal"] {
 /*admin panel edit button*/
 .panel-heading button {
     float:right;
-}
-
-/*student register project button*/
-button[data-target="#registerProjectModal"] {
-    float: right;
 }
 
 #submitMembers-btn {

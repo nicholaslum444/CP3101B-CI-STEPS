@@ -15,32 +15,46 @@
     $modules = $data[0];
     $unregisteredModules = $data[1];
     ?>
+
     <script>
     <?php echo ("_modulesWithProjects=" . json_encode($data[0])); ?>
     <?php echo ("_modulesWithoutProjects=" . json_encode($data[1])); ?>
     </script>
 
-    <div class="alert-container">
-        <div class="alert alert-warning alert-dismissible fade in" role="alert">
-
-            <h4>Unregistered Projects</h4>
-            <p>
-                You should encourage your group leader to register for a project under these modules.
-            </p>
-            <p>
-                <?php
-                foreach ($unregisteredModules as $unregisteredModule) {
-                    $unregisteredModuleCode = $unregisteredModule['moduleCode'];
-                    ?>
-                    <button type="button" class="btn btn-info">
-                        <?php echo $unregisteredModuleCode; ?>
-                    </button>
+    <?php
+    if (count($unregisteredModules) > 0) {
+        ?>
+        <div class="alert-container">
+            <div class="alert alert-warning fade in" role="alert">
+                <span class="console-module-block-header-code">
+                    Project Sign Up</span>
+                <p>
+                    You should encourage your group leader to sign your group up for a project under these modules.
+                </p>
+                <p>
                     <?php
-                }
-                ?>
-            </p>
+                    foreach ($unregisteredModules as $unregisteredModule) {
+                        $unregisteredModuleCode = $unregisteredModule['moduleCode'];
+                        $unregisteredModuleId = $unregisteredModule['moduleID'];
+                        ?>
+                        <button type="button"
+                            <?php echo $freeze == 1 ? "disabled" : ""; ?>
+                            class="btn btn-info"
+                            data-toggle="modal"
+                            data-target="#registerProjectModal"
+                            data-moduleId="<?php echo $unregisteredModuleId; ?>"
+                            data-module="<?php echo $unregisteredModuleCode; ?>">
+                            <?php echo $unregisteredModuleCode; ?>
+                        </button>
+                        <?php
+                    }
+                    ?>
+                </p>
+            </div>
         </div>
-    </div>
+        <?php
+    }
+    ?>
 
     <?php
     foreach ($modules as $module) {
@@ -54,11 +68,11 @@
         $projectLeaderId = $project['leader'];
         ?>
         <div class="console-module-list" id="moduleList">
-            <div class="console-module-block" moduleId="hasd">
+            <div class="console-module-block">
                 <!-- header -->
                 <div class="console-module-block-header">
                     <div class="console-module-block-header-code-container">
-                        <span class="console-module-block-header-code" moduleId = "asdasd">
+                        <span class="console-module-block-header-code">
                             <?php echo $projectTitle; ?>
                         </span>
                     </div>
@@ -152,7 +166,7 @@
                 <div class="console-edit-btn-container">
                     <button
                         type="button"
-                        class="btn btn-info editModuleBtn console-edit-btn"
+                        class="btn btn-info editBtn console-edit-btn"
                         data-toggle="modal"
                         data-target="#editModal"
                         data-backdrop="static"
@@ -168,14 +182,8 @@
         <?php
     }
     ?>
-
-    <div class="row">
-        <h4>Projects</h4>
-    </div>
-
-
     <!--To be shown only when student is signed up for it -->
-    <?php if(isset($data[0])) {
+    <!-- <?php if(isset($data[0])) {
     //var_dump($data);
     foreach($data[0] as $module) { ?>
     <div class="row">
@@ -214,25 +222,18 @@
                             </h5>
                             </div>
                         </div>
-                        <!-- Edit Button for Leaders -->
-                        <button <?php echo $freeze == 1 ? "disabled" : ""; ?>
-                            type="button"
-                            class="editBtn btn btn-success pull-right"
-                            projectId="<?php echo $module['project']['projectID']?>">
-                            Edit
-                        </button>
                     </div>
                 </div>
             </div>
-        </div><!--End md-12-->
+        </div>
     </div>
     <?php
     }}
-    ?>
+    ?> -->
 
 
 <!--Modules where student has no project-->
-<?php
+<!-- <?php
 if(isset($data[1]) && count($data[1])>0) { ?>
 
     <div class="row">
@@ -249,9 +250,9 @@ if(isset($data[1]) && count($data[1])>0) { ?>
                     <button <?php echo $freeze == 1 ? "disabled" : ""; ?> type="button" class="btn btn-success" data-toggle="modal" data-target="#registerProjectModal" data-moduleId="<?php echo $module['moduleID']?>" data-module="<?php echo $module['moduleCode'] ?>">Sign up</button>
                 </div>
             </div>
-        </div><!--End md-12-->
+        </div>
     </div>
-    <?php }} ?>
+    <?php }} ?> -->
 
 </div>
 
@@ -307,7 +308,7 @@ $(function() {
         //generate string
         var projects = untakenProjects[moduleCode];
         if(projects[0] != 0) {
-	        var str = '<option value="" default selected>Select a Project</option>' ;
+	        var str = "";
 	        for(var i = 0; i < projects.length; i++) {
 	            str += ('<option value = "'+ projects[i].projectID +'">');
 	            str += projects[i].title;
@@ -329,15 +330,11 @@ $(function() {
         var moduleId = $(this).attr('moduleid');
         console.log(projectId);
         console.log(moduleId);
-        window.location.href = "/index.php/Student/registerProject/" + moduleId + "/" + projectId ;
+        window.location.href = "/student/registerProject/" + moduleId + "/" + projectId ;
     });
 
     $('.editBtn').on('click', function() {
-    	window.location.href="/index.php/Student/updateMembers/" + $(this).attr("projectId");
+    	window.location.href="/student/updateMembers/" + $(this).attr("projectId");
     });
 });
 </script>
-
-<?php
-echo json_encode($data);
-?>

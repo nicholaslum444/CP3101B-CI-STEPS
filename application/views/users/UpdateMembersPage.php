@@ -244,10 +244,10 @@ $(function(){
             e.preventDefault();
             <?php
             if($isLecturer) {
-                echo 'window.location.href="/index.php/Lecturer/console";';
+                echo 'window.location.href="/lecturer/console";';
             }
             else {
-                echo 'window.location.href="/index.php/Student/console";';
+                echo 'window.location.href="/student/console";';
             }
             ?>
         });
