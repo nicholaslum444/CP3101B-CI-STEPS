@@ -257,7 +257,7 @@
                         </button>
                         <button id="registerBtn"
                             type="submit"
-                            class="btn btn-success" 
+                            class="btn btn-success"
                             <?php echo $freeze == 1 ? "disabled" : ""; ?>>
                             Register
                         </button>
@@ -311,7 +311,7 @@
                                     <span class="glyphicon glyphicon-plus"><span>
                                 </div>
                             </div>
-                            <div id="editProjectTitles" class="col-xs-12 col-sm-5 projectTitleFields">
+                            <div id="editProjectTitles" class="col-xs-12 col-sm-7 projectTitleFields">
                                 <!-- DYNAMICALLY GENERATE AND INSERT INPUT FIELDS INTO HERE -->
                             </div>
 
@@ -331,7 +331,7 @@
     </div><!-- End of Modal-->
 
     <!-- thing to clone for the project rows. -->
-    <span class="projectTitleInput"
+    <div class="projectTitleInput"
         id="projectTitleOrig">
         <input type="text"
             class="form-control"
@@ -339,4 +339,4 @@
         <button class="btn btn-danger deleteProjectBtn">
             &times;
         </button>
-    </span>
+    </div>

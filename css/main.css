@@ -524,10 +524,7 @@ textarea {
 }
 
 .deleteProjectBtn {
-    /*position: absolute;
-    top: -43px;
-    left: 322px;
-    display: none;*/
+    border-radius: 50%;
 }
 
 /* admin login */
