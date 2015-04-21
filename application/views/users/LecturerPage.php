@@ -294,16 +294,19 @@
                         <div class="form-group" id="error"></div>
                         <div class="form-group">
                             <!-- PROJECT TITLES -->
-                            <label class="control-label col-sm-2" for="">Project Titles:</label>
-                            <div id = "editProjectTitles" class="col-sm-5 projectTitleFields"></div>
-                            <!-- DYNAMICALLY GENERATE AND INSERT INPUT FIELDS INTO HERE
-                            SAMPLE: <input type="text" class="form-control" innerIndex="" projectID="" moduleCode="" placeholder="Project Title">-->
-                            <!-- PROJECT TITLES -->
-                            <div class="col-sm-5">
-                                <div class="btn btn-default addProjectTitleBtn" <?php echo $freeze == 1 ? "disabled" : ""; ?>>
+
+                            <label class="control-label col-sm-2 col-xs-6" for="">Project Titles:</label>
+                            <div class="col-xs-2 col-sm-1" style="display:inline-block;">
+                                <div class="btn btn-info addProjectTitleBtn"
+                                    <?php echo $freeze == 1 ? "disabled" : ""; ?>>
                                     <span class="glyphicon glyphicon-plus"><span>
                                 </div>
                             </div>
+                            <div id="editProjectTitles" class="col-xs-12 col-sm-5 projectTitleFields">
+                                <!-- DYNAMICALLY GENERATE AND INSERT INPUT FIELDS INTO HERE -->
+                            </div>
+
+                            <!-- PROJECT TITLES -->
                         </div>
 
                         <div class="form-group">
@@ -317,3 +320,14 @@
             </div>
         </div>
     </div><!-- End of Modal-->
+
+    <!-- thing to clone for the project rows. -->
+    <span class="projectTitleInput"
+        id="projectTitleOrig">
+        <input type="text"
+            class="form-control"
+            placeholder="Project Title">
+        <button class="btn btn-danger deleteProjectBtn">
+            &times;
+        </button>
+    </span>

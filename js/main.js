@@ -42,12 +42,12 @@ function sanitize(input) {
 
 $(function() {
 
-	/* This function helps to load unavailable-img when error exist on path to src 
+	/* This function helps to load unavailable-img when error exist on path to src
 	   When the posters link are uploaded for real, we can use php instead to check for null */
 	$(".module-thumb-img img").error(function(){
 	  $(this)[0].src = "/img/unavailable-img.jpg";
 	});
-	
+
 	// for header vvvvvvvvvvvvvvvvvvvvvvvvv
 
 	$("#loginBtnStudent").bind("click", function() {
@@ -67,29 +67,27 @@ $(function() {
 
 	// for lecturer page vvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
+	function addProjectEntry(innerIndex, projectId, moduleCode, value) {
+		// make the project entry in the list
+		$("#projectTitleOrig button").attr("innerIndex", innerIndex);
+		var input = $("#projectTitleOrig input");
+		input.attr("innerIndex", innerIndex);
+		input.attr("projectID", projectId);
+		input.attr("moduleCode", moduleCode);
+		input.attr("value", value);
+		var entry = $("#projectTitleOrig").clone();
+		entry.removeAttr("id");
+
+		$(".projectTitleFields").append(entry);
+		bindDeleteBtn();
+	}
+
 	$('.addProjectTitleBtn').click(function() {
     	//Dynamically generate buttons
     	var index = $("#editProjectTitles input").length+1;
     	var moduleCode = $('.addProjectTitleBtn').attr('moduleCode');
-
 		// make the project entry in the list
-		var entry = '<span class = "projectTitleInput">'
-		+ '<input type="text" class="form-control" placeholder="Project Title"'
-		+ ' innerIndex="'
-		+ -1
-		+ '" projectID="'
-		+ -1
-		+ '" moduleCode="'
-		+ moduleCode
-		+ '" value="'
-		+ moduleCode + "-" + index
-		+ '"><button type="button" class="close deleteProjectBtn" aria-label="Close"'
-		+ ' innerIndex="'
-		+ -1
-		+ '"><span aria-hidden="true">×</span></button></span>';
-
-		$(".projectTitleFields").append(entry);
-		bindDeleteBtn();
+		addProjectEntry(-1, -1, moduleCode, moduleCode + "-" + index);
 
     	// $('.projectTitleFields').append('<span class = "projectTitleInput"><input type="text" class="form-control" innerIndex="-1" projectID="-1" moduleCode="'
     	// 	+ moduleCode + '" placeholder="projectTitle" value="'+ moduleCode +"-"+ index +'" >'+
@@ -171,7 +169,7 @@ $(function() {
 	$('#editModuleForm').on('submit', function(e) {
 		//Lock the submit button to prevent multiple inserts
 		$("#editModuleSubmitBtn").attr("disabled", true);
-		
+
 		//GETTING MODULE CODE AND NUMBER OF PROJECTS
 		var moduleCode = $("#editModalLabel").attr("moduleCode");
 		var moduleId = $("#editModalLabel").attr("moduleid");
@@ -337,27 +335,7 @@ $(function() {
 			var project = projects[i];
 			var innerIndex = i + 1;
 			// make the project entry in the list
-			var entry = '<span class = "projectTitleInput">'
-			+ '<input type="text" class="form-control" placeholder="Project Title"'
-			+ ' innerIndex="'
-			+ innerIndex
-			+ '" projectID="'
-			+ project["projectID"]
-			+ '" moduleCode="'
-			+ module["moduleCode"]
-			+ '" value="'
-			+ project["title"]
-			+ '"><button type="button" class="close deleteProjectBtn" aria-label="Close"'
-			+ ' innerIndex="'
-			+ innerIndex
-			+ '"><span aria-hidden="true">×</span></button></span>';
-
-			$("#editProjectTitles").append(entry);
-
-			bindDeleteBtn();
-			// $("#editProjectTitles").append('<span class = "projectTitleInput"><input type="text" class="form-control" innerIndex="' + $(this).attr('innerIndex') +
-			// 	'" projectID="' + $(this).attr('projectID') + '" moduleCode="' + $(this).attr('module') + '" placeholder="Project Title" value="' + value.innerHTML + '">'+
-			// 	'<button type="button" innerIndex = "' + $(this).attr('innerIndex') + '" class="close deleteProjectBtn" aria-label="Close"><span aria-hidden="true">×</span></button></span>');
+			addProjectEntry(innerIndex, project["projectID"], module["moduleCode"], project["title"]);
 		}
 	});
 });
