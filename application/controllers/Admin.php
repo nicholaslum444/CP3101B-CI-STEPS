@@ -156,7 +156,9 @@ class Admin extends CI_Controller {
         $i = 0;
         foreach($listOfModules as $module) {
             $moduleData[$i] = $this->_getModuleInformation($module["moduleID"]);
-			$i++;
+            $moduleData[$i]['lecturers'] = $this->Dbquery->getSupervisorByModule($module["moduleID"]);
+        
+            $i++;
         }
 
         $bodyData = [
@@ -184,10 +186,11 @@ class Admin extends CI_Controller {
     }
 
     private function _getModuleInformation($moduleId) {
+
 		$modInfo = [
 			"data" => $this->Dbquery->getModuleDetailByModuleID($moduleId)
 		];
-
+        //$modInfo["data"]["lecturers"] = 
         return $modInfo;
     }
 
