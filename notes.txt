@@ -1,4 +1,3 @@
 To improve:
 
-1. lecturer edit module page should have back or cancel button.
-2. 
+1. SERVER-SIDE needs to do sanitation. the js sanitize function can be overridden.

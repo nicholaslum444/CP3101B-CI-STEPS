@@ -57,9 +57,7 @@ textarea {
 }
 
 #submitUpdate {
-    margin-left: auto;
-    margin-right: auto;
-    width: 5%;
+    text-align:right;
 }
 
 .btn-learn-more {
@@ -438,16 +436,48 @@ textarea {
 
 .console-project-poster-container,
 .console-project-video-container {
-    text-align: center;
+    /*text-align: center;*/
 }
 
 .console-project-poster,
 .console-project-video {
-    margin: 5px auto;
+    margin: 5px 0px;
     max-height: 300px;
 }
 
 /* END STUDENT CONSOLE */
+
+/*------------------------*/
+
+/* BEGIN REGISTER PROJECT */
+
+#studentSelect {
+    display:none;
+}
+
+.member-form-container {
+    margin: 10px 0px;
+}
+
+.memberField {
+    min-height: 30px;
+}
+
+.studentOption {
+    margin: 10px 0px;
+}
+
+.studentOption select {
+    max-width: 80%;
+    width: auto;
+    display: inline-block;
+}
+
+.deleteBtn {
+    border-radius: 50%;
+}
+
+/* END REGISTER PROJECT */
 
 
 /*admin panel edit button*/
@@ -455,17 +485,8 @@ textarea {
     float:right;
 }
 
-#submitMembers-btn {
-    float: left;
-}
-
 .addMemberBtn {
     float: left;
-}
-
-.memberDetails {
-    margin-top: 30px;
-    margin-bottom: 30px;
 }
 
 /* seperate from first row of input */

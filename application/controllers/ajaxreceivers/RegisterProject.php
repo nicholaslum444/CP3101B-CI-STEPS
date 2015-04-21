@@ -12,18 +12,23 @@ class RegisterProject extends CI_Controller {
     }
 
     public function index() {
-        if (!(isset($_POST["projectId"]))) 
+        if (!(isset($_POST["projectId"])))
             exit($this->_buildIncompleteFormResponse());
 
-        if(!(isset($_POST["memberIDs"]))) {
-            exit($this->_buildIncompleteFormResponse());
-        } 
+        // removed this requirement to allow one-man team (e.g. fyp)
+        // if(!(isset($_POST["memberIDs"]))) {
+        //     exit($this->_buildIncompleteFormResponse());
+        // }
 
         if (!$this->session->isLoggedIn || !($this->session->userType === USER_TYPE_STUDENT)) {
             exit($this->_buildAccessDeniedResponse());
         }
 
-        exit($this->_buildResponse($_POST["projectId"],$_POST["memberIDs"], $this->session->userId));
+        if(isset($_POST["memberIDs"])) {
+            exit($this->_buildResponse($_POST["projectId"], $_POST["memberIDs"], $this->session->userId));
+        } else {
+            exit($this->_buildResponse($_POST["projectId"], [], $this->session->userId));
+        }
     }
 
     private function _buildResponse($projectId, $memberIDs, $userId) {

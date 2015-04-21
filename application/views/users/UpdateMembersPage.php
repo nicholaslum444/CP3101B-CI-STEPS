@@ -19,11 +19,11 @@
                 <input class="form-control" name="video" rows="5" id="video" value="<?php echo $projectData['video']; ?>" placeholder="URL for your video"></textarea>
             </div>
             <div class="col-sm-12">
-                <h4 class="control-label subtitle" >Team Members </h4>
+                <h4 class="control-label subtitle team-members-header" >Team Members</h4>
                 <?php $odd = true;
                 if(isset($data) && count($data) > 0) {
                     foreach($data as $member) { ?>
-                        <div class="overall-member-div  control-label col-md-5 col-sm-12" who="<?php echo $member['userID'] ?>">
+                        <div class="overall-member-div control-label col-md-5 col-sm-12" who="<?php echo $member['userID'] ?>">
                             <div class="projectMemberandDetails" who="<?php echo $member['userID'] ?>" >
                                 <div class="row memberDetails panel panel-primary"> <!-- Duplicate starts here -->
                                     <div class="panel-heading member-header" who="<?php echo $member['userID'] ?>">
@@ -61,9 +61,9 @@
                                                 <!-- <label class="control-label col-sm-2"></label> -->
                                                 <label class="control-label col-sm-4 align-text-box"  id="foodLabel"  for="food">Food Preference:</label>
                                                 <div <?php echo $freeze == 1 ? "disabled" : ""; ?> class="radio col-sm-8"  required>
-                                                    <label><input type="radio" name="foodPref" <?php echo ($member['foodPref'] == 2)? "checked":""; ?> value="Non-Vegetarians">Non-Vegetarians</label>
+                                                    <label><input type="radio" name="foodPref" <?php echo ($member['foodPref'] == 2)? "checked":""; ?> value="Non-Vegetarians">Non-Vegetarian</label>
                                                     <br>
-                                                    <label><input type="radio" name="foodPref" <?php echo ($member['foodPref'] == 1)? "checked":""; ?> value="Vegetarians">Vegetarians</label>
+                                                    <label><input type="radio" name="foodPref" <?php echo ($member['foodPref'] == 1)? "checked":""; ?> value="Vegetarians">Vegetarian</label>
                                                 </div>
                                             </div><!-- End of second row -->
                                         </form>
@@ -78,18 +78,27 @@
                 }//For the If ?>
             </div>
 
+            <div class="col-sm-12">
+                <div id="submitUpdate">
+                    <button class="btn btn-danger"
+                        onclick="javascript:window.history.back();">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                        <?php echo $freeze == 1 ? "disabled" : ""; ?>
+                        class="btn btn-success"
+                        id="updateMembers-btn">
+                        Submit
+                    </button>
+                </div>
+            </div>
 
         </div>
 
-
     </div>
 </div>
 
-<div class="form-group">
-    <div id="submitUpdate">
-        <button <?php echo $freeze == 1 ? "disabled" : ""; ?> type="submit" class="btn btn-default" id="updateMembers-btn">Submit</button>
-    </div>
-</div>
+
 
 </div>
 

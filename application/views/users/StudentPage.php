@@ -16,11 +16,6 @@
     $unregisteredModules = $data[1];
     ?>
 
-    <script>
-    <?php echo ("_modulesWithProjects=" . json_encode($data[0])); ?>
-    <?php echo ("_modulesWithoutProjects=" . json_encode($data[1])); ?>
-    </script>
-
     <?php
     if (count($unregisteredModules) > 0) {
         ?>
@@ -96,13 +91,14 @@
                                     Video
                                 </span>
                             </div>
-                            <div style="text-align:center;" class="console-project-video-container">
+                            <div class="console-project-video-container">
+                                No video yet. Upload your URL on the edit page!
                                 <!-- <img class="img-responsive" src="<?php echo $projectPosterUrl; ?>"> -->
-                                <iframe
+                                <!-- <iframe
                                 class="img-responsive console-project-video"
                                 src="https://www.youtube.com/embed/Vck2Q0GYJdo?rel=0"
                                 frameborder="0"
-                                allowfullscreen></iframe>
+                                allowfullscreen></iframe> -->
                             </div>
                         </div>
                     </div>
@@ -114,10 +110,17 @@
                                 </span>
                             </div>
                             <div class="console-project-poster-container">
-                                <img class="img-responsive console-project-poster"
-                                src="<?php echo $projectPosterUrl; ?>">
-                                <!-- <img class="img-responsive"
-                                src="http://i.imgur.com/fHonJzph.png"> -->
+                                <?php if (isset($projectPosterUrl)) {
+                                    ?>
+                                    <img class="img-responsive console-project-poster"
+                                    src="<?php echo $projectPosterUrl; ?>">
+                                    <?php
+                                } else {
+                                    ?>
+                                    No poster yet. Upload your URL on the edit page!
+                                    <?php
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -181,78 +184,6 @@
         <?php
     }
     ?>
-    <!--To be shown only when student is signed up for it -->
-    <!-- <?php if(isset($data[0])) {
-    //var_dump($data);
-    foreach($data[0] as $module) { ?>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="form-horizontal" role="form" index="1">
-
-                        <h4 class="col-sm-12"><?php echo $module['moduleCode'].'-'.$module['moduleName'] ?></h4>
-
-
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="projectTitle">Project Title:</label>
-                            <div class="col-sm-4 field-group has-feedback">
-                                <h5 class="inputText projectTitleText" id="projectTitle" project=""><?php echo $module['project']['title']?></h5>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="abstractText">Abstract:</label>
-                            <div class="col-sm-10 field-group">
-                                <h5 class="inputText abstractText" project=""><?php echo $module['project']['abstract'] ?></h5>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="">Team Members: </label>
-                            <div class="col-sm-5 field-group teamMembers" project="">
-                            <h5><?php foreach($module['project']['members'] as $member){
-                                    echo $member['name'];
-                                    if($member['userID']== $module['project']['leader']) {
-                                        echo " (Leader)";
-                                    }
-                                    echo "<br />";
-                                } ?>
-                            </h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <?php
-    }}
-    ?> -->
-
-
-<!--Modules where student has no project-->
-<!-- <?php
-if(isset($data[1]) && count($data[1])>0) { ?>
-
-    <div class="row">
-    <h4>Modules without registered project</h4>
-    </div>
-
-    <?php
-    foreach($data[1] as $module) {  ?>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h4><?php echo $module['moduleCode']. '-' . $module['moduleName'] ?></h4>
-                    <button <?php echo $freeze == 1 ? "disabled" : ""; ?> type="button" class="btn btn-success" data-toggle="modal" data-target="#registerProjectModal" data-moduleId="<?php echo $module['moduleID']?>" data-module="<?php echo $module['moduleCode'] ?>">Sign up</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <?php }} ?> -->
-
 </div>
 
 <!-- Modal for registering module-->
@@ -274,22 +205,24 @@ if(isset($data[1]) && count($data[1])>0) { ?>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button <?php echo $freeze == 1 ? "disabled" : ""; ?> type="submit" class="btn btn-primary" id="projectSubmitBtn" moduleid="">Register</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button <?php echo $freeze == 1 ? "disabled" : ""; ?> type="submit" class="btn btn-success" id="projectSubmitBtn" moduleid="">Register</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<script>
-$(function() {
 
-    var untakenProjects = <?php echo json_encode($dataUnregistered); ?>; //an object of arrays
+
+<script>
+
+$(function() {
+    var untakenProjects = <?php echo (json_encode($dataUnregistered)); ?>; //an object of arrays
 
     $('#registerProjectModal').on('hidden.bs.modal', function () {
         $('#projectSelect').prop( "disabled", false );
-    })
+    });
 
     $('#registerProjectModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
@@ -318,7 +251,7 @@ $(function() {
 	    else {
 	    	$('#projectSelect').prop( "disabled", true );
 	    }
-    })
+    });
 
     $('#projectSubmitBtn').click(function(event){
 
@@ -335,5 +268,7 @@ $(function() {
     $('.editBtn').on('click', function() {
     	window.location.href="/student/updateMembers/" + $(this).attr("projectId");
     });
+
+
 });
 </script>
