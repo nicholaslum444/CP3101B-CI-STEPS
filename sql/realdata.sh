@@ -1,0 +1,1 @@
+mysql test -u steps -e "source DDL.sql; source iterate.sql; source realProf.sql; source realMod.sql; source realSup.sql; source realuser.sql; source CS4344.sql; source project.sql; source participate.sql; source enrolled.sql; source admin.sql;" -p;
