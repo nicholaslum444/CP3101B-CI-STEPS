@@ -115,8 +115,7 @@
                             </div>
                             <div class="console-project-poster-container">
                                 <img class="img-responsive console-project-poster"
-                                src="http://i.imgur.com/fHonJzph.png"
-                                ssrc="http://www.comp.nus.edu.sg/~stevenha/cp3101b/poster11.png">
+                                src="<?php echo $projectPosterUrl; ?>">
                                 <!-- <img class="img-responsive"
                                 src="http://i.imgur.com/fHonJzph.png"> -->
                             </div>
