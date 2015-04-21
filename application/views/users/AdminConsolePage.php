@@ -13,6 +13,7 @@
                 $classSize = $module['data']['classSize'] == null ? 0 : $module['data']['classSize'];
                 $numProjects = $module['data']['projectList'] == null ? 0 : count($module['data']['projectList']);
                 $moduleDescription = $module['data']['moduleDescription'] == null ? "-" : $module['data']['moduleDescription'];
+                $lecturers = $module['lecturers']== null ? "-" : $module['lecturers'];
                 ?>
 
                 <div class="accordion-group console-module-block">
@@ -50,6 +51,26 @@
                             <br>
                             <div class="form-horizontal" role="form" index="1">
                                 
+                                <div class="col-xs-12 console-module-block-entry">
+                                    <div class="class-size-header-container">
+                                        <span class="class-size-header console-module-block-entry-header">
+                                            Lecturer
+                                        </span>
+                                    </div>
+                                    <div class="class-size-text-container">
+                                        <?php 
+                                        foreach($lecturers as $lecturer) { ?>
+                                                <div class="class-size-text">
+                                                    <?php echo $lecturer['name'];
+                                                    ?>
+                                                </div>
+                                            <?php
+                                            }
+                                            ?>
+                                        
+                                    </div>
+                                </div>
+
                                 <div class="col-xs-6 console-module-block-entry">
                                     <div class="class-size-header-container">
                                         <span class="class-size-header console-module-block-entry-header">
@@ -62,7 +83,6 @@
                                         </span>
                                     </div>
                                 </div>
-
                                 <div class="col-xs-6 console-module-block-entry">
                                     <div class="project-num-header-container">
                                         <span class="project-num-header console-module-block-entry-header">

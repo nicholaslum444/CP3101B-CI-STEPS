@@ -218,6 +218,7 @@ class Dbquery extends CI_Model {
 				$result[$i] = array();
 				$result[$i]['userID'] = $row['user_id'];
 				$result[$i]['name'] = $row['name'];
+				//$result[$i]['email'] = $row['email'];
 				++$i;
 			}
 		} else {
