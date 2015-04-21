@@ -12,7 +12,8 @@ foreach ($modules as $module) {
     <div class="row">
         <div class="col-xs-8 col-xs-offset-2">
             <!-- <h1 class="hero__heading">STePS</h1> -->
-            <img src="/resources/LOGOSMALL.png">
+            <span>
+            </span>
             <h2 class="hero__subheading">School of Computing's Term Project Showcase</h2>
             <a class="btn btn-learn-more btn-lg" href="/about">
                 Learn More
