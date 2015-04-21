@@ -250,8 +250,17 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button id="registerBtn" type="submit" class="btn btn-primary" <?php echo $freeze == 1 ? "disabled" : ""; ?>>Register</button>
+                        <button type="button"
+                            class="btn btn-danger"
+                            data-dismiss="modal">
+                            Close
+                        </button>
+                        <button id="registerBtn"
+                            type="submit"
+                            class="btn btn-success" 
+                            <?php echo $freeze == 1 ? "disabled" : ""; ?>>
+                            Register
+                        </button>
                     </div>
                 </form>
             </div>
