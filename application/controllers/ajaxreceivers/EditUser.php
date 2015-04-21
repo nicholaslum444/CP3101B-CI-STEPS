@@ -28,6 +28,7 @@ class EditUserInformation extends CI_Controller {
 
     private function _buildResponse($userIDs, $userId) {
 
+        $userIDS = $this->_filter($userIDs);        
         $insertResult = $this->_insertIntoDb($userIDs, $userId);
 
         return json_encode($insertResult);
@@ -50,6 +51,20 @@ class EditUserInformation extends CI_Controller {
        return [
        "success" => TRUE
        ];
+    }
+    
+    private function _filter($userIDS) {
+      if (is_array($userIDs)) {
+          foreach($userIDs as $aMember) {
+            $email = $aMember['email'];
+            $aMember['email'] = filter_var($email, FILTER_SANITIZE_EMAIL);
+            $contact = $aMember['contact'];
+            $aMember['contact'] = filter_var($contact, FILTER_SANITIZE_STRING);
+            $food = $aMember['food'];
+            $aMember['food'] = filter_var($food, FILTER_SANITIZE_STRING);
+         }
+      }
+      return $userIDS;
     }
 
     private function _buildIncompleteFormResponse() {

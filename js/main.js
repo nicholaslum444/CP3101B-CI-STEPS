@@ -247,7 +247,7 @@ $(function() {
 			"deletedProjects" : deletedProjects
 		};
 
-		console.log(editFormData);
+		//console.log(editFormData);
 
 		// 4=(form)=}=> Server
 		$.ajax({

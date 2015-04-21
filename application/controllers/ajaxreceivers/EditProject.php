@@ -24,6 +24,7 @@ class EditProject extends CI_Controller {
 
     private function _buildResponse($project) {
 
+        $project = $this->_filter($project);
         $insertResult = $this->_insertIntoDb($project);
 
         return json_encode($insertResult);
@@ -66,6 +67,22 @@ class EditProject extends CI_Controller {
        return [
        "success" => TRUE
        ];
+    }
+
+    private function _filter($project) {
+      if($project['poster'] != null) {
+        $poster = $project['poster'];
+        $project['poster'] = filter_var($poster, FILTER_SANITIZE_URL);
+      }
+      if($project['video'] != null) {
+        $video = $project['video'];
+        $project['video'] = filter_var($video, FILTER_SANITIZE_URL);
+      }
+      if($project['abstract'] != null) {
+        $abstract = $project['abstract'];
+        $project['abstract'] = filter_var($abstract, FILTER_SANITIZE_STRING);
+      }
+      return $project;
     }
 
     private function _buildIncompleteFormResponse() {
