@@ -161,7 +161,7 @@ class Dbquery extends CI_Model {
     	}
     }
 
-	public function isModuleSupervisedByUser($userID, $projectID) {
+	public function isProjectSupervisedByUser($userID, $projectID) {
     	$this->db->from("user");
     	$this->db->join("supervise", "supervise.user_id = user.user_id");
     	$this->db->join("module", "supervise.module_id = module.module_id");
