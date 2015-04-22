@@ -4,48 +4,48 @@
         <div class="col-sm-4 col-xs-1">
         </div>
         <div class="col-sm-3 col-xs-5" style="text-align:left;">
-                <h4>FYP:</h4>
-                <hr>
-                <h4>IS 5126:</h4>
-                <hr>
-                <h4>CS 3217:</h4>
-                <hr>
-                <h4>CS 3218:</h4>
-                <hr>
-                <h4>CS 3240:</h4>
-                <hr>
-                <h4>CS 3247:</h4>
-                <hr>
-                <h4>CS 3284:</h4>
-                <hr>
-                <h4>CS 4244:</h4>
-                <hr>
-                <h4>CS 4344:</h4>
-                <hr>
-                <h4>CP 3101B:</h4>
-                <h4>
+            <h4>CP 3101B:</h4>
+            <hr>
+            <h4>FYP:</h4>
+            <hr>
+            <h4>IS 5126:</h4>
+            <hr>
+            <h4>CS 3217:</h4>
+            <hr>
+            <h4>CS 3218:</h4>
+            <hr>
+            <h4>CS 3240:</h4>
+            <hr>
+            <h4>CS 3247:</h4>
+            <hr>
+            <h4>CS 3284:</h4>
+            <hr>
+            <h4>CS 4244:</h4>
+            <hr>
+            <h4>CS 4344:</h4>
+            <hr>
         </div>
         <div class="col-sm-3 col-xs-5">
-                <h4><a href="http://goo.gl/forms/zYQ3l5lcId">Voting Form </a></h4>
-                <hr>
-                <h4><a href="http://goo.gl/forms/a43Jgvq5XT">Voting Form </a></h4>
-                <hr>
-                <h4><a href="http://goo.gl/forms/LxybXNfIPr">Voting Form </a></h4>
-                <hr>
-                <h4><a href="http://goo.gl/forms/ycNLXxlUYj">Voting Form </a></h4>
-                <hr>
-                <h4><a href="http://goo.gl/forms/ku4OOI3tzU">Voting Form </a></h4>
-                <hr>
-                <h4><a href="http://goo.gl/forms/ZlQR6mDJuQ">Voting Form </a></h4>
-                <hr>
-                <h4><a href="http://goo.gl/forms/mRhNwiiF4c">Voting Form </a></h4>
-                <hr>
-                <h4><a href="http://goo.gl/forms/nF3C3SBEiy">Voting Form </a></h4>
-                <hr>
-                <h4><a href="http://goo.gl/forms/YURCjmDMfr">Voting Form </a></h4>
-                <hr>
-                <h4><a href="http://goo.gl/forms/Ne4DuptDoX">Voting Form </a></h4>
-                <hr>
+            <h4><a target="_blank" href="http://goo.gl/forms/Ne4DuptDoX">Voting Form </a></h4>
+            <hr>
+            <h4><a target="_blank" href="http://goo.gl/forms/zYQ3l5lcId">Voting Form </a></h4>
+            <hr>
+            <h4><a target="_blank" href="http://goo.gl/forms/a43Jgvq5XT">Voting Form </a></h4>
+            <hr>
+            <h4><a target="_blank" href="http://goo.gl/forms/LxybXNfIPr">Voting Form </a></h4>
+            <hr>
+            <h4><a target="_blank" href="http://goo.gl/forms/ycNLXxlUYj">Voting Form </a></h4>
+            <hr>
+            <h4><a target="_blank" href="http://goo.gl/forms/ku4OOI3tzU">Voting Form </a></h4>
+            <hr>
+            <h4><a target="_blank" href="http://goo.gl/forms/ZlQR6mDJuQ">Voting Form </a></h4>
+            <hr>
+            <h4><a target="_blank" href="http://goo.gl/forms/mRhNwiiF4c">Voting Form </a></h4>
+            <hr>
+            <h4><a target="_blank" href="http://goo.gl/forms/nF3C3SBEiy">Voting Form </a></h4>
+            <hr>
+            <h4><a target="_blank" href="http://goo.gl/forms/YURCjmDMfr">Voting Form </a></h4>
+            <hr>
         </div>
     </div>
 

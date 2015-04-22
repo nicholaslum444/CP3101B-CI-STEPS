@@ -12,7 +12,7 @@ class DropStudentFromProject extends CI_Controller {
     }
 
     public function index() {
-        if (!(isset($_POST["projectId"])) || !(isset($_POST["members"]))) 
+        if (!(isset($_POST["projectId"])) || !(isset($_POST["members"])))
             exit($this->_buildIncompleteFormResponse());
 
         if (!$this->session->isLoggedIn || !($this->session->userType === USER_TYPE_LECTURER)) {
@@ -32,19 +32,19 @@ class DropStudentFromProject extends CI_Controller {
     private function _insertIntoDb($projectId, $members) {
       $id = $projectId;
       $leaderIsGone = false;
-      
+
       foreach($members as $toDelete) {
         $userID = $toDelete;
         if($this->Dbquery->isLeader($userID, $projectId)) {
           $leaderIsGone = true;
         }
-        $this->Dbinsert->deleteStudentFromProject($projectId, $toDelete); 
+        $this->Dbinsert->deleteStudentFromProject($projectId, $toDelete);
       }
 
       if($leaderIsGone) {
         $query = $this->Dbquery->getStudentDetailByProject($id);
         if(count($query) > 0) {
-          $this->Dbinsert->setLeaderForProject($query[1]['userID'], $id);  
+          $this->Dbinsert->setLeaderForProject($query[0]['userID'], $id);  
         }
       }
 

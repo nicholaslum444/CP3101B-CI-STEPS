@@ -84,7 +84,7 @@
                 	<button class="btn btn-default pull-left" <?php if($freeze == 1 || !isset($students) || count($students) == 0) {echo 'disabled'; }?> data-toggle="modal" data-backdrop="static" data-target="#addMembersModal">
                         Add members
                     </button>
-                    <?php } ?> 
+                    <?php } ?>
                     <button class="btn btn-danger"
                         onclick="javascript:window.history.back();">
                         Cancel
@@ -103,7 +103,7 @@
 	            <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        
+
                         <h4 class="modal-title" id="myModalLabel">Add a member to this project</h4>
                     </div>
                     <div class="modal-body">
@@ -149,8 +149,8 @@
 </div>
 
 <script>
-$(function(){	
-    
+$(function(){
+
     <?php if($canRemoveMember == 1) { echo '
         //USE PHP TO LOCK THESE FUNCTIONS WHEN USER IS A STUDENT
         var deleteMembers = [];
@@ -316,13 +316,13 @@ $(function(){
             console.log("failed" + JSON.stringify(data));
         });
 
-        
+
         <?php if($canRemoveMember == 1) { echo '
             //AJAX FOR DELETING MEMBERS
             //LOCK WITH PHP ALSO
             if(deleteMembers instanceof Array && deleteMembers.length != 0) {
                 $.ajax({
-                    url: "/index.php/ajaxreceivers/dropstudentfromproject",
+                    url: "/index.php/ajaxreceivers/DropStudentFromProject",
                     method: "POST",
                     dataType: "json",
                     data: {
@@ -352,10 +352,10 @@ $(function(){
             ';} ?>
 
             if(success == true) {
-                <?php 
+                <?php
                     if($isLecturer) {
                         echo 'window.location.replace("/lecturer");';
-                    } 
+                    }
                     else {
                         echo 'window.location.replace("/student/console");';
                     }
