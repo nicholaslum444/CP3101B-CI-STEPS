@@ -1,15 +1,3 @@
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<!-- <div class="jumbotron afternav">
-    <div class="container">
-        <h1>STePS<br>
-            <small>
-                <strong>S</strong>chool of Computing
-                <strong>Te</strong>rm <strong>P</strong>roject <strong>S</strong>howcase
-            </small>
-        </h1>
-    </div>
-</div> -->
-
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
