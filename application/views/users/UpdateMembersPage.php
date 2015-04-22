@@ -150,9 +150,9 @@
 
 <script>
 $(function(){	
-    //USE PHP TO LOCK THESE FUNCTIONS WHEN USER IS A STUDENT
+    
     <?php if($canRemoveMember == 1) { echo '
-
+        //USE PHP TO LOCK THESE FUNCTIONS WHEN USER IS A STUDENT
         var deleteMembers = [];
 
 		$("#addStudentIntoProjectBtn").click(function() {
@@ -221,6 +221,9 @@ $(function(){
     '; } ?>
 
     $('#updateMembers-btn').click(function(e) {
+
+        e.preventDefault();
+
         var membersData = $('#updateMembersForm').serializeArray();
         //console.log(membersData);
         var formData = [];
@@ -313,9 +316,10 @@ $(function(){
             console.log("failed" + JSON.stringify(data));
         });
 
-        //AJAX FOR DELETING MEMBERS
-        //LOCK WITH PHP ALSO
+        
         <?php if($canRemoveMember == 1) { echo '
+            //AJAX FOR DELETING MEMBERS
+            //LOCK WITH PHP ALSO
             if(deleteMembers instanceof Array && deleteMembers.length != 0) {
                 $.ajax({
                     url: "/index.php/ajaxreceivers/dropstudentfromproject",
@@ -347,10 +351,15 @@ $(function(){
 		            }
             ';} ?>
 
-
-            e.preventDefault();
-            if(success = true) {
-            	location.reload();
+            if(success == true) {
+                <?php 
+                    if($isLecturer) {
+                        echo 'window.location.replace("/lecturer");';
+                    } 
+                    else {
+                        echo 'window.location.replace("/student/console");';
+                    }
+                ?>
             }
         });
     });

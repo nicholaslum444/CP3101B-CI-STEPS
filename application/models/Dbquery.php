@@ -150,8 +150,8 @@ class Dbquery extends CI_Model {
     public function isStudentInProject($userID, $projectID) {
     	$this->db->from("user");
     	$this->db->join("participate", "participate.user_id = user.user_id");
-    	$this->db->where("user_id", $userID);
-    	$this->db->where("project_id", $projectID);
+    	$this->db->where("user.user_id", $userID);
+    	$this->db->where("participate.project_id", $projectID);
     	$query = $this->db->get();
 
     	if($query->num_rows() == 1) {
@@ -161,11 +161,14 @@ class Dbquery extends CI_Model {
     	}
     }
 
-	public function isModuleSupervisedByUser($userID, $moduleID) {
+	public function isModuleSupervisedByUser($userID, $projectID) {
     	$this->db->from("user");
     	$this->db->join("supervise", "supervise.user_id = user.user_id");
+    	$this->db->join("module", "supervise.module_id = module.module_id");
+    	$this->db->join("participate", "participate.module_id = module.module_id");
+    	
     	$this->db->where("user.user_id", $userID);
-    	$this->db->where("supervise.module_id", $moduleID);
+    	$this->db->where("participate.project_id", $projectID);
     	$query = $this->db->get();
 
     	if($query->num_rows() == 1) {
