@@ -3,7 +3,7 @@
         <div class="col-sm-6">
                 <h2 class="section__heading about-page-right">Registration</h2>
                 <div class="steps-poster-container about-page-left">
-                    <iframe src="//eventbrite.sg/tickets-external?eid=16153884704&amp;ref=etckt" width="100%" height="400px" frameborder="0" vspace="0" hspace="0" marginheight="5" marginwidth="5" scrolling="auto" allowtransparency="true"></iframe>
+                    <iframe src="//eventbrite.sg/tickets-external?eid=16153884704&amp;ref=etckt" width="100%" height="600px" frameborder="0" vspace="0" hspace="0" marginheight="5" marginwidth="5" scrolling="auto" allowtransparency="true"></iframe>
                 </div>
         </div>
         <div class="col-sm-6">
