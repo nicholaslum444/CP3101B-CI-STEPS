@@ -46,7 +46,6 @@ class Student extends CI_Controller {
                 }
             }
 
-
             if($loadRegister) {
                 $this->load->view("users/RegisterProjectPage", $this->_selectMembersData($moduleId, $projectId));
             }
@@ -60,7 +59,10 @@ class Student extends CI_Controller {
 
     public function updateMembers($projectId) {
 
-        if ($this->_isAuthenticatedAsStudent() || $this->_isAuthenticatedAsLecturer()) {
+		if ($this->_isInProject($projectId)) {
+			$this->_denyAccess();
+
+		} else if ($this->_isAuthenticatedAsStudent() || $this->_isAuthenticatedAsLecturer()) {
 
             $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
             $this->load->view("users/UpdateMembersPage", $this->retrieveMemberDetails($projectId));
@@ -99,12 +101,16 @@ class Student extends CI_Controller {
         return $bodyData;
     }
 
+	private function _isInProject($projectId) {
+		return $this->Dbquery->isStudentInProject($this->session->userId, $projectId);
+	}
+
     private function _getRegisteredAndNotRegisteredModule($moduleProjects) {
         $modulesRegistered = [];
         $modulesNotRegistered = [];
         if(isset($moduleProjects['enrolled'])) {
             foreach($moduleProjects['enrolled'] as $module) {
-                
+
                 if($module['project']==null) {//did not sign up for project
                     array_push($modulesNotRegistered, $module);
                 }
@@ -113,7 +119,7 @@ class Student extends CI_Controller {
                 }
             }
         }
-        
+
         return array($modulesRegistered, $modulesNotRegistered);
     }
 
@@ -148,7 +154,7 @@ class Student extends CI_Controller {
 
     private function retrieveMemberDetails($projectId) {
         $memberDetails = $this->Dbquery->getMembersByProjectID($projectId);
-        
+
         //Determines if the user can remove students, currently all can for debugging purposes
         $canRemoveMember = $this->_isLecturer();
         $isLecturer = $this->_isLecturer();
