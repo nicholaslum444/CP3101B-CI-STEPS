@@ -1,3 +1,4 @@
 To improve:
 
 1. SERVER-SIDE needs to do sanitation. the js sanitize function can be overridden.
+2. update project page should not reload. there should be popup to say it has been updated.
