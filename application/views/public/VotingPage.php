@@ -26,25 +26,25 @@
             <hr>
         </div>
         <div class="col-sm-3 col-xs-5">
-            <h4><a target="_blank" href="http://goo.gl/forms/Ne4DuptDoX">Voting Form </a></h4>
+            <h4><a target="_blank" href="http://goo.gl/forms/Ne4DuptDoX">Vote!</a></h4>
             <hr>
-            <h4><a target="_blank" href="http://goo.gl/forms/zYQ3l5lcId">Voting Form </a></h4>
+            <h4><a target="_blank" href="http://goo.gl/forms/zYQ3l5lcId">Vote!</a></h4>
             <hr>
-            <h4><a target="_blank" href="http://goo.gl/forms/a43Jgvq5XT">Voting Form </a></h4>
+            <h4><a target="_blank" href="http://goo.gl/forms/a43Jgvq5XT">Vote!</a></h4>
             <hr>
-            <h4><a target="_blank" href="http://goo.gl/forms/LxybXNfIPr">Voting Form </a></h4>
+            <h4><a target="_blank" href="http://goo.gl/forms/LxybXNfIPr">Vote!</a></h4>
             <hr>
-            <h4><a target="_blank" href="http://goo.gl/forms/ycNLXxlUYj">Voting Form </a></h4>
+            <h4><a target="_blank" href="http://goo.gl/forms/ycNLXxlUYj">Vote!</a></h4>
             <hr>
-            <h4><a target="_blank" href="http://goo.gl/forms/ku4OOI3tzU">Voting Form </a></h4>
+            <h4><a target="_blank" href="http://goo.gl/forms/ku4OOI3tzU">Vote!</a></h4>
             <hr>
-            <h4><a target="_blank" href="http://goo.gl/forms/ZlQR6mDJuQ">Voting Form </a></h4>
+            <h4><a target="_blank" href="http://goo.gl/forms/ZlQR6mDJuQ">Vote!</a></h4>
             <hr>
-            <h4><a target="_blank" href="http://goo.gl/forms/mRhNwiiF4c">Voting Form </a></h4>
+            <h4><a target="_blank" href="http://goo.gl/forms/mRhNwiiF4c">Vote!</a></h4>
             <hr>
-            <h4><a target="_blank" href="http://goo.gl/forms/nF3C3SBEiy">Voting Form </a></h4>
+            <h4><a target="_blank" href="http://goo.gl/forms/nF3C3SBEiy">Vote!</a></h4>
             <hr>
-            <h4><a target="_blank" href="http://goo.gl/forms/YURCjmDMfr">Voting Form </a></h4>
+            <h4><a target="_blank" href="http://goo.gl/forms/YURCjmDMfr">Vote!</a></h4>
             <hr>
         </div>
     </div>
