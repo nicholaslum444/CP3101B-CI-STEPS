@@ -48,6 +48,13 @@
             <hr>
         </div>
     </div>
+    <div class="row">
+        <div class="col-xs-12" style="text-align:center; margin: 10px auto;">
+            <a class="btn btn-primary btn-lg" href="/">
+                Back Home
+            </a>
+        </div>
+    </div>
 
     <!-- <div class="row">
         <div class="col-sm-6">
