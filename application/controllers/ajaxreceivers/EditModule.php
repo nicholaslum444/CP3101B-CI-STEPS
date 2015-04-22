@@ -22,6 +22,11 @@ class EditModule extends CI_Controller {
     }
 
     private function _buildResponse() {
+
+        $this->_filter($_POST["editedModuleDescription"], 
+                       $_POST["editedNewProjectTitles"],
+                       $_POST["editedExistingProjectTitles"]);
+
         //CALL MUN AW'S DATABASE'S UPDATE MODULE FUNCTION!
         $updateResult = $this->_insertIntoDb();
 
@@ -134,6 +139,28 @@ class EditModule extends CI_Controller {
                     "error" => "UPDATE_FAIL"
                 ];
             }
+        }
+    }
+
+    private function _filter(&$editedModuleDescription, &$editedNewProjectTitles,
+                             &$editedExistingProjectTitles) {
+        
+        if(isset($editedModuleDescription)) {    
+            $editedModuleDescription = filter_var($editedModuleDescription, FILTER_SANITIZE_STRING);
+        }
+
+        if(isset($editedNewProjectTitles) && !empty($editedNewProjectTitles)) {
+            for($i = 0; $i < count($editedNewProjectTitles); $i++) {
+                $newTitle = $editedNewProjectTitles[$i];
+                $editedNewProjectTitles[$i] = filter_var($newTitle, FILTER_SANITIZE_STRING);
+            }      
+        }
+
+        if(isset($editedExistingProjectTitles) && !empty($editedExistingProjectTitles)) {
+            for($i = 0; $i < count($editedExistingProjectTitles); $i++) {
+                $title = $editedExistingProjectTitles[$i][1];
+                $editedExistingProjectTitles[$i][1] = filter_var($title, FILTER_SANITIZE_STRING);
+            } 
         }
     }
 
