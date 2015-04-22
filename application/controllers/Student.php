@@ -152,13 +152,16 @@ class Student extends CI_Controller {
         //Determines if the user can remove students, currently all can for debugging purposes
         $canRemoveMember = $this->_isLecturer();
         $isLecturer = $this->_isLecturer();
-
+        $moduleId = $this->Dbquery->getProjectDetailsByProjectID($projectId)['moduleID'];
         $bodyData = [
             "data" => $memberDetails,
             "projectData" => $this->Dbquery->getProjectDetailsByProjectID($projectId),
             "canRemoveMember" => $canRemoveMember,
             "isLecturer" => $isLecturer
         ];
+        if($isLecturer) {
+            $bodyData["students"] = $this->_selectMembersData($moduleId, $projectId)['data'];
+        }
         //var_dump($bodyData["data"]);
         return $bodyData;
     }

@@ -80,6 +80,11 @@
 
             <div class="col-sm-12">
                 <div id="submitUpdate">
+                	<?php if($isLecturer) { ?>
+                	<button class="btn btn-default pull-left" <?php if($freeze == 1 || !isset($students) || count($students) == 0) {echo 'disabled'; }?> data-toggle="modal" data-backdrop="static" data-target="#addMembersModal">
+                        Add members
+                    </button>
+                    <?php } ?> 
                     <button class="btn btn-danger"
                         onclick="javascript:window.history.back();">
                         Cancel
@@ -92,9 +97,50 @@
                     </button>
                 </div>
             </div>
+            <?php if($isLecturer && isset($students) && count($students) > 0) { ?>
+            <div id="addMembersModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	            <div class="modal-dialog">
+	            <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        
+                        <h4 class="modal-title" id="myModalLabel">Add a member to this project</h4>
+                    </div>
+                    <div class="modal-body">
 
+		        	    <div class="form-group studentOption" id="addStudentForm">
+		        	    	<div class="control-label"><h5>Select a student</h5></div>
+					        <select class="form-control"
+					            name="memberIDs" id="selectedStudentToAdd"
+					            <?php echo $freeze == 1 ? "disabled" : ""; ?>>
+					            <?php
+				                foreach($students as $student){
+				                    ?>
+				                    <option value="<?php echo $student['userID']; ?>">
+				                        <?php echo $student['name']; ?>
+				                    </option>
+				                    <?php
+				                }?>
+					        </select>
+					    </div>
+					</div>
+
+				    <div class="modal-footer">
+                        <button type="button"
+                            class="btn btn-danger"
+                            data-dismiss="modal">
+                            Close
+                        </button>
+			            <button class="btn btn-info pull-right" id="addStudentIntoProjectBtn"
+			            <?php echo $freeze == 1 ? "disabled" : ""; ?>>
+			            Add
+			            </button>
+				    </div>
+            	</div>
+            	</div>
+            </div>
+            <?php } ?>
         </div>
-
     </div>
 </div>
 
@@ -103,11 +149,40 @@
 </div>
 
 <script>
-$(function(){
-
+$(function(){	
     //USE PHP TO LOCK THESE FUNCTIONS WHEN USER IS A STUDENT
     <?php if($canRemoveMember == 1) { echo '
+
         var deleteMembers = [];
+
+		$("#addStudentIntoProjectBtn").click(function() {
+			$("#addStudentIntoProjectBtn").attr("disabled", "true");
+			console.log($("#selectedStudentToAdd").val());
+			var userId = $("#selectedStudentToAdd").val();
+			var projectId = '.$projectData['projectId'].';
+			$.ajax({
+				url: "/index.php/ajaxreceivers/addStudentToProject",
+	            method: "POST",
+	            dataType: "json",
+	            data: {
+	            		"project": {
+	            					"userID" :userId,
+	        						"projectID" : projectId
+	        						}
+	        			}
+			})
+			.done(function(data) {
+	            if(data["success"] == true) {
+					location.reload();
+	            }
+	            else {
+	                $("#addStudentForm").addClass("has-error");
+	            }
+	        })
+	        .fail(function() {
+	        	$("#addStudentForm").addClass("has-error");
+	        })
+		});
 
         $(".member-header").hover(
         function() {
@@ -152,6 +227,7 @@ $(function(){
         //prepare data
         var studentForms = $('form');
         //console.log(studentForms);
+        var success = true;
 
         var doneOnce = false;
 
@@ -193,10 +269,12 @@ $(function(){
                 console.log("success");
             }
             else {
+            	success = false;
                 console.log("error " + JSON.stringify(data));
             }
         })
         .fail(function(data) {
+        	success = false;
             console.log("failed" + JSON.stringify(data));
         });
 
@@ -226,10 +304,12 @@ $(function(){
                 console.log("success");
             }
             else {
+            	success = false;
                 console.log("error " + JSON.stringify(data));
             }
         })
         .fail(function(data) {
+        	success = false;
             console.log("failed" + JSON.stringify(data));
         });
 
@@ -246,19 +326,32 @@ $(function(){
                         "projectId" : '.$projectData["projectId"].'
                     }
                 })
-            }
+				.done(function(data) {
+		            if(data["success"] == true) {
+		                if(!doneOnce)
+		                doneOnce = true;
+		                else {
+		                	success = false;
+		                }
+		                console.log("success");
+		            }
+		            else {
+		            	success = false;
+		                console.log("error " + JSON.stringify(data));
+		            }
+		        })
+		        .fail(function(data) {
+		        	success = false;
+		            console.log("failed" + JSON.stringify(data));
+		        });
+		            }
             ';} ?>
 
 
             e.preventDefault();
-            <?php
-            if($isLecturer) {
-                echo 'window.location.href="/lecturer/console";';
+            if(success = true) {
+            	location.reload();
             }
-            else {
-                echo 'window.location.href="/student/console";';
-            }
-            ?>
         });
     });
     </script>
