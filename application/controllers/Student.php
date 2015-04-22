@@ -57,12 +57,12 @@ class Student extends CI_Controller {
         }
     }
 
-    public function updateMembers($projectId) {
+    public function updateMembers($projectId = NULL) {
 
-		if ($this->_isInProject($projectId)) {
+		if (!isset($projectId)) {
 			$this->_denyAccess();
 
-		} else if ($this->_isAuthenticatedAsStudent() || $this->_isAuthenticatedAsLecturer()) {
+		} else if ($this->_isInChargeOfProject($projectId) || $this->_isInProject($projectId)) {
 
             $this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
             $this->load->view("users/UpdateMembersPage", $this->retrieveMemberDetails($projectId));
@@ -101,8 +101,14 @@ class Student extends CI_Controller {
         return $bodyData;
     }
 
+	private function _isInChargeOfProject($projectId) {
+		$isSupervised = $this->Dbquery->isProjectSupervisedByUser($this->session->userId, $projectId);
+		return $this->_isAuthenticatedAsLecturer() && $isSupervised;
+	}
+
 	private function _isInProject($projectId) {
-		return $this->Dbquery->isStudentInProject($this->session->userId, $projectId);
+		$isInProject = $this->Dbquery->isStudentInProject($this->session->userId, $projectId);
+		return $this->_isAuthenticatedAsStudent() && $isInProject;
 	}
 
     private function _getRegisteredAndNotRegisteredModule($moduleProjects) {

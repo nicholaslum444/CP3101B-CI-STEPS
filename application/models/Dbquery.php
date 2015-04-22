@@ -151,9 +151,9 @@ class Dbquery extends CI_Model {
     	$this->db->from("user");
     	$this->db->join("participate", "participate.user_id = user.user_id");
     	$this->db->where("user.user_id", $userID);
+        $this->db->where("user.user_type", USER_TYPE_STUDENT);
     	$this->db->where("participate.project_id", $projectID);
     	$query = $this->db->get();
-
     	if($query->num_rows() == 1) {
     		return true;
     	} else {
@@ -165,10 +165,11 @@ class Dbquery extends CI_Model {
     	$this->db->from("user");
     	$this->db->join("supervise", "supervise.user_id = user.user_id");
     	$this->db->join("module", "supervise.module_id = module.module_id");
-    	$this->db->join("participate", "participate.module_id = module.module_id");
-    	
+    	$this->db->join("project", "project.module_id = module.module_id");
+
     	$this->db->where("user.user_id", $userID);
-    	$this->db->where("participate.project_id", $projectID);
+        $this->db->where("user.user_type", USER_TYPE_LECTURER);
+    	$this->db->where("project.project_id", $projectID);
     	$query = $this->db->get();
 
     	if($query->num_rows() >= 1) {
@@ -936,12 +937,12 @@ class Dbquery extends CI_Model {
 		//SELECT *
 		//FROM user JOIN enrolled
 		//ON user.user_id = enrolled.user_id
-		//WHERE module.module_id = $moduleID 
+		//WHERE module.module_id = $moduleID
 		//AND 	user.user_id = $userID
 		//AND 	user.user_type = STUDENT;
-		
+
 		$this->db->from('user');
-		$this->db->join('enrolled', 
+		$this->db->join('enrolled',
 			'user.user_id = enrolled.user_id');
 		$this->db->where("user.user_id",$userID);
 		$this->db->where("enrolled.module_id",$moduleID);
@@ -968,9 +969,9 @@ class Dbquery extends CI_Model {
 				case 2: array_push($result['second'],$row['project_id']); break;
 				case 3: array_push($result['third'],$row['project_id']); break;
 			}
-		} 
-		return $result;	
-	} 
+		}
+		return $result;
+	}
 
 	private function queryRankingByModule($moduleID) {
 		$this->db->from('module');
