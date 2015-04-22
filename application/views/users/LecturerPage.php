@@ -185,10 +185,6 @@ $(function() {
         // make the project entry in the list
         addProjectEntry(-1, -1, moduleCode, moduleCode + "-" + index);
 
-        // $('.projectTitleFields').append('<span class = "projectTitleInput"><input type="text" class="form-control" innerIndex="-1" projectID="-1" moduleCode="'
-        //  + moduleCode + '" placeholder="projectTitle" value="'+ moduleCode +"-"+ index +'" >'+
-        //      '<button type="button" innerIndex = "-1" class="close deleteProjectBtn" aria-label="Close"><span aria-hidden="true">×</span></button></span>');
-
     });
 
     $('#registerModuleForm').on('submit',function (e) {
