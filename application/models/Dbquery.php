@@ -171,7 +171,7 @@ class Dbquery extends CI_Model {
     	$this->db->where("participate.project_id", $projectID);
     	$query = $this->db->get();
 
-    	if($query->num_rows() == 1) {
+    	if($query->num_rows() >= 1) {
     		return true;
     	} else {
     		return false;
