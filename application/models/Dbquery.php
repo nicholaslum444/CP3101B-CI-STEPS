@@ -147,14 +147,34 @@ class Dbquery extends CI_Model {
 		return $this->getIterationInfoByIterate($iterate);
     }
 
-//     getIterationInfo(ite)
-// getLatestIterationInfo
-// -> open registration
-// -> cut off info
-// -> event start time
-// -> end time
-// -> iteration
-// -> iteration semester
+    public function isStudentInProject($userID, $projectID) {
+    	$this->db->from("user");
+    	$this->db->join("participate", "participate.user_id = user.user_id");
+    	$this->db->where("user_id", $userID);
+    	$this->db->where("project_id", $projectID);
+    	$query = $this->db->get();
+
+    	if($query->num_rows() == 1) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+
+	public function isModuleSupervisedByUser($userID, $moduleID) {
+    	$this->db->from("user");
+    	$this->db->join("supervise", "supervise.user_id = user.user_id");
+    	$this->db->where("user.user_id", $userID);
+    	$this->db->where("supervise.module_id", $moduleID);
+    	$query = $this->db->get();
+
+    	if($query->num_rows() == 1) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+
 
 
 	/*
