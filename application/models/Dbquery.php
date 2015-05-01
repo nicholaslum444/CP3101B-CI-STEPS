@@ -53,6 +53,115 @@ class Dbquery extends CI_Model {
 		return $query;
 	}
 
+	public function searchDatabase($searchKey) {
+		$result = array(
+			'user' => $this->searchUser($searchKey),
+			'project' => $this->searchProject($searchKey),
+			'module' => $this->searchModule($searchKey)
+		);
+		return $result;
+	}	
+
+	private function searchUser($searchKey) {
+		$res = array();
+		$this->db->from("user");
+		$this->db->like("user.name",$searchKey);
+		$query = $this->db->get();
+		if($query->num_rows() > 0) {
+			foreach ($query->result_array() as $rows) {
+				$user = array();
+				$user['name'] 		= $rows['name'];
+				$user['userID'] 	= $rows['user_id'];
+				$user['email'] 		= $rows['email'];
+				$user['projects'] 	= $this->queryProjectInfoByParticipant($rows['user_id']);
+				array_push($res, $user);
+			}
+		}
+
+		return $res;
+	}
+
+	private function searchProject($searchKey) {
+		$res = array();
+		$this->db->from("project");
+		$this->db->like("project.title",$searchKey);
+		$query = $this->db->get();
+		if($query->num_rows() > 0) {
+			foreach ($query->result_array() as $rows) {
+				$project = array();
+				$project['title'] 		= $rows['title'];
+				$project['projectID'] 	= $rows['project_id'];
+				$project['abstract'] 	= $rows['abstract'];
+				$project['projects'] 	= $this->queryParticipantsByProjectID($rows['project_id']);
+				array_push($res, $project);
+			}
+		}
+
+		return $res;
+	}
+
+	private function searchModule($searchKey) {
+		$res = array();
+		$this->db->from("module");
+		$this->db->like("module.module_name",$searchKey);
+		$this->db->or_like("module.module_code",$searchKey);
+		$query = $this->db->get();
+		if($query->num_rows() > 0) {
+			foreach ($query->result_array() as $rows) {
+				$module = array();
+				$module['moduleName'] 		 = $rows['module_name'];
+				$module['moduleDescription'] = $rows['module_description'];
+				$module['moduleID'] 		 = $rows['module_id'];
+				$module['moduleCode'] 		 = $rows['module_code'];
+				$module['iteration'] 		 = $rows['iteration'];
+				array_push($res, $module);
+			}
+		}
+
+		return $res;
+	}
+
+	
+
+	private function queryParticipantsByProjectID($projectID) {
+		$this->db->from("participate");
+		$this->db->join("user", "participate.user_id = user.user_id");
+		$this->db->where("participate.project_id", $projectID);
+
+		$query = $this->db->get();
+		$res = array();
+		if($query->num_rows() > 0) {
+			foreach ($query->result_array() as $rows) {
+				$user = array(
+					'name' => $rows['name'],
+					'userID' => $rows['user_id'],
+					'email' => $rows['email']
+				);
+				array_push($res, $user);
+			}
+		}
+		return $res;
+	}
+
+	private function queryProjectInfoByParticipant($userID) {
+		$this->db->from("participate");
+		$this->db->join("project","project.project_id = participate.project_id");
+		$this->db->join("module","module.module_id = project.module_id");
+		$this->db->where("participate.user_id", $userID);
+		$query = $this->db->get();
+		$projects = array();
+		foreach($query->result_array() as $pro) {
+			$project = array(
+				'title' => $pro['title'],
+				'abstract' => $pro['abstract'],
+				// 'poster' => $pro['video'],
+				// 'video' => $pro['poster'],
+				'moduleCode' => $pro['module_code'] 
+			);
+			array_push($projects, $project);
+		}
+		return $projects;
+	}
 	/*
 	* This function return the students of a module who have not
 	* have joined any projects
