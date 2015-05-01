@@ -92,7 +92,7 @@ class Dbquery extends CI_Model {
 				$project['title'] 		= $rows['title'];
 				$project['projectID'] 	= $rows['project_id'];
 				$project['abstract'] 	= $rows['abstract'];
-				$project['projects'] 	= $this->queryParticipantsByProjectID($rows['project_id']);
+				$project['students'] 	= $this->queryParticipantsByProjectID($rows['project_id']);
 				array_push($res, $project);
 			}
 		}
@@ -154,6 +154,7 @@ class Dbquery extends CI_Model {
 			$project = array(
 				'title' => $pro['title'],
 				'abstract' => $pro['abstract'],
+				'projectID' => $pro['project_id'],
 				// 'poster' => $pro['video'],
 				// 'video' => $pro['poster'],
 				'moduleCode' => $pro['module_code'] 
