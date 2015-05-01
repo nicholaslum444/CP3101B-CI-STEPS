@@ -149,7 +149,7 @@ switch($loader) {
                 <div id="navbar" class="navbar-collapse collapse list-inline nav--primary u-uppercase">
                     <!-- links to public pages -->
                     <!-- <div class="navbar-left">  -->
-                    <ul class="nav navbar-nav navbar-left">
+                    <ul class="nav navbar-nav navbar-left navbar-fixed-height">
                         <li class="<?php echo $modulesActive; ?>">
                             <a href="/modules">Modules</a>
                         </li>

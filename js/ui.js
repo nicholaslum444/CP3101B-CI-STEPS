@@ -6,6 +6,12 @@ $(function() {
         $(".module-thumb-img img").css("height", $(".module-thumb-img img").css("width"));
 
     });
+
+    $(window).resize(function() {
+        // make the body adapt to an expanding header bar
+        $("body").css("padding-top", $("header").height());
+    });
+
     $(window).resize();
 
 });
