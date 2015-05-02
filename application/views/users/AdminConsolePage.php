@@ -7,13 +7,37 @@
             foreach($moduleData as $module) {
                 //echo json_encode($moduleData);
                 //Preprocess the data nicely
-                $moduleId = $module['data']['moduleID'] == null ? "dummy-id" : $module['data']['moduleID'];
-                $moduleCode = $module['data']['moduleCode'] == null ? "Dummy" : $module['data']['moduleCode'];
-                $moduleName = $module['data']['moduleName'] == null ? "-" : $module['data']['moduleName'];
-                $classSize = $module['data']['classSize'] == null ? 0 : $module['data']['classSize'];
-                $numProjects = $module['data']['projectList'] == null ? 0 : count($module['data']['projectList']);
-                $moduleDescription = $module['data']['moduleDescription'] == null ? "-" : $module['data']['moduleDescription'];
-                $lecturers = $module['lecturers']== null ? "-" : $module['lecturers'];
+                $moduleData = $module['data'];
+                
+                $moduleId = "dummy-id";
+                $moduleCode = "Dummy";
+                $moduleName = "-";
+                $classSize = 0;
+                $numProjects = 0;
+                $moduleDescription = "-";
+                $lecturers = "-";
+                
+                if (isset($module['lecturers'])) {
+                    $lecturers = $module['lecturers'];
+                }
+                if (isset($moduleData['moduleID'])) {
+                    $moduleId = $moduleData['moduleID'];
+                }
+                if (isset($moduleData['moduleCode'])) {
+                    $moduleCode = $moduleData['moduleCode'];
+                }
+                if (isset($moduleData['moduleName'])) {
+                    $moduleName = $moduleData['moduleName'];
+                }
+                if (isset($moduleData['moduleDescription'])) {
+                    $moduleDescription = $moduleData['moduleDescription'];
+                }
+                if (isset($moduleData['classSize'])) {
+                    $classSize = $moduleData['classSize'];
+                }
+                if (isset($moduleData['projectList'])) {
+                    $numProjects = count($moduleData['projectList']);
+                }
                 ?>
 
                 <div class="accordion-group console-module-block">
@@ -151,7 +175,7 @@
     <div class="col-md-6">
         <div class="panel panel-primary">
             <div class="form-group panel-heading">
-                <label for="updates">Updates </label>
+                <label for="updates">Event Updates</label>
             </div>
             <div class="panel panel-body">
                 <form role="form">
@@ -165,7 +189,7 @@
 
         <div class="panel panel-primary"> <!-- Date container -->
             <div class="panel-heading">
-                STEPS Event Dates
+                Important Dates
             </div>
 
             <?php if(isset($dates)) { ?>
