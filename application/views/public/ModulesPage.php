@@ -1,8 +1,9 @@
 <?php 
 function getAwardIndex($projectId, $selectedModuleRanking) {
-    $firstId = $selectedModuleRanking["first"][0];
-    $secondId = $selectedModuleRanking["second"][0];
-    $thirdId = $selectedModuleRanking["third"][0];
+    $smr = $selectedModuleRanking["data"];
+    $firstId = count($smr["first"]) ? $smr["first"][0]: "";
+    $secondId = count($smr["second"]) ? $smr["second"][0]: "";
+    $thirdId = count($smr["third"]) ? $smr["third"][0]: "";
     if ($firstId === $projectId) {
         return 1;
     } else if ($secondId === $projectId) {
@@ -10,7 +11,7 @@ function getAwardIndex($projectId, $selectedModuleRanking) {
     } else if ($thirdId === $projectId) {
         return 3;
     } else {
-        return -1;
+        return 0;
     } 
 }
 
@@ -42,7 +43,7 @@ function getAwardName($awardIndex) {
         return "Bronze";
         
         default :
-        return "Winner";
+        return "";
     } 
 }
 
@@ -69,9 +70,7 @@ function getAwardName($awardIndex) {
                                         <span class="sidebar-module-name"><?php echo namecaps($details['moduleName']); ?></span>
                                     </div>
                                 </div>
-                                <!-- <br> -->
                                 <span class="sidebar-separator"></span>
-                                <!-- <hr> -->
                             </a>
                         </li>
                         <?php
@@ -84,7 +83,6 @@ function getAwardName($awardIndex) {
     <!-- The box to the right of the side-bar, just replace with the contents you want-->
     <div id="main-container">
         <div id="page-content">
-
 
             <!-- actual content -->
             <div class="module-container" id="moduleContent">
@@ -186,11 +184,17 @@ function getAwardName($awardIndex) {
                                         <?php echo $projectIdNum; ?>
                                     </span>
                                 </div>
-                                <div class="project-award-container pull-right" id="<?php echo $awardName; ?>">
-                                    <span class="project-award-type">
-                                        <?php echo $awardName; ?>
-                                    </span>
-                                </div>
+                                <?php
+                                if ($awardIndex) {
+                                    ?>
+                                    <div class="project-award-container pull-right" id="<?php echo $awardName; ?>">
+                                        <span class="project-award-type">
+                                            <?php echo $awardName; ?>
+                                        </span>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
                                 <div class="project-box">
                                     <div class="project-box-header">
                                         <div class="project-header-details">

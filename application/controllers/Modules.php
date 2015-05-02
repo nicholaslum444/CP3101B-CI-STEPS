@@ -102,7 +102,7 @@ class Modules extends CI_Controller {
         //var_dump($moduleId);
         $rankingData = $this->Dbquery->getRankingByModule($moduleId);
         if (isset($rankingData)) {
-            return $rankingData;
+            return ["isEmpty" => FALSE, "data" => $rankingData];
         } else {
             return ["isEmpty" => TRUE];
         }
