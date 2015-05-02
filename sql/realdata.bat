@@ -9,3 +9,4 @@ mysql test -e "source project.sql";
 mysql test -e "source participate.sql";
 mysql test -e "source enrolled.sql";
 mysql test -e "source admin.sql";
+mysql test -e "source result.sql";
