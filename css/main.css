@@ -211,14 +211,6 @@ textarea {
     line-height: 0px;
 }
 
-.sidebar-module-name-box {
-    /*top: -10px;*/
-    /*overflow: hidden;*/
-    /*white-space: nowrap;*/
-    /*text-overflow: ellipsis;*/
-    /*line-height: 0px;*/
-}
-
 .sidebar-module-name {
     font-variant: small-caps;
     font-size: smaller;
@@ -248,56 +240,132 @@ textarea {
     padding: 0px 30px;
 }
 
+.project-id-container {
+    border-bottom: 30px solid #2c3e50;
+	border-left: 20px solid transparent;
+	/*border-right: 20px solid transparent;*/
+	height: 0;
+	width: 65px;
+    padding: 0 5px;
+    display: inline-block;
+}
+
+.project-id-num {
+    color: #ffffff;
+    font-size: 1.5em;
+}
+
+.project-award-container {
+    border-bottom: 30px solid transparent;
+	border-right: 20px solid transparent;
+	/*border-right: 20px solid transparent;*/
+	height: 0;
+	width: 95px;
+    padding: 0 5px;
+    text-align: right;
+    display: none;
+}
+
+.project-award-type {
+    color: #2c3e50;
+    font-size: 1.5em;
+}
+
 .project-box {
     background: #eaedf1;
-    height: 450px;
+    height: auto;
     width: 100%;
     margin-bottom: 25px;
     padding: 0px;
+    box-shadow: 5px 5px 3px #999;
 }
 
 .project-box-header {
-    background: rgba(0, 0, 0, .6);
+    background: #2c3e50;
     width: 100%;
-    height: 140px;
     padding: 10px 20px;
+    color: #fff;
+}
+
+.award-gold .project-box-header {
+    background: #E5C200;
+    color: #2c3e50;
+}
+.award-gold .project-award-container {
+    display: inline-block;
+    border-bottom: 30px solid #E5C200;
+    width: 80px;
+}
+
+.award-silver .project-box-header {
+    background: #CCC2C2;
+    color: #2c3e50;
+}
+.award-silver .project-award-container {
+    display: inline-block;
+    border-bottom: 30px solid #CCC2C2;
+    width: 90px;
+}
+
+.award-bronze .project-box-header {
+    background: #CD7F32;
+    color: #2c3e50;
+}
+.award-bronze .project-award-container {
+    display: inline-block;
+    border-bottom: 30px solid #CD7F32;
+    width: 100px;
 }
 
 .project-header-details {
     width: 100%;
-    height: 100px;
     display: inline-block;
-}
-
-.project-header-id {
-    /*width: 19%;*/
-    /*height: 100px;*/
-    text-align: right;
-    display: inline-block;
-}
-
-.project-id-name {
-    color: #f39c12;
-    font-size: 1.2em;
-}
-
-.project-id-num {
-    color: #f36c12;
-    font-size: 1.5em;
 }
 
 .project-title {
-    color: #f39c12;
     font-size: 1.5em;
 }
 
 .project-title-container {
-    width: 80%;
+    /*width: 80%;*/
     display: inline-block;
 }
 
-.project-members {
-    color: #ffffff;
+.project-members-container {
+    padding: 10px 20px;
+}
+
+.project-member-plate {
+    padding: 10px;
+    background: #ccc;
+    border-radius: 20px;
+    margin: 5px 0px;
+    display: inline-block;
+    text-decoration: none;
+    color: steelblue;
+}
+
+.project-member-plate:hover,
+.project-member-plate:link,
+.project-member-plate:active,
+.project-member-plate:visited {
+    text-decoration: none;
+}
+
+.project-member-plate:hover {
+    background: #aaa;
+    color: aliceblue;
+}
+
+.project-member-text {
+    font-weight: bold;
+    font-variant: small-caps;
+    text-decoration: none;
+}
+
+.project-member-text:hover { 
+    text-decoration: none;
+    color: aliceblue;
 }
 
 .project-header-links {
@@ -668,33 +736,6 @@ textarea {
         padding-right: 5px;
     }
 
-    .project-abstract-container {
-        overflow: hidden;
-        height: 280px;
-    }
-    .project-abstract-container:hover {
-        overflow: auto;
-    }
-
-    .project-members-container,
-    .project-title-container {
-        overflow: hidden;
-    }
-
-    .project-title-container {
-        height: 60px;
-    }
-
-    .project-members-container {
-        height: 40px;
-        width: 100%;
-    }
-
-    .project-title-container:hover,
-    .project-members-container:hover {
-        overflow: auto;
-    }
-
 }
 
 /* if small screen (max-width: 1200px), apply these rules instead */
@@ -706,33 +747,6 @@ textarea {
 
     .about-page-right {
         text-align:left;
-    }
-
-    .project-abstract-container {
-        overflow: hidden;
-        height: 280px;
-    }
-    .project-abstract-container:hover {
-        overflow: auto;
-    }
-
-    .project-members-container,
-    .project-title-container {
-        overflow: hidden;
-    }
-
-    .project-title-container {
-        height: 60px;
-    }
-
-    .project-members-container {
-        height: 40px;
-        width: 100%;
-    }
-
-    .project-title-container:hover,
-    .project-members-container:hover {
-        overflow: auto;
     }
 
 }
@@ -764,43 +778,6 @@ textarea {
         padding: 0px 10px;
     }
 
-    .project-box,
-    .project-header-details,
-    .project-box-header {
-        height: auto;
-    }
-
-    .project-video-container {
-        display: none;
-    }
-
-    .project-abstract-container {
-        overflow: hidden;
-        height: auto;
-    }
-    .project-abstract-container:hover {
-        overflow: auto;
-    }
-
-    .project-members-container,
-    .project-title-container {
-        overflow: hidden;
-    }
-
-    .project-title-container {
-        height: auto;
-    }
-
-    .project-members-container {
-        height: auto;
-        width: 100%;
-    }
-
-    .project-title-container:hover,
-    .project-members-container:hover {
-        overflow: auto;
-    }
-
 }
 
 /* if small screen (max-width: 993px), apply these rules instead */
@@ -808,46 +785,5 @@ textarea {
 
     .module-page-module-img {
         display:none;
-    }
-
-    .project-box,
-    .project-header-details,
-    .project-box-header {
-        height: auto;
-    }
-
-    .project-video-container {
-        display: none;
-    }
-
-    .project-abstract-container {
-        overflow: hidden;
-        height: auto;
-    }
-    .project-abstract-container:hover {
-        overflow: auto;
-    }
-
-    .project-members-container,
-    .project-title-container {
-        overflow: hidden;
-    }
-
-    .project-title-container {
-        height: auto;
-    }
-
-    .project-members-container {
-        height: auto;
-        width: 100%;
-    }
-
-    .project-title-container:hover,
-    .project-members-container:hover {
-        overflow: auto;
-    }
-
-    .ivle-sync-instructions {
-        display:none
     }
 }

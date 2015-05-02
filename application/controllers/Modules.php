@@ -46,10 +46,12 @@ class Modules extends CI_Controller {
 
         $allModulesDetails = $this->_getDetails($allModulesData);
         $selectedModuleData = $this->_getModuleData($moduleCode, $allModulesData);
+        $selectedModuleRanking = $this->_getRanking($this->_getModuleId($moduleCode, $allModulesData));
 
         $bodyData = [
             "allModulesDetails" => $allModulesDetails,
-            "selectedModuleData" => $selectedModuleData
+            "selectedModuleData" => $selectedModuleData,
+            "selectedModuleRanking" => $selectedModuleRanking
         ];
         //echo json_encode($bodyData);
         return $bodyData;
@@ -81,6 +83,29 @@ class Modules extends CI_Controller {
         }
 
         return NULL;
+    }
+    
+    private function _getModuleId($moduleCode, $allModules) {
+        $moduleCode = strtolower($moduleCode);
+
+        foreach ($allModules as $module) {
+            $other = strtolower($module["moduleCode"]);
+            if ($moduleCode === $other) {
+                return $module["moduleID"];
+            }
+        }
+
+        return NULL;
+    }
+    
+    private function _getRanking($moduleId) {
+        //var_dump($moduleId);
+        $rankingData = $this->Dbquery->getRankingByModule($moduleId);
+        if (isset($rankingData)) {
+            return $rankingData;
+        } else {
+            return ["isEmpty" => TRUE];
+        }
     }
 
 }

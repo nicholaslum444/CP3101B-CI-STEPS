@@ -1,3 +1,52 @@
+<?php 
+function getAwardIndex($projectId, $selectedModuleRanking) {
+    $firstId = $selectedModuleRanking["first"][0];
+    $secondId = $selectedModuleRanking["second"][0];
+    $thirdId = $selectedModuleRanking["third"][0];
+    if ($firstId === $projectId) {
+        return 1;
+    } else if ($secondId === $projectId) {
+        return 2;
+    } else if ($thirdId === $projectId) {
+        return 3;
+    } else {
+        return -1;
+    } 
+}
+
+function getAwardClass($awardIndex) {
+    switch ($awardIndex) {
+        case 1 :
+        return "award award-gold";
+        
+        case 2 : 
+        return "award award-silver";
+        
+        case 3 :
+        return "award award-bronze";
+        
+        default :
+        return "";
+    } 
+}
+
+function getAwardName($awardIndex) {
+    switch ($awardIndex) {
+        case 1 :
+        return "Gold";
+        
+        case 2 : 
+        return "Silver";
+        
+        case 3 :
+        return "Bronze";
+        
+        default :
+        return "Winner";
+    } 
+}
+
+?>
 <div id="page-container" class="sidebar-visible-lg sidebar-no-animations sidebar-visible-xs">
     <div id="sidebar-alt">
         <div id="sidebar-alt-scroll">
@@ -120,46 +169,35 @@
                     } else {
                         // there are projects
                         // echo json_encode($projects);
+                        
                         for ($i = 0; $i < count($projects); $i++) {
-                            $projectIdName = $moduleCode;
-                            if ($moduleCode !== "FYP") {
-                                $projectIdName = substr($projectIdName, 2);
-                            }
                             $project = $projects[$i];
+                            $projectId = $project["projectID"];
+                            $awardIndex = getAwardindex($projectId, $selectedModuleRanking);
+                            $awardClass = getAwardClass($awardIndex);
+                            $awardName = getAwardName($awardIndex);
+                            $projectIdNum = sprintf("%'.02d", ($i + 1));
                             $studentNames = "Group members not yet available!";
-                            if (isset($project["members"])) {
-                                $studentNames = "";
-                                $students = $project["members"];
-                                foreach($students as $student) {
-                                    $studentNames .= (namecaps($student["name"]) . ', ');
-                                }
-                                //remove last comma
-                                $studentNames = substr($studentNames, 0, -2);
-                            }
                             ?>
                             <!-- make a div for each project -->
-                            <div class="col-lg-4 col-md-6">
+                            <div class="col-lg-12 <?php echo $awardClass; ?>">
+                                <div class="project-id-container" id="<?php echo $i; ?>">
+                                    <span class="project-id-num">
+                                        <?php echo $projectIdNum; ?>
+                                    </span>
+                                </div>
+                                <div class="project-award-container pull-right" id="<?php echo $awardName; ?>">
+                                    <span class="project-award-type">
+                                        <?php echo $awardName; ?>
+                                    </span>
+                                </div>
                                 <div class="project-box">
                                     <div class="project-box-header">
                                         <div class="project-header-details">
-                                            <div class="project-title-container scroll-title">
+                                            <div class="project-title-container">
                                                 <span class="project-title">
                                                     <?php echo $project["title"]; ?>
                                                 </span>
-                                            </div>
-                                            <div class="project-header-id pull-right">
-                                                <p>
-                                                    <span class="project-id-name"><?php echo $projectIdName."<br>";?></span>
-                                                    <!-- <br> -->
-                                                    <span class="project-id-num">
-                                                        <?php echo sprintf("%'.02d", ($i + 1)); ?>
-                                                    </span>
-                                                </p>
-                                            </div>
-                                            <div class="project-members-container scroll-members">
-                                                <div class="project-members project-student-names">
-                                                    <?php echo $studentNames; ?>
-                                                </div>
                                             </div>
                                         </div> <!--end project box header details -->
                                     </div> <!--end project box header -->
@@ -176,6 +214,23 @@
                                                 <?php echo $project["abstract"]; ?>
                                             </span>
                                         </div>
+                                    </div>
+                                    <div class="project-members-container">
+                                        <?php
+                                        if (isset($project["members"])) {
+                                            $students = $project["members"];
+                                            foreach($students as $student) {
+                                                $studentName = namecaps($student["name"]);
+                                                ?>
+                                                <a href="/search?searchTerm=<?php echo $studentName; ?>" 
+                                                    target="_blank" 
+                                                    class="project-member-plate">
+                                                    <div class="project-member-text"><?php echo $studentName; ?></div>
+                                                </a>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
                                     </div>
                                 </div> <!-- end of project box -->
                             </div>
