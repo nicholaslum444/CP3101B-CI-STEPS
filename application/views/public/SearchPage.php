@@ -55,15 +55,16 @@
         var totalSearchResults = data.searchResults.project.length+data.searchResults.module.length+data.searchResults.user.length;
         var successOrNot, successMessage;
         if(totalSearchResults > 0) {
+          var gotS = totalSearchResults > 1 ? "s" : ""
           successOrNot = "success";
-          successMessage = "Showing " + totalSearchResults + " results.";
+          successMessage = "Showing " + totalSearchResults + " result" + gotS + " for \"" + $("#searchInput").val() + "\".";
         }
 
         else {
           successOrNot = "danger";
-          successMessage = "No results found.";
+          successMessage = "No results found for \"" + $("#searchInput").val() + "\".";
         }
-        console.log(totalSearchResults);
+
         $("#results").append("<p class='alert alert-" + successOrNot + "'>" + successMessage + "</p>");
 
 

@@ -15,7 +15,7 @@ $modulesActive = "";
 $registerActive = "";
 $sponsorsActive = "";
 $aboutActive = "";
-$votingActive = "";
+$searchActive = "";
 switch($loader) {
     case LOADER_TYPE_PUBLIC_MODULES :
     $modulesActive = "active";
@@ -34,7 +34,7 @@ switch($loader) {
     break;
 
     case LOADER_TYPE_PUBLIC_VOTE :
-    $votingActive = "active";
+    $searchActive = "active";
     break;
 }
 ?>
@@ -162,8 +162,8 @@ switch($loader) {
                         <li class="<?php echo $aboutActive; ?>">
                             <a href="/about">About</a>
                         </li>
-                        <li class="<?php echo $votingActive; ?>">
-                            <a href="/vote">Vote</a>
+                        <li class="<?php echo $searchActive; ?>">
+                            <a href="/search">Search</a>
                         </li>
                     </ul>
                     <!-- </div> -->
