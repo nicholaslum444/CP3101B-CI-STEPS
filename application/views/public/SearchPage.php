@@ -49,7 +49,7 @@
       {"searchTerm":$("#searchInput").val()},
       function(data) {
         console.log(data.searchResults);
-        var i;
+        var k = 0;
         $("#results").html("");
 
         var totalSearchResults = data.searchResults.project.length+data.searchResults.module.length+data.searchResults.user.length;
@@ -70,30 +70,31 @@
 
         if(data.searchResults.project !== null && data.searchResults.project !== undefined) {
           for(i = 0; i < data.searchResults.project.length; i ++) {
-            $("#results").append("<div class='results" + i + "'><a href='#'><h4>"+data.searchResults.project[i].title+"</h4></a></div>");
-            $("#results").append("<div class='details" + i + "'>"+data.searchResults.project[i].abstract+"<br><br></div>");
+            $("#results").append("<div class='results" + k + "'><a href='#'><h4>"+data.searchResults.project[i].title+"</h4></a></div>");
+            $("#results").append("<div class='details" + k++ + "'>"+data.searchResults.project[i].abstract+"<br><hr><br></div>");
           }
         }
 
         if(data.searchResults.module !== null && data.searchResults.module !== undefined) {
-          for(i; i < data.searchResults.module.length; i ++) {
-            $("#results").append("<div class='results" + i + "'><a href='#'><h4>"+data.searchResults.module[i].moduleCode+": " + data.searchResults.module[i].moduleName + "</h4></a></div>");
-            $("#results").append("<div class='details" + i + "'>"+data.searchResults.module[i].moduleDescription +"<br><br></div>");
+          for(i = 0; i < data.searchResults.module.length; i ++) {
+            $("#results").append("<div class='results" + k + "'><a href='#'><h4>"+data.searchResults.module[i].moduleCode+": " + data.searchResults.module[i].moduleName + "</h4></a></div>");
+            $("#results").append("<div class='details" + k++ + "'>"+data.searchResults.module[i].moduleDescription +"<br><hr><br></div>");
           }
         }
 
         if(data.searchResults.user !== null && data.searchResults.user !== undefined) {
-          for(i; i < data.searchResults.user.length; i ++) {
-            $("#results").append("<div class='results" + i + "'><a href='#'><h4>"+data.searchResults.user[i].name+"</h4></a></div>");
-            $("#results").append("<div class='details" + i + "'></div>");
-            $(".details"+i).append("Projects taken: ");
+          for(i = 0; i < data.searchResults.user.length; i ++) {
+            $("#results").append("<div class='results" + k + "'><a href='#'><h4>"+data.searchResults.user[i].name+"</h4></a></div>");
+            $("#results").append("<div class='details" + k + "'></div>");
+            $(".details"+k).append("Projects taken: ");
             for(var j = 0; j < data.searchResults.user[i].projects  .length; j++) {
               console.log($(".details"+i));
-              $(".details"+i).append(data.searchResults.user[i].projects[j].title);
+              $(".details"+k).append(data.searchResults.user[i].projects[j].title);
             }
-            $(".details"+i).append("<br>");
-            $(".details"+i).append("Email: " + data.searchResults.user[i].email);
-            $(".details"+i).append("<br><br>");
+            $(".details"+k).append("<br>");
+            $(".details"+k).append("Email: " + data.searchResults.user[i].email);
+            $(".details"+k).append("<br><hr><br>");
+            k++;
           }
         }
 
