@@ -72,7 +72,7 @@ class Dbquery extends CI_Model {
 				$user = array();
 				$user['name'] 		= $rows['name'];
 				$user['userID'] 	= $rows['user_id'];
-                $user['email'] 		= $rows['user_type'];
+                $user['userType'] 		= $rows['user_type'];
 				$user['projects'] 	= $this->queryProjectInfoByParticipant($rows['user_id']);
 				array_push($res, $user);
 			}

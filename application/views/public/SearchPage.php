@@ -28,7 +28,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
                 <!--Input-->
-                <input id="searchInput" type="text" class="form-control" aria-label="Enter keywords...">
+                <input id="searchInput" type="text" class="form-control" aria-label="Enter keywords..." autofocus>
                 <!--Button-->
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-default" type="button">Go</button>
@@ -41,7 +41,23 @@
 <div id="results" class = "row">
 </div>
 
+<!-- carry out search if there is searchTerm found in the url. -->
+<?php
+if ($hasSearchTerm) {
+    ?>
+    <script>
+    $(function() {
+        var searchTerm = "<?php echo $searchTerm; ?>";
+        $("#searchInput").val(searchTerm);
+        $("#searchForm").submit();
+    });
+    </script>
+    <?php
+}
+?>
+
 <script>
+// carrying out the actual search
 $("#searchForm").on("submit", function(e) {
     e.preventDefault();
     if($("#searchInput").val() !== "") {

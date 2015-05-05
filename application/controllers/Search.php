@@ -17,7 +17,7 @@ class Search extends CI_Controller {
 
 		// load the homepage views
 		$this->load->view("persistent/SiteHeader", $this->_makeHeaderData());
-		$this->load->view('public/SearchPage');
+		$this->load->view('public/SearchPage', $this->_makeBodyData());
         $this->load->view("persistent/SiteFooter");
 
 	}
@@ -28,5 +28,20 @@ class Search extends CI_Controller {
 
     private function _makeHeaderData() {
         return ViewData::makeHeaderData($this->session, base_url(), LOADER_TYPE_PUBLIC_VOTE);
+    }
+	
+	private function _makeBodyData() {
+        if (!isset($_GET["searchTerm"])) {
+			return [
+				"hasSearchTerm" => FALSE
+			];
+		}
+		
+		$searchTerm = $_GET["searchTerm"];
+		return [
+			"hasSearchTerm" => TRUE,
+			"searchTerm" => $searchTerm
+		];
+		
     }
 }
