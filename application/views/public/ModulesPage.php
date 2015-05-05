@@ -1,3 +1,53 @@
+<?php 
+function getAwardIndex($projectId, $selectedModuleRanking) {
+    $smr = $selectedModuleRanking["data"];
+    $firstId = count($smr["first"]) ? $smr["first"][0]: "";
+    $secondId = count($smr["second"]) ? $smr["second"][0]: "";
+    $thirdId = count($smr["third"]) ? $smr["third"][0]: "";
+    if ($firstId === $projectId) {
+        return 1;
+    } else if ($secondId === $projectId) {
+        return 2;
+    } else if ($thirdId === $projectId) {
+        return 3;
+    } else {
+        return 0;
+    } 
+}
+
+function getAwardClass($awardIndex) {
+    switch ($awardIndex) {
+        case 1 :
+        return "award award-gold";
+        
+        case 2 : 
+        return "award award-silver";
+        
+        case 3 :
+        return "award award-bronze";
+        
+        default :
+        return "";
+    } 
+}
+
+function getAwardName($awardIndex) {
+    switch ($awardIndex) {
+        case 1 :
+        return "Gold";
+        
+        case 2 : 
+        return "Silver";
+        
+        case 3 :
+        return "Bronze";
+        
+        default :
+        return "";
+    } 
+}
+
+?>
 <div id="page-container" class="sidebar-visible-lg sidebar-no-animations sidebar-visible-xs">
     <div id="sidebar-alt">
         <div id="sidebar-alt-scroll">
@@ -20,9 +70,7 @@
                                         <span class="sidebar-module-name"><?php echo namecaps($details['moduleName']); ?></span>
                                     </div>
                                 </div>
-                                <!-- <br> -->
                                 <span class="sidebar-separator"></span>
-                                <!-- <hr> -->
                             </a>
                         </li>
                         <?php
@@ -35,30 +83,29 @@
     <!-- The box to the right of the side-bar, just replace with the contents you want-->
     <div id="main-container">
         <div id="page-content">
-
-
+            
             <!-- actual content -->
             <div class="module-container" id="moduleContent">
-
+                
                 <!-- sidebar toggle btn -->
                 <button class="btn btn-default toggle-btn">
                     <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                     <span>See More</span>
                 </button>
-
+                
                 <!-- show the module pane if a module is selected -->
                 <?php
                 if (!is_null($selectedModuleData)) {
                     $projects = $selectedModuleData["projectList"];
                     $numProjects = count($projects);
-                                //echo json_encode($projects);
+                    //echo json_encode($projects);
                     $numStudents = 0;
                     foreach ($projects as $project) {
-                                    // sum the total students
+                        // sum the total students
                         $numStudents += count($project["members"]);
                     }
-
-                    // realdata
+                    
+                    // 
                     $supervisors = $selectedModuleData["supervisors"];
                     $numSups = count($supervisors);
                     $moduleLecturer = namecaps($supervisors[$numSups - 1]["name"]);
@@ -69,42 +116,44 @@
                     }
                     $moduleCode = $selectedModuleData["moduleCode"];
                     $moduleName = strtoupper($selectedModuleData["moduleName"]);
+                    $moduleDescription = $selectedModuleData["moduleDescription"];
                     ?>
-
+                    
                     <!-- module code, name, img and desc -->
                     <div class="row">
                         <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12 module-page-module-header">
                             <h1>
                                 <?php echo $moduleCode; ?>
-                                <small><br>
-                                    <?php echo $moduleName ?>
+                                <small>
+                                    <br>
+                                    <?php echo $moduleName; ?>
                                 </small>
                             </h1>
                             <p><strong>
                                 Chaired by
-                                <?php echo $moduleLecturer ?>
+                                <?php echo $moduleLecturer; ?>
                             </strong></p>
                             <p><em>
-                                <?php echo $numStudents ?>
+                                <?php echo $numStudents; ?>
                                 students in
-                                <?php echo $numProjects ?>
+                                <?php echo $numProjects; ?>
                                 groups
                             </em></p>
                             <p>
-                                <?php echo $selectedModuleData["moduleDescription"]; ?>
+                                <?php echo $moduleDescription; ?>
                             </p>
                         </div>
                         <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 module-page-module-img">
                             <figure class="module-thumb">
-                                    <div class="module-thumb-img">
-                                        <img src="/img/<?php echo $moduleCode; ?>-img.jpg">
-                                    </div>
+                                <div class="module-thumb-img">
+                                    <!-- this should be replaced with the proper image url 
+                                    if we implement an image hosting system -->
+                                    <img src="/img/<?php echo $moduleCode; ?>-img.jpg">
+                                </div>
                             </figure>
                         </div>
                     </div>
-
-                    <!-- projects section -->
-                    <div class="row">
+                    
                     <?php
                     if (count($projects) <= 0) {
                         // if no projects
@@ -117,72 +166,107 @@
                             </div>
                         </div>
                         <?php
-                    } else {
-                        // there are projects
-                        // echo json_encode($projects);
-                        for ($i = 0; $i < count($projects); $i++) {
-                            $projectIdName = $moduleCode;
-                            if ($moduleCode !== "FYP") {
-                                $projectIdName = substr($projectIdName, 2);
-                            }
-                            $project = $projects[$i];
-                            $studentNames = "Group members not yet available!";
-                            if (isset($project["members"])) {
-                                $studentNames = "";
-                                $students = $project["members"];
-                                foreach($students as $student) {
-                                    $studentNames .= (namecaps($student["name"]) . ', ');
-                                }
-                                //remove last comma
-                                $studentNames = substr($studentNames, 0, -2);
-                            }
-                            ?>
-                            <!-- make a div for each project -->
-                            <div class="col-lg-4 col-md-6">
-                                <div class="project-box">
-                                    <div class="project-box-header">
-                                        <div class="project-header-details">
-                                            <div class="project-title-container scroll-title">
-                                                <span class="project-title">
-                                                    <?php echo $project["title"]; ?>
+                    } else { // there are projects
+                        ?>
+                        <!-- quick jump links -->
+                        <div class="row">
+                            <div class="col-xs-12 module-page-jump-link-container">
+                                <form>
+                                    <label for="jumpLinks">Jump To:</label>
+                                    <select class="form-control" name="jumpLinks" id="jumpLinks">
+                                        <?php
+                                        foreach ($projects as $projectOption) {
+                                            $projectId = $projectOption["projectID"];
+                                            $projectTitle = $projectOption["title"];
+                                            ?>
+                                            <option value="<?php echo $projectId; ?>">
+                                                <?php echo $projectTitle; ?>
+                                            </option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </form>
+                                <hr>
+                            </div>
+                        </div>
+                        <!-- projects section -->
+                        <div class="row">
+                            <?php
+                            for ($i = 0; $i < count($projects); $i++) {
+                                $project = $projects[$i];
+                                $projectId = $project["projectID"];
+                                $awardIndex = getAwardindex($projectId, $selectedModuleRanking);
+                                $awardClass = getAwardClass($awardIndex);
+                                $awardName = getAwardName($awardIndex);
+                                $projectIdNum = sprintf("%'.02d", ($i + 1)); // format 2-digit num
+                                $projectTitle = $project["title"];
+                                $studentNames = "Group members not yet available!";
+                                ?>
+                                <!-- make a div for each project -->
+                                <div class="col-lg-12 project-box-container <?php echo $awardClass; ?>" id="<?php echo $projectId; ?>">
+                                    <div class="project-id-container">
+                                        <span class="project-id-num">
+                                            <?php echo $projectIdNum; ?>
+                                        </span>
+                                    </div>
+                                    <?php
+                                    if ($awardIndex) {
+                                        ?>
+                                        <div class="project-award-container pull-right" id="<?php echo $awardName; ?>">
+                                            <span class="project-award-type">
+                                                <?php echo $awardName; ?>
+                                            </span>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+                                    <div class="project-box">
+                                        <div class="project-box-header">
+                                            <div class="project-header-details">
+                                                <div class="project-title-container">
+                                                    <span class="project-title">
+                                                        <?php echo $projectTitle; ?>
+                                                    </span>
+                                                </div>
+                                            </div> <!--end project box header details -->
+                                        </div> <!--end project box header -->
+                                        <div class="project-box-body">
+                                            <div class="project-video-container">
+                                                <!-- <img src="http://img.youtube.com/vi/KYmOuiGRnWE/hqdefault.jpg"> -->
+                                                <!-- <iframe class="project-video-embed" width="356" height="200" src="https://www.youtube.com/embed/KYmOuiGRnWE?rel=0" frameborder="0" allowfullscreen></iframe> -->
+                                            </div>
+                                            <div class="project-abstract-container scroll-abstract">
+                                                <span class="project-abstract-heading">
+                                                    Abstract:
+                                                </span>
+                                                <span class="project-abstract-text">
+                                                    <?php echo $project["abstract"]; ?>
                                                 </span>
                                             </div>
-                                            <div class="project-header-id pull-right">
-                                                <p>
-                                                    <span class="project-id-name"><?php echo $projectIdName."<br>";?></span>
-                                                    <!-- <br> -->
-                                                    <span class="project-id-num">
-                                                        <?php echo sprintf("%'.02d", ($i + 1)); ?>
-                                                    </span>
-                                                </p>
-                                            </div>
-                                            <div class="project-members-container scroll-members">
-                                                <div class="project-members project-student-names">
-                                                    <?php echo $studentNames; ?>
-                                                </div>
-                                            </div>
-                                        </div> <!--end project box header details -->
-                                    </div> <!--end project box header -->
-                                    <div class="project-box-body">
-                                        <div class="project-video-container">
-                                            <!-- <img src="http://img.youtube.com/vi/KYmOuiGRnWE/hqdefault.jpg"> -->
-                                            <!-- <iframe class="project-video-embed" width="356" height="200" src="https://www.youtube.com/embed/KYmOuiGRnWE?rel=0" frameborder="0" allowfullscreen></iframe> -->
                                         </div>
-                                        <div class="project-abstract-container scroll-abstract">
-                                            <span class="project-abstract-heading">
-                                                Abstract:
-                                            </span>
-                                            <span class="project-abstract-text">
-                                                <?php echo $project["abstract"]; ?>
-                                            </span>
+                                        <div class="project-members-container">
+                                            <?php
+                                            if (isset($project["members"])) {
+                                                $students = $project["members"];
+                                                foreach($students as $student) {
+                                                    $studentName = namecaps($student["name"]);
+                                                    ?>
+                                                    <a href="/search?searchTerm=<?php echo $studentName; ?>" 
+                                                        class="project-member-plate">
+                                                        <div class="project-member-text"><?php echo $studentName; ?></div>
+                                                    </a>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
                                         </div>
-                                    </div>
-                                </div> <!-- end of project box -->
-                            </div>
-                            <?php
+                                    </div> <!-- end of project box -->
+                                </div>
+                                <?php
+                            }
                         }
-                    }
-                    ?>
+                        ?>
                     </div>
                     <?php
                 } else {
@@ -207,7 +291,7 @@
                     <?php
                 }
                 ?>
-
+                
                 <!-- back to top btn -->
                 <div class="btt-btn-container">
                     <button class="btn btn-default btt-btn">
@@ -215,10 +299,10 @@
                         <span></span>
                     </button>
                 </div>
-
+                
             </div><!-- End of Module Content -->
-
-
+            
+            
         </div>
     </div><!-- end of main container -->
 </div>
@@ -237,30 +321,35 @@ $(window).resize(function() {
     if (width < 768) {
         $('#page-container').removeClass();
         $('.toggle-btn').css("display","inline-block");
-
+        
     } else {
-
         $('#page-container').addClass('sidebar-visible-lg');
-        setTimeout(function(){
-            $(".module-thumb-img img").css("height","");},
-        1);
-
+        setTimeout(function() {
+            $(".module-thumb-img img").css("height","");
+        }, 1);
         $('.toggle-btn').css("display","none");
     }
 });
 
 $(window).resize();
+
 $(function() {
     $("#page-content").css("min-height", ($("#sidebar").height() + 100));
 });
 
 $('.toggle-btn').click(function(){
     $('#page-container').toggleClass('sidebar-visible-lg sidebar-no-animations sidebar-visible-xs');
-    // if ($('#page-container').attr("overflow") == "hidden") {
-    //     $('#page-container').attr("overflow") = "inherit";
-    // } else {
-    //     $('#page-container').attr("overflow") = "hidden";
-    // }
+});
+
+// to scroll to the selected module.
+$("#jumpLinks").change(function() {
+    // sets the module details on select of module
+    var id = $("#jumpLinks option:selected").val();
+    console.log(id);
+    var duration = 1000;
+    $(document.body).animate({
+        "scrollTop": $("#"+id).offset().top
+    }, duration);
 });
 
 // for back to top button
@@ -274,12 +363,12 @@ jQuery(document).ready(function() {
             jQuery('.btt-btn').fadeOut(duration);
         }
     });
-
+    
     jQuery('.btt-btn').click(function(event) {
         event.preventDefault();
         jQuery('html, body').animate({scrollTop: 0}, duration);
         return false;
     })
 });
-
+    
 </script>

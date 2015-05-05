@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 // setting the urls for the login iframes
 $studentUrl = "https://ivle.nus.edu.sg/api/login/?"
@@ -15,7 +13,7 @@ $modulesActive = "";
 $registerActive = "";
 $sponsorsActive = "";
 $aboutActive = "";
-$votingActive = "";
+$searchActive = "";
 switch($loader) {
     case LOADER_TYPE_PUBLIC_MODULES :
     $modulesActive = "active";
@@ -34,11 +32,12 @@ switch($loader) {
     break;
 
     case LOADER_TYPE_PUBLIC_VOTE :
-    $votingActive = "active";
+    $searchActive = "active";
     break;
 }
 ?>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
 
     <meta charset="utf-8">
@@ -131,7 +130,7 @@ switch($loader) {
     <!-- include the navbar as well -->
     <header class="navbar navbar-fixed-top navbar-default site__header" role="navigation">
         <!-- <div class="nav__contain"> -->
-            <div class="container">
+            <div class="container-fluid">
                 <a href="/" class="navbar-brand"><?php echo $iteration ?>th STePS&nbsp;</a>
                 <!-- contains the collapse and the brand name -->
                 <div class="navbar-header">
@@ -142,14 +141,11 @@ switch($loader) {
                         <span class="icon-bar"></span>
                     </button>
                 </div>
-                <!-- <a class="navbar-brand" href="/index.php">
-                    <?php echo $iteration ?>th STePS
-                </a> -->
                 <!--navbar-collapse collapse centered-navbar-->
                 <div id="navbar" class="navbar-collapse collapse list-inline nav--primary u-uppercase">
                     <!-- links to public pages -->
                     <!-- <div class="navbar-left">  -->
-                    <ul class="nav navbar-nav navbar-left">
+                    <ul class="nav navbar-nav navbar-left navbar-fixed-height">
                         <li class="<?php echo $modulesActive; ?>">
                             <a href="/modules">Modules</a>
                         </li>
@@ -162,8 +158,8 @@ switch($loader) {
                         <li class="<?php echo $aboutActive; ?>">
                             <a href="/about">About</a>
                         </li>
-                        <li class="<?php echo $votingActive; ?>">
-                            <a href="/vote">Vote</a>
+                        <li class="<?php echo $searchActive; ?>">
+                            <a href="/search">Search</a>
                         </li>
                     </ul>
                     <!-- </div> -->

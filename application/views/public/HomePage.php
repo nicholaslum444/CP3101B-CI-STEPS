@@ -97,6 +97,7 @@ foreach ($modules as $module) {
         <div class="row">
             <?php
             // start generating the module thumbs
+            $i = 1;
             foreach ($modules as $module) {
                 ?>
                 <div class="col-sm-3 col-xs-12">
@@ -118,6 +119,15 @@ foreach ($modules as $module) {
                         </a>
                     </figure>
                 </div>
+                <?php
+                // to give a space between every row
+                if (($i % 4) === 0) {
+                    ?>
+                    <div class="clear"></div>
+                    <?php
+                }
+                $i++;
+                ?>
                 <?php
             }
             ?>
