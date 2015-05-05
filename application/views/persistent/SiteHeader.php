@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 // setting the urls for the login iframes
 $studentUrl = "https://ivle.nus.edu.sg/api/login/?"
@@ -38,7 +36,8 @@ switch($loader) {
     break;
 }
 ?>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
 
     <meta charset="utf-8">
@@ -131,7 +130,7 @@ switch($loader) {
     <!-- include the navbar as well -->
     <header class="navbar navbar-fixed-top navbar-default site__header" role="navigation">
         <!-- <div class="nav__contain"> -->
-            <div class="container">
+            <div class="container-fluid">
                 <a href="/" class="navbar-brand"><?php echo $iteration ?>th STePS&nbsp;</a>
                 <!-- contains the collapse and the brand name -->
                 <div class="navbar-header">
@@ -142,9 +141,6 @@ switch($loader) {
                         <span class="icon-bar"></span>
                     </button>
                 </div>
-                <!-- <a class="navbar-brand" href="/index.php">
-                    <?php echo $iteration ?>th STePS
-                </a> -->
                 <!--navbar-collapse collapse centered-navbar-->
                 <div id="navbar" class="navbar-collapse collapse list-inline nav--primary u-uppercase">
                     <!-- links to public pages -->

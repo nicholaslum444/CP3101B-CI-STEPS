@@ -224,6 +224,10 @@ textarea {
     width: 100%;
 }
 
+.module-container {
+    padding: 0px 30px;
+}
+
 .module-page-module-header {
     margin-bottom: 20px;
 }
@@ -232,12 +236,16 @@ textarea {
     padding: 20px;
 }
 
-.project-student-names {
-    font-variant: small-caps;
+.module-page-jump-link-container {
+    /*padding-bottom: 20px;*/
 }
 
-.module-container {
-    padding: 0px 30px;
+.project-box-container {
+    
+}
+
+.project-student-names {
+    font-variant: small-caps;
 }
 
 .project-id-container {
