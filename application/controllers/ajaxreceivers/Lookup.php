@@ -39,6 +39,36 @@ class Lookup extends CI_Controller {
         
         return $resultObj;
     }
+    
+    private function _getSearchResultsPeople($searchTerm) {
+        $searchResults = $this->Dbquery->searchUser($searchTerm);
+        $resultObj = [];
+        $resultObj["success"] = TRUE;
+        $resultObj["searchTerm"] = $searchTerm;
+        $resultObj["searchResults"] = $searchResults;
+        
+        return $resultObj;
+    }
+    
+    private function _getSearchResultsProject($searchTerm) {
+        $searchResults = $this->Dbquery->searchProjects($searchTerm);
+        $resultObj = [];
+        $resultObj["success"] = TRUE;
+        $resultObj["searchTerm"] = $searchTerm;
+        $resultObj["searchResults"] = $searchResults;
+        
+        return $resultObj;
+    }
+    
+    private function _getSearchResultsModules($searchTerm) {
+        $searchResults = $this->Dbquery->searchModule($searchTerm);
+        $resultObj = [];
+        $resultObj["success"] = TRUE;
+        $resultObj["searchTerm"] = $searchTerm;
+        $resultObj["searchResults"] = $searchResults;
+        
+        return $resultObj;
+    }
 
     private function _buildIncompleteFormResponse() {
         $fail = [

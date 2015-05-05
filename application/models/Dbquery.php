@@ -92,6 +92,7 @@ class Dbquery extends CI_Model {
 				$project['title'] 		= $rows['title'];
 				$project['projectID'] 	= $rows['project_id'];
 				$project['abstract'] 	= $rows['abstract'];
+                $project['poster'] 	= $rows['poster'];
 				$project['students'] 	= $this->queryParticipantsByProjectID($rows['project_id']);
 				array_push($res, $project);
 			}
