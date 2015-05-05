@@ -253,7 +253,6 @@ function getAwardName($awardIndex) {
                                                     $studentName = namecaps($student["name"]);
                                                     ?>
                                                     <a href="/search?searchTerm=<?php echo $studentName; ?>" 
-                                                        target="_blank" 
                                                         class="project-member-plate">
                                                         <div class="project-member-text"><?php echo $studentName; ?></div>
                                                     </a>
