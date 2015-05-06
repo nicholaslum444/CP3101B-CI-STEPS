@@ -1,5 +1,5 @@
 <div class="container site-container">
-    
+
     <!--
     <div class="btn btn-primary" id="search">search</div>
     <input type="text" id="term" autofocus></input>
@@ -67,7 +67,7 @@ $("#searchForm").on("submit", function(e) {
             console.log(data.searchResults);
             var k = 0;
             $("#results").html("");
-            
+
             var totalSearchResults = data.searchResults.project.length+data.searchResults.module.length+data.searchResults.user.length;
             var successOrNot, successMessage;
             if(totalSearchResults > 0) {
@@ -75,45 +75,43 @@ $("#searchForm").on("submit", function(e) {
                 successOrNot = "success";
                 successMessage = "Showing " + totalSearchResults + " result" + gotS + " for \"" + $("#searchInput").val() + "\".";
             }
-            
+
             else {
                 successOrNot = "danger";
                 successMessage = "No results found for \"" + $("#searchInput").val() + "\".";
             }
-            
+
             $("#results").append("<p class='alert alert-" + successOrNot + "'>" + successMessage + "</p>");
-            
-            
+
+
             if(data.searchResults.project !== null && data.searchResults.project !== undefined) {
                 for(i = 0; i < data.searchResults.project.length; i ++) {
-                    $("#results").append("<div class='results" + k + "'><a href='#'><h4>"+data.searchResults.project[i].title+"</h4></a></div>");
+                    $("#results").append("<div class='results" + k + "'><a href='/modules/view/" + data.searchResults.project[i].module + "#" + data.searchResults.project[i].projectID + "'><h4>"+data.searchResults.project[i].title+"</h4></a></div>");
                     $("#results").append("<div class='details" + k++ + "'>"+data.searchResults.project[i].abstract+"<br><hr><br></div>");
                 }
             }
-            
+
             if(data.searchResults.module !== null && data.searchResults.module !== undefined) {
                 for(i = 0; i < data.searchResults.module.length; i ++) {
-                    $("#results").append("<div class='results" + k + "'><a href='#'><h4>"+data.searchResults.module[i].moduleCode+": " + data.searchResults.module[i].moduleName + "</h4></a></div>");
+                    $("#results").append("<div class='results" + k + "'><a href='/modules/view/" + data.searchResults.module[i].moduleCode + "'><h4>"+data.searchResults.module[i].moduleCode+": " + data.searchResults.module[i].moduleName + "</h4></a></div>");
                     $("#results").append("<div class='details" + k++ + "'>"+data.searchResults.module[i].moduleDescription +"<br><hr><br></div>");
                 }
             }
-            
+
             if(data.searchResults.user !== null && data.searchResults.user !== undefined) {
                 for(i = 0; i < data.searchResults.user.length; i ++) {
                     $("#results").append("<div class='results" + k + "'><a href='#'><h4>"+data.searchResults.user[i].name+"</h4></a></div>");
                     $("#results").append("<div class='details" + k + "'></div>");
                     $(".details"+k).append("Projects taken: ");
                     for(var j = 0; j < data.searchResults.user[i].projects  .length; j++) {
-                        console.log($(".details"+i));
-                        $(".details"+k).append(data.searchResults.user[i].projects[j].title);
+                        console.log(data.searchResults.user[i]);
+                        $(".details"+k).append("<a href='/modules/view/" + data.searchResults.user[i].projects[j].moduleCode + "#" + data.searchResults.user[i].projects[j].projectID + "'>" + data.searchResults.user[i].projects[j].title);
                     }
-                    $(".details"+k).append("<br>");
-                    $(".details"+k).append("Email: " + data.searchResults.user[i].email);
                     $(".details"+k).append("<br><hr><br>");
                     k++;
                 }
             }
-            
+
             //$("#results").html(JSON.stringify(data));
         });
     }

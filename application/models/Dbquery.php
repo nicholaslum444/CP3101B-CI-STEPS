@@ -60,7 +60,7 @@ class Dbquery extends CI_Model {
 			'module' => $this->searchModule($searchKey)
 		);
 		return $result;
-	}	
+	}
 
 	private function searchUser($searchKey) {
 		$res = array();
@@ -94,6 +94,7 @@ class Dbquery extends CI_Model {
 				$project['abstract'] 	= $rows['abstract'];
                 $project['poster'] 	= $rows['poster'];
 				$project['students'] 	= $this->queryParticipantsByProjectID($rows['project_id']);
+        $project['module'] = $this->getModuleDetailByModuleID($this->getProjectDetailsByProjectID($rows['project_id'])['moduleID'])["moduleCode"];
 				array_push($res, $project);
 			}
 		}
@@ -122,7 +123,7 @@ class Dbquery extends CI_Model {
 		return $res;
 	}
 
-	
+
 
 	private function queryParticipantsByProjectID($projectID) {
 		$this->db->from("participate");
@@ -158,7 +159,7 @@ class Dbquery extends CI_Model {
 				'projectID' => $pro['project_id'],
 				// 'poster' => $pro['video'],
 				// 'video' => $pro['poster'],
-				'moduleCode' => $pro['module_code'] 
+				'moduleCode' => $pro['module_code']
 			);
 			array_push($projects, $project);
 		}
