@@ -102,10 +102,11 @@ $("#searchForm").on("submit", function(e) {
                 for(i = 0; i < data.searchResults.user.length; i ++) {
                     $("#results").append("<div class='results" + k + "'><a href='#'><h4>"+data.searchResults.user[i].name+"</h4></a></div>");
                     $("#results").append("<div class='details" + k + "'></div>");
-                    $(".details"+k).append("Projects taken: ");
-                    for(var j = 0; j < data.searchResults.user[i].projects  .length; j++) {
-                        console.log(data.searchResults.user[i]);
-                        $(".details"+k).append("<a href='/modules/view/" + data.searchResults.user[i].projects[j].moduleCode + "#" + data.searchResults.user[i].projects[j].projectID + "'>" + data.searchResults.user[i].projects[j].title);
+                    if(data.searchResults.user[i].userType != 2) {
+                      $(".details"+k).append("Projects taken: ");
+                      for(var j = 0; j < data.searchResults.user[i].projects  .length; j++) {
+                          $(".details"+k).append("<a href='/modules/view/" + data.searchResults.user[i].projects[j].moduleCode + "#" + data.searchResults.user[i].projects[j].projectID + "'>" + data.searchResults.user[i].projects[j].title);
+                      }
                     }
                     $(".details"+k).append("<br><hr><br>");
                     k++;
