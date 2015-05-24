@@ -14,7 +14,7 @@ $registerActive = "";
 $sponsorsActive = "";
 $aboutActive = "";
 $searchActive = "";
-switch($loader) {
+switch ($loader) {
     case LOADER_TYPE_PUBLIC_MODULES :
     $modulesActive = "active";
     break;
@@ -34,6 +34,9 @@ switch($loader) {
     case LOADER_TYPE_PUBLIC_VOTE :
     $searchActive = "active";
     break;
+    
+    default :
+    // do nothing
 }
 ?>
 <!DOCTYPE html>
@@ -131,7 +134,7 @@ switch($loader) {
     <header class="navbar navbar-fixed-top navbar-default site__header" role="navigation">
         <!-- <div class="nav__contain"> -->
             <div class="container-fluid">
-                <a href="/" class="navbar-brand"><?php echo $iteration ?>th STePS&nbsp;</a>
+                <a href="/" class="navbar-brand">STePS&nbsp;</a>
                 <!-- contains the collapse and the brand name -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">

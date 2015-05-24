@@ -1,14 +1,20 @@
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<!-- <div class="jumbotron afternav">
-    <div class="container">
-        <h1>STePS<br>
-            <small>
-                <strong>S</strong>chool of Computing
-                <strong>Te</strong>rm <strong>P</strong>roject <strong>S</strong>howcase
-            </small>
-        </h1>
-    </div>
-</div> -->
+<?php
+
+if (!isset($eventLocation)) {
+    $eventLocation = "SOC COM 1";
+}
+
+if (!isset($eventDate)) {
+    $eventDate = "Date TBC";
+}
+
+if (!isset($startTime) && !isset($endTime)) {
+    $eventDuration = "Time TBC";
+} else {   
+    $eventDuration = "$eventStartTime to $eventEndTime";
+}
+
+?>
 
 <div class="container">
 
@@ -58,20 +64,15 @@
             <ul class="list-stylised list-jumbo u-uppercase about-page-right">
                 <li>
                     <span class="glyphicon glyphicon-globe"></span>
-                    <!-- need php XXX -->
-                    SoC COM1
+                    <?php echo $eventLocation; ?>
                 </li>
                 <li>
                     <span class="glyphicon glyphicon-calendar"></span>
-                    <!-- need php TODO -->
                     <?php echo $eventDate; ?>
                 </li>
                 <li>
                     <span class="glyphicon glyphicon-time"></span>
-                    <!-- need php TODO -->
-                    <?php echo $eventStartTime; ?>
-                    to
-                    <?php echo $eventEndTime; ?>
+                    <?php echo $eventDuration; ?>
                 </li>
             </ul>
             <img class="pull-right" src="/img/LOGOSMALLBLACK.jpg">
@@ -133,8 +134,6 @@
                                 Guests' Buffet Dinner
                             </h3>
                             <span class="schedule__item__desc">
-                                <!-- Mingle with the industry's best -->
-                                <!-- &nbsp; -->
                             </span>
                         </div>
                         <span class="schedule__item__time">
@@ -149,7 +148,6 @@
                                 Last Call for Votes
                             </h3>
                             <span class="schedule__item__desc">
-                                <!-- Poster session still ongoing -->
                                 &nbsp;
                             </span>
                         </div>
