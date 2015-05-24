@@ -145,7 +145,7 @@ class Admin extends CI_Controller {
     }
 
     private function _makeBodyData() {
-        $iteration = $this->Dbquery->getLatestIteration();
+        $iteration = $this->Dbquery->getLatestIteration(); // will be 0 if no iterations
         $foodPref = $this->Dbquery->getFoodPrefByIteration($iteration);
         $dates = $this->_getDates($iteration);
 
@@ -164,7 +164,7 @@ class Admin extends CI_Controller {
         $bodyData = [
             "moduleData" => $moduleData,
             "foodPref" => $foodPref,
-            "dates" => $dates
+            "iterationInfo" => $dates
         ];
 
         return $bodyData;
@@ -196,14 +196,18 @@ class Admin extends CI_Controller {
 
     private function _getDates($iteration) {
         $dates = $this->Dbquery->getIterationInfoByIterate($iteration);
-        
-        $formattedDates = [];
-
-        $formattedDates['startDate'] = date("Y-m-d", $dates['startTime']);
-        $formattedDates['endDate'] = date("Y-m-d", $dates['endTime']);
-        $formattedDates['registerDate'] = date("Y-m-d", $dates['regisDate']);
-        $formattedDates['cutOffDate'] = date("Y-m-d", $dates['cutOff']);
-
-        return $formattedDates;
+		
+		return $dates;
+		
+		// var_dump($dates);
+        // 
+        // $formattedDates = [];
+		// 
+        // $formattedDates['startDate'] = date("Y-m-d", $dates['startTime']);
+        // $formattedDates['endDate'] = date("Y-m-d", $dates['endTime']);
+        // $formattedDates['registerDate'] = date("Y-m-d", $dates['regisDate']);
+        // $formattedDates['cutOffDate'] = date("Y-m-d", $dates['cutOff']);
+		// 
+        // return $formattedDates;
     }
 }
