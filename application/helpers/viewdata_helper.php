@@ -37,19 +37,51 @@ class ViewData {
 
         return $headerData;
     }
+    
+    // puts the event data into the bodydata
+    public static function insertEventData($bodyData, $iteration, $iterInfo) {
 
-    private static function isFrozen($CI) {
+        if (isset($iterInfo['startTime'])) {
+            $startTime = $iterInfo['startTime'];
+            
+            $eventDateObj = new DateTime();
+            $eventDateObj->setTimestamp($startTime);
+            $eventStartTimeObj = new DateTime();
+            $eventStartTimeObj->setTimestamp($startTime);
+            
+            $bodyData["eventDate"] = $eventDateObj->format("jS F Y");
+            $bodyData["eventStartTime"] = $eventStartTimeObj->format("gA");
+        }
+
+        if (isset($iterInfo['endTime'])) {
+            $endTime = $iterInfo['endTime'];
+            
+            $eventEndTimeObj = new DateTime();
+            $eventEndTimeObj->setTimestamp($endTime);
+
+            $bodyData["eventEndTime"] = $eventEndTimeObj->format("gA");
+        }
+
+        return $bodyData;
+    }
+
+    private static function isFrozen ($CI) {
 
         $iteration = $CI->Dbquery->getLatestIteration();
         $iterationInfo = $CI->Dbquery->getIterationInfoByIterate($iteration);
 
-        $cutOff = $iterationInfo['cutOff'];
+        if (isset($iterationInfo['cutOff'])) {
+            $cutOff = $iterationInfo['cutOff'];
+        } else {
+            $cutOff = 0;
+        }
+        
         $now = time();
 
-        if($cutOff < $now) {
-            return 1;
+        if ($cutOff < $now) {
+            return TRUE;
         } else {
-            return 0;
+            return FALSE;
         }
 
     }

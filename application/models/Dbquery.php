@@ -69,7 +69,7 @@ class Dbquery extends CI_Model {
 			'module' => $this->searchModule($searchKey)
 		);
 		return $result;
-	}	
+	}
 
 	/*
 	* This function return the search list grouped by user
@@ -88,7 +88,7 @@ class Dbquery extends CI_Model {
 				$user = array();
 				$user['name'] 		= $rows['name'];
 				$user['userID'] 	= $rows['user_id'];
-				$user['email'] 		= $rows['email'];
+                $user['userType'] 		= $rows['user_type'];
 				$user['projects'] 	= $this->queryProjectInfoByParticipant($rows['user_id']);
 				array_push($res, $user);
 			}
@@ -115,7 +115,9 @@ class Dbquery extends CI_Model {
 				$project['title'] 		= $rows['title'];
 				$project['projectID'] 	= $rows['project_id'];
 				$project['abstract'] 	= $rows['abstract'];
+                $project['poster'] 	= $rows['poster'];
 				$project['students'] 	= $this->queryParticipantsByProjectID($rows['project_id']);
+        $project['module'] = $this->getModuleDetailByModuleID($this->getProjectDetailsByProjectID($rows['project_id'])['moduleID'])["moduleCode"];
 				array_push($res, $project);
 			}
 		}
@@ -152,7 +154,6 @@ class Dbquery extends CI_Model {
 		return $res;
 	}
 
-	
 	/*
 	* This function return the simple student info from a project
 	* @param projectID 	project ID
@@ -201,7 +202,7 @@ class Dbquery extends CI_Model {
 				'projectID' => $pro['project_id'],
 				// 'poster' => $pro['video'],
 				// 'video' => $pro['poster'],
-				'moduleCode' => $pro['module_code'] 
+				'moduleCode' => $pro['module_code']
 			);
 			array_push($projects, $project);
 		}

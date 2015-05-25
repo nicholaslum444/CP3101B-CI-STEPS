@@ -39,19 +39,11 @@ class About extends CI_Controller {
         */
         $iteration = $this->Dbquery->getLatestIteration();
         $iterInfo = $this->Dbquery->getLatestIterationInfo();
-        $eventDateObj = new DateTime();
-        $eventDateObj->setTimestamp($iterInfo['startTime']);
-        $eventStartTimeObj = new DateTime();
-        $eventStartTimeObj->setTimestamp($iterInfo['startTime']);
-        $eventEndTimeObj = new DateTime();
-        $eventEndTimeObj->setTimestamp($iterInfo['endTime']);
-
+		
         $bodyData = [];
-        $bodyData["eventDate"] = $eventDateObj->format("jS F Y");
-        $bodyData["eventStartTime"] = $eventStartTimeObj->format("gA");
-        $bodyData["eventEndTime"] = $eventEndTimeObj->format("gA");
         $bodyData["modules"] = $this->Dbquery->getModuleListByIteration($iteration);
-        // var_dump($bodyData);
+		ViewData::insertEventData($bodyData, $iteration, $iterInfo);
+		
         return $bodyData;
     }
 }

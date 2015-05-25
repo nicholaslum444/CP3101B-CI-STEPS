@@ -224,6 +224,10 @@ textarea {
     width: 100%;
 }
 
+.module-container {
+    padding: 0px 30px;
+}
+
 .module-page-module-header {
     margin-bottom: 20px;
 }
@@ -232,12 +236,16 @@ textarea {
     padding: 20px;
 }
 
-.project-student-names {
-    font-variant: small-caps;
+.module-page-jump-link-container {
+    /*padding-bottom: 20px;*/
 }
 
-.module-container {
-    padding: 0px 30px;
+.project-box-container {
+    
+}
+
+.project-student-names {
+    font-variant: small-caps;
 }
 
 .project-id-container {
@@ -565,12 +573,6 @@ textarea {
 
 /* END REGISTER PROJECT */
 
-
-/*admin panel edit button*/
-.panel-heading button {
-    float:right;
-}
-
 .addMemberBtn {
     float: left;
 }
@@ -598,7 +600,8 @@ textarea {
     border-radius: 50%;
 }
 
-/* admin login */
+/* BEGIN ADMIN LOGIN */
+
 .admin-loginPage-container{
     background-image: -webkit-linear-gradient(top, #2c3e50 0%, #55bfc7 100%);
     background-image: -o-linear-gradient(top, #2c3e50 0%, #55bfc7 100%);
@@ -636,10 +639,17 @@ textarea {
     margin-top: 60px;
 }
 
-/*admin page*/
+/* END ADMIN LOGIN */
+
+/* BEGIN ADMIN CONSOLE */
+
 .admin-container {
     margin-top: 30px;
 
+}
+
+.event-info-header {
+    font-weight: bold;
 }
 
 #admin-update-btn {
@@ -675,6 +685,8 @@ textarea {
 .admin-accordion-modulename {
     font-size: 13px;
 }
+
+/* END ADMIN CONSOLE */
 
 .about-page-right {
     text-align:right;

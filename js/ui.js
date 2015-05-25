@@ -10,6 +10,8 @@ $(function() {
     $(window).resize(function() {
         // make the body adapt to an expanding header bar
         $("body").css("padding-top", $("header").height());
+        $(".project-box-container").css("padding-top", $("header").height());
+        $(".project-box-container").css("margin-top", -1 * $("header").height());
     });
 
     $(window).resize();

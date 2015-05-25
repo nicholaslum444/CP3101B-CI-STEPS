@@ -1,10 +1,24 @@
 <?php
-//var_dump($modules);
 $totalProj = 0;
 $totalMod = count($modules);
 foreach ($modules as $module) {
     $totalProj += count($module['projectList']);
 }
+
+if (!isset($eventLocation)) {
+    $eventLocation = "SOC COM 1";
+}
+
+if (!isset($eventDate)) {
+    $eventDate = "Date TBC";
+}
+
+if (!isset($startTime) && !isset($endTime)) {
+    $eventDuration = "Time TBC";
+} else {   
+    $eventDuration = "$eventStartTime to $eventEndTime";
+}
+
 ?>
 
 <!-- Main jumbotron for a primary marketing message or call to action -->
@@ -31,20 +45,15 @@ foreach ($modules as $module) {
         <ul class="list-stylised list-jumbo u-uppercase">
             <li>
                 <span class="glyphicon glyphicon-globe"></span>
-                <!-- need php XXX -->
-                SoC COM1
+                <?php echo $eventLocation; ?>
             </li>
             <li>
                 <span class="glyphicon glyphicon-calendar"></span>
-                <!-- need php TODO -->
                 <?php echo $eventDate; ?>
             </li>
             <li>
                 <span class="glyphicon glyphicon-time"></span>
-                <!-- need php TODO -->
-                <?php echo $eventStartTime; ?>
-                to
-                <?php echo $eventEndTime; ?>
+                <?php echo $eventDuration; ?>
             </li>
         </ul>
     </div>

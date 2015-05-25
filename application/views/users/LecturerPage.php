@@ -442,6 +442,8 @@ $(function() {
         }
         return "Invalid Module ID";
     }
+    
+    // to change the title of the module when selected
     $("#moduleCode").change(function() {
         // sets the module details on select of module
         var id = $("#moduleCode option:selected").attr("value");
@@ -474,12 +476,6 @@ $(function() {
         $("#registerBtn").prop("disabled", false);
         $("#getModulesFailedBody").show();
     });
-
-
-
-
-
-
 
 });
 </script>
