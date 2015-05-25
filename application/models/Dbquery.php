@@ -53,6 +53,15 @@ class Dbquery extends CI_Model {
 		return $query;
 	}
 
+	/*
+	* This function return the search list grouped by user, project and module
+	* @param searchKey word/phrase to search for
+	* Return: 	{
+					user: 		array(user),
+					project: 	array(project),
+					module: 	array(module)
+				}
+    */
 	public function searchDatabase($searchKey) {
 		$result = array(
 			'user' => $this->searchUser($searchKey),
@@ -62,6 +71,13 @@ class Dbquery extends CI_Model {
 		return $result;
 	}	
 
+	/*
+	* This function return the search list grouped by user
+	* @param searchKey word/phrase to search for
+	* Return: 	array of obj: 	{
+									'name','userID', 'email', array('project')
+								}
+    */
 	private function searchUser($searchKey) {
 		$res = array();
 		$this->db->from("user");
@@ -81,6 +97,13 @@ class Dbquery extends CI_Model {
 		return $res;
 	}
 
+	/*
+	* This function return the search list grouped by project
+	* @param searchKey word/phrase to search for
+	* Return: 	array of obj: 	{
+									'title', 'projectID', 'abstract', array('student')
+								}
+    */
 	private function searchProject($searchKey) {
 		$res = array();
 		$this->db->from("project");
@@ -100,6 +123,14 @@ class Dbquery extends CI_Model {
 		return $res;
 	}
 
+	/*
+	* This function return the search list grouped by module
+	* @param searchKey word/phrase to search for
+	* Return: 	array of obj: 	{
+									'moduleName','moduleDescription','moduleID',
+									'moduleCode', 'iteration'
+								}
+    */
 	private function searchModule($searchKey) {
 		$res = array();
 		$this->db->from("module");
@@ -122,7 +153,13 @@ class Dbquery extends CI_Model {
 	}
 
 	
-
+	/*
+	* This function return the simple student info from a project
+	* @param projectID 	project ID
+	* Return: 	array of obj: 	{
+									'name','userID','email'
+								}
+    */
 	private function queryParticipantsByProjectID($projectID) {
 		$this->db->from("participate");
 		$this->db->join("user", "participate.user_id = user.user_id");
@@ -143,6 +180,13 @@ class Dbquery extends CI_Model {
 		return $res;
 	}
 
+	/*
+	* This function return the simple project info done by a student
+	* @param userID 	student user ID
+	* Return: 	array of obj: 	{
+									'title','abstract','projectID', 'moduleCode'
+								}
+    */
 	private function queryProjectInfoByParticipant($userID) {
 		$this->db->from("participate");
 		$this->db->join("project","project.project_id = participate.project_id");
@@ -233,6 +277,14 @@ class Dbquery extends CI_Model {
 		return -1;
     }
 
+    /*
+	* This function return STEPS iteration info
+	* @param iterate 	STEPS iteration count
+	* Return: 	Obj: 	{
+							'iteration', 'cutOff', 'startTime', 'endTime',
+							'regisDate', 'semester'
+						}
+    */
     public function getIterationInfoByIterate($iterate) {
 		$this->db->from('STEPSiteration');
 		$this->db->where('iteration',$iterate);
@@ -257,6 +309,12 @@ class Dbquery extends CI_Model {
 		return $this->getIterationInfoByIterate($iterate);
     }
 
+ 	/*
+	* This function return boolean response of a project participated by student
+	* @param projectID 	project ID
+	* @param userID 	student user ID
+	* Return: 	True if the student is joining the project, false otherwise
+    */
     public function isStudentInProject($userID, $projectID) {
     	$this->db->from("user");
     	$this->db->join("participate", "participate.user_id = user.user_id");
@@ -271,6 +329,12 @@ class Dbquery extends CI_Model {
     	}
     }
 
+    /*
+	* This function return boolean response of a project supervised by a lecturer
+	* @param projectID 	project ID
+	* @param userID 	user ID
+	* Return: 	True if the lecturer is supervising the project, false otherwise
+    */
 	public function isProjectSupervisedByUser($userID, $projectID) {
     	$this->db->from("user");
     	$this->db->join("supervise", "supervise.user_id = user.user_id");
@@ -1066,6 +1130,16 @@ class Dbquery extends CI_Model {
 		}
 	}
 
+	/*
+	* This function return the ranking information of a module
+	* @param moduleID 	module ID
+	* Return: 	{
+					'first' = array(module),
+					'second' = array(module),
+					'third' = array(module)
+					
+				}
+    */
 	public function getRankingByModule($moduleID) {
 		$query = $this->queryRankingByModule($moduleID);
 

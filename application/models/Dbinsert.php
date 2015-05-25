@@ -8,9 +8,11 @@ class Dbinsert extends CI_Model {
     }
 
     /*
-	*
-	*
-    */
+	* This function add student to student and enrol table 
+	* @param userID 	user ID
+	* @param name   	user's name 
+	* @param moduleID 	module ID
+	*/
     public function insertAndEnrolStudent($userID, $name, $moduleID) {
     	$this->db->from('user');
     	$this->db->where('user_id',$userID);
@@ -31,10 +33,12 @@ class Dbinsert extends CI_Model {
     	return true;
     }
 
+    
     /*
-	*
-	*
-    */
+	* This function remove student from enrol table 
+	* @param userID 	user ID
+	* @param moduleID 	module ID
+	*/
     public function dismissStudentfromModule($userID, $moduleID) {
     	$this->db->where('module_id', $moduleID);
     	$this->db->where('user_id', $userID);
@@ -44,10 +48,12 @@ class Dbinsert extends CI_Model {
 		return true;
     }
 	
-	/*
-	*
-	*
-    */
+	
+    /*
+	* This function add student's basic information
+	* @param userID student user ID
+	* @param name   name of the student
+	*/
 	public function insertStudentBaseInfo($userID, $name) {
 		$data = array(
 			'user_id' => $userID,
@@ -60,9 +66,12 @@ class Dbinsert extends CI_Model {
 	}
 
 	/*
-	*
-	*
-    */
+	* This function add student's information
+	* @param userID student user ID
+	* @param email 	email
+	* @param contact   contact No
+	* @param food   food pref indicated by integer (refer to helper list)
+	*/
 	public function updateStudentDetail($userID, $email, $contact, $food) {
 		$data = array();
 		if($email == null && $contact == null && $food == null) {
@@ -86,9 +95,10 @@ class Dbinsert extends CI_Model {
 	}
 
 	/*
-	*
-	*
-    */
+	* This function add prof/lecturer basic information
+	* @param userID prof/lecturer user ID
+	* @param name   name of the prof/lecturer
+	*/
 	public function insertProfBasicDetail($userID, $name) {
 		$data = array(
 			'user_id' => $userID,
@@ -101,9 +111,12 @@ class Dbinsert extends CI_Model {
 	}
 
 	/*
-	*
-	*
-    */
+	* This function add professor/lecturer's information
+	* @param userID professor/lecturer user ID
+	* @param email 	email
+	* @param contact   contact No
+	* @param food   food pref indicated by integer (refer to helper list)
+	*/
 	public function updateProfDetail($userID, $name, $email, $food, $contact) {
 
 		$data = array();
@@ -128,8 +141,9 @@ class Dbinsert extends CI_Model {
 	}
 
 	/*
-	*
-	*
+	*	Boolean response check of module exist
+	*   @param moduleID module ID
+	*	return: True if module exist, false otherwise
     */
 	public function isModuleExist($moduleID) {
 		$this->db->from('module');
@@ -145,9 +159,13 @@ class Dbinsert extends CI_Model {
 	}
 
 	/*
-	*
-	*
-    */
+	* This function add a module into module table
+	* @param moduleCode module Code
+	* @param moduleName module Name
+	* @param moduleID 	unique module ID given in IVLE
+	* @param iteration	STEPS iteration the module joins
+	* @param userID 	supervisor's(Lecturer) user ID 
+	*/
 	public function createModule($moduleCode, $moduleName, $moduleID, $iteration, $userID) {
 		$data = array(
 			'module_code' => $moduleCode,
@@ -164,9 +182,12 @@ class Dbinsert extends CI_Model {
 	}
 
 	/*
-	*
-	*
-    */
+	* This function update a module in module table
+	* @param moduleDescription 	module description
+	* @param moduleName 		module Name
+	* @param moduleID 			unique module ID given in IVLE
+	* @param classSize			class size (Depreciated, use count function instead)
+	*/
 	public function updateModuleDescription($moduleID, $moduleName, $description, $classSize) {
 		
 		if($moduleName == null && $description == null && $classSize == null) {
@@ -193,9 +214,10 @@ class Dbinsert extends CI_Model {
 	}
 
 	/*
-	*
-	*
-    */
+	* This function add a project into project table
+	* @param projectName project Name
+	* @param moduleID 	unique module ID given in IVLE
+	*/
 	public function createProject($projectName, $moduleID) {
 		$data = array(
 			'title' => $projectName,
@@ -209,9 +231,13 @@ class Dbinsert extends CI_Model {
 	}
 
 	/*
-	*
-	*
-    */
+	* This function update a project in project table
+	* @param id 		project ID
+	* @param title 		project title
+	* @param abstract	project abstract
+	* @param poster 	poster url
+	* @param video 		video url
+	*/
 	public function updateProject($id, $title, $abstract, $poster, $video) {
 
 		$data = array();
@@ -239,9 +265,9 @@ class Dbinsert extends CI_Model {
 	}
 
 	/*
-	*
-	*
-    */
+	* This function delete a project in project table
+	* @param id 		project ID
+	*/
 	public function deleteProject($id) {
 		$this->db->where('project_id', $id);
 		$this->db->delete('project');
@@ -251,9 +277,10 @@ class Dbinsert extends CI_Model {
 	}
 	
 	/*
-	*
-	*
-    */
+	* This function return module and project info a user enrolled and participated in
+	* @param moduleID		module ID
+	* @paam userID 			user ID
+	*/
 	public function checkParticipatedProjectInModule($moduleID, $userID) {
 		$this->db->from('participate');
 		$this->db->join('project',
@@ -279,9 +306,10 @@ class Dbinsert extends CI_Model {
 	}
 
 	/*
-	*
-	*
-    */
+	* This function adds a student in a project
+	* @param id 		project ID
+	* @param userID 	student user ID
+	*/
 	public function insertStudentToProject($id, $userID) {
 		$data = array(
 			'user_id' => $userID,
@@ -294,9 +322,10 @@ class Dbinsert extends CI_Model {
 	}
 
 	/*
-	*
-	*
-    */
+	* This function sets a student in a project to be a leader of the team
+	* @param id 		project ID
+	* @param userID 	student user ID
+	*/
 	public function setLeaderForProject($userID, $Pid) {
 		$data = array(
 			'leader_user_id' => $userID,
@@ -309,9 +338,10 @@ class Dbinsert extends CI_Model {
 	}
 
 	/*
-	*
-	*
-    */
+	* This function removes a student from a project 
+	* @param id 		project ID
+	* @param userID 	student user ID
+	*/
 	public function deleteStudentFromProject($id, $userID) {
 		$this->db->where('project_id', $id);
 		$this->db->where('user_id', $userID);
@@ -321,9 +351,10 @@ class Dbinsert extends CI_Model {
 	}
 
 	/*
-	*
-	*
-    */
+	* This function adds a lecturer to supervise a module
+	* @param moduleId 	unique module ID given by IVLE
+	* @param userID 	user ID
+	*/
 	public function insertModuleSupervision($userID, $moduleID) {
 		$data = array(
 			'user_id' => $userID,
@@ -336,9 +367,10 @@ class Dbinsert extends CI_Model {
 	}
 
 	/*
-	*
-	*
-    */
+	* This function drops a lecturer from supervising a module
+	* @param moduleId 	unique module ID given by IVLE
+	* @param userID 	user ID
+	*/
 	public function dropSupervising($userID, $moduleID) {
 
 		$this->db->where('module_id', $moduleID);
@@ -350,9 +382,9 @@ class Dbinsert extends CI_Model {
 	}
 
 	/*
-	*
-	*
-    */
+	* This function drops a module from joining STEPS
+	* @param moduleId 	unique module ID given by IVLE
+	*/
 	public function dropParticipatingModule($moduleID) {
 
 		$this->db->where('module_id', $moduleID);
