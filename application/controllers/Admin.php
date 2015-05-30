@@ -164,6 +164,7 @@ class Admin extends CI_Controller {
         $bodyData = [
             "moduleData" => $moduleData,
             "foodPref" => $foodPref,
+            "iteration" => $iteration,
             "iterationInfo" => $dates
         ];
 
@@ -197,17 +198,17 @@ class Admin extends CI_Controller {
     private function _getDates($iteration) {
         $dates = $this->Dbquery->getIterationInfoByIterate($iteration);
 		
-		return $dates;
+        //var_dump($dates);
 		
-		// var_dump($dates);
-        // 
-        // $formattedDates = [];
-		// 
-        // $formattedDates['startDate'] = date("Y-m-d", $dates['startTime']);
-        // $formattedDates['endDate'] = date("Y-m-d", $dates['endTime']);
-        // $formattedDates['registerDate'] = date("Y-m-d", $dates['regisDate']);
-        // $formattedDates['cutOffDate'] = date("Y-m-d", $dates['cutOff']);
-		// 
-        // return $formattedDates;
+        $formattedDates = [];
+
+        $formattedDates['startDate'] = date("Y-m-d", $dates['startTime']);
+        $formattedDates['endDate'] = date("Y-m-d", $dates['endTime']);
+        $formattedDates['registrationDate'] = date("Y-m-d H:i:s", $dates['regisDate']);
+        $formattedDates['cutOffDate'] = date("Y-m-d H:i:s", $dates['cutOff']);
+        $formattedDates['semester'] = $dates['semester'];
+
+        //var_dump($formattedDates);
+        return $formattedDates;
     }
 }

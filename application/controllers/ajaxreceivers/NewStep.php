@@ -43,8 +43,8 @@ class NewStep extends CI_Controller {
         $stepSem = $sem;
         $startDate = $startDate . $START_TIME;
         $endDate = $endDate . $END_TIME;
-        $registerDate = $registerDate . $START_TIME;
-        $cutOffDate = $cutOffDate . $END_TIME;
+        //$registerDate = $registerDate . $START_TIME;
+        //$cutOffDate = $cutOffDate . $END_TIME;
 
         $insertSuccess = $this->Dbadmin->openSteps($user, $password, $stepSem, 
                                                    $startDate, $endDate, $cutOffDate, $registerDate);
