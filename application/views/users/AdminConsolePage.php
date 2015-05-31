@@ -12,26 +12,26 @@ if (isset($iterationInfo["semester"])) {
     $semester = "Invalid value";
 }
 
-if (isset($iterationInfo["registrationDate"])) {
-    $registrationDate = $iterationInfo["registrationDate"];
+if (isset($iterationInfo["regisDate"])) {
+    $registrationDate = date("Y-m-d H:i:s", $iterationInfo["regisDate"]);
 } else {
     $registrationDate = "Invalid value";
 }
 
-if (isset($iterationInfo["cutOffDate"])) {
-    $cutOffDate = $iterationInfo["cutOffDate"];
+if (isset($iterationInfo["cutOff"])) {
+    $cutOffDate = date("Y-m-d H:i:s", $iterationInfo["cutOff"]);
 } else {
     $cutOffDate = "Invalid value";
 }
 
-if (isset($iterationInfo["startDate"])) {
-    $startDate = $iterationInfo["startDate"];
+if (isset($iterationInfo["startTime"])) {
+    $startDate = date("Y-m-d H:i:s", $iterationInfo["startTime"]);
 } else {
     $startDate = "Invalid value";
 }
 
-if (isset($iterationInfo["endDate"])) {
-    $endDate = $iterationInfo["endDate"];
+if (isset($iterationInfo["endTime"])) {
+    $endDate = date("Y-m-d H:i:s", $iterationInfo["endTime"]);
 } else {
     $endDate = "Invalid value";
 }
@@ -400,7 +400,7 @@ if (isset($foodPref["VEGE"])) {
                         <!-- iteration -->
                         <label class="control-label col-sm-2" for="iteration">Iteration:</label>
                         <div class="col-sm-9">
-                            <input disabled type="number" class="form-control" name="iteration" placeholder="Iteration Number" value="<?php echo ($iteration + 1); ?>">
+                            <input required type="number" class="form-control" name="iteration" placeholder="Iteration Number" value="<?php echo ($iteration + 1); ?>">
                         </div>
                         <!-- iteration -->
                     </div>
@@ -418,7 +418,7 @@ if (isset($foodPref["VEGE"])) {
                         <!-- START DATE -->
                         <label class="control-label col-sm-2" for="newStartDate">Start of STePS:</label>
                         <div class="col-sm-9">
-                            <input required type="date" class="form-control" name="newStartDate"></input>
+                            <input required type="datetime-local" class="form-control" name="newStartDate"></input>
                         </div>
                         <!-- START DATE -->
                     </div>
@@ -427,7 +427,7 @@ if (isset($foodPref["VEGE"])) {
                         <!-- END DATE -->
                         <label class="control-label col-sm-2" for="newEndDate">End of STePS:</label>
                         <div class="col-sm-9">
-                            <input required type="date" class="form-control" name="newEndDate" placeholder=""></input>
+                            <input required type="datetime-local" class="form-control" name="newEndDate" placeholder=""></input>
                         </div>
                         <!-- END DATE -->
                     </div>
@@ -506,11 +506,12 @@ $(function(){
         //console.log(dates);
         
         var dateArr = {
-            "sem" : dates[0].value,
-            "startDate" : dates[1].value,
-            "endDate" : dates[2].value,
-            "registrationDate" : dates[3].value,
-            "cutOffDate" : dates[4].value
+            "iteration" : dates[0].value,
+            "sem" : dates[1].value,
+            "startDate" : dates[2].value,
+            "endDate" : dates[3].value,
+            "registrationDate" : dates[4].value,
+            "cutOffDate" : dates[5].value
         };
         
         //console.log(JSON.stringify(dateArr));

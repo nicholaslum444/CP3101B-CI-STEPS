@@ -200,15 +200,27 @@ class Admin extends CI_Controller {
 		
         //var_dump($dates);
 		
-        $formattedDates = [];
+        //For clean DB, missing values
+        if(!isset($dates['startTime'])) {
+            $dates['startTime'] = null;
+        }
 
-        $formattedDates['startDate'] = date("Y-m-d", $dates['startTime']);
-        $formattedDates['endDate'] = date("Y-m-d", $dates['endTime']);
-        $formattedDates['registrationDate'] = date("Y-m-d H:i:s", $dates['regisDate']);
-        $formattedDates['cutOffDate'] = date("Y-m-d H:i:s", $dates['cutOff']);
-        $formattedDates['semester'] = $dates['semester'];
+        if(!isset($dates['endTime'])) {
+            $dates['endTime'] = null;
+        }
 
-        //var_dump($formattedDates);
-        return $formattedDates;
+        if(!isset($dates['regisDate'])) {
+            $dates['regisDate'] = null;
+        } 
+        
+        if(!isset($dates['cutOff'])){
+            $dates['cutOff'] = null;
+        }
+
+        if(!isset($dates['semester'])) {
+            $dates['semester'] = null;
+        }
+
+        return $dates;
     }
 }
